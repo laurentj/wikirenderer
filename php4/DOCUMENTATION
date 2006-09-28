@@ -1,0 +1,16 @@
+
+inclure la classe correspondante à la version de php utilisé. Par exemple, pour php4 :
+
+include('wikirenderer/php4/WikiRenderer.lib.php');
+
+
+
+---- utilisation simple de la classe
+
+
+
+ $ctr = new WikiRenderer();
+ $monTexteXHTML = $ctr->render($montexte);
+
+
+Pour une doc plus complete : http://wikirenderer.berlios.de
