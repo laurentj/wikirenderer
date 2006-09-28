@@ -6,8 +6,7 @@
  * @subpackage classicwr_to_xhtml
  * @author Laurent Jouanneau <jouanneau@netcourrier.com>
  * @copyright 2003-2006 Laurent Jouanneau
- * @version 3.0alpha
- * http://wikirenderer.berlios.de
+ * @link http://wikirenderer.berlios.de
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public

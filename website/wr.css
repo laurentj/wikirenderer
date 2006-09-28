@@ -117,3 +117,5 @@ html>body #sidebar {
 
 ul.aide li code {color:#A80B0B; font-weight:bold;}
 ul.aide li span { background-color:#cfcfcf ;}
+
+span.comments { font-style:italic; }

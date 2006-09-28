@@ -1,6 +1,7 @@
 <?php
-require('WikiRenderer.lib.php');
-require('WikiRenderer_w2text.conf.php');
+require('../php4/WikiRenderer.lib.php');
+require('../php4/rules/classicwr_to_text.php');
+require('../php4/rules/classicwr_to_xhtml.php');
 
 $texte='';
 
@@ -33,7 +34,7 @@ function exemple(){
 </script>
 
 
-<h2>Tester Wikirenderer 2.0dev</h2>
+<h2>Testez Wikirenderer <?php echo WIKIRENDERER_VERSION; ?></h2>
 <p>Vous pouvez tester le moteur de WikiRenderer : saisissez votre texte wiki, validez, et
 celui-ci sera transformé. Ici, deux types de transformations vous sont proposés,
 XHTML et texte brut (les balises wikis sont retirées et le texte reformaté). Elles
@@ -47,7 +48,6 @@ pas à la transformation en XHTML.</p>
 <br />Transformation en :
 <label for="transfohtml"><input type="radio" name="transfo" id="transfohtml" value="xhtml" checked="checked" />XHTML</label>
 <label for="transfotext"><input type="radio" name="transfo" id="transfotext" value="txt"  />Texte sans balise wiki</label>
-<br /><input type="checkbox" name="nohtml" value="1" id="nohtml" checked="checked" /> <label for="nohtml">Ne pas autoriser le HTML</label>
 <br />
 <input type="button" value="editer un exemple" onclick="exemple()" />
 <input type="submit" value="Valider et voir la transformation" />
@@ -93,15 +93,11 @@ pas à la transformation en XHTML.</p>
 
 <?
 if($texte!=''){
-   //$ctr=new WikiRenderer(new WikiRendererConfig2());
 
    if($_POST['transfo'] == 'txt'){
-      $config=new WikiRenderer_w2text();
-
+      $config=new ConfigClassicwrToText();
    }else{
-      $config=new WikiRendererConfig();
-      if(!isset($_POST['nohtml']) ||(isset($_POST['nohtml'])&& $_POST['nohtml'] != '1'))
-         $config->escapeSpecialChars=false;
+      $config=new ConfigClassicwrToXhtml();
    }
 
    $ctr=new WikiRenderer($config);
@@ -118,11 +114,10 @@ if($texte!=''){
      }
    }
 
-   //$texte2=str_replace('<', '&lt;', $texte);
    $texte2=htmlspecialchars($texte);
    echo '<pre style="overflow:auto">';
    echo $texte2;
-   echo '</pre>',"\n\n";
+   echo '</pre>',"\n\n<hr />";
     echo '<h2>Résultat:</h2>',"\n";
     echo $texte;
 

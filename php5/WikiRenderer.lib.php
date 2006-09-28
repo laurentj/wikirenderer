@@ -29,7 +29,6 @@ define('WIKIRENDERER_VERSION', '3.0beta-php5');
  *
  * this objects are driven by the wiki inline parser
  * @package WikiRenderer
- * @abstract
  * @see WikiInlineParser
  */
 abstract class WikiTag {

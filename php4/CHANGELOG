@@ -1,1 +1,18 @@
 Changelog de WikiRenderer version 3.x
+
+Version 3.0beta
+
+Refonte complète du moteur pour résoudre certains problèmes :
+- bug sur les tags de lien : si il n'y avait que l'url et que celle-ci comportait par
+  inadvertance des balises wiki, cela générait du code invalide (des balises xhtml dans les attributs par
+  exemple)
+- Possiblité d'avoir une syntaxe de bloc utilisant un délimiteur de début et de fin, et non
+  pas qu'une syntaxe se reposant sur un caractère significatif en début de chaque ligne de bloc.
+- Modifications dans l'api des objets traitant les tags wiki de type blocs
+- On ne parle plus de "configuration", mais de "rêgles" de transformation (rules)
+- Il n'y a plus de fonctions de formatage pour les balises type inline : ce sont maintenant
+  des objets à part entière
+- Caractère de séparation d'attributs dans les tags inlines, paramètrables pour chaque tag</li>
+- Possibilité d'indiqué quel attribut servira de contenu, donc quel attribut accepte des
+  tag wiki
+- nombreux tests unitaires effectués
