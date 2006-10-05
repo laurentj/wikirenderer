@@ -24,7 +24,7 @@
  *
  */
 
-class ConfigClassicwrToText {
+class ConfigClassicwrToText  extends WikiRendererConfig {
   /**
     * @var array   liste des tags inline
    */
@@ -41,8 +41,6 @@ class ConfigClassicwrToText {
 
 
    var $simpletags = array('%%%'=>"\n");
-
-   var $checkWikiWordFunction = null;
 
 }
 

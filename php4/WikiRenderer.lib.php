@@ -48,13 +48,14 @@ class WikiTag {
     var $separatorCount=0;
     var $separator=false;
     var $checkWikiWordFunction=false;
-
+    var $config = null;
     /**
-    * @param function $checkWikiWordFunction a callback function when there is a new wikiword
+    * @param WikiRendererConfig $config
     */
-    function WikiTag($checkWikiWordFunction=null){
-        $this->checkWikiWordFunction=$checkWikiWordFunction;
-        if($checkWikiWordFunction === null) $checkWikiWordIn=array();
+    function WikiTag(&$config){
+        $this->config = & $config;
+        $this->checkWikiWordFunction=$config->checkWikiWordFunction;
+        if($config->checkWikiWordFunction === null) $checkWikiWordIn=array();
         if(count($this->separators)) $this->separator= $this->separators[0];
     }
 
@@ -229,13 +230,14 @@ class WikiInlineParser {
     * @param   array    $inlinetags liste des tags permis
     * @param   string   caractère séparateur des différents composants d'un tag wiki
     */
-    function WikiInlineParser($inlinetags, $simpletags, $textLineContainer, $funcCheckWikiWord=null  ){
+    function WikiInlineParser(&$config){
+
         $separators = array();
         $this->escapeChar = '\\';
-        $this->textLineContainer = $textLineContainer;
+        $this->textLineContainer = $config->textLineContainer;
 
-        foreach($inlinetags as $class){
-            $t = new $class($funcCheckWikiWord);
+        foreach($config->inlinetags as $class){
+            $t = new $class($config);
             $this->listTag[$t->beginTag]=$t;
 
             $this->splitPattern.=preg_quote($t->beginTag).')|(';
@@ -243,7 +245,7 @@ class WikiInlineParser {
                 $this->splitPattern.=preg_quote($t->endTag).')|(';
             $separators = array_merge($separators, $t->separators);
         }
-        foreach($simpletags as $tag=>$html){
+        foreach($config->simpletags as $tag=>$html){
             $this->splitPattern.=preg_quote($tag).')|(';
         }
         $separators= array_unique($separators);
@@ -252,7 +254,7 @@ class WikiInlineParser {
         }
 
         $this->splitPattern = '/('.$this->splitPattern.preg_quote($this->escapeChar ).')/';
-        $this->simpletags= $simpletags;
+        $this->simpletags= $config->simpletags;
     }
 
     /**
@@ -360,13 +362,13 @@ class WikiRendererBloc {
    var $type='';
 
    /**
-    * @var string  chaine contenant le tag XHTML d'ouverture du bloc
+    * @var string  chaine qui sera insérée à l'ouverture du bloc
     * @access private
     */
    var $_openTag='';
 
    /**
-    * @var string  chaine contenant le tag XHTML de fermeture du bloc
+    * @var string  chaine qui sera insérée à la fermeture du bloc
     * @access private
     */
    var $_closeTag='';
@@ -453,6 +455,50 @@ class WikiRendererBloc {
    }
 }
 
+
+/**
+ * classe de base pour la configuration
+ * @bastract
+ */
+
+class WikiRendererConfig {
+
+   /**
+    * @var array   liste des tags inline
+   */
+   var $inlinetags= array();
+
+   var $textLineContainer = 'WikiTextLine';
+
+   /**
+   * liste des balises de type bloc reconnus par WikiRenderer.
+   */
+   var $bloctags = array();
+
+
+   var $simpletags = array();
+
+   var $checkWikiWordFunction = null;
+
+   /**
+    * methode invoquée avant le parsing
+    * Peut être utilisée selon les besoins des rêgles
+    */
+    function onStart($texte){
+
+        return $texte;
+    }
+
+   /**
+    * methode invoquée aprés le parsing
+    * Peut être utilisée selon les besoins des rêgles
+    */
+    function onParse($finalTexte){
+        return $finalTexte;
+    }
+
+}
+
 /**
  * Moteur de rendu. Classe principale à instancier pour transformer un texte wiki en texte XHTML.
  * utilisation :
@@ -462,7 +508,7 @@ class WikiRendererBloc {
 class WikiRenderer {
 
    /**
-    * @var   string   contient la version HTML du texte analysé
+    * @var   string   contient  du texte analysé
     * @access private
     */
    var $_newtext;
@@ -502,10 +548,7 @@ class WikiRenderer {
          $this->config=$config;
       }
 
-      $this->inlineParser =& new WikiInlineParser($this->config->inlinetags,
-         $this->config->simpletags,
-         $this->config->textLineContainer,
-         $this->config->checkWikiWordFunction);
+      $this->inlineParser =& new WikiInlineParser($this->config);
 
       foreach($this->config->bloctags as $name){
          $this->_blocList[]= new $name($this);
@@ -518,6 +561,8 @@ class WikiRenderer {
      * @return  string  le texte converti en XHTML
     */
    function render($texte){
+      $texte = $this->config->onStart($texte);
+
       $lignes=preg_split("/\015\012|\015|\012/",$texte); // on remplace les \r (mac), les \n (unix) et les \r\n (windows) par un autre caractère pour découper proprement
 
       $this->_newtext=array();
@@ -583,7 +628,8 @@ class WikiRenderer {
       if($this->_currentBloc){
           $this->_newtext[count($this->_newtext)-1].=$this->_currentBloc->close();
       }
-      return implode("\n",$this->_newtext);
+
+      return $this->config->onParse(implode("\n",$this->_newtext));
    }
 
     /**

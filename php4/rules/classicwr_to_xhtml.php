@@ -24,7 +24,7 @@
  *
  */
 
-class ConfigClassicwrToXhtml {
+class ConfigClassicwrToXhtml extends WikiRendererConfig {
   /**
     * @var array   liste des tags inline
    */
@@ -41,8 +41,6 @@ class ConfigClassicwrToXhtml {
 
 
    var $simpletags = array('%%%'=>'<br />', ':-)'=>'<img src="laugh.png" alt=":-)" />');
-
-   var $checkWikiWordFunction = null;
 
 }
 
