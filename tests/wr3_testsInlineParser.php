@@ -9,7 +9,7 @@
  */
 
 require_once('common.php');
-require_once(WR_DIR.'rules/classicwr_to_xhtml.php');
+require_once(WR_DIR.'rules/wr3_to_xhtml.php');
 
 // pour accéder à des propriétés privées et les vérifier
 class WikiInlineParserTest extends WikiInlineParser {
@@ -21,57 +21,57 @@ class WikiInlineParserTest extends WikiInlineParser {
 class WRConfigTest1 extends WikiRendererConfig { }
 
 
-class WikiRendererTestsInlineParser extends WikiRendererUnitTestCase {
+class WR3TestsInlineParser extends WikiRendererUnitTestCase {
 
     function testInlineParserConstructor() {
 
         $conf = new WRConfigTest1();
-        $conf->inlinetags=array( 'cwrxhtml_strong');
+        $conf->inlinetags=array( 'wr3xhtml_strong');
         $conf->textLineContainer= 'WikiHtmlTextLine';
 
         $wip = new WikiInlineParserTest($conf);
-        $trueResult = '/(__)|(\\\\)/';
+        $trueResult = '/(\\*\\*)|(\\\\)/';
         if(!$this->assertEqual($trueResult, $wip->getSplitPattern(), "erreur")){
             $this->_showDiff($trueResult,$wip->getSplitPattern());
         }
 
-        $conf->inlinetags=array( 'cwrxhtml_strong','cwrxhtml_em');
+        $conf->inlinetags=array( 'wr3xhtml_strong','wr3xhtml_em');
         $conf->simpletags=array('%%%'=>'');
 
         $wip = new WikiInlineParserTest($conf );
-        $trueResult = '/(__)|(\'\')|(%%%)|(\\\\)/';
+        $trueResult = '/(\\*\\*)|(\'\')|(%%%)|(\\\\)/';
         if(!$this->assertEqual($trueResult, $wip->getSplitPattern(), "erreur")){
             $this->_showDiff($trueResult,$wip->getSplitPattern());
         }
 
-        $conf->inlinetags=array( 'cwrxhtml_strong','cwrxhtml_q');
+        $conf->inlinetags=array( 'wr3xhtml_strong','wr3xhtml_q');
         $conf->simpletags=array('%%%'=>'');
 
         $wip = new WikiInlineParserTest( $conf);
-        $trueResult = '/(__)|(\^\^)|(%%%)|(\\|)|(\\\\)/';
+        $trueResult = '/(\\*\\*)|(\^\^)|(%%%)|(\\|)|(\\\\)/';
         if(!$this->assertEqual($trueResult, $wip->getSplitPattern(), "erreur")){
             $this->_showDiff($trueResult,$wip->getSplitPattern());
         }
 
 
-        $conf->inlinetags=array( 'cwrxhtml_strong','cwrxhtml_em','cwrxhtml_code','cwrxhtml_q',
-        'cwrxhtml_cite','cwrxhtml_acronym','cwrxhtml_link', 'cwrxhtml_image', 'cwrxhtml_anchor');
+        $conf->inlinetags=array( 'wr3xhtml_strong','wr3xhtml_em','wr3xhtml_code','wr3xhtml_q',
+        'wr3xhtml_cite','wr3xhtml_acronym','wr3xhtml_link', 'wr3xhtml_image', 'wr3xhtml_anchor');
         $conf->simpletags=array('%%%'=>'', ':-)'=>'');
 
         $wip = new WikiInlineParserTest($conf );
-        $trueResult = '/(__)|(\'\')|(@@)|(\\^\\^)|(\\{\\{)|(\\}\\})|(\\?\\?)|(\\[)|(\\])|(\\(\\()|(\\)\\))|(~~)|(%%%)|(\\:-\\))|(\\|)|(\\\\)/';
+        $trueResult = '/(\\*\\*)|(\'\')|(@@)|(\\^\\^)|(\\{\\{)|(\\}\\})|(\\?\\?)|(\\[\\[)|(\\]\\])|(\\(\\()|(\\)\\))|(~~)|(%%%)|(\\:-\\))|(\\|)|(\\\\)/';
         if(!$this->assertEqual($trueResult, $wip->getSplitPattern(), "erreur")){
             $this->_showDiff($trueResult,$wip->getSplitPattern());
         }
 
         $test = array(
-            '__'=>array('__','__'),
+            '**'=>array('**','**'),
             '\'\''=>array('\'\'','\'\''),
             '@@'=>array('@@','@@'),
             '^^'=>array('^^','^^'),
             '{{'=>array('{{','}}'),
             '??'=>array('??','??'),
-            '['=>array('[',']'),
+            '[['=>array('[[',']]'),
             '(('=>array('((','))'),
             '~~'=>array('~~','~~'),
         );
@@ -87,13 +87,13 @@ class WikiRendererTestsInlineParser extends WikiRendererUnitTestCase {
 
         'Lorem ipsum dolor sit amet, consectetuer adipiscing elit.'
             =>'Lorem ipsum dolor sit amet, consectetuer adipiscing elit.',
-        'Lorem ipsum dolor __sit amet__, consectetuer adipiscing elit.'
+        'Lorem ipsum dolor **sit amet**, consectetuer adipiscing elit.'
             =>'Lorem ipsum dolor <strong>sit amet</strong>, consectetuer adipiscing elit.',
     );
 
     function testInlineParser1() {
         $conf = new WRConfigTest1();
-        $conf->inlinetags=array( 'cwrxhtml_strong');
+        $conf->inlinetags=array( 'wr3xhtml_strong');
         $conf->textLineContainer= 'WikiHtmlTextLine';
 
 
@@ -110,9 +110,9 @@ class WikiRendererTestsInlineParser extends WikiRendererUnitTestCase {
 
         'Lorem ipsum dolor sit amet, consectetuer adipiscing elit.'
            =>'Lorem ipsum dolor sit amet, consectetuer adipiscing elit.',
-        'Lorem ipsum dolor __sit amet__, consectetuer adipiscing elit.'
+        'Lorem ipsum dolor **sit amet**, consectetuer adipiscing elit.'
             =>'Lorem ipsum dolor <strong>sit amet</strong>, consectetuer adipiscing elit.',
-        'Lorem __ipsum dolor__ sit amet, consectetuer adipiscing elit.'
+        'Lorem **ipsum dolor** sit amet, consectetuer adipiscing elit.'
             =>'Lorem <strong>ipsum dolor</strong> sit amet, consectetuer adipiscing elit.',
         'Lorem ipsum dolor \'\'sit amet\'\', consectetuer adipiscing elit.'
             =>'Lorem ipsum dolor <em>sit amet</em>, consectetuer adipiscing elit.',
@@ -132,15 +132,15 @@ class WikiRendererTestsInlineParser extends WikiRendererUnitTestCase {
             =>'Lorem ipsum dolor sit amet, <acronym>consectetuer adipiscing</acronym> elit.',
         'Lorem ipsum dolor sit amet, ??consectetuer adipiscing|un titre?? elit.'
             =>'Lorem ipsum dolor sit amet, <acronym title="un titre">consectetuer adipiscing</acronym> elit.',
-        'Lorem [ipsum dolor] sit amet, consectetuer adipiscing elit.'
+        'Lorem [[ipsum dolor]] sit amet, consectetuer adipiscing elit.'
             =>'Lorem <a href="ipsum dolor">ipsum dolor</a> sit amet, consectetuer adipiscing elit.',
-        'Lorem [ipsum dolor|http://foo.com] sit amet, consectetuer adipiscing elit.'
+        'Lorem [[ipsum dolor|http://foo.com]] sit amet, consectetuer adipiscing elit.'
             =>'Lorem <a href="http://foo.com">ipsum dolor</a> sit amet, consectetuer adipiscing elit.',
-        'Lorem [ipsum dolor|javascript:alert(window.title)] sit amet, consectetuer adipiscing elit.'
+        'Lorem [[ipsum dolor|javascript:alert(window.title)]] sit amet, consectetuer adipiscing elit.'
             =>'Lorem <a href="#">ipsum dolor</a> sit amet, consectetuer adipiscing elit.',
-        'Lorem [ipsum dolor|bar|fr] sit amet, consectetuer adipiscing elit.'
+        'Lorem [[ipsum dolor|bar|fr]] sit amet, consectetuer adipiscing elit.'
             =>'Lorem <a href="bar" hreflang="fr">ipsum dolor</a> sit amet, consectetuer adipiscing elit.',
-        'Lorem [ipsum dolor|bar|fr|ceci est un titre] sit amet, consectetuer adipiscing elit.'
+        'Lorem [[ipsum dolor|bar|fr|ceci est un titre]] sit amet, consectetuer adipiscing elit.'
             =>'Lorem <a href="bar" hreflang="fr" title="ceci est un titre">ipsum dolor</a> sit amet, consectetuer adipiscing elit.',
         'Lorem ((ipsumdolorsit.png)) amet, consectetuer adipiscing elit.'
             =>'Lorem <img src="ipsumdolorsit.png" alt=""/> amet, consectetuer adipiscing elit.',
@@ -152,15 +152,15 @@ class WikiRendererTestsInlineParser extends WikiRendererUnitTestCase {
             =>'Lorem <img longdesc="longue description" style="float:right;" alt="alternative text" src="ipsumdolorsit.png"/> amet, consectetuer adipiscing elit.',
         'Lorem ~~ipsumdolorsit~~ amet, consectetuer adipiscing elit.'
             =>'Lorem <a name="ipsumdolorsit"></a> amet, consectetuer adipiscing elit.',
-        'Lorem \[ipsum dolor|bar|fr] sit amet, \consectetuer \\\\adipiscing \%%%elit.'
-            =>'Lorem [ipsum dolor|bar|fr] sit amet, \consectetuer \\adipiscing %%%elit.',
+        'Lorem \[[ipsum dolor|bar|fr]] sit amet, \consectetuer \\\\adipiscing \%%%elit.'
+            =>'Lorem [[ipsum dolor|bar|fr]] sit amet, \consectetuer \\adipiscing %%%elit.',
     );
 
     function testInlineParser2() {
         $conf = new WRConfigTest1();
 
-        $conf->inlinetags=array( 'cwrxhtml_strong','cwrxhtml_em','cwrxhtml_code','cwrxhtml_q',
-    'cwrxhtml_cite','cwrxhtml_acronym','cwrxhtml_link', 'cwrxhtml_image', 'cwrxhtml_anchor');
+        $conf->inlinetags=array( 'wr3xhtml_strong','wr3xhtml_em','wr3xhtml_code','wr3xhtml_q',
+    'wr3xhtml_cite','wr3xhtml_acronym','wr3xhtml_link', 'wr3xhtml_image', 'wr3xhtml_anchor');
         $conf->simpletags=array('%%%'=>'');
         $conf->textLineContainer = 'WikiHtmlTextLine';
         $conf->funcCheckWikiWord = null;
@@ -183,7 +183,7 @@ class WikiRendererTestsInlineParser extends WikiRendererUnitTestCase {
 
 }
 
-$test = &new WikiRendererTestsInlineParser();
+$test = &new WR3TestsInlineParser();
 $test->run(new HtmlReporter2());
 
 

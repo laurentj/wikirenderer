@@ -49,13 +49,19 @@ class HtmlReporter2 extends HtmlReporter{
 </head>
 <body>
 <div class="header">
-Tests unitaires sur WikiRenderer <?php echo WIKIRENDERER_VERSION;?><br/>
+Tests unitaires sur WikiRenderer <?php echo WIKIRENDERER_VERSION;?>
+<ul>
+ <li>classicwr : <a href="index.php">Tests internes</a> |
+    <a href="testsInlineParser.php">Tests parser inline</a> |
+    <a href="testsInlines.php">Tests inlines</a> |
+    <a href="testsBlocks.php">Tests blocks</a> |
+    <a href="testsSerie.php">Grande serie</a></li>
+ <li>wr3 : <a href="wr3_primaires.php">Tests tags</a> |
+    <a href="wr3_testsInlineParser.php">Tests parser inline</a> |
+    <a href="wr3_testsInlines.php">Tests inlines</a> |
+    <a href="wr3_testsBlocks.php">Tests blocks</a> </li>
 
-<a href="index.php">Tests internes</a> |
-<a href="testsInlineParser.php">Tests parser inline</a> |
-<a href="testsInlines.php">Tests inlines</a> |
-<a href="testsBlocks.php">Tests blocks</a> |
-<a href="testsSerie.php">Grande serie</a>
+</ul>
 </div>
 <h1><?php echo $test_name?></h1>
         <?php

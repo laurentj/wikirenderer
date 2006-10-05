@@ -9,11 +9,11 @@
  */
 
 require_once('common.php');
-require_once(WR_DIR.'rules/classicwr_to_xhtml.php');
+require_once(WR_DIR.'rules/wr3_to_xhtml.php');
 
 class WRConfigTest extends WikiRendererConfig { }
 
-class WikiRendererTestsInternes extends WikiRendererUnitTestCase {
+class WikiRendererTestsWr3Primaire extends WikiRendererUnitTestCase {
 
     function _tagtest( $list, $class) {
         $conf= new WRConfigTest();
@@ -62,20 +62,20 @@ class WikiRendererTestsInternes extends WikiRendererUnitTestCase {
     var $listtagstrong = array(
         array(
             array('foo'),
-            '__foo__',
+            '**foo**',
             '<strong>foo</strong>'),
         array(
             array('foo', 'bar'),
-            '__foobar__',
+            '**foobar**',
             '<strong>foobar</strong>'),
         array(
             array('foo', false, 'bar'),
-            '__foobar__',
+            '**foobar**',
             '<strong>foo</strong>'),
     );
 
     function testTagStrong() {
-        $this->_tagtest( $this->listtagstrong, 'cwrxhtml_strong');
+        $this->_tagtest( $this->listtagstrong, 'wr3xhtml_strong');
     }
 
     var $listtagq = array(
@@ -92,21 +92,32 @@ class WikiRendererTestsInternes extends WikiRendererUnitTestCase {
             '^^foo|bar|baztruc^^',
             '<q lang="bar" cite="baztruc">foo</q>'),
         array(
-            array('foo',array('__hello__','<strong>hello</strong>'), false, 'bar', false,'baz','truc'),
-            '^^foo__hello__|bar|baztruc^^',
+            array('foo',array('**hello**','<strong>hello</strong>'), false, 'bar', false,'baz','truc'),
+            '^^foo**hello**|bar|baztruc^^',
             '<q lang="bar" cite="baztruc">foo<strong>hello</strong></q>'),
         array(
-            array('foo', false, array('__bar__','<strong>bar</strong>'), 'fleur', false,'baz','truc'),
-            '^^foo|__bar__fleur|baztruc^^',
-            '<q lang="__bar__fleur" cite="baztruc">foo</q>'),
+            array('foo', false, array('**bar**','<strong>bar</strong>'), 'fleur', false,'baz','truc'),
+            '^^foo|**bar**fleur|baztruc^^',
+            '<q lang="**bar**fleur" cite="baztruc">foo</q>'),
     );
 
     function testTagq() {
-        $this->_tagtest( $this->listtagq, 'cwrxhtml_q');
+        $this->_tagtest( $this->listtagq, 'wr3xhtml_q');
+    }
+
+    var $listtaga = array(
+        array(
+            array(array('**bar**','<strong>bar</strong>'), 'fleur', false,'fooo', false, 'baz','truc'),
+            '[[**bar**fleur|fooo|baztruc]]',
+            '<a href="fooo" hreflang="baztruc"><strong>bar</strong>fleur</a>'),
+    );
+
+    function testTaga() {
+        $this->_tagtest( $this->listtaga, 'wr3xhtml_link');
     }
 }
 
-$test = &new WikiRendererTestsInternes();
+$test = &new WikiRendererTestsWr3Primaire();
 $test->run(new HtmlReporter2());
 
 

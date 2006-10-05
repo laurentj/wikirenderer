@@ -218,7 +218,7 @@ class WikiInlineParser {
     protected $str=array();
     protected $splitPattern='';
     protected $_separator;
-    protected $textLineContainer='';
+    protected $config;
     /**
     * constructeur
     * @param   array    $inlinetags liste des tags permis
@@ -227,7 +227,7 @@ class WikiInlineParser {
     function __construct($config ){
         $separators = array();
         $this->escapeChar = '\\';
-        $this->textLineContainer = $config->textLineContainer;
+        $this->config = $config;
 
         foreach($config->inlinetags as $class){
             $t = new $class($config);
@@ -260,8 +260,8 @@ class WikiInlineParser {
 
         $this->str = preg_split($this->splitPattern,$line, -1, PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_NO_EMPTY);
         $this->end = count($this->str);
-        $l = $this->textLineContainer;
-        $firsttag = new $l;
+        $l = $this->config->textLineContainer;
+        $firsttag = new $l($this->config);
 
         if($this->end > 1){
             $pos=-1;
