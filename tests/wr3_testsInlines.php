@@ -83,7 +83,7 @@ class WR3TestsInlines extends WikiRendererUnitTestCase {
 
     );
     function testBalisesInlineSimples() {
-        $wr = new WikiRenderer(new ConfigWr3ToXhtml());
+        $wr = new WikiRenderer(new wr3_to_xhtml());
         foreach($this->listinline as $source=>$result){
             $res = $wr->render($source);
             if(!$this->assertEqual($res,$result, "erreur")){
@@ -94,7 +94,7 @@ class WR3TestsInlines extends WikiRendererUnitTestCase {
     }
 
     function testBalisesInlineComplexes() {
-        $wr = new WikiRenderer(new ConfigWr3ToXhtml());
+        $wr = new WikiRenderer(new wr3_to_xhtml());
         foreach($this->listinline2 as $source=>$result){
             $res = $wr->render($source);
             if(!$this->assertEqual($res,$result[1], "erreur")){

@@ -22,7 +22,7 @@ class WR3TestsBlocks extends WikiRendererUnitTestCase {
     );
 
     function testBlock() {
-        $wr = new WikiRenderer(new ConfigWr3ToXhtml());
+        $wr = new WikiRenderer(new wr3_to_xhtml());
         foreach($this->listblocks as $file=>$nberror){
             $sourceFile = 'datasblocks/'.$file.'.src';
             $resultFile = 'datasblocks/'.$file.'.res';

@@ -24,7 +24,7 @@
  *
  */
 
-class ConfigClassicwrToXhtml extends WikiRendererConfig {
+class classicwr_to_xhtml extends WikiRendererConfig {
   /**
     * @var array   liste des tags inline
    */

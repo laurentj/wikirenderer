@@ -524,11 +524,19 @@ class WikiRenderer {
     * instancie les différents objets pour le rendu des elements inline et bloc.
     */
    function __construct( $config=null){
-      if(is_null($config)){
-         require_once(WIKIRENDERER_PATH . 'rules/classicwr_to_xhtml.php');
-         $this->config= new ConfigClassicwrToXhtml;
-      }else{
+
+      if(is_string($config)){
+          $f = WIKIRENDERER_PATH.'rules/'.basename($config).'.php';
+          if(file_exists($f)){
+              require_once($f);
+              $this->config= new $config();
+          }else
+             throw new Exception('Wikirenderer : bad config name');
+      }elseif(is_object($config)){
          $this->config=$config;
+      }else{
+         require_once(WIKIRENDERER_PATH . 'rules/classicwr_to_xhtml.php');
+         $this->config= new classicwr_to_xhtml();
       }
 
       $this->inlineParser = new WikiInlineParser($this->config);

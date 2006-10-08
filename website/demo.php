@@ -95,9 +95,9 @@ pas à la transformation en XHTML.</p>
 if($texte!=''){
 
    if($_POST['transfo'] == 'txt'){
-      $config=new ConfigClassicwrToText();
+      $config=new classicwr_to_text();
    }else{
-      $config=new ConfigClassicwrToXhtml();
+      $config=new classicwr_to_xhtml();
    }
 
    $ctr=new WikiRenderer($config);

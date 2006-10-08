@@ -3,7 +3,7 @@
  * classic wikirenderer syntax to xhtml
  *
  * @package WikiRenderer
- * @subpackage classicwr_to_xhtml
+ * @subpackage wr3_to_xhtml
  * @author Laurent Jouanneau <jouanneau@netcourrier.com>
  * @copyright 2003-2006 Laurent Jouanneau
  * @link http://wikirenderer.berlios.de
@@ -24,7 +24,7 @@
  *
  */
 
-class ConfigWr3ToXhtml extends WikiRendererConfig {
+class wr3_to_xhtml extends WikiRendererConfig {
   /**
     * @var array   liste des tags inline
    */

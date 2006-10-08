@@ -3,7 +3,7 @@
  * classic wikirenderer syntax to plain text
  *
  * @package WikiRenderer
- * @subpackage classicwr_to_xhtml
+ * @subpackage classicwr_to_text
  * @author Laurent Jouanneau <jouanneau@netcourrier.com>
  * @copyright 2003-2006 Laurent Jouanneau
  * @link http://wikirenderer.berlios.de
@@ -24,7 +24,7 @@
  *
  */
 
-class ConfigClassicwrToText  extends WikiRendererConfig {
+class classicwr_to_text  extends WikiRendererConfig {
   /**
     * @var array   liste des tags inline
    */
