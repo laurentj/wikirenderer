@@ -18,10 +18,12 @@ class WR3TestsBlocks extends WikiRendererUnitTestCase {
         'b2'=>0,
         'wr3_list1'=>0,
         'wr3_pre'=>0,
+        'wr3_footnote'=>0,
 
     );
 
     function testBlock() {
+
         $wr = new WikiRenderer(new wr3_to_xhtml());
         foreach($this->listblocks as $file=>$nberror){
             $sourceFile = 'datasblocks/'.$file.'.src';
@@ -36,6 +38,11 @@ class WR3TestsBlocks extends WikiRendererUnitTestCase {
             fclose($handle);
 
             $res = $wr->render($source);
+
+            if($file=='wr3_footnote'){
+                $conf = & $wr->getConfig();
+                $res=str_replace('-'.$conf->footnotesId.'-', '-XXX-',$res);
+            }
             if(!$this->assertEqual($res,$result, "erreur sur $file")){
                 $this->_showDiff($result,$res);
             }

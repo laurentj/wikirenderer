@@ -157,13 +157,7 @@ class WR3TestsInlineParser extends WikiRendererUnitTestCase {
     );
 
     function testInlineParser2() {
-        $conf = new WRConfigTest1();
-
-        $conf->inlinetags=array( 'wr3xhtml_strong','wr3xhtml_em','wr3xhtml_code','wr3xhtml_q',
-    'wr3xhtml_cite','wr3xhtml_acronym','wr3xhtml_link', 'wr3xhtml_image', 'wr3xhtml_anchor');
-        $conf->simpletags=array('%%%'=>'');
-        $conf->textLineContainer = 'WikiHtmlTextLine';
-        $conf->funcCheckWikiWord = null;
+        $conf = new wr3_to_xhtml();
 
         $wip = new WikiInlineParser($conf  );
 
@@ -179,6 +173,29 @@ class WR3TestsInlineParser extends WikiRendererUnitTestCase {
     }
 
 
+    function testFootnote() {
+        $conf = new wr3_to_xhtml();
+        $conf->onStart('');
+        $wip = new WikiInlineParser($conf);
+
+        $source='Lorem ipsum dolor sit amet, $$consectetuer **adipis**cing$$ elit.';
+
+        $res = $wip->parse($source);
+
+        $id = 'footnote-'.$conf->footnotesId.'-1';
+        $trueResult='Lorem ipsum dolor sit amet, [<a href="#'.$id.'" name="rev-'.$id.'" id="rev-'.$id.'">1</a>] elit.';
+        $trueFootnote = '<p>[<a href="#rev-'.$id.'" name="'.$id.'" id="'.$id.'">1</a>] consectetuer <strong>adipis</strong>cing</p>';
+
+        if(!$this->assertEqual($trueResult,$res, "erreur footnote")){
+            $this->_showDiff($trueResult,$res);
+        }else{
+            if($this->assertEqual(1,count($conf->footnotes),"erreur footnote : nombre de footnote")){
+                if(!$this->assertEqual($trueFootnote, $conf->footnotes[0],"erreur footnote : mauvaise footnote")){
+                    $this->_showDiff($trueFootnote, $conf->footnotes[0]);
+                }
+            }
+        }
+    }
 
 
 }

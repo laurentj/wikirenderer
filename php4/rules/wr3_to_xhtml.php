@@ -1,6 +1,6 @@
 <?php
 /**
- * classic wikirenderer syntax to xhtml
+ *  wikirenderer3 (wr3) syntax to xhtml
  *
  * @package WikiRenderer
  * @subpackage wr3_to_xhtml
@@ -9,9 +9,8 @@
  * @link http://wikirenderer.berlios.de
  *
  * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
+ * modify it under the terms of the GNU Lesser General Public 2.1
+ * License as published by the Free Software Foundation
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -29,7 +28,8 @@ class wr3_to_xhtml extends WikiRendererConfig {
     * @var array   liste des tags inline
    */
    var $inlinetags= array( 'wr3xhtml_strong','wr3xhtml_em','wr3xhtml_code','wr3xhtml_q',
-    'wr3xhtml_cite','wr3xhtml_acronym','wr3xhtml_link', 'wr3xhtml_image', 'wr3xhtml_anchor');
+    'wr3xhtml_cite','wr3xhtml_acronym','wr3xhtml_link', 'wr3xhtml_image',
+    'wr3xhtml_anchor', 'wr3xhtml_footnote');
 
    var $textLineContainer = 'WikiHtmlTextLine';
 
@@ -42,6 +42,33 @@ class wr3_to_xhtml extends WikiRendererConfig {
 
    var $simpletags = array('%%%'=>'<br />');
 
+
+   // la syntaxe wr3 contient la possibilité de mettre des notes de bas de page
+   // celles-ci seront stockées ici, avant leur incorporation à la fin du texte.
+   var $footnotes = array();
+   var $footnotesId='';
+   var $footnotesTemplate = '<div class="footnotes"><h4>Notes</h4>%s</div>';
+
+    /**
+    * methode invoquée avant le parsing
+    */
+   function onStart($texte){
+        $this->footnotesId = rand(0,30000);
+        $this->footnotes = array(); // on remet à zero les footnotes
+        return $texte;
+    }
+
+   /**
+    * methode invoquée aprés le parsing
+    */
+    function onParse($finalTexte){
+        // on rajoute les notes de bas de pages.
+        if(count($this->footnotes)){
+            $footnotes = implode("\n",$this->footnotes);
+            $finalTexte .= str_replace('%s', $footnotes, $this->footnotesTemplate);
+        }
+        return $finalTexte;
+    }
 }
 
 // ===================================== déclarations des tags inlines
@@ -158,7 +185,19 @@ class wr3xhtml_image extends WikiTagXhtml {
     }
 }
 
+class wr3xhtml_footnote extends WikiTagXhtml {
+    var $name='footnote';
+    var $beginTag='$$';
+    var $endTag='$$';
 
+    function getContent(){
+        $number = count($this->config->footnotes) + 1;
+        $id = 'footnote-'.$this->config->footnotesId.'-'.$number;
+        $this->config->footnotes[] = "<p>[<a href=\"#rev-$id\" name=\"$id\" id=\"$id\">$number</a>] ".$this->contents[0].'</p>';
+
+        return "[<a href=\"#$id\" name=\"rev-$id\" id=\"rev-$id\">$number</a>]";
+   }
+}
 
 // ===================================== déclaration des différents bloc wiki
 
