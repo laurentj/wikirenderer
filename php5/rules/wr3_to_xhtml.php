@@ -321,18 +321,29 @@ class wr3xhtml_p extends WikiRendererBloc {
  */
 class wr3xhtml_pre extends WikiRendererBloc {
 
-   public $type='pre';
-   protected $_openTag='<pre>';
-   protected $_closeTag='</pre>';
-   protected $isOpen = false;
+    public $type='pre';
+    protected $_openTag='<pre>';
+    protected $_closeTag='</pre>';
+    protected $isOpen = false;
 
-   public function getRenderedLine(){
-      return htmlspecialchars($this->_detectMatch);
+
+   public function open(){
+      $this->isOpen = true;
+      return $this->_openTag;
    }
 
-   public function detect($string){
+   public function close(){
+      $this->isOpen=false;
+      return $this->_closeTag;
+   }
+
+    public function getRenderedLine(){
+        return htmlspecialchars($this->_detectMatch);
+    }
+
+    public function detect($string){
         if($this->isOpen){
-            if(preg_match("/(.*)<\/code>\s*$/",$string,$m)){
+            if(preg_match('/(.*)<\/code>\s*$/',$string,$m)){
                 $this->_detectMatch=$m[1];
                 $this->isOpen=false;
             }else{
@@ -341,16 +352,14 @@ class wr3xhtml_pre extends WikiRendererBloc {
             return true;
 
         }else{
-            if(preg_match("/^\s*<code>(.*)/",$string,$m)){
-                $this->isOpen = true;
+            if(preg_match('/^\s*<code>(.*)/',$string,$m)){
                 $this->_detectMatch=$m[1];
                 return true;
             }else{
                 return false;
             }
         }
-   }
-
+    }
 }
 
 

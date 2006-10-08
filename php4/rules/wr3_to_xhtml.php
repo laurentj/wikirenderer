@@ -349,8 +349,7 @@ class wr3xhtml_pre extends WikiRendererBloc {
                 return false;
             }
         }
-   }
-
+    }
 }
 
 

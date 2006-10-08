@@ -573,8 +573,8 @@ class WikiRenderer {
                             $this->_newtext[]=$bloc->open().$bloc->getRenderedLine().$bloc->close();
                             $this->_currentBloc = null;
                         }else{
-                            $this->_newtext[]=$bloc->open().$bloc->getRenderedLine();
-                            $this->_currentBloc = clone $bloc;
+                            $this->_currentBloc = clone $bloc; // attention, il faut une copie !
+                            $this->_newtext[]=$this->_currentBloc->open().$this->_currentBloc->getRenderedLine();
                         }
                         break;
                     }
@@ -594,8 +594,8 @@ class WikiRenderer {
                     if($bloc->closeNow()){
                         $this->_newtext[]=$bloc->open().$bloc->getRenderedLine().$bloc->close();
                     }else{
-                        $this->_newtext[]=$bloc->open().$bloc->getRenderedLine();
-                        $this->_currentBloc = clone $bloc;
+                        $this->_currentBloc = clone $bloc; // attention, il faut une copie !
+                        $this->_newtext[]=$this->_currentBloc->open().$this->_currentBloc->getRenderedLine();
                     }
                     break;
                 }
@@ -611,6 +611,7 @@ class WikiRenderer {
       if($this->_currentBloc){
           $this->_newtext[count($this->_newtext)-1].=$this->_currentBloc->close();
       }
+
       return $this->config->onParse(implode("\n",$this->_newtext));
    }
 
