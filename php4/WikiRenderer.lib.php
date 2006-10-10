@@ -21,7 +21,7 @@
  *
  */
 define('WIKIRENDERER_PATH', dirname(__FILE__).'/');
-define('WIKIRENDERER_VERSION', '3.0beta-php4');
+define('WIKIRENDERER_VERSION', '3.0RC1-php4');
 
 /**
  * base class to generate output from inline wiki tag
@@ -551,7 +551,7 @@ class WikiRenderer {
       }elseif(is_object($config)){
          $this->config=$config;
       }else{
-         require_once(WIKIRENDERER_PATH . 'rules/classicwr_to_xhtml.php');
+         require_once(WIKIRENDERER_PATH . 'rules/wr3_to_xhtml.php');
          $this->config= new classicwr_to_xhtml();
       }
 

@@ -9,7 +9,7 @@
  */
 
 require_once('common.php');
-
+require_once(WR_DIR.'rules/classicwr_to_xhtml.php');
 
 class WikiRendererTestsBlocks extends WikiRendererUnitTestCase {
 
@@ -23,7 +23,7 @@ class WikiRendererTestsBlocks extends WikiRendererUnitTestCase {
     );
 
     function testBlock() {
-        $wr = new WikiRenderer();
+        $wr = new WikiRenderer('classicwr_to_xhtml');
         foreach($this->listblocks as $file=>$nberror){
             $sourceFile = 'datasblocks/'.$file.'.src';
             $resultFile = 'datasblocks/'.$file.'.res';

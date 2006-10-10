@@ -16,7 +16,7 @@ class WR3TestsInlines extends WikiRendererUnitTestCase {
 
         'Lorem ipsum dolor sit amet, consectetuer adipiscing elit.'
             =>'<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p>',
-        'Lorem **ipsum dolor** sit amet, consectetuer adipiscing elit.'
+        'Lorem __ipsum dolor__ sit amet, consectetuer adipiscing elit.'
             =>'<p>Lorem <strong>ipsum dolor</strong> sit amet, consectetuer adipiscing elit.</p>',
         'Lorem ipsum dolor \'\'sit amet\'\', consectetuer adipiscing elit.'
             =>'<p>Lorem ipsum dolor <em>sit amet</em>, consectetuer adipiscing elit.</p>',
@@ -64,13 +64,13 @@ class WR3TestsInlines extends WikiRendererUnitTestCase {
 
     var $listinline2 = array(
         // 'source' => array( nb_error, 'resultat')
-        'Lorem **ipsum \'\'dolor sit\'\' amet**, consectetuer adipiscing elit.'
+        'Lorem __ipsum \'\'dolor sit\'\' amet__, consectetuer adipiscing elit.'
             =>array(0,'<p>Lorem <strong>ipsum <em>dolor sit</em> amet</strong>, consectetuer adipiscing elit.</p>'),
-        'Lorem **ipsum \'\'dolor sit** amet\'\', consectetuer adipiscing elit.'
-            =>array(1,'<p>Lorem **ipsum \'\'dolor sit** amet\'\', consectetuer adipiscing elit.</p>'),
-        'Lorem **ipsum \'\'dolor sit** amet**, consectetuer adipiscing elit.'
-            =>array(1,'<p>Lorem **ipsum \'\'dolor sit<strong> amet</strong>, consectetuer adipiscing elit.</p>'),
-        'Lorem [[ips**um dol**or|bar|fr]] sit amet, consectetuer adipiscing elit.'
+        'Lorem __ipsum \'\'dolor sit__ amet\'\', consectetuer adipiscing elit.'
+            =>array(1,'<p>Lorem __ipsum \'\'dolor sit__ amet\'\', consectetuer adipiscing elit.</p>'),
+        'Lorem __ipsum \'\'dolor sit__ amet__, consectetuer adipiscing elit.'
+            =>array(1,'<p>Lorem __ipsum \'\'dolor sit<strong> amet</strong>, consectetuer adipiscing elit.</p>'),
+        'Lorem [[ips__um dol__or|bar|fr]] sit amet, consectetuer adipiscing elit.'
             =>array(0,'<p>Lorem <a href="bar" hreflang="fr">ips<strong>um dol</strong>or</a> sit amet, consectetuer adipiscing elit.</p>'),
 
         'Lorem [[ips[[um dol]]or|bar|fr]] sit amet, consectetuer adipiscing elit.'
@@ -78,7 +78,7 @@ class WR3TestsInlines extends WikiRendererUnitTestCase {
 
         'Lorem [[ips[[um dolor|bar|fr]] sit]] amet, consectetuer adipiscing elit.'
             =>array(0,'<p>Lorem <a href="ips[[um dolor|bar|fr]] sit">ips[[um dolor|bar|fr]] sit</a> amet, consectetuer adipiscing elit.</p>'),
-        'Lorem [[ips**um dolor|bar|fr]] sit** amet, consectetuer adipiscing elit.'
+        'Lorem [[ips__um dolor|bar|fr]] sit__ amet, consectetuer adipiscing elit.'
             =>array(1,'<p>Lorem [[ips<strong>um dolor|bar|fr]] sit</strong> amet, consectetuer adipiscing elit.</p>'),
 
     );

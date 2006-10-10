@@ -30,7 +30,7 @@ class WR3TestsInlineParser extends WikiRendererUnitTestCase {
         $conf->textLineContainer= 'WikiHtmlTextLine';
 
         $wip = new WikiInlineParserTest($conf);
-        $trueResult = '/(\\*\\*)|(\\\\)/';
+        $trueResult = '/(__)|(\\\\)/';
         if(!$this->assertEqual($trueResult, $wip->getSplitPattern(), "erreur")){
             $this->_showDiff($trueResult,$wip->getSplitPattern());
         }
@@ -39,7 +39,7 @@ class WR3TestsInlineParser extends WikiRendererUnitTestCase {
         $conf->simpletags=array('%%%'=>'');
 
         $wip = new WikiInlineParserTest($conf );
-        $trueResult = '/(\\*\\*)|(\'\')|(%%%)|(\\\\)/';
+        $trueResult = '/(__)|(\'\')|(%%%)|(\\\\)/';
         if(!$this->assertEqual($trueResult, $wip->getSplitPattern(), "erreur")){
             $this->_showDiff($trueResult,$wip->getSplitPattern());
         }
@@ -48,7 +48,7 @@ class WR3TestsInlineParser extends WikiRendererUnitTestCase {
         $conf->simpletags=array('%%%'=>'');
 
         $wip = new WikiInlineParserTest( $conf);
-        $trueResult = '/(\\*\\*)|(\^\^)|(%%%)|(\\|)|(\\\\)/';
+        $trueResult = '/(__)|(\^\^)|(%%%)|(\\|)|(\\\\)/';
         if(!$this->assertEqual($trueResult, $wip->getSplitPattern(), "erreur")){
             $this->_showDiff($trueResult,$wip->getSplitPattern());
         }
@@ -59,13 +59,13 @@ class WR3TestsInlineParser extends WikiRendererUnitTestCase {
         $conf->simpletags=array('%%%'=>'', ':-)'=>'');
 
         $wip = new WikiInlineParserTest($conf );
-        $trueResult = '/(\\*\\*)|(\'\')|(@@)|(\\^\\^)|(\\{\\{)|(\\}\\})|(\\?\\?)|(\\[\\[)|(\\]\\])|(\\(\\()|(\\)\\))|(~~)|(%%%)|(\\:-\\))|(\\|)|(\\\\)/';
+        $trueResult = '/(__)|(\'\')|(@@)|(\\^\\^)|(\\{\\{)|(\\}\\})|(\\?\\?)|(\\[\\[)|(\\]\\])|(\\(\\()|(\\)\\))|(~~)|(%%%)|(\\:-\\))|(\\|)|(\\\\)/';
         if(!$this->assertEqual($trueResult, $wip->getSplitPattern(), "erreur")){
             $this->_showDiff($trueResult,$wip->getSplitPattern());
         }
 
         $test = array(
-            '**'=>array('**','**'),
+            '__'=>array('__','__'),
             '\'\''=>array('\'\'','\'\''),
             '@@'=>array('@@','@@'),
             '^^'=>array('^^','^^'),
@@ -87,7 +87,7 @@ class WR3TestsInlineParser extends WikiRendererUnitTestCase {
 
         'Lorem ipsum dolor sit amet, consectetuer adipiscing elit.'
             =>'Lorem ipsum dolor sit amet, consectetuer adipiscing elit.',
-        'Lorem ipsum dolor **sit amet**, consectetuer adipiscing elit.'
+        'Lorem ipsum dolor __sit amet__, consectetuer adipiscing elit.'
             =>'Lorem ipsum dolor <strong>sit amet</strong>, consectetuer adipiscing elit.',
     );
 
@@ -110,9 +110,9 @@ class WR3TestsInlineParser extends WikiRendererUnitTestCase {
 
         'Lorem ipsum dolor sit amet, consectetuer adipiscing elit.'
            =>'Lorem ipsum dolor sit amet, consectetuer adipiscing elit.',
-        'Lorem ipsum dolor **sit amet**, consectetuer adipiscing elit.'
+        'Lorem ipsum dolor __sit amet__, consectetuer adipiscing elit.'
             =>'Lorem ipsum dolor <strong>sit amet</strong>, consectetuer adipiscing elit.',
-        'Lorem **ipsum dolor** sit amet, consectetuer adipiscing elit.'
+        'Lorem __ipsum dolor__ sit amet, consectetuer adipiscing elit.'
             =>'Lorem <strong>ipsum dolor</strong> sit amet, consectetuer adipiscing elit.',
         'Lorem ipsum dolor \'\'sit amet\'\', consectetuer adipiscing elit.'
             =>'Lorem ipsum dolor <em>sit amet</em>, consectetuer adipiscing elit.',
@@ -178,7 +178,7 @@ class WR3TestsInlineParser extends WikiRendererUnitTestCase {
         $conf->onStart('');
         $wip = new WikiInlineParser($conf);
 
-        $source='Lorem ipsum dolor sit amet, $$consectetuer **adipis**cing$$ elit.';
+        $source='Lorem ipsum dolor sit amet, $$consectetuer __adipis__cing$$ elit.';
 
         $res = $wip->parse($source);
 

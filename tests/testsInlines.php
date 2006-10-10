@@ -9,7 +9,7 @@
  */
 
 require_once('common.php');
-
+require_once(WR_DIR.'rules/classicwr_to_xhtml.php');
 
 class WikiRendererTestsInlines extends WikiRendererUnitTestCase {
     var $listinline = array(
@@ -83,7 +83,7 @@ class WikiRendererTestsInlines extends WikiRendererUnitTestCase {
 
     );
     function testBalisesInlineSimples() {
-        $wr = new WikiRenderer();
+        $wr = new WikiRenderer('classicwr_to_xhtml');
         foreach($this->listinline as $source=>$result){
             $res = $wr->render($source);
             if(!$this->assertEqual($res,$result, "erreur")){
@@ -94,7 +94,7 @@ class WikiRendererTestsInlines extends WikiRendererUnitTestCase {
     }
 
     function testBalisesInlineComplexes() {
-        $wr = new WikiRenderer();
+        $wr = new WikiRenderer('classicwr_to_xhtml');
         foreach($this->listinline2 as $source=>$result){
             $res = $wr->render($source);
             if(!$this->assertEqual($res,$result[1], "erreur")){

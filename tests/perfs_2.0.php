@@ -18,7 +18,7 @@ function getMicroTime(){
 
 $start=getMicroTime();
 
-$wr= new WikiRenderer();
+$wr= new WikiRenderer('classicwr_to_xhtml');
 foreach($list as $k=> $t){
     $res =$wr->render($t[0]);
 }

@@ -9,14 +9,14 @@
  */
 
 require_once('common.php');
-
+require_once(WR_DIR.'rules/classicwr_to_xhtml.php');
 
 class WikiRendererTestsSerie extends WikiRendererUnitTestCase {
 
     function testSerie() {
 
         include('datasSerie.php');
-        $wr= new WikiRenderer();
+        $wr= new WikiRenderer('classicwr_to_xhtml');
         foreach($list as $k=> $t){
 
             $res =$wr->render($t[0]);

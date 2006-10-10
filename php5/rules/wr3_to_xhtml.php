@@ -75,8 +75,8 @@ class wr3_to_xhtml  extends WikiRendererConfig  {
 
 class wr3xhtml_strong extends WikiTagXhtml {
     protected $name='strong';
-    public $beginTag='**';
-    public $endTag='**';
+    public $beginTag='__';
+    public $endTag='__';
 }
 
 class wr3xhtml_em extends WikiTagXhtml {

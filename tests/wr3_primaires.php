@@ -62,15 +62,15 @@ class WikiRendererTestsWr3Primaire extends WikiRendererUnitTestCase {
     var $listtagstrong = array(
         array(
             array('foo'),
-            '**foo**',
+            '__foo__',
             '<strong>foo</strong>'),
         array(
             array('foo', 'bar'),
-            '**foobar**',
+            '__foobar__',
             '<strong>foobar</strong>'),
         array(
             array('foo', false, 'bar'),
-            '**foobar**',
+            '__foobar__',
             '<strong>foo</strong>'),
     );
 
@@ -92,13 +92,13 @@ class WikiRendererTestsWr3Primaire extends WikiRendererUnitTestCase {
             '^^foo|bar|baztruc^^',
             '<q lang="bar" cite="baztruc">foo</q>'),
         array(
-            array('foo',array('**hello**','<strong>hello</strong>'), false, 'bar', false,'baz','truc'),
-            '^^foo**hello**|bar|baztruc^^',
+            array('foo',array('__hello__','<strong>hello</strong>'), false, 'bar', false,'baz','truc'),
+            '^^foo__hello__|bar|baztruc^^',
             '<q lang="bar" cite="baztruc">foo<strong>hello</strong></q>'),
         array(
-            array('foo', false, array('**bar**','<strong>bar</strong>'), 'fleur', false,'baz','truc'),
-            '^^foo|**bar**fleur|baztruc^^',
-            '<q lang="**bar**fleur" cite="baztruc">foo</q>'),
+            array('foo', false, array('__bar__','<strong>bar</strong>'), 'fleur', false,'baz','truc'),
+            '^^foo|__bar__fleur|baztruc^^',
+            '<q lang="__bar__fleur" cite="baztruc">foo</q>'),
     );
 
     function testTagq() {
@@ -107,8 +107,8 @@ class WikiRendererTestsWr3Primaire extends WikiRendererUnitTestCase {
 
     var $listtaga = array(
         array(
-            array(array('**bar**','<strong>bar</strong>'), 'fleur', false,'fooo', false, 'baz','truc'),
-            '[[**bar**fleur|fooo|baztruc]]',
+            array(array('__bar__','<strong>bar</strong>'), 'fleur', false,'fooo', false, 'baz','truc'),
+            '[[__bar__fleur|fooo|baztruc]]',
             '<a href="fooo" hreflang="baztruc"><strong>bar</strong>fleur</a>'),
     );
 
