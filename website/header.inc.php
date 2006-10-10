@@ -4,8 +4,8 @@
    <title>WikiRenderer</title>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
     <meta name="author" content="Laurent Jouanneau" />
-    <meta name="description" content="WikiRenderer, convertisseur texte wiki en XHTML et autre langage" />
-    <meta name="keywords" content="wikirenderer php convertisseur wiki standards w3c html xhtml" />
+    <meta name="description" content="WikiRenderer, convertisseur texte wiki en XHTML et autre format" />
+    <meta name="keywords" content="wikirenderer php convertisseur analyseur wiki standards w3c html xhtml" />
     <link rel="stylesheet" href="wr.css" media="all" type="text/css" />
    <link rel="top"   href="/" title="Page d'accueil du site" />
    <link rel="up"   href="/" title="Page d'accueil du site" />

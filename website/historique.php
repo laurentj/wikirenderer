@@ -7,6 +7,29 @@ require('header.inc.php');
 <p>WikiRenderer est distribué sous <a href="http://www.gnu.org/licenses/licenses.html#LGPL">licence LGPL</a>.</p>
 
 <dl>
+   <dt>Version 3.0 RC1, 10/10/2006</dt>
+   <dd>
+        <ul>
+            <li>Ajout d'une classe de base pour la configuration</li>
+
+            <li>La classe de configuration peut rédéfinir des hooks : onStart, onParse. Cela
+            permet de modifier le texte en entrée, mais aussi le texte en sortie.</li>
+
+            <li>Ajout d'une propriété pointant vers la config, dans les objets dérivant de wikitag ou
+            de WikiRendererBloc</li>
+
+            <li>le constructeur accepte maintenant un nom de config. Les objets de config de rêgles
+            doivent avoir le même nom que le fichier de rêgle. renommage en conséquences des noms
+            des objets de config existants.</li>
+
+            <li>Nouvelle syntaxe WR3, similaire à classicwr, mais avec la prise en charge de notes
+            de bas de page, de blocs type pre entouré de &lt;code&gt; au lieu de chaque ligne
+            commençant par un éspace.</li>
+            <li>ajout des rêgles classicwr_to_wr3, pour convertir un texte classicwr en syntaxe wr3.</li>
+            <li>ajout des rêgles wr3_to_text</li>
+        </ul>
+   </dd>
+
    <dt>Version 3.0 beta, 28/09/2006</dt>
    <dd> Refonte complète du moteur pour résoudre certains problèmes :
         <ul>

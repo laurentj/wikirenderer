@@ -1,9 +1,9 @@
 <?php
 /**
- * classic wikirenderer syntax to plain text
+ * wikirenderer3 syntax to plain text
  *
  * @package WikiRenderer
- * @subpackage rules
+ * @subpackage wr3_to_text
  * @author Laurent Jouanneau <jouanneau@netcourrier.com>
  * @copyright 2003-2006 Laurent Jouanneau
  * @link http://wikirenderer.berlios.de
@@ -23,20 +23,21 @@
  *
  */
 
-class classicwr_to_text   extends WikiRendererConfig {
+class wr3_to_text   extends WikiRendererConfig {
   /**
     * @var array   liste des tags inline
    */
-   public $inlinetags= array( 'cwrtext_strong','cwrtext_em','cwrtext_code','cwrtext_q',
-    'cwrtext_cite','cwrtext_acronym','cwrtext_link', 'cwrtext_image', 'cwrtext_anchor');
+   public $inlinetags= array( 'wr3text_strong','wr3text_em','wr3text_code','wr3text_q',
+    'wr3text_cite','wr3text_acronym','wr3text_link', 'wr3text_image', 'wr3text_anchor',
+    'wr3text_footnote');
 
    public $textLineContainer = 'WikiTextLine';
 
    /**
    * liste des balises de type bloc reconnus par WikiRenderer.
    */
-   public $bloctags = array('cwrtext_title', 'cwrtext_list', 'cwrtext_pre','cwrtext_hr',
-                         'cwrtext_blockquote','cwrtext_definition','cwrtext_table', 'cwrtext_p');
+   public $bloctags = array('wr3text_title', 'wr3text_list', 'wr3text_pre','wr3text_hr',
+                         'wr3text_blockquote','wr3text_definition','wr3text_table', 'wr3text_p');
 
 
    public $simpletags = array('%%%'=>"\n");
@@ -46,23 +47,23 @@ class classicwr_to_text   extends WikiRendererConfig {
 
 // ===================================== déclarations des tags inlines
 
-class cwrtext_strong extends WikiTag {
+class wr3text_strong extends WikiTag {
     public $beginTag='__';
     public $endTag='__';
 }
 
-class cwrtext_em extends WikiTag {
+class wr3text_em extends WikiTag {
     public $beginTag='\'\'';
     public $endTag='\'\'';
 }
 
-class cwrtext_code extends WikiTag {
+class wr3text_code extends WikiTag {
     public $beginTag='@@';
     public $endTag='@@';
     function getContent(){ return '['.$this->contents[0].']';}
 }
 
-class cwrtext_q extends WikiTag {
+class wr3text_q extends WikiTag {
     public $beginTag='^^';
     public $endTag='^^';
     protected $attribute=array('$$','lang','cite');
@@ -75,7 +76,7 @@ class cwrtext_q extends WikiTag {
     }
 }
 
-class cwrtext_cite extends WikiTag {
+class wr3text_cite extends WikiTag {
     public $beginTag='{{';
     public $endTag='}}';
     protected $attribute=array('$$','title');
@@ -88,7 +89,7 @@ class cwrtext_cite extends WikiTag {
     }
 }
 
-class cwrtext_acronym extends WikiTag {
+class wr3text_acronym extends WikiTag {
     var $name='acronym';
     public $beginTag='??';
     public $endTag='??';
@@ -102,7 +103,7 @@ class cwrtext_acronym extends WikiTag {
     }
 }
 
-class cwrtext_anchor extends WikiTag {
+class wr3text_anchor extends WikiTag {
     public $beginTag='~~';
     public $endTag='~~';
     protected $attribute=array('name');
@@ -111,9 +112,9 @@ class cwrtext_anchor extends WikiTag {
 }
 
 
-class cwrtext_link extends WikiTag {
-    public $beginTag='[';
-    public $endTag=']';
+class wr3text_link extends WikiTag {
+    public $beginTag='[[';
+    public $endTag=']]';
     protected $attribute=array('$$','href','hreflang','title');
     public $separators=array('|');
     public function getContent(){
@@ -129,8 +130,7 @@ class cwrtext_link extends WikiTag {
 
 
 
-class cwrtext_image extends WikiTag {
-    protected $name='image';
+class wr3text_image extends WikiTag {
     public $beginTag='((';
     public $endTag='))';
     protected $attribute=array('src','alt','align','longdesc');
@@ -139,16 +139,23 @@ class cwrtext_image extends WikiTag {
     public function getContent(){ return ''; }
 }
 
+class wr3text_footnote extends WikiTag {
+    public $beginTag='$$';
+    public $endTag='$$';
 
+    public function getContent(){
+       return ' ('.$this->contents[0].')';
+   }
+}
 
 // ===================================== déclaration des différents bloc wiki
 
 /**
  * traite les signes de types liste
  */
-class cwrtext_list extends WikiRendererBloc {
+class wr3text_list extends WikiRendererBloc {
    public $type='list';
-   protected $regexp="/^([\*#-]+)(.*)/";
+   protected $regexp="/^\s*([\*#-]+)(.*)/";
    public function getRenderedLine(){
       return $this->_detectMatch[1].$this->_renderInlineTag($this->_detectMatch[2]);
    }
@@ -158,9 +165,9 @@ class cwrtext_list extends WikiRendererBloc {
 /**
  * traite les signes de types table
  */
-class cwrtext_table extends WikiRendererBloc {
+class wr3text_table extends WikiRendererBloc {
    public $type='table';
-   protected $regexp="/^\| ?(.*)/";
+   protected $regexp="/^\s*\| ?(.*)/";
    protected $_openTag="--------------------------------------------";
    protected $_closeTag="--------------------------------------------\n";
 
@@ -195,10 +202,10 @@ class cwrtext_table extends WikiRendererBloc {
 /**
  * traite les signes de types hr
  */
-class cwrtext_hr extends WikiRendererBloc {
+class wr3text_hr extends WikiRendererBloc {
 
    public $type='hr';
-   protected $regexp='/^={4,} *$/';
+   protected $regexp='/^\s*={4,} *$/';
    protected $_closeNow=true;
 
    public function getRenderedLine(){
@@ -210,9 +217,9 @@ class cwrtext_hr extends WikiRendererBloc {
 /**
  * traite les signes de types titre
  */
-class cwrtext_title extends WikiRendererBloc {
+class wr3text_title extends WikiRendererBloc {
    public $type='title';
-   protected $regexp="/^(\!{1,3})(.*)/";
+   protected $regexp="/^\s*(\!{1,3})(.*)/";
    protected $_closeNow=true;
 
    protected $_minlevel=3;
@@ -236,33 +243,47 @@ class cwrtext_title extends WikiRendererBloc {
 /**
  * traite les signes de type paragraphe
  */
-class cwrtext_p extends WikiRendererBloc {
+class wr3text_p extends WikiRendererBloc {
    public $type='p';
 
    public function detect($string){
       if($string=='') return false;
-      if(preg_match('/^={4,} *$/',$string)) return false;
-      $c=$string{0};
-      if(strpos("*#-!| \t>;" ,$c) === false){
-        $this->_detectMatch=array($string,$string);
-        return true;
-      }else{
-        return false;
-      }
+      if(preg_match("/^\s*[\*#\-\!\| \t>;<=].*/",$string)) return false;
+      $this->_detectMatch=array($string,$string);
+      return true;
    }
 }
 
 /**
  * traite les signes de types pre (pour afficher du code..)
  */
-class cwrtext_pre extends WikiRendererBloc {
+class wr3text_pre extends WikiRendererBloc {
 
    public $type='pre';
-   protected $regexp="/^(\s)(.*)/";
-
    public function getRenderedLine(){
-      return $this->_detectMatch[1].$this->_renderInlineTag($this->_detectMatch[2]);
+        return '   '.$this->_detectMatch;
    }
+
+   public function detect($string){
+        if($this->isOpen){
+            if(preg_match("/(.*)<\/code>\s*$/",$string,$m)){
+                $this->_detectMatch=$m[1];
+                $this->isOpen=false;
+            }else{
+                $this->_detectMatch=$string;
+            }
+            return true;
+
+        }else{
+            if(preg_match("/^\s*<code>(.*)/",$string,$m)){
+                $this->isOpen = true;
+                $this->_detectMatch=$m[1];
+                return true;
+            }else{
+                return false;
+            }
+        }
+    }
 
 }
 
@@ -270,9 +291,9 @@ class cwrtext_pre extends WikiRendererBloc {
 /**
  * traite les signes de type blockquote
  */
-class cwrtext_blockquote extends WikiRendererBloc {
+class wr3text_blockquote extends WikiRendererBloc {
    public $type='bq';
-   protected $regexp="/^(\>+)(.*)/";
+   protected $regexp="/^\s*(\>+)(.*)/";
 
    public function getRenderedLine(){
       return $this->_detectMatch[1].$this->_renderInlineTag($this->_detectMatch[2]);
@@ -282,10 +303,10 @@ class cwrtext_blockquote extends WikiRendererBloc {
 /**
  * traite les signes de type définitions
  */
-class cwrtext_definition extends WikiRendererBloc {
+class wr3text_definition extends WikiRendererBloc {
 
    public $type='dfn';
-   protected $regexp="/^;(.*) : (.*)/i";
+   protected $regexp="/^\s*;(.*) : (.*)/i";
 
    public function getRenderedLine(){
       $dt=$this->_renderInlineTag($this->_detectMatch[1]);

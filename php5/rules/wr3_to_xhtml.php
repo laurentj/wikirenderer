@@ -3,7 +3,7 @@
  * wikirenderer3 (wr3) syntax to xhtml
  *
  * @package WikiRenderer
- * @subpackage wr3_to_xhtml
+ * @subpackage rules
  * @author Laurent Jouanneau <jouanneau@netcourrier.com>
  * @copyright 2003-2006 Laurent Jouanneau
  * @link http://wikirenderer.berlios.de

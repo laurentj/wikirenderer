@@ -3,7 +3,7 @@
  * classic wikirenderer syntax to Wikirenderer 3 syntax
  *
  * @package WikiRenderer
- * @subpackage classicwr_to_wr3
+ * @subpackage rules
  * @author Laurent Jouanneau <jouanneau@netcourrier.com>
  * @copyright 2003-2006 Laurent Jouanneau
  * @link http://wikirenderer.berlios.de

@@ -4,15 +4,17 @@ require('header.inc.php');
 
 <h2>Qu'est-ce WikiRenderer ?</h2>
 
-<p>WikiRenderer est une classe PHP permettant de transformer un texte wiki, en un texte formaté en XHTML.</p>
+<p>WikiRenderer est une classe PHP permettant de transformer un texte wiki,
+en un texte formaté en XHTML ou un autre format.</p>
 <p>Vous pouvez la tester <a href="demo.php">sur la page de démonstration</a></p>
-<p>WikiRenderer est distribué sous <a href="http://www.gnu.org/licenses/licenses.html#LGPL">licence LGPL</a>.</p>
+<p>WikiRenderer est distribué sous
+<a href="http://www.gnu.org/licenses/licenses.html#LGPL">licence LGPL</a>.</p>
 
 
 <h2>Dernière version</h2>
 <dl>
 <dt>En test</dt>
-<dd><strong>3.0beta</strong>, pour php4 et pour php5 (28/09/2006)</dd>
+<dd><strong>3.0RC1</strong>, pour php4 et pour php5 (10/10/2006)</dd>
 <dt>Stable</dt>
 <dd><strong>2.0.6</strong> pour php4, (26/09/2004).</dd>
 </dl>
@@ -21,10 +23,12 @@ require('header.inc.php');
 
 <h2 id="caracteristiques">Caractéristiques</h2>
 <h3>Caractéristiques</h3>
+
 <p> Contrairement à certains moteurs wiki, WikiRenderer génère du code xhtml valide
-en toute circonstance, et ceci, même si il y a des erreurs dans le balisage wiki. Par exemple, si on ecrit
-un "chevauchement" de balises wiki comme ceci, <code>ceci est __un exemple
+en toute circonstance, et ceci, même si il y a des erreurs dans le balisage wiki. Par exemple,
+si on ecrit un "chevauchement" de balises wiki comme ceci, <code>ceci est __un exemple
 de ''code wiki__ invalide''</code>, cela produira tout de même du code xhtml valide.</p>
+
 <p>Il est bien sûr possible, grâce à une propriété de la classe WikiRenderer,
  de savoir si il y a eu des erreurs, pour en informer l'utilisateur.</p>
 

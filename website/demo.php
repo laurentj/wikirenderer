@@ -1,7 +1,16 @@
 <?php
-require('../php4/WikiRenderer.lib.php');
-require('../php4/rules/classicwr_to_text.php');
-require('../php4/rules/classicwr_to_xhtml.php');
+
+if($_SERVER['SERVER_NAME'] == 'wikirenderer.berlios.de'){
+   require('wikirenderer/WikiRenderer.lib.php');
+   require('wikirenderer/rules/wr3_to_text.php');
+   require('wikirenderer/rules/wr3_to_xhtml.php');
+
+}else{
+   require('../php4/WikiRenderer.lib.php');
+   require('../php4/rules/wr3_to_text.php');
+   require('../php4/rules/wr3_to_xhtml.php');
+
+}
 
 $texte='';
 
@@ -21,13 +30,13 @@ require('header.inc.php');
 function exemple(){
    texte="!!! titre\n!! sous-titre\n! sous-sous-titre\n\nLorem __ipsum dolor__ sit amet, ''consectetuer adipiscing'' elit. Ut scelerisque. Ut iaculis ultrices nulla. Cras viverra diam nec justo.\n\n";
    texte=texte+"* Phasellus non eros sit amet sem tristique laoreet. \n*# Nam mi wisi, pellentesque dictum, \n*# tristique in, tristique quis, erat. \n*## In in erat ut urna vulputate vestibulum. Aenean justo. \n*## In quis nisl. \n* Morbi justo libero, pharetra a, \n* malesuada eget, lacinia in, ligula.\n\n";
-   texte=texte+"Mauris [sit amet massa|http://ljouanneau.com|fr|at neque] pretium dapibus.\n\n| Nulla metus felis | tristique non\n| 1 | 2\n| 5 | 7\n\ncursus et, @@vulputate in@@, eros. \n Phasellus ??placerat|semper neque??.\n";
-   texte=texte+" In hac habitasse platea dictumst. \n\nFusce sagittis, mi eu elementum lobortis, augue enim tristique ante, sed varius urna mauris sed erat.\n====\nPraesent pellentesque, ^^augue at| consectetuer imperdiet^^, mi metus {{dignissim arcu}}, sed sodales quam risus eu neque. \n\nPellentesque euismod. \n";
+   texte=texte+"Mauris [[sit amet massa|http://ljouanneau.com|fr|at neque]] pretium dapibus.\n\n| Nulla metus felis | tristique non\n| 1 | 2\n| 5 | 7\n\ncursus et, @@vulputate in@@, eros. \n<code>\n Phasellus ??placerat|semper neque??.\n";
+   texte=texte+" In hac habitasse platea dictumst. \n</code>\n\nFusce sagittis, mi eu elementum lobortis, augue enim tristique ante, sed varius urna mauris sed erat.\n====\nPraesent pellentesque, ^^augue at| consectetuer imperdiet^^, mi metus {{dignissim arcu}}, sed sodales quam risus eu neque. \n\nPellentesque euismod. \n";
    texte=texte+"> Curabitur mi. Aenean vitae lectus vel turpis feugiat egestas. \n> Quisque diam. Maecenas tincidunt tortor sed neque. \n\nMauris nibh. Vivamus tempus est in urna. \n\n"
    texte=texte+";Curabitur et arcu : non odio gravida varius. Vivamus fringilla, neque ac suscipit vehicula, libero metus laoreet libero, in gravida purus nunc quis orci. \n;Duis : non mi non lacus tincidunt iaculis. \n;Aliquam tempor : metus in cursus dapibus, purus ipsum consequat quam, et vehicula libero velit sit amet felis. Sed id leo. \n\n";
    texte=texte+"Vivamus orci leo, dictum et, <b>scelerisque sed</b>, <i>pretium et</i>, dolor. Aenean pharetra felis pellentesque dui. Donec neque. Duis tristique. Pellentesque at eros\n\n";
    texte=texte+"Lorem ipsum | dolor \\| sit\\\\ amet \n\n";
-   texte=texte+"Pater \\[noster qui|est|in] @@caelis@@... \n";
+   texte=texte+"Pater \\[[noster qui|est|in]] @@caelis@@... \n";
    document.test.texte.value=texte;
 }
 
@@ -44,7 +53,7 @@ pas à la transformation en XHTML.</p>
 <form action="demo.php#resultats" method="POST" id="test" name="test">
 <fieldset><legend>Saisissez un texte wiki</legend>
 <label>texte :
-<textarea style="border:1px solid;" name="texte" cols="50" rows="20"><?echo $texte?></textarea></label>
+<textarea style="border:1px solid;" name="texte" cols="50" rows="20"><?php echo $texte?></textarea></label>
 <br />Transformation en :
 <label for="transfohtml"><input type="radio" name="transfo" id="transfohtml" value="xhtml" checked="checked" />XHTML</label>
 <label for="transfotext"><input type="radio" name="transfo" id="transfotext" value="txt"  />Texte sans balise wiki</label>
@@ -65,7 +74,8 @@ pas à la transformation en XHTML.</p>
 <li>sous titre niveau 1 : <code>!!!</code>titre + saut de ligne</li>
 <li>sous titre niveau 2 : <code>!!</code>titre + saut de ligne</li>
 <li>sous titre niveau 3 : <code>!</code>titre + saut de ligne</li>
-<li>texte préformaté :  un espace + texte + saut de ligne</li>
+<li>texte préformaté :  texte dont la première ligne commence par un <code>&lt;code&gt;</code> et la dernière
+  ligne se termine par un <code>&lt;/code&gt;</code></li>
 <li>citation (blockquote) :  un ou plusieurs <code>&gt;</code> + texte + saut de ligne</li>
 <li>Définitions : <code>;</code>terme<code> : </code>définition + saut de ligne
 (le <code>:</code> doit être <strong>encadré par des espaces</strong>)</li>
@@ -76,13 +86,15 @@ pas à la transformation en XHTML.</p>
 <li>emphase forte (gras)   : <span><code>__</code>texte<code>__</code></span> (2 underscores)</li>
 <li>emphase simple (italique) : <span><code>''</code>texte<code>''</code></span> (deux apostrophes)</li>
 <li>Retour à la ligne forcée    : <code>%%%</code> </li>
-<li>Lien    : <span><code>[</code>nomdulien<code>|</code>lien<code>|</code>langue<code>|</code>déscription (title)<code>]</code></span> </li>
+<li>Lien    : <span><code>[[</code>nomdulien<code>|</code>lien<code>|</code>langue<code>|</code>déscription (title)<code>]]</code></span> </li>
 <li>images : <span><code>((</code>url image<code>|</code>texte alternatif<code>|</code>position<code>|</code>longue description<code>))</code></span>  position = G, D ( aligné à Gauche, Droite) ou rien (en ligne)</li>
 <li>code            : <span><code>@@</code>code<code>@@</code></span></li>
 <li>citation         : <span><code>^^</code>phrase<code>|</code>langue<code>|</code>lien source<code>^^</code></span></li>
 <li>reférence (cite)      : <span><code>{{</code>reference<code>}}</code></span></li>
 <li>acronym         : <span><code>??</code>acronyme<code>|</code>signification<code>??</code></span></li>
 <li>ancre : <span><code>~~</code>monancre</span><code>~~</code></li>
+<li>Note de bas de page : dans le texte, à l'endroit où vous voulez un renvoi vers le bas de page,
+ insérez <code>$$</code>phrase<code>$$</code></li>
 </ul>
 <h3>Autres</h3>
 <ul>
@@ -91,16 +103,16 @@ pas à la transformation en XHTML.</p>
 </ul>
 
 
-<?
+<?php
 if($texte!=''){
 
    if($_POST['transfo'] == 'txt'){
-      $config=new classicwr_to_text();
+      $ctr=new WikiRenderer('wr3_to_text');
    }else{
-      $config=new classicwr_to_xhtml();
+      $ctr=new WikiRenderer('wr3_to_xhtml');
    }
 
-   $ctr=new WikiRenderer($config);
+
    echo '<h2 id="resultats">Source du resultat:</h2>';
 
    $texte=$ctr->render($texte);
