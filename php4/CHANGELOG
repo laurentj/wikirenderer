@@ -1,5 +1,21 @@
 Changelog de WikiRenderer version 3.x
 
+Version 3.1 RC1
+
+- Ajout d'une classe de base pour la configuration
+- La classe de configuration peut rédéfinir des hooks : onStart, onParse. Cela
+  permet de modifier le texte en entrée, mais aussi le texte en sortie.
+- Ajout d'une propriété pointant vers la config, dans les objets dérivant de wikitag ou
+  de WikiRendererBloc
+- le constructeur accepte maintenant un nom de config. Les objets de config de rêgles
+  doivent avoir le même nom que le fichier de rêgle. renommage en conséquences des noms
+  des objets de config existants.
+- Nouvelle syntaxe WR3, similaire à classicwr, mais avec la prise en charge de notes
+  de bas de page, de blocs type pre entouré de &lt;code&gt; au lieu de chaque ligne
+  commençant par un éspace.
+- ajout des rêgles classicwr_to_wr3, pour convertir un texte classicwr en syntaxe wr3.
+- ajout des rêgles wr3_to_text
+
 Version 3.0beta
 
 Refonte complète du moteur pour résoudre certains problèmes :
