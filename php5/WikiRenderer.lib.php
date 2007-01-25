@@ -3,7 +3,7 @@
  * Wikirenderer is a wiki text parser. It can transform a wiki text into xhtml or other formats
  * @package WikiRenderer
  * @author Laurent Jouanneau <jouanneau@netcourrier.com>
- * @copyright 2003-2006 Laurent Jouanneau
+ * @copyright 2003-2007 Laurent Jouanneau
  * @link http://wikirenderer.berlios.de
  *
  * This library is free software; you can redistribute it and/or
@@ -535,7 +535,7 @@ class WikiRenderer {
          $this->config=$config;
       }else{
          require_once(WIKIRENDERER_PATH . 'rules/wr3_to_xhtml.php');
-         $this->config= new classicwr_to_xhtml();
+         $this->config= new wr3_to_xhtml();
       }
 
       $this->inlineParser = new WikiInlineParser($this->config);
