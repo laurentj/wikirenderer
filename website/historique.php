@@ -11,6 +11,7 @@ require('header.inc.php');
    <dd>
     <ul>
         <li>petit nettoyage de code</li>
+        <li>[FIX] bug : la fonction de callback pour les mots wiki n'était jamais appelée</li>
         <li>[FIX] bug : il y avait une erreur quand on utilisait la rule par défaut (nom de classe invalide)</li>
     </ul>
    </dd>
