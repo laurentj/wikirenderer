@@ -142,7 +142,7 @@ class wr3text_footnote extends WikiTag {
     var $beginTag='$$';
     var $endTag='$$';
 
-    public function getContent(){
+    function getContent(){
        return ' ('.$this->contents[0].')';
    }
 }
