@@ -53,7 +53,7 @@ abstract class WikiTag {
     function __construct($config){
         $this->config = $config;
         $this->checkWikiWordFunction=$config->checkWikiWordFunction;
-        if($config->checkWikiWordFunction === null) $checkWikiWordIn=array();
+        if($config->checkWikiWordFunction === null) $this->checkWikiWordIn=array();
         if(count($this->separators)) $this->separator= $this->separators[0];
     }
 
@@ -67,8 +67,9 @@ abstract class WikiTag {
             $parsedContent =$this->_doEscape($wikiContent);
             if(count( $this->checkWikiWordIn)
                 && isset($this->attribute[$this->separatorCount])
-                && in_array($this->attribute[$this->separatorCount], $this->checkWikiWordIn))
+                && in_array($this->attribute[$this->separatorCount], $this->checkWikiWordIn)){
                 $parsedContent=$this->_findWikiWord($parsedContent);
+            }
         }
         $this->contents[$this->separatorCount] .= $parsedContent;
         $this->wikiContentArr[$this->separatorCount] .= $wikiContent;
@@ -165,6 +166,8 @@ class WikiTextLine extends WikiTag {
  */
 class WikiHtmlTextLine extends WikiTag {
     public $isTextLineTag=true;
+    protected $attribute=array('$$');
+    protected $checkWikiWordIn=array('$$');
 
     protected function _doEscape($string){
         return htmlspecialchars($string);
@@ -179,6 +182,7 @@ class WikiHtmlTextLine extends WikiTag {
 abstract class WikiTagXhtml extends WikiTag {
    protected $name;
    protected $attribute=array('$$');
+   protected $checkWikiWordIn=array('$$');
 
    public function getContent(){
         $attr='';

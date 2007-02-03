@@ -4,6 +4,7 @@ Version 3.0
 
 - fix php5 syntax and deprecated properties
 - fix bug : error when default rule is used (wrong class name)
+- fix bug : callback function for CamelCase word was never called
 
 Version 3.0 RC1
 

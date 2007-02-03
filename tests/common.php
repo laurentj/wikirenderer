@@ -56,6 +56,7 @@ Tests unitaires sur WikiRenderer <?php echo WIKIRENDERER_VERSION;?>
  <li>classicwr : <a href="index.php">Tests internes</a> |
     <a href="testsInlineParser.php">Tests parser inline</a> |
     <a href="testsInlines.php">Tests inlines</a> |
+    <a href="testsInlinesCamelCase.php">Tests inlines wikiword</a> |
     <a href="testsBlocks.php">Tests blocks</a> |
     <a href="testsSerie.php">Grande serie</a></li>
  <li>wr3 : <a href="wr3_primaires.php">Tests tags</a> |
