@@ -21,7 +21,7 @@
  *
  */
 define('WIKIRENDERER_PATH', dirname(__FILE__).'/');
-define('WIKIRENDERER_VERSION', '3.0RC1-php4');
+define('WIKIRENDERER_VERSION', '3.x-php4');
 
 /**
  * base class to generate output from inline wiki tag
