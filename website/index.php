@@ -87,6 +87,7 @@ de ''code wiki__ invalide''</code>, cela produira tout de même du code xhtml val
    <a href="http://www.salonhumanitaire.org"> www.salonhumanitaire.org</a>,
    <a href="http://www.createliers.com">www.createliers.com</a>,
    <a href="http://www.collectif-asah.org">www.collectif-asah.org</a>.</li>
+   <li>Sur le site <a href="http://www.unesco.org/culture/ich/">www.unesco.org/culture/ich/</a></li>
 </ul>
 
 <h2 id="contact">Contact</h2>
