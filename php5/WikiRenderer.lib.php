@@ -62,6 +62,12 @@ abstract class WikiTagXhtml extends WikiTag {
 
    protected $additionnalAttributes=array();
 
+   /**
+    * sometimes, an attribute could not correspond to something in the target format
+    * so we could indicate it.
+    */
+   protected $ignoreAttribute = array();
+
    public function getContent(){
         $attr='';
         $cntattr=count($this->attribute);
@@ -69,6 +75,8 @@ abstract class WikiTagXhtml extends WikiTag {
         $content='';
 
         for($i=0;$i<=$count;$i++){
+            if(in_array($this->attribute[$i] , $this->ignoreAttribute))
+                continue;
             if($this->attribute[$i] != '$$')
                 $attr.=' '.$this->attribute[$i].'="'.htmlspecialchars($this->wikiContentArr[$i]).'"';
             else

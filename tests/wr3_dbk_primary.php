@@ -42,15 +42,15 @@ class WikiRendererTestsWr3Docbook extends WikiRendererUnitTestCase {
         array(
             array('foo'),
             '__foo__',
-            '<emphasis Role="strong">foo</emphasis>'),
+            '<emphasis role="strong">foo</emphasis>'),
         array(
             array('foo', 'bar'),
             '__foobar__',
-            '<emphasis Role="strong">foobar</emphasis>'),
+            '<emphasis role="strong">foobar</emphasis>'),
         array(
             array('foo', false, 'bar'),
             '__foobar__',
-            '<emphasis Role="strong">foo</emphasis>'),
+            '<emphasis role="strong">foo</emphasis>'),
     );
 
     function testTagStrong() {
@@ -61,23 +61,23 @@ class WikiRendererTestsWr3Docbook extends WikiRendererUnitTestCase {
         array(
             array('foo'),
             '^^foo^^',
-            '<q>foo</q>'),
+            '<quote>foo</quote>'),
         array(
             array('foo',false, 'bar'),
             '^^foo|bar^^',
-            '<q lang="bar">foo</q>'),
+            '<quote lang="bar">foo</quote>'),
         array(
             array('foo', false, 'bar', false,'baz','truc'),
             '^^foo|bar|baztruc^^',
-            '<q lang="bar" cite="baztruc">foo</q>'),
+            '<quote lang="bar">foo</quote>'),
         array(
             array('foo',array('__hello__','<strong>hello</strong>'), false, 'bar', false,'baz','truc'),
             '^^foo__hello__|bar|baztruc^^',
-            '<q lang="bar" cite="baztruc">foo<strong>hello</strong></q>'),
+            '<quote lang="bar">foo<strong>hello</strong></quote>'),
         array(
             array('foo', false, array('__bar__','<strong>bar</strong>'), 'fleur', false,'baz','truc'),
             '^^foo|__bar__fleur|baztruc^^',
-            '<q lang="__bar__fleur" cite="baztruc">foo</q>'),
+            '<quote lang="__bar__fleur">foo</quote>'),
     );
 
     function testTagq() {
@@ -88,7 +88,7 @@ class WikiRendererTestsWr3Docbook extends WikiRendererUnitTestCase {
         array(
             array(array('__bar__','<strong>bar</strong>'), 'fleur', false,'fooo', false, 'baz','truc'),
             '[[__bar__fleur|fooo|baztruc]]',
-            '<a href="fooo" hreflang="baztruc"><strong>bar</strong>fleur</a>'),
+            '<ulink url="fooo"><strong>bar</strong>fleur</ulink>'),
     );
 
     function testTaga() {

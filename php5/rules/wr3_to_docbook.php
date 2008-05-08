@@ -76,7 +76,7 @@ class wr3dbk_strong extends WikiTagXhtml {
     protected $name='emphasis';
     public $beginTag='__';
     public $endTag='__';
-    protected $additionnalAttributes=array('Role'=>'strong');
+    protected $additionnalAttributes=array('role'=>'strong');
 }
 
 class wr3dbk_emphasis extends WikiTagXhtml {
@@ -96,6 +96,7 @@ class wr3dbk_q extends WikiTagXhtml {
     public $beginTag='^^';
     public $endTag='^^';
     protected $attribute=array('$$','lang','cite');
+    protected $ignoreAttribute = array('cite');
     public $separators=array('|');
 }
 
@@ -105,6 +106,9 @@ class wr3dbk_cite extends WikiTagXhtml {
     public $endTag='}}';
     protected $attribute=array('$$','title');
     public $separators=array('|');
+
+    public function getContent(){ return $this->contents[0];}
+
 }
 
 class wr3dbk_acronym extends WikiTagXhtml {
@@ -113,41 +117,44 @@ class wr3dbk_acronym extends WikiTagXhtml {
     public $endTag='??';
     protected $attribute=array('$$','title');
     public $separators=array('|');
+    protected $ignoreAttribute = array('title');
 }
 
 class wr3dbk_anchor extends WikiTagXhtml {
     protected $name='anchor';
     public $beginTag='~~';
     public $endTag='~~';
-    protected $attribute=array('name');
+    protected $attribute=array('id');
     public $separators=array('|');
     public function getContent(){
-        return '<a name="'.htmlspecialchars($this->wikiContentArr[0]).'"></a>';
+        return '<anchor id="'.htmlspecialchars($this->wikiContentArr[0]).'"/>';
     }
 }
 
 
 class wr3dbk_link extends WikiTagXhtml {
-    protected $name='a';
+    protected $name='ulink';
     public $beginTag='[[';
     public $endTag=']]';
     protected $attribute=array('$$','href','hreflang','title');
     public $separators=array('|');
+    protected $ignoreAttribute = array('hreflang','title');
     public function getContent(){
         $cntattr=count($this->attribute);
         $cnt=($this->separatorCount + 1 > $cntattr?$cntattr:$this->separatorCount+1);
         if($cnt == 1 ){
             $contents = $this->wikiContentArr[0];
-            $href=$contents;
-            if(strpos($href,'javascript:')!==false) // for security reason
-                $href='#';
-            if(strlen($contents) > 40)
-                $contents=substr($contents,0,40).'(..)';
-            return '<a href="'.htmlspecialchars($href).'">'.htmlspecialchars($contents).'</a>';
+
+            if(preg_match("/^\#(.+)$/", $contents, $m))
+                return '<link linkterm="'.htmlspecialchars($m[1]).'">'.htmlspecialchars($contents).'</link>';
+            else
+                return '<ulink url="'.htmlspecialchars($contents).'">'.htmlspecialchars($contents).'</ulink>';
+
         }else{
-            if(strpos($this->wikiContentArr[1],'javascript:')!==false) // for security reason
-                $this->wikiContentArr[1]='#';
-            return parent::getContent();
+            if(preg_match("/^\#(.+)$/", $this->wikiContentArr[1], $m))
+                return '<link linkterm="'.htmlspecialchars($m[1]).'">'.$this->contents[0].'</link>';
+            else
+                return '<ulink url="'.htmlspecialchars($this->wikiContentArr[1]).'">'.$this->contents[0].'</ulink>';
         }
     }
 }
@@ -158,7 +165,7 @@ class wr3dbk_image extends WikiTagXhtml {
     protected $name='image';
     public $beginTag='((';
     public $endTag='))';
-    protected $attribute=array('src','alt','align','longdesc');
+    protected $attribute=array('fileref','alt','align','longdesc');
     public $separators=array('|');
 
     public function getContent(){
@@ -166,22 +173,22 @@ class wr3dbk_image extends WikiTagXhtml {
         $cnt=count($contents);
         $attribut='';
         if($cnt > 4) $cnt=4;
+        $alt='';
         switch($cnt){
             case 4:
-                $attribut.=' longdesc="'.$contents[3].'"';
             case 3:
                 if($contents[2]=='l' ||$contents[2]=='L' || $contents[2]=='g' || $contents[2]=='G')
-                    $attribut.=' style="float:left;"';
+                    $attribut.=' align="left"';
                 elseif($contents[2]=='r' ||$contents[2]=='R' || $contents[2]=='d' ||$contents[2]=='D')
-                    $attribut.=' style="float:right;"';
+                    $attribut.=' align="right"';
             case 2:
-                $attribut.=' alt="'.$contents[1].'"';
+                $alt='<textobject><phrase>'.$contents[1].'</phrase></textobject>';
             case 1:
             default:
-                $attribut.=' src="'.$contents[0].'"';
-                if($cnt == 1) $attribut.=' alt=""';
+                $attribut.=' fileref="'.$contents[0].'"';
         }
-        return '<img'.$attribut.'/>';
+
+        return '<inlinemediaobject><imageobject><imagedata'.$attribut.'/></imageobject>'.$alt.'</inlinemediaobject>';
     }
 }
 
@@ -190,17 +197,10 @@ class wr3dbk_footnote extends WikiTagXhtml {
     protected $name='footnote';
     public $beginTag='$$';
     public $endTag='$$';
-
-    public function getContent(){
-        $number = count($this->config->footnotes) + 1;
-        $id = 'footnote-'.$this->config->footnotesId.'-'.$number;
-        $this->config->footnotes[] = "<p>[<a href=\"#rev-$id\" name=\"$id\" id=\"$id\">$number</a>] ".$this->contents[0].'</p>';
-
-        return "[<a href=\"#$id\" name=\"rev-$id\" id=\"rev-$id\">$number</a>]";
-   }
+    public function getContent(){ return '<footnote><para>'.$this->contents[0].'</para></footnote>';}
 }
 
-// ===================================== d�claration des diff�rents bloc wiki
+// ===================================== blocs
 
 /**
  * traite les signes de types liste
@@ -219,16 +219,16 @@ class wr3dbk_list extends WikiRendererBloc {
       $this->_firstItem=true;
 
       if(substr($this->_previousTag,-1,1) == '#')
-         return "<ol>\n";
+         return "<orderedlist>\n";
       else
-         return "<ul>\n";
+         return "<itemizedlist>\n";
    }
    public function close(){
       $t=$this->_previousTag;
       $str='';
 
       for($i=strlen($t); $i >= $this->_firstTagLen; $i--){
-          $str.=($t{$i-1}== '#'?"</li></ol>\n":"</li></ul>\n");
+          $str.=($t{$i-1}== '#'?"</listitem></orderedlist>\n":"</listitem></itemizedlist>\n");
       }
       return $str;
    }
@@ -241,18 +241,18 @@ class wr3dbk_list extends WikiRendererBloc {
       if( $d > 0 ){ // on remonte d'un ou plusieurs cran dans la hierarchie...
          $l=strlen($this->_detectMatch[1]);
          for($i=strlen($t); $i>$l; $i--){
-            $str.=($t{$i-1}== '#'?"</li></ol>\n":"</li></ul>\n");
+            $str.=($t{$i-1}== '#'?"</listitem></orderedlist>\n":"</listitem></itemizedlist>\n");
          }
-         $str.="</li>\n<li>";
+         $str.="</listitem>\n<listitem>";
          $this->_previousTag=substr($this->_previousTag,0,-$d); // pour �tre sur...
 
       }elseif( $d < 0 ){ // un niveau de plus
          $c=substr($this->_detectMatch[1],-1,1);
          $this->_previousTag.=$c;
-         $str=($c == '#'?"<ol><li>":"<ul><li>");
+         $str=($c == '#'?"<orderedlist><listitem>":"<itemizedlist><listitem>");
 
       }else{
-         $str=($this->_firstItem ? '<li>':"</li>\n<li>");
+         $str=($this->_firstItem ? '<listitem>':"</listitem>\n<listitem>");
       }
       $this->_firstItem=false;
       return $str.$this->_renderInlineTag($this->_detectMatch[2]);
@@ -344,9 +344,9 @@ class wr3dbk_title extends WikiRendererBloc {
  * traite les signes de type paragraphe
  */
 class wr3dbk_p extends WikiRendererBloc {
-   public $type='p';
-   protected $_openTag='<p>';
-   protected $_closeTag='</p>';
+   public $type='para';
+   protected $_openTag='<para>';
+   protected $_closeTag='</para>';
 
    public function detect($string){
       if($string=='') return false;
@@ -362,8 +362,8 @@ class wr3dbk_p extends WikiRendererBloc {
 class wr3dbk_pre extends WikiRendererBloc {
 
     public $type='pre';
-    protected $_openTag='<pre>';
-    protected $_closeTag='</pre>';
+    protected $_openTag='<literallayout>';
+    protected $_closeTag='</literallayout>';
     protected $isOpen = false;
 
 

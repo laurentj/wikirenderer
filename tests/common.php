@@ -63,8 +63,10 @@ Unit tests on WikiRenderer <?php echo WIKIRENDERER_VERSION;?>
     <a href="wr3_testsInlineParser.php">parser inline</a> |
     <a href="wr3_testsInlines.php">inlines</a> |
     <a href="wr3_testsBlocks.php">blocks</a> </li>
- <li>wr3 to docbook : <a href="wr3_testdbk.php">tags</a></li>
-
+ <li>wr3 to docbook : <a href="wr3_dbk_primary.php">tags</a> |
+    <a href="wr3_dbk_testsInlines.php">inlines</a> |
+    <a href="wr3_dbk_testsBlocks.php">blocks</a>
+ </li>
 </ul>
 </div>
 <h1><?php echo $test_name?></h1>
