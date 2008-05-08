@@ -5,7 +5,7 @@
  * @package wikirenderer
  * @subpackage tests
  * @author Laurent Jouanneau <jouanneau@netcourrier.com>
- * @copyright 2003-2006 Laurent Jouanneau
+ * @copyright 2003-2008 Laurent Jouanneau
  */
 error_reporting(E_ALL);
 require_once('simpletest/unit_tester.php');
@@ -30,7 +30,7 @@ class WikiRendererUnitTestCase extends UnitTestCase {
         $diff = new Diff(explode("\n",$attendu),explode("\n",$result));
 
         if($diff->isEmpty()) {
-            $this->sendMessage("bizarre, aucune différence d'aprés la difflib...");
+            $this->sendMessage("Well, diff lib says there are no difference...");
         }else{
             $fmt = new HtmlUnifiedDiffFormatter();
             $this->sendMessage($fmt->format($diff));
@@ -51,18 +51,19 @@ class HtmlReporter2 extends HtmlReporter{
 </head>
 <body>
 <div class="header">
-Tests unitaires sur WikiRenderer <?php echo WIKIRENDERER_VERSION;?>
+Unit tests on WikiRenderer <?php echo WIKIRENDERER_VERSION;?>
 <ul>
- <li>classicwr : <a href="index.php">Tests internes</a> |
-    <a href="testsInlineParser.php">Tests parser inline</a> |
-    <a href="testsInlines.php">Tests inlines</a> |
-    <a href="testsInlinesCamelCase.php">Tests inlines wikiword</a> |
-    <a href="testsBlocks.php">Tests blocks</a> |
-    <a href="testsSerie.php">Grande serie</a></li>
- <li>wr3 : <a href="wr3_primaires.php">Tests tags</a> |
-    <a href="wr3_testsInlineParser.php">Tests parser inline</a> |
-    <a href="wr3_testsInlines.php">Tests inlines</a> |
-    <a href="wr3_testsBlocks.php">Tests blocks</a> </li>
+ <li>classicwr : <a href="index.php">internal tests</a> |
+    <a href="testsInlineParser.php">inline parser</a> |
+    <a href="testsInlines.php">inlines</a> |
+    <a href="testsInlinesCamelCase.php">inlines wikiword</a> |
+    <a href="testsBlocks.php">blocks</a> |
+    <a href="testsSerie.php">Big tests</a></li>
+ <li>wr3 : <a href="wr3_primaires.php">tags</a> |
+    <a href="wr3_testsInlineParser.php">parser inline</a> |
+    <a href="wr3_testsInlines.php">inlines</a> |
+    <a href="wr3_testsBlocks.php">blocks</a> </li>
+ <li>wr3 to docbook : <a href="wr3_testdbk.php">tags</a></li>
 
 </ul>
 </div>
