@@ -60,6 +60,8 @@ abstract class WikiTagXhtml extends WikiTag {
    protected $attribute=array('$$');
    protected $checkWikiWordIn=array('$$');
 
+   protected $additionnalAttributes=array();
+
    public function getContent(){
         $attr='';
         $cntattr=count($this->attribute);
@@ -72,6 +74,11 @@ abstract class WikiTagXhtml extends WikiTag {
             else
                 $content = $this->contents[$i];
         }
+
+        foreach($this->additionnalAttributes as $name=>$value) {
+            $attr.=' '.$name.'="'.htmlspecialchars($value).'"';
+        }
+
         return '<'.$this->name.$attr.'>'.$content.'</'.$this->name.'>';
    }
 

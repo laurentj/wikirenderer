@@ -27,7 +27,7 @@ class wr3_to_docbook  extends WikiRendererConfig  {
   /**
     * @var array   liste des tags inline
    */
-   public $inlinetags= array( 'wr3dbk_strong','wr3dbk_em','wr3dbk_code','wr3dbk_q',
+   public $inlinetags= array( 'wr3dbk_strong','wr3dbk_emphasis','wr3dbk_code','wr3dbk_q',
     'wr3dbk_cite','wr3dbk_acronym','wr3dbk_link', 'wr3dbk_image',
     'wr3dbk_anchor', 'wr3dbk_footnote');
 
@@ -73,12 +73,13 @@ class wr3_to_docbook  extends WikiRendererConfig  {
 // ===================================== inline tags
 
 class wr3dbk_strong extends WikiTagXhtml {
-    protected $name='strong';
+    protected $name='emphasis';
     public $beginTag='__';
     public $endTag='__';
+    protected $additionnalAttributes=array('Role'=>'strong');
 }
 
-class wr3dbk_em extends WikiTagXhtml {
+class wr3dbk_emphasis extends WikiTagXhtml {
     protected $name='emphasis';
     public $beginTag='\'\'';
     public $endTag='\'\'';
@@ -91,7 +92,7 @@ class wr3dbk_code extends WikiTagXhtml {
 }
 
 class wr3dbk_q extends WikiTagXhtml {
-    protected $name='q';
+    protected $name='quote';
     public $beginTag='^^';
     public $endTag='^^';
     protected $attribute=array('$$','lang','cite');

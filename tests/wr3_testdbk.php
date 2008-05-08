@@ -42,15 +42,15 @@ class WikiRendererTestsWr3Docbook extends WikiRendererUnitTestCase {
         array(
             array('foo'),
             '__foo__',
-            '<emphasis role="strong">foo</emphasis>'),
+            '<emphasis Role="strong">foo</emphasis>'),
         array(
             array('foo', 'bar'),
             '__foobar__',
-            '<emphasis role="strong">foobar</emphasis>'),
+            '<emphasis Role="strong">foobar</emphasis>'),
         array(
             array('foo', false, 'bar'),
             '__foobar__',
-            '<emphasis role="strong">foo</emphasis>'),
+            '<emphasis Role="strong">foo</emphasis>'),
     );
 
     function testTagStrong() {
