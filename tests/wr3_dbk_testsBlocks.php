@@ -38,10 +38,6 @@ class WR3DBKTestsBlocks extends WikiRendererUnitTestCase {
 
             $res = $wr->render($source);
 
-            if($file=='wr3_footnote'){
-                $conf = & $wr->getConfig();
-                $res=str_replace('-'.$conf->footnotesId.'-', '-XXX-',$res);
-            }
             if(!$this->assertEqual($res,$result, "error on $file")){
                 $this->_showDiff($result,$res);
             }
@@ -51,6 +47,37 @@ class WR3DBKTestsBlocks extends WikiRendererUnitTestCase {
         }
     }
 
+    var $listblocks2 = array(
+        'dbk_wr3_section'=>0,
+        'dbk_wr3_section2'=>0,
+        'dbk_wr3_section3'=>0,
+    );
+
+    function testBlock2() {
+
+        $wr = new WikiRenderer(new wr3_to_docbook());
+        foreach($this->listblocks2 as $file=>$nberror){
+            $sourceFile = 'datasblocks/'.$file.'.src';
+            $resultFile = 'datasblocks/'.$file.'.res';
+
+            $handle = fopen($sourceFile, "r");
+            $source = fread($handle, filesize($sourceFile));
+            fclose($handle);
+
+            $handle = fopen($resultFile, "r");
+            $result = fread($handle, filesize($resultFile));
+            fclose($handle);
+
+            $res = $wr->render($source);
+
+            if(!$this->assertEqual($res,$result, "error on $file")){
+                $this->_showDiff($result,$res);
+            }
+            if(!$this->assertEqual(count($wr->errors),$nberror, "Errors detected by wr ! (%s)")){
+                $this->dump($wr->errors);
+            }
+        }
+    }
 
 
 }

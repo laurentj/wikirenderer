@@ -42,18 +42,13 @@ class wr3_to_docbook  extends WikiRendererConfig  {
 
    public $simpletags = array('%%%'=>'<br />');
 
-
-   // this variables are for foot notes.
-   public $footnotes = array();
-   public $footnotesId='';
-   public $footnotesTemplate = '<div class="footnotes"><h4>Notes</h4>%s</div>';
+   public $sectionLevel= array();
 
     /**
     * called before the parsing
     */
    public function onStart($texte){
-        $this->footnotesId = rand(0,30000);
-        $this->footnotes = array();
+        $this->sectionLevel = array();
         return $texte;
     }
 
@@ -61,11 +56,9 @@ class wr3_to_docbook  extends WikiRendererConfig  {
     * called after the parsing
     */
     public function onParse($finalTexte){
-        // we add footnotes
-        if(count($this->footnotes)){
-            $footnotes = implode("\n",$this->footnotes);
-            $finalTexte .= str_replace('%s', $footnotes, $this->footnotesTemplate);
-        }
+        $finalTexte.= str_repeat('</section>', count($this->sectionLevel));
+
+
         return $finalTexte;
     }
 }
@@ -310,7 +303,7 @@ class wr3dbk_hr extends WikiRendererBloc {
    protected $_closeNow=true;
 
    public function getRenderedLine(){
-      return '<hr />';
+      return '';
    }
 
 }
@@ -319,25 +312,43 @@ class wr3dbk_hr extends WikiRendererBloc {
  * traite les signes de types titre
  */
 class wr3dbk_title extends WikiRendererBloc {
-   public $type='title';
-   protected $regexp="/^\s*(\!{1,3})(.*)/";
-   protected $_closeNow=true;
+    public $type='title';
+    protected $regexp="/^\s*(\!{1,3})(.*)/";
+    protected $_closeNow=true;
 
-   protected $_minlevel=3;
-   /**
-    * indique le sens dans lequel il faut interpreter le nombre de signe de titre
-    * true -> ! = titre , !! = sous titre, !!! = sous-sous-titre
-    * false-> !!! = titre , !! = sous titre, ! = sous-sous-titre
-    */
-   protected $_order=false;
+    /**
+        * indique le sens dans lequel il faut interpreter le nombre de signe de titre
+        * true -> ! = titre , !! = sous titre, !!! = sous-sous-titre
+        * false-> !!! = titre , !! = sous titre, ! = sous-sous-titre
+        */
+    protected $_order=false;
 
-   public function getRenderedLine(){
-      if($this->_order)
-         $hx= $this->_minlevel + strlen($this->_detectMatch[1])-1;
-      else
-         $hx= $this->_minlevel + 3-strlen($this->_detectMatch[1]);
-      return '<h'.$hx.'>'.$this->_renderInlineTag($this->_detectMatch[2]).'</h'.$hx.'>';
-   }
+    public function getRenderedLine(){
+        $level = strlen($this->_detectMatch[1]);
+        if(!$this->_order)
+            $level = 4-$level;
+
+        $conf = $this->engine->getConfig();
+
+        $output='';
+        if(count($conf->sectionLevel)) {
+            $last = end($conf->sectionLevel);
+            if($last > $level) {
+                while($last = end($conf->sectionLevel) && $last >= $level) {
+                    $output.= '</section>';
+                    array_pop($conf->sectionLevel);
+                }
+            }else if($last < $level) {
+
+            }else{
+                array_pop($conf->sectionLevel);
+                $output.= '</section>';
+            }
+        }
+
+        $conf->sectionLevel[] = $level;
+        return $output.'<section><title>'.$this->_renderInlineTag($this->_detectMatch[2]).'</title>';
+    }
 }
 
 /**
@@ -414,11 +425,11 @@ class wr3dbk_blockquote extends WikiRendererBloc {
       $this->_previousTag = $this->_detectMatch[1];
       $this->_firstTagLen = strlen($this->_previousTag);
       $this->_firstLine = true;
-      return str_repeat('<blockquote>',$this->_firstTagLen).'<p>';
+      return str_repeat('<blockquote>',$this->_firstTagLen).'<para>';
    }
 
    public function close(){
-      return '</p>'.str_repeat('</blockquote>',strlen($this->_previousTag));
+      return '</para>'.str_repeat('</blockquote>',strlen($this->_previousTag));
    }
 
 
@@ -428,35 +439,33 @@ class wr3dbk_blockquote extends WikiRendererBloc {
       $str='';
 
       if( $d > 0 ){ // on remonte d'un cran dans la hierarchie...
-         $str='</p>'.str_repeat('</blockquote>',$d).'<p>';
+         $str='</para>'.str_repeat('</blockquote>',$d).'<para>';
          $this->_previousTag=$this->_detectMatch[1];
       }elseif( $d < 0 ){ // un niveau de plus
          $this->_previousTag=$this->_detectMatch[1];
-         $str='</p>'.str_repeat('<blockquote>',-$d).'<p>';
+         $str='</para>'.str_repeat('<blockquote>',-$d).'<para>';
       }else{
          if($this->_firstLine)
             $this->_firstLine=false;
-         else
-            $str='<br />';
       }
       return $str.$this->_renderInlineTag($this->_detectMatch[2]);
    }
 }
 
 /**
- * traite les signes de type d�finitions
+ * definition list
  */
 class wr3dbk_definition extends WikiRendererBloc {
 
    public $type='dfn';
    protected $regexp="/^\s*;(.*) : (.*)/i";
-   protected $_openTag='<dl>';
-   protected $_closeTag='</dl>';
+   protected $_openTag='<variablelist>';
+   protected $_closeTag='</variablelist>';
 
    public function getRenderedLine(){
       $dt=$this->_renderInlineTag($this->_detectMatch[1]);
       $dd=$this->_renderInlineTag($this->_detectMatch[2]);
-      return "<dt>$dt</dt>\n<dd>$dd</dd>\n";
+      return "<varlistentry><term>$dt</term>\n<listitem>$dd</listitem></varlistentry>\n";
    }
 }
 

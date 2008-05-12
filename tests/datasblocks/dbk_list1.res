@@ -1,7 +1,7 @@
-<para>Lorem <emphasis role="strong">ipsum dolor</emphasis> sit amet, <emphasis>consectetuer adipiscing</emphasis> elit. <footnote><para>Ut scelerisque</para></footnote>. Ut iaculis ultrices nulla. Cras viverra diam nec justo.</para>
+<para>Lorem <emphasis role="strong">ipsum dolor</emphasis> sit amet, <emphasis>consectetuer adipiscing</emphasis> elit. Ut scelerisque. Ut iaculis ultrices nulla. Cras viverra diam nec justo.</para>
 
 <itemizedlist>
-<listitem> Phasellus non eros sit amet <footnote><para>sem tristique</para></footnote> laoreet.
+<listitem> Phasellus non eros sit amet sem tristique laoreet.
 <orderedlist><listitem> Nam mi wisi, pellentesque dictum,
 </listitem>
 <listitem> tristique in, tristique quis, erat.
