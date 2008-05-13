@@ -21,13 +21,21 @@
  *
  */
 define('WIKIRENDERER_PATH', dirname(__FILE__).'/');
-define('WIKIRENDERER_VERSION', '3.x-php5');
+#expand define('WIKIRENDERER_VERSION', '__VERSION__');
 
+#includephp WikiTag.class.php
+#includephp WikiInlineParser.class.php
+#includephp WikiRendererBloc.class.php
+#includephp WikiRendererConfig.class.php
+#includephp WikiRenderer.class.php
+
+#if false
 require('WikiTag.class.php');
 require('WikiInlineParser.class.php');
 require('WikiRendererBloc.class.php');
 require('WikiRendererConfig.class.php');
 require('WikiRenderer.class.php');
+#endif
 
 /**
  *

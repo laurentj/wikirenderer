@@ -1,0 +1,13 @@
+cd .
+  CHANGELOG
+  CREDITS
+  LICENCE
+  DOCUMENTATION
+*  WikiRenderer.lib.php
+cd ./rules
+  classicwr_to_text.php
+  classicwr_to_wr3.php
+  classicwr_to_xhtml.php
+  wr3_to_text.php
+  wr3_to_xhtml.php
+  wr3_to_docbook.php
