@@ -44,27 +44,29 @@ class WikiInlineParser {
     */
     function __construct($config ){
         $separators = array();
-        $this->escapeChar = '\\';
+        $this->escapeChar = $config->escapeChar;
         $this->config = $config;
 
         foreach($config->inlinetags as $class){
             $t = new $class($config);
             $this->listTag[$t->beginTag]=$t;
 
-            $this->splitPattern.=preg_quote($t->beginTag).')|(';
+            $this->splitPattern .= '|('.preg_quote($t->beginTag, '/').')';
             if($t->beginTag!= $t->endTag)
-                $this->splitPattern.=preg_quote($t->endTag).')|(';
+                $this->splitPattern .= '|('.preg_quote($t->endTag, '/').')';
             $separators = array_merge($separators, $t->separators);
         }
         foreach($config->simpletags as $tag=>$html){
-            $this->splitPattern.=preg_quote($tag).')|(';
+            $this->splitPattern.='|('.preg_quote($tag, '/').')';
         }
         $separators= array_unique($separators);
         foreach($separators as $sep){
-            $this->splitPattern.=preg_quote($sep).')|(';
+            $this->splitPattern.='|('.preg_quote($sep, '/').')';
         }
+        if($this->escapeChar != '')
+            $this->splitPattern .='|('.preg_quote($this->escapeChar, '/').')';
+        $this->splitPattern = '/'.substr($this->splitPattern,1).'/';
 
-        $this->splitPattern = '/('.$this->splitPattern.preg_quote($this->escapeChar ).')/';
         $this->simpletags= $config->simpletags;
     }
 
@@ -104,13 +106,13 @@ class WikiInlineParser {
       for($i=$posstart+1; $i < $this->end; $i++){
             $t=&$this->str[$i];
             $brutContent.=$t;
-            // a t-on un antislash ?
-            if($t === $this->escapeChar){
+            // is it the escape char ?
+            if($this->escapeChar !='' && $t === $this->escapeChar){
                if($checkNextTag){
                   $t=''; // yes -> let's ignore the tag
                   $checkNextTag=false;
                }else{
-                  // if we are here, this is because the previous part was an backslash
+                  // if we are here, this is because the previous part was the escape char
                   $tag->addContent($this->escapeChar);
                   $checkNextTag=true;
                }
@@ -123,6 +125,10 @@ class WikiInlineParser {
                 // is there a ended tag
                 if($tag->endTag == $t && !$tag->isTextLineTag){
                     return $i;
+
+                }elseif(!$tag->isOtherTagAllowed()) {
+                    $tag->addContent($t);
+
                 // is there a tag which begin something ?
                 }elseif( isset($this->listTag[$t]) ){
                     $newtag = clone $this->listTag[$t];

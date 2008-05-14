@@ -112,6 +112,10 @@ abstract class WikiTag {
     */
     public function getContent(){ return $this->contents[0];}
 
+    public function isOtherTagAllowed() {
+        return ($this->attribute[$this->separatorCount] == '$$');
+    }
+
     /**
     * return the generated content of the tag
     * @return string the content

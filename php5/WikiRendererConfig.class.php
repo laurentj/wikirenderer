@@ -43,6 +43,8 @@ abstract class WikiRendererConfig {
 
    public $checkWikiWordFunction = null;
 
+   public $escapeChar = '\\';
+
    /**
     * Called before the wiki text parsing
     * @param string $text  the wiki text
