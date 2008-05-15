@@ -62,7 +62,8 @@ consectetuer adipiscing elit.</para>',
             =>'<para>Lorem <inlinemediaobject><imageobject><imagedata fileref="ipsumdolorsit.png" contentwidth="200px" contentdepth="50px" align="left"/></imageobject></inlinemediaobject> amet, consectetuer adipiscing elit.</para>',
         'Lorem {{ ipsumdolorsit.png?200x50 |alternative text}} amet, consectetuer adipiscing elit.'
             =>'<para>Lorem <inlinemediaobject><imageobject><imagedata fileref="ipsumdolorsit.png" contentwidth="200px" contentdepth="50px" align="center"/></imageobject><textobject><phrase>alternative text</phrase></textobject></inlinemediaobject> amet, consectetuer adipiscing elit.</para>',
-
+        'Lorem ipsum dolor sit <nowiki>amet, consectetuer</nowiki> adipiscing elit.'
+            =>'<para>Lorem ipsum dolor sit <phrase>amet, consectetuer</phrase> adipiscing elit.</para>',
 
 
 /*        'Lorem ipsum ^^dolor sit amet^^, consectetuer adipiscing elit.'

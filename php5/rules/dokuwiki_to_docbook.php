@@ -28,10 +28,9 @@ class dokuwiki_to_docbook  extends WikiRendererConfig  {
         * @var array   liste des tags inline
     */
     public $inlinetags= array( 'dkdbk_strong','dkdbk_emphasis','dkdbk_underlined','dkdbk_monospaced',
-        'dkdbk_subscript', 'dkdbk_superscript', 'dkdbk_del', 'dkdbk_link', 'dkdbk_footnote', 'dkdbk_image'
-        /*'dkdbk_q',
-        'dkdbk_cite','dkdbk_acronym','dkdbk_link',
-        'dkdbk_anchor', 'dkdbk_footnote'*/);
+        'dkdbk_subscript', 'dkdbk_superscript', 'dkdbk_del', 'dkdbk_link', 'dkdbk_footnote', 'dkdbk_image',
+        'dkdbk_nowiki_inline',
+        /*'dkdbk_q','dkdbk_cite','dkdbk_acronym','dkdbk_link','dkdbk_anchor',*/);
 
     public $defaultTextLineContainer = 'WikiHtmlTextLine';
 
@@ -40,8 +39,10 @@ class dokuwiki_to_docbook  extends WikiRendererConfig  {
    /**
    * liste des balises de type bloc reconnus par WikiRenderer.
    */
-   public $bloctags = array('dkdbk_title', 'dkdbk_list', 'dkdbk_blockquote','dkdbk_table'/*'dkdbk_pre','dkdbk_hr',
-                         ,'dkdbk_definition',*/ , 'dkdbk_para');
+   public $bloctags = array('dkdbk_title', 'dkdbk_list', 'dkdbk_blockquote','dkdbk_table', 'dkdbk_pre',
+         'dkdbk_syntaxhighlight', 'dkdbk_file', 'dkdbk_nowiki', 'dkdbk_html', 'dkdbk_php', 'dkdbk_para',
+         'dkdbk_macro'
+   );
 
 
    public $simpletags = array("\\\\"=>"");
@@ -63,7 +64,6 @@ class dokuwiki_to_docbook  extends WikiRendererConfig  {
     */
     public function onParse($finalTexte){
         $finalTexte.= str_repeat('</section>', count($this->sectionLevel));
-
 
         return $finalTexte;
     }
@@ -151,6 +151,15 @@ class dkdbk_footnote extends WikiTagXhtml {
     public function getContent(){ return '<footnote><para>'.$this->contents[0].'</para></footnote>';}
 }
 
+
+class dkdbk_nowiki_inline extends WikiTagXhtml {
+    protected $name='nowiki';
+    public $beginTag='<nowiki>';
+    public $endTag='</nowiki>';
+    public function getContent(){
+        return '<phrase>'.htmlspecialchars($this->wikiContentArr[0]).'</phrase>';
+    }
+}
 
 /*
 class dkdbk_q extends WikiTagXhtml {
@@ -387,10 +396,10 @@ class dkdbk_para extends WikiRendererBloc {
     public $type='para';
     protected $_openTag='<para>';
     protected $_closeTag='</para>';
-    
+
     public function detect($string){
         if($string=='') return false;
-        if(preg_match("/^([^\*\-\=\|\^>;<=].*)/",$string, $m)) {
+        if(preg_match("/^\s?([^\*\-\=\|\^>;<=~].*)/",$string, $m)) {
             $this->_detectMatch=array($m[1],$m[1]);
             return true;
         }
@@ -417,7 +426,6 @@ class dkdbk_blockquote extends WikiRendererBloc {
    public function close(){
       return '</para>'.str_repeat('</blockquote>',strlen($this->_previousTag));
    }
-
 
    public function getRenderedLine(){
 
@@ -580,16 +588,13 @@ class dkdbk_table extends WikiRendererBloc {
 }
 
 
-/**
- * traite les signes de types pre (pour afficher du code..)
- */
-class dkdbk_pre extends WikiRendererBloc {
+class dkdbk_syntaxhighlight extends WikiRendererBloc {
 
-    public $type='pre';
-    protected $_openTag='<literallayout>';
-    protected $_closeTag='</literallayout>';
+    public $type='syntaxhighlight';
+    protected $_openTag='<programlisting>';
+    protected $_closeTag='</programlisting>';
     protected $isOpen = false;
-
+    protected $dktag='code';
 
    public function open(){
       $this->isOpen = true;
@@ -607,7 +612,7 @@ class dkdbk_pre extends WikiRendererBloc {
 
     public function detect($string){
         if($this->isOpen){
-            if(preg_match('/(.*)<\/code>\s*$/',$string,$m)){
+            if(preg_match('/(.*)<\/'.$this->dktag.'>\s*$/',$string,$m)){
                 $this->_detectMatch=$m[1];
                 $this->isOpen=false;
             }else{
@@ -616,7 +621,7 @@ class dkdbk_pre extends WikiRendererBloc {
             return true;
 
         }else{
-            if(preg_match('/^\s*<code>(.*)/',$string,$m)){
+            if(preg_match('/^\s*<'.$this->dktag.'( \w+)?>(.*)/',$string,$m)){
                 $this->_detectMatch=$m[1];
                 return true;
             }else{
@@ -625,6 +630,90 @@ class dkdbk_pre extends WikiRendererBloc {
         }
     }
 }
+
+class dkdbk_file extends dkdbk_syntaxhighlight {
+    public $type='syntaxhighlight';
+    protected $_openTag='<literallayout>';
+    protected $_closeTag='</literallayout>';
+    protected $dktag='file';
+}
+
+class dkdbk_nowiki extends dkdbk_syntaxhighlight {
+    public $type='syntaxhighlight';
+    protected $_openTag='<para>';
+    protected $_closeTag='</para>';
+    protected $dktag='nowiki';
+}
+
+class dkdbk_pre extends WikiRendererBloc {
+    public $type='pre';
+    protected $_openTag='<literallayout>';
+    protected $_closeTag='</literallayout>';
+
+    public function detect($string){
+        if($string=='') return false;
+        if(preg_match("/^(\s{2,}[^\*\-\=\|\^>;<=~].*)/",$string)) {
+            $this->_detectMatch=array($string,$string);
+            return true;
+        }
+        return false;
+    }
+}
+
+
+class dkdbk_html extends WikiRendererBloc {
+
+    public $type='html';
+    protected $isOpen = false;
+    protected $dktag='html';
+
+    public function open(){
+        $this->isOpen = true;
+        return '';
+    }
+
+   public function close(){
+      $this->isOpen=false;
+      return '';
+   }
+
+    public function getRenderedLine(){
+        return '';
+    }
+
+    public function detect($string){
+        if($this->isOpen){
+            if(preg_match('/(.*)<\/'.$this->dktag.'>\s*$/',$string,$m)){
+                $this->isOpen=false;
+            }
+            return true;
+        }else{
+            if(preg_match('/^\s*<'.$this->dktag.'>(.*)/',$string,$m)){
+                return true;
+            }else{
+                return false;
+            }
+        }
+    }
+}
+
+class dkdbk_php extends dkdbk_html {
+    protected $dktag='php';
+}
+
+
+
+class dkdbk_macro extends WikiRendererBloc {
+    public $type='macro';
+    protected $regexp="/^\s*~~[^~]*~~\s*$/";
+    protected $_closeNow=true;
+
+    public function getRenderedLine(){
+        return '';
+    }
+}
+
+
 
 /**
  * definition list
@@ -645,4 +734,3 @@ class dkdbk_definition extends WikiRendererBloc {
 
 
 
-?>

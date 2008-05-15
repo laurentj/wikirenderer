@@ -21,17 +21,17 @@ class WikiRendererTestsWr3Primaire extends WikiRendererUnitTestCase {
             $tag = new $class($conf);
             foreach($val[0] as $wiki){
                 if($wiki === false)
-                    $tag->addSeparator();
+                    $tag->addSeparator('|');
                 elseif(is_string($wiki))
                     $tag->addContent($wiki);
                 else
                     $tag->addContent($wiki[0], $wiki[1]);
             }
 
-            if(!$this->assertEqual($val[1], $tag->getWikiContent(), "erreur wikicontent au numéro $k")){
+            if(!$this->assertEqual($val[1], $tag->getWikiContent(), "erreur wikicontent au numï¿½ro $k")){
                 $this->_showDiff($val[1], $tag->getWikiContent());
             }
-            if(!$this->assertEqual($val[2], $tag->getContent(), "erreur content au numéro $k")){
+            if(!$this->assertEqual($val[2], $tag->getContent(), "erreur content au numï¿½ro $k")){
                 $this->_showDiff($val[2], $tag->getContent());
             }
 

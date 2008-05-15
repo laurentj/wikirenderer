@@ -22,6 +22,7 @@ class dokuwiki_docbook_blocks extends WikiRendererUnitTestCase {
         'section'=>0,
         'section2'=>0,
         'section3'=>0,
+        'pre'=>0,
     );
 
     function testBlock() {

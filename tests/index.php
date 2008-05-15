@@ -21,7 +21,7 @@ class WikiRendererTestsInternes extends WikiRendererUnitTestCase {
             $tag = new $class($conf);
             foreach($val[0] as $wiki){
                 if($wiki === false)
-                    $tag->addSeparator();
+                    $tag->addSeparator('|');
                 elseif(is_string($wiki))
                     $tag->addContent($wiki);
                 else
