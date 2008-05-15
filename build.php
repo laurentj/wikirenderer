@@ -45,7 +45,6 @@ $BASE_PATH = jBuildUtils::normalizeDir($BASE_PATH);
 Env::setFromFile('VERSION',$BASE_PATH.'/VERSION', true);
 $SVN_REVISION = Subversion::revision($BASE_PATH);
 
-echo $VERSION,"\n";
 $IS_NIGHTLY = (strpos($VERSION,'SVN') !== false);
 
 if($IS_NIGHTLY){

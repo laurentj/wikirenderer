@@ -24,13 +24,10 @@
  */
 
 class dokuwiki_to_docbook  extends WikiRendererConfig  {
-    /**
-        * @var array   liste des tags inline
-    */
+
     public $inlinetags= array( 'dkdbk_strong','dkdbk_emphasis','dkdbk_underlined','dkdbk_monospaced',
         'dkdbk_subscript', 'dkdbk_superscript', 'dkdbk_del', 'dkdbk_link', 'dkdbk_footnote', 'dkdbk_image',
-        'dkdbk_nowiki_inline',
-        /*'dkdbk_q','dkdbk_cite','dkdbk_acronym','dkdbk_link','dkdbk_anchor',*/);
+        'dkdbk_nowiki_inline',);
 
     public $defaultTextLineContainer = 'WikiHtmlTextLine';
 
@@ -161,46 +158,6 @@ class dkdbk_nowiki_inline extends WikiTagXhtml {
     }
 }
 
-/*
-class dkdbk_q extends WikiTagXhtml {
-    protected $name='quote';
-    public $beginTag='^^';
-    public $endTag='^^';
-}
-
-class dkdbk_cite extends WikiTagXhtml {
-    protected $name='cite';
-    public $beginTag='{{';
-    public $endTag='}}';
-    protected $attribute=array('$$','title');
-    public $separators=array('|');
-
-    public function getContent(){ return $this->contents[0];}
-
-}
-
-class dkdbk_acronym extends WikiTagXhtml {
-    protected $name='acronym';
-    public $beginTag='??';
-    public $endTag='??';
-    protected $attribute=array('$$','title');
-    public $separators=array('|');
-    protected $ignoreAttribute = array('title');
-}
-
-class dkdbk_anchor extends WikiTagXhtml {
-    protected $name='anchor';
-    public $beginTag='~~';
-    public $endTag='~~';
-    protected $attribute=array('id');
-    public $separators=array('|');
-    public function getContent(){
-        return '<anchor id="'.htmlspecialchars($this->wikiContentArr[0]).'"/>';
-    }
-}
-
-
-*/
 
 class dkdbk_image extends WikiTagXhtml {
     protected $name='image';
