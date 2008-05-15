@@ -35,7 +35,7 @@ class dokuwiki_to_docbook  extends WikiRendererConfig  {
 
     public $defaultTextLineContainer = 'WikiHtmlTextLine';
 
-    public $availabledTextLineContainers = array('WikiHtmlTextLine');
+    public $availabledTextLineContainers = array('WikiHtmlTextLine', 'dkdbk_table_row');
 
    /**
    * liste des balises de type bloc reconnus par WikiRenderer.
@@ -442,6 +442,117 @@ class dkdbk_blockquote extends WikiRendererBloc {
 
 
 /**
+ *
+ */
+class dkdbk_table_row extends WikiTag {
+    public $isTextLineTag=true;
+    protected $attribute=array('$$');
+    protected $checkWikiWordIn=array('$$');
+
+    public $separators=array('|','^');
+
+    protected $columns = array('');
+
+    protected function _doEscape($string){
+        return htmlspecialchars($string);
+    }
+
+    /**
+    * called by the inline parser, when it found a separator
+    */
+    public function addSeparator($token){
+        $this->wikiContent.= $this->wikiContentArr[$this->separatorCount];
+        $this->separatorCount++;
+        $this->currentSeparator = $token;
+        $this->wikiContent.= $token;
+        $this->contents[$this->separatorCount]='';
+        $this->wikiContentArr[$this->separatorCount]='';
+        $this->columns[$this->separatorCount]=$token;
+    }
+
+    public function isCurrentSeparator($token){
+        return ($token == '|' || $token == '^');
+    }
+
+    public function isOtherTagAllowed() {
+        return true;
+    }
+
+    public function getBogusContent(){
+        $c=$this->beginTag;
+        $m= count($this->contents)-1;
+        $s= count($this->separators);
+        foreach($this->contents as $k=>$v){
+            $c.=$this->columns[$k].$v;
+        }
+        return $c;
+    }
+
+    public function getContent(){
+        $c = "<tr>\n";
+        $col ='';
+        $colnum =0;
+        $colspan = 0;
+
+        $last = count($this->contents) -1;
+        foreach( $this->contents as $k=>$content) {
+
+            if($k == 0) continue; // we ignore first content (which is before the first separator
+            if($k == $last)  break; // we ignore the last content (which is after the last separator
+
+            if($content == '') {
+                if($col == '' && $k > 0) { // if bad syntax on first col
+                     $c.='<td>eee</td>';
+                } else 
+                    $colspan++;
+            } else {
+                if($col !='')
+                    $c.= $this->addCol($colnum, $col, $colspan);
+                $colnum = $k;
+                $col = $content;
+            }
+        }
+        $c.= $this->addCol($colnum, $col, $colspan);
+        return $c."\n</tr>\n";
+    }
+
+    protected function addCol($num, $content, $colspan) {
+        if($this->columns[$num] == '^')
+            $t = 'th';
+        else
+            $t = 'td';
+
+        $align='';
+        $l = 0;
+        $r = 0;
+        if (preg_match("/^(\s+)/", $content, $m)) {
+            $l = strlen($m[1]);
+        }
+        if (preg_match("/(\s+)$/", $content, $m)) {
+            $r = strlen($m[1]);
+        }
+        if(trim($content) == '') {
+            $l=$r=0;
+        }
+
+        if($l==0 && $r > 2) {
+            $align=' align="left"';
+        }else if($r==0 && $l > 2) {
+            $align=' align="right"';
+        }else if($l > 2 && $l==$r) {
+            $align=' align="center"';
+        }
+
+        if($colspan) {
+            return '<'.$t.' colspan="'.($colspan+1).'"'.$align.'>'.$content.'</'.$t.'>';
+        } else {
+            return '<'.$t.$align.'>'.$content.'</'.$t.'>';
+        }
+    }
+
+}
+
+/**
  * traite les signes de types table
  */
 class dkdbk_table extends WikiRendererBloc {
@@ -451,37 +562,19 @@ class dkdbk_table extends WikiRendererBloc {
     protected $_closeTag='</table>';
 
     protected $_colcount=0;
-    protected $oldTextLineContainer = null;
 
     public function open(){
-        $this->_colcount=0;
-        $this->oldTextLineContainer = $this->config->defaultTextLineContainer;
-        $this->config->defaultTextLineContainer = '';
-
+        $this->engine->getConfig()->defaultTextLineContainer = 'dkdbk_table_row';
         return $this->_openTag;
     }
 
     public function close(){
+        $this->engine->getConfig()->defaultTextLineContainer = 'WikiHtmlTextLine';
         return $this->_closeTag;
     }
 
-
     public function getRenderedLine(){
-
-        $result=preg_split('/(\||\^)/',trim($this->_detectMatch[1]));
-        $str='';
-        $t='';
-
-        if((count($result) != $this->_colcount) && ($this->_colcount!=0))
-            $t='</table><table border="1">';
-        $this->_colcount=count($result);
-
-        for($i=0; $i < $this->_colcount; $i++){
-            $str.='<td>'.$this->engine->inlineParser->parse($result[$i]).'</td>';
-        }
-        $str=$t.'<tr>'.$str.'</tr>';
-
-        return $str;
+        return $this->engine->inlineParser->parse($this->_detectMatch[1].$this->_detectMatch[2]);
     }
 
 }

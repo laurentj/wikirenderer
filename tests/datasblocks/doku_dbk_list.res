@@ -1,4 +1,4 @@
-<para>Lorem ipsum</para>
+<para> Lorem ipsum</para>
 
 <itemizedlist>
 <listitem>This is a list

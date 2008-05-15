@@ -33,15 +33,24 @@ abstract class WikiTag {
     public $beginTag='';
     public $endTag='';
     public $isTextLineTag=false;
+    /**
+     * list of possible separators
+     */
     public $separators=array();
 
     protected $attribute=array();
     protected $checkWikiWordIn=array();
     protected $contents=array('');
+    /**
+     * wiki content of each part of the tag
+     */
     protected $wikiContentArr = array('');
+    /**
+     * wiki content of the full tag
+     */
     protected $wikiContent='';
     protected $separatorCount=0;
-    protected $separator=false;
+    protected $currentSeparator=false;
     protected $checkWikiWordFunction=false;
     protected $config = null;
 
@@ -52,7 +61,7 @@ abstract class WikiTag {
         $this->config = $config;
         $this->checkWikiWordFunction=$config->checkWikiWordFunction;
         if($config->checkWikiWordFunction === null) $this->checkWikiWordIn=array();
-        if(count($this->separators)) $this->separator= $this->separators[0];
+        if(count($this->separators)) $this->currentSeparator = $this->separators[0];
     }
 
     /**
@@ -60,7 +69,7 @@ abstract class WikiTag {
     * @param string $wikiContent   the original content in wiki syntax if $parsedContent is given, or a simple string if not
     * @param string $parsedContent the content already parsed (by an other wikitag object), when this wikitag contents other wikitags
     */
-    public final function addContent($wikiContent, $parsedContent=false){
+    public function addContent($wikiContent, $parsedContent=false){
         if($parsedContent === false){
             $parsedContent =$this->_doEscape($wikiContent);
             if(count( $this->checkWikiWordIn)
@@ -76,26 +85,26 @@ abstract class WikiTag {
     /**
     * called by the inline parser, when it found a separator
     */
-    public final function addseparator(){
+    public function addSeparator($token){
         $this->wikiContent.= $this->wikiContentArr[$this->separatorCount];
         $this->separatorCount++;
         if($this->separatorCount> count($this->separators))
-            $this->separator = end($this->separators);
+            $this->currentSeparator = end($this->separators);
         else
-            $this->separator = $this->separators[$this->separatorCount-1];
-        $this->wikiContent.= $this->separator;
+            $this->currentSeparator = $this->separators[$this->separatorCount-1];
+        $this->wikiContent.= $this->currentSeparator;
         $this->contents[$this->separatorCount]='';
         $this->wikiContentArr[$this->separatorCount]='';
     }
 
     /**
-    * return the separator used by this tag.
+    * says if the given token is the current separator of the tag.
     *
     * The tag can support many separator
     * @return string the separator
     */
-    public final function getCurrentSeparator(){
-            return $this->separator;
+    public function isCurrentSeparator($token){
+        return ($this->currentSeparator == $token);
     }
 
     /**

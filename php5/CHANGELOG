@@ -7,10 +7,12 @@ Version 3.1
 - new property WikiTagXhtml::ignoreAttribute
 - escape char is now configurable
 - inline parser now takes care about attribute which don't allow wiki tags in them
-- WikiRendererConfig::$textLineContainer has been renamed to $defaultTextLineContainer and a new property
-    $availabledTextLineContainers has been added
-
-
+- renamed WikiRendererConfig::$textLineContainer to WikiRendererConfig::$defaultTextLineContainer
+- new property WikiRendererConfig::$availabledTextLineContainers
+- renamed WikiTag::$separator to WikiTag::$currentSeparator
+- WikiTag::addContent and WikiTag::addSeparator are no more final methods
+- WikiTag::addSeparator receive now the separator as  argument
+- renamed WikiTag::getCurrentSeparator() to WikiTag::isCurrentSeparator($token)
 
 Version 3.0
 

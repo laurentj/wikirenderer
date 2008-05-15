@@ -36,7 +36,7 @@ class WikiInlineParser {
     protected $resultline='';
     protected $str=array();
     protected $splitPattern='';
-    protected $_separator;
+
     protected $config;
 
     protected $textLineContainers=array();
@@ -87,8 +87,7 @@ class WikiInlineParser {
     */
     public function parse($line){
         $this->error=false;
-
-        $firsttag = clone $this->textLineContainers[$this->config->defaultTextLineContainer];
+        $firsttag = clone ($this->textLineContainers[$this->config->defaultTextLineContainer]);
 
         $this->str = preg_split($this->splitPattern,$line, -1, PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_NO_EMPTY);
         $this->end = count($this->str);
@@ -128,8 +127,8 @@ class WikiInlineParser {
                }
 
             // is this a separator ?
-            }elseif($t === $tag->getCurrentSeparator()){
-                $tag->addSeparator();
+            }elseif($tag->isCurrentSeparator($t)){
+                $tag->addSeparator($t);
 
             }elseif($checkNextTag){
                 // is there a ended tag
