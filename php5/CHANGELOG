@@ -7,6 +7,10 @@ Version 3.1
 - new property WikiTagXhtml::ignoreAttribute
 - escape char is now configurable
 - inline parser now takes care about attribute which don't allow wiki tags in them
+- WikiRendererConfig::$textLineContainer has been renamed to $defaultTextLineContainer and a new property
+    $availabledTextLineContainers has been added
+
+
 
 Version 3.0
 

@@ -22,6 +22,8 @@ if(version_compare(phpversion(),'5') < 0){
 
 }
 
+if(!defined('WIKIRENDERER_VERSION')) define('WIKIRENDERER_VERSION','');
+
 
 class WikiRendererUnitTestCase extends UnitTestCase {
 
@@ -51,7 +53,7 @@ class HtmlReporter2 extends HtmlReporter{
 </head>
 <body>
 <div class="header">
-Unit tests on WikiRenderer <?php echo WIKIRENDERER_VERSION;?>
+Unit tests on WikiRenderer <?php echo WIKIRENDERER_VERSION;?> (PHP <?php echo phpversion() ?>)
 <ul>
  <li>classicwr : <a href="index.php">internal tests</a> |
     <a href="testsInlineParser.php">inline parser</a> |
@@ -66,6 +68,10 @@ Unit tests on WikiRenderer <?php echo WIKIRENDERER_VERSION;?>
  <li>wr3 to docbook : <a href="wr3_dbk_primary.php">tags</a> |
     <a href="wr3_dbk_testsInlines.php">inlines</a> |
     <a href="wr3_dbk_testsBlocks.php">blocks</a>
+ </li>
+ <li>dokuwiki to docbook :
+    <a href="dokuwiki_docbook_inlines.php">inlines</a> |
+    <a href="dokuwiki_docbook_blocks.php">blocks</a>
  </li>
 </ul>
 </div>

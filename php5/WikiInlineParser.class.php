@@ -38,6 +38,9 @@ class WikiInlineParser {
     protected $splitPattern='';
     protected $_separator;
     protected $config;
+
+    protected $textLineContainers=array();
+
     /**
     * constructor
     * @param WikiRendererConfig $config  a config object
@@ -59,6 +62,13 @@ class WikiInlineParser {
         foreach($config->simpletags as $tag=>$html){
             $this->splitPattern.='|('.preg_quote($tag, '/').')';
         }
+
+        foreach($config->availabledTextLineContainers as $class){
+            $t = new $class($config);
+            $this->textLineContainers[$class] = $t;
+            $separators = array_merge($separators, $t->separators);
+        }
+
         $separators= array_unique($separators);
         foreach($separators as $sep){
             $this->splitPattern.='|('.preg_quote($sep, '/').')';
@@ -78,10 +88,10 @@ class WikiInlineParser {
     public function parse($line){
         $this->error=false;
 
+        $firsttag = clone $this->textLineContainers[$this->config->defaultTextLineContainer];
+
         $this->str = preg_split($this->splitPattern,$line, -1, PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_NO_EMPTY);
         $this->end = count($this->str);
-        $l = $this->config->textLineContainer;
-        $firsttag = new $l($this->config);
 
         if($this->end > 1){
             $pos=-1;

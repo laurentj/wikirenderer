@@ -5,13 +5,13 @@
  * @package wikirenderer
  * @subpackage tests
  * @author Laurent Jouanneau <jouanneau@netcourrier.com>
- * @copyright 2006 Laurent Jouanneau
+ * @copyright 2006-2008 Laurent Jouanneau
  */
 
 require_once('common.php');
 require_once(WR_DIR.'rules/classicwr_to_xhtml.php');
 
-// pour accéder à des propriétés privées et les vérifier
+// we use a injerited inline parser to access to some protected data, to verify them
 class WikiInlineParserTest extends WikiInlineParser {
 
     function getSplitPattern(){ return $this->splitPattern; }
@@ -27,7 +27,9 @@ class WikiRendererTestsInlineParser extends WikiRendererUnitTestCase {
 
         $conf = new WRConfigTest1();
         $conf->inlinetags=array( 'cwrxhtml_strong');
-        $conf->textLineContainer= 'WikiHtmlTextLine';
+        $conf->defaultTextLineContainer= 'WikiHtmlTextLine';
+        $conf->availabledTextLineContainers = array('WikiHtmlTextLine');
+
 
         $wip = new WikiInlineParserTest($conf);
         $trueResult = '/(__)|(\\\\)/';
@@ -76,7 +78,7 @@ class WikiRendererTestsInlineParser extends WikiRendererUnitTestCase {
             '~~'=>array('~~','~~'),
         );
         foreach($wip->getListTag() as $b=>$t){
-            if($this->assertTrue(isset($test[$b]), 'tag présent bizarre '. $b)){
+            if($this->assertTrue(isset($test[$b]), 'tag prï¿½sent bizarre '. $b)){
                 $this->assertEqual($test[$b][0], $t->beginTag);
                 $this->assertEqual($test[$b][1], $t->endTag);
             }
@@ -94,7 +96,9 @@ class WikiRendererTestsInlineParser extends WikiRendererUnitTestCase {
     function testInlineParser1() {
         $conf = new WRConfigTest1();
         $conf->inlinetags=array( 'cwrxhtml_strong');
-        $conf->textLineContainer= 'WikiHtmlTextLine';
+        $conf->defaultTextLineContainer= 'WikiHtmlTextLine';
+        $conf->availabledTextLineContainers = array('WikiHtmlTextLine');
+
 
 
         $wip = new WikiInlineParser($conf);
@@ -160,9 +164,11 @@ class WikiRendererTestsInlineParser extends WikiRendererUnitTestCase {
         $conf = new WRConfigTest1();
 
         $conf->inlinetags=array( 'cwrxhtml_strong','cwrxhtml_em','cwrxhtml_code','cwrxhtml_q',
-    'cwrxhtml_cite','cwrxhtml_acronym','cwrxhtml_link', 'cwrxhtml_image', 'cwrxhtml_anchor');
+            'cwrxhtml_cite','cwrxhtml_acronym','cwrxhtml_link', 'cwrxhtml_image', 'cwrxhtml_anchor');
         $conf->simpletags=array('%%%'=>'');
-        $conf->textLineContainer = 'WikiHtmlTextLine';
+        $conf->defaultTextLineContainer= 'WikiHtmlTextLine';
+        $conf->availabledTextLineContainers = array('WikiHtmlTextLine');
+
         $conf->funcCheckWikiWord = null;
 
         $wip = new WikiInlineParser($conf  );

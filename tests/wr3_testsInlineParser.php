@@ -11,7 +11,7 @@
 require_once('common.php');
 require_once(WR_DIR.'rules/wr3_to_xhtml.php');
 
-// pour accéder à des propriétés privées et les vérifier
+// pour accÃ©der Ã  des propriÃ©tÃ©s privÃ©es et les vÃ©rifier
 class WikiInlineParserTest extends WikiInlineParser {
 
     function getSplitPattern(){ return $this->splitPattern; }
@@ -27,7 +27,8 @@ class WR3TestsInlineParser extends WikiRendererUnitTestCase {
 
         $conf = new WRConfigTest1();
         $conf->inlinetags=array( 'wr3xhtml_strong');
-        $conf->textLineContainer= 'WikiHtmlTextLine';
+        $conf->defaultTextLineContainer= 'WikiHtmlTextLine';
+        $conf->availabledTextLineContainers = array('WikiHtmlTextLine');
 
         $wip = new WikiInlineParserTest($conf);
         $trueResult = '/(__)|(\\\\)/';
@@ -76,7 +77,7 @@ class WR3TestsInlineParser extends WikiRendererUnitTestCase {
             '~~'=>array('~~','~~'),
         );
         foreach($wip->getListTag() as $b=>$t){
-            if($this->assertTrue(isset($test[$b]), 'tag présent bizarre '. $b)){
+            if($this->assertTrue(isset($test[$b]), 'tag prÃ©sent bizarre '. $b)){
                 $this->assertEqual($test[$b][0], $t->beginTag);
                 $this->assertEqual($test[$b][1], $t->endTag);
             }
@@ -94,7 +95,9 @@ class WR3TestsInlineParser extends WikiRendererUnitTestCase {
     function testInlineParser1() {
         $conf = new WRConfigTest1();
         $conf->inlinetags=array( 'wr3xhtml_strong');
-        $conf->textLineContainer= 'WikiHtmlTextLine';
+        $conf->defaultTextLineContainer= 'WikiHtmlTextLine';
+        $conf->availabledTextLineContainers = array('WikiHtmlTextLine');
+
 
 
         $wip = new WikiInlineParser($conf);

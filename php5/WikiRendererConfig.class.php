@@ -31,7 +31,10 @@ abstract class WikiRendererConfig {
    */
    public $inlinetags= array();
 
-   public $textLineContainer = 'WikiTextLine';
+   public $defaultTextLineContainer = 'WikiTextLine';
+
+   public $availabledTextLineContainers = array('WikiTextLine');
+
 
    /**
    * liste des balises de type bloc reconnus par WikiRenderer.

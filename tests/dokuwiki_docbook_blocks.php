@@ -9,25 +9,27 @@
  */
 
 require_once('common.php');
-require_once(WR_DIR.'rules/wr3_to_xhtml.php');
+require_once(WR_DIR.'rules/dokuwiki_to_docbook.php');
 
-class WR3TestsBlocks extends WikiRendererUnitTestCase {
+class dokuwiki_docbook_blocks extends WikiRendererUnitTestCase {
 
     var $listblocks = array(
-        'b1'=>0,
-        'b2'=>0,
-        'wr3_list1'=>0,
-        'wr3_pre'=>0,
-        'wr3_footnote'=>0,
-        'wr3_bug12894'=>0
+        'para'=>0,
+        'para2'=>0,
+        'list'=>0,
+        'quote'=>0,
+        'table'=>0,
+        'section'=>0,
+        'section2'=>0,
+        'section3'=>0,
     );
 
     function testBlock() {
 
-        $wr = new WikiRenderer(new wr3_to_xhtml());
+        $wr = new WikiRenderer(new dokuwiki_to_docbook());
         foreach($this->listblocks as $file=>$nberror){
-            $sourceFile = 'datasblocks/'.$file.'.src';
-            $resultFile = 'datasblocks/'.$file.'.res';
+            $sourceFile = 'datasblocks/doku_dbk_'.$file.'.src';
+            $resultFile = 'datasblocks/doku_dbk_'.$file.'.res';
 
             $handle = fopen($sourceFile, "r");
             $source = fread($handle, filesize($sourceFile));
@@ -39,24 +41,17 @@ class WR3TestsBlocks extends WikiRendererUnitTestCase {
 
             $res = $wr->render($source);
 
-            if($file=='wr3_footnote'){
-                $conf = & $wr->getConfig();
-                $res=str_replace('-'.$conf->footnotesId.'-', '-XXX-',$res);
-            }
-            if(!$this->assertEqual($res,$result, "erreur sur $file")){
+            if(!$this->assertEqual($res,$result, "error on $file")){
                 $this->_showDiff($result,$res);
             }
-            if(!$this->assertEqual(count($wr->errors),$nberror, "Erreurs d�t�ct�es par wr ! (%s)")){
+            if(!$this->assertEqual(count($wr->errors),$nberror, "Errors detected by wr ! (%s)")){
                 $this->dump($wr->errors);
             }
         }
     }
-
-
-
 }
 
-$test = &new WR3TestsBlocks();
+$test = &new dokuwiki_docbook_blocks();
 $test->run(new HtmlReporter2());
 
 
