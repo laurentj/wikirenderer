@@ -4,7 +4,7 @@
  *
  * @package wikirenderer
  * @subpackage tests
- * @author Laurent Jouanneau <jouanneau@netcourrier.com>
+ * @author Laurent Jouanneau 
  * @copyright 2006 Laurent Jouanneau
  */
 
@@ -46,7 +46,7 @@ class WR3TestsBlocks extends WikiRendererUnitTestCase {
             if(!$this->assertEqual($res,$result, "erreur sur $file")){
                 $this->_showDiff($result,$res);
             }
-            if(!$this->assertEqual(count($wr->errors),$nberror, "Erreurs d�t�ct�es par wr ! (%s)")){
+            if(!$this->assertEqual(count($wr->errors),$nberror, "Errors detected by wr ! (%s)")){
                 $this->dump($wr->errors);
             }
         }

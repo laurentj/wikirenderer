@@ -4,7 +4,7 @@
  *
  * @package wikirenderer
  * @subpackage tests
- * @author Laurent Jouanneau <jouanneau@netcourrier.com>
+ * @author Laurent Jouanneau
  * @copyright 2006 Laurent Jouanneau
  */
 

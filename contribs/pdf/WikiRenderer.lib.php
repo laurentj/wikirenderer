@@ -2,7 +2,7 @@
 /**
  * Bibliotheque d'objets permettant de tranformer un texte, contenant des signes de formatages simples de type wiki,
  * en texte XHTML 1.0/strict
- * @author Laurent Jouanneau <jouanneau@netcourrier.com>
+ * @author Laurent Jouanneau
  * @copyright 2003-2004 Laurent Jouanneau
  * @module Wiki Renderer
  * @version 2.0.4

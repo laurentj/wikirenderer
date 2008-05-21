@@ -5,70 +5,70 @@ require('header.inc.php');
 <h2>Qu'est-ce WikiRenderer ?</h2>
 
 <p>WikiRenderer est une classe PHP permettant de transformer un texte wiki,
-en un texte formaté en XHTML ou un autre format. Vous pouvez l'intégrer dans votre
+en un texte formatÃ© en XHTML ou un autre format. Vous pouvez l'intÃ©grer dans votre
 CMS, votre wiki, votre forum etc.</p>
-<p>Vous pouvez la tester <a href="demo.php">sur la page de démonstration</a></p>
-<p>WikiRenderer est distribué sous
+<p>Vous pouvez la tester <a href="demo.php">sur la page de dÃ©monstration</a></p>
+<p>WikiRenderer est distribuÃ© sous
 <a href="http://www.gnu.org/licenses/licenses.html#LGPL">licence LGPL</a>.</p>
 
 
-<h2>Dernière version</h2>
+<h2>DerniÃ¨re version</h2>
 <dl>
 <dt>Stable</dt>
 <dd><strong>3.0</strong>, pour php4 et pour php5 (03/02/2006)</dd>
 </dl>
 <p>Wikirenderer est
 <a href="https://developer.berlios.de/project/showfiles.php?group_id=5378">disponible
-en téléchargement</a></p>
+en tÃ©lÃ©chargement</a></p>
 
-<h2 id="caracteristiques">Caractéristiques</h2>
-<h3>Caractéristiques</h3>
+<h2 id="caracteristiques">CaractÃ©ristiques</h2>
+<h3>CaractÃ©ristiques</h3>
 
-<p> Contrairement à certains moteurs wiki, WikiRenderer génère du code xhtml valide
-en toute circonstance, et ceci, même si il y a des erreurs dans le balisage wiki. Par exemple,
+<p> Contrairement Ã  certains moteurs wiki, WikiRenderer gÃ©nÃ¨re du code xhtml valide
+en toute circonstance, et ceci, mÃªme si il y a des erreurs dans le balisage wiki. Par exemple,
 si on ecrit un "chevauchement" de balises wiki comme ceci, <code>ceci est __un exemple
-de ''code wiki__ invalide''</code>, cela produira tout de même du code xhtml valide.</p>
+de ''code wiki__ invalide''</code>, cela produira tout de mÃªme du code xhtml valide.</p>
 
-<p>Il est bien sûr possible, grâce à une propriété de la classe WikiRenderer,
+<p>Il est bien sÃ»r possible, grÃ¢ce Ã  une propriÃ©tÃ© de la classe WikiRenderer,
  de savoir si il y a eu des erreurs, pour en informer l'utilisateur.</p>
 
-<h3>Autres caractéristiques</h3>
+<h3>Autres caractÃ©ristiques</h3>
 <ul>
-    <li>Balisage wiki entièrement paramètrable</li>
-    <li>Format généré entièrement paramétrable : on peut générer autre chose que du XHTML :
-    un autre format XML, ou même une autre syntaxe wiki. On peut donc s'en servir
-    pour convertir des textes d'un format wiki à un autre.</li>
+    <li>Balisage wiki entiÃ¨rement paramÃ¨trable</li>
+    <li>Format gÃ©nÃ©rÃ© entiÃ¨rement paramÃ©trable : on peut gÃ©nÃ©rer autre chose que du XHTML :
+    un autre format XML, ou mÃªme une autre syntaxe wiki. On peut donc s'en servir
+    pour convertir des textes d'un format wiki Ã  un autre.</li>
     <li>Fonctions de callbacks redefinissables, <code>onStart</code> et <code>onParse</code>
-     pour modifier le texte, avant et aprés la transformation.</li>
-    <li>Prise en charge possible des notes de bas de page (grâce aux fonctions de callbacks)</li>
-    <li>Détection incluse des mots wiki type <em>CamelCase</em> (activable en indiquant une
+     pour modifier le texte, avant et aprÃ©s la transformation.</li>
+    <li>Prise en charge possible des notes de bas de page (grÃ¢ce aux fonctions de callbacks)</li>
+    <li>DÃ©tection incluse des mots wiki type <em>CamelCase</em> (activable en indiquant une
       fonction de callback)</li>
-    <li>Indication des lignes où il y a des erreurs de balisages wiki</li>
-    <li>Possibilité de ne pas interpreter des balises wiki grâce au caractère d'échappement <code>\</code>
+    <li>Indication des lignes oÃ¹ il y a des erreurs de balisages wiki</li>
+    <li>PossibilitÃ© de ne pas interpreter des balises wiki grÃ¢ce au caractÃ¨re d'Ã©chappement <code>\</code>
     (modifiable)  devant chaque balise wiki.</li>
     <li>Architecture du moteur 100% objet</li>
-    <li>Deux éditions, l'une optimisée pour PHP4, l'autre pour PHP5</li>
-    <li> Par rapport à l'ancienne version 2 :
+    <li>Deux Ã©ditions, l'une optimisÃ©e pour PHP4, l'autre pour PHP5</li>
+    <li> Par rapport Ã  l'ancienne version 2 :
         <ul>
             <li>nouvelle syntaxe wiki par defaut.</li>
-            <li>Refonte complète du moteur, ce qui a permis de résoudre des problèmes de la version 2</li>
+            <li>Refonte complÃ¨te du moteur, ce qui a permis de rÃ©soudre des problÃ¨mes de la version 2</li>
         </ul>
     </li>
 </ul>
 
 <h2 id="references">Les utilisateurs de WikiRenderer</h2>
 <p>Vous utilisez wikirenderer dans votre site ? Dans un projet (CMS, wiki ou autre) ?
- Vous avez adapté la conf pour une syntaxe wiki d'un outils existant ?
- Faites le moi savoir ( jouanneau chez netcourrier point com), envoyez si vous le souhaitez
+ Vous avez adaptÃ© la conf pour une syntaxe wiki d'un outils existant ?
+ Faites le moi savoir ( ljouanneau chez gmail point com), envoyez si vous le souhaitez
  votre fichier de conf et je completerais la liste ci-dessous ;-)</p>
 
-<p>WikiRenderer est utilisé&nbsp;:</p>
+<p>WikiRenderer est utilisÃ©&nbsp;:</p>
 <ul>
-   <li>Intégré en temps que "mod" pour <a href="http://www.phorum.org">phorum</a>, sur les sites
+   <li>IntÃ©grÃ© en temps que "mod" pour <a href="http://www.phorum.org">phorum</a>, sur les sites
    <a href="http://jelix.org" title="framework php5">jelix.org</a> et
-   <a href="http://xulfr.org" title="portail français sur les technologies mozilla et XUL">xulfr.org</a></li>
-   <li>Intégré dans le <strong><a href="http://www.jelix.org">framework PHP Jelix</a></strong></li>
-   <li>Intégré dans le framework <a href="http://www.copix.org">Copix 2.3</a></li>
+   <a href="http://xulfr.org" title="portail franÃ§ais sur les technologies mozilla et XUL">xulfr.org</a></li>
+   <li>IntÃ©grÃ© dans le <strong><a href="http://www.jelix.org">framework PHP Jelix</a></strong></li>
+   <li>IntÃ©grÃ© dans le framework <a href="http://www.copix.org">Copix 2.3</a></li>
 
    <li>Dans le CMS php <strong><a href="http://pxsystem.sourceforge.net/">Plume CMS</a></strong></li>
    <li>Dans le wiki <strong><a href="http://chuwiki.berlios.de/">chuWiki</a></strong></li>
@@ -78,11 +78,11 @@ de ''code wiki__ invalide''</code>, cela produira tout de même du code xhtml val
    <a href="http://premar-atlantique.gouv.fr/mentionslegales/">premar-atlantique.gouv.fr</a>
    et <a href="http://premar-mediterranee.gouv.fr/mentionslegales/">premar-mediterranee.gouv.fr</a>.</li>
 
-   <li>Dans le CMS du site du <a href="http://web.utk.edu/~ihouse/">Campus de l'université du Tenessis</a></li>
+   <li>Dans le CMS du site du <a href="http://web.utk.edu/~ihouse/">Campus de l'universitÃ© du Tenessis</a></li>
    <li>Sur le site <a href="http://www.piregwan.com">www.piregwan.com</a></li>
-   <li>Dans le CMS Beryo utilisé sur le site <a href="http://www.xrousse.org/">www.xrousse.org</a></li>
+   <li>Dans le CMS Beryo utilisÃ© sur le site <a href="http://www.xrousse.org/">www.xrousse.org</a></li>
    <li>Sur le site <a href="http://www.rocknrollswing.com">www.rocknrollswing.com</a></li>
-   <li>Dans un petit CMS utilisé pour les sites
+   <li>Dans un petit CMS utilisÃ© pour les sites
    <a href="http://www.recyclagesolidaire.org">www.recyclagesolidaire.org</a>,
    <a href="http://www.salonhumanitaire.org"> www.salonhumanitaire.org</a>,
    <a href="http://www.createliers.com">www.createliers.com</a>,
@@ -91,7 +91,7 @@ de ''code wiki__ invalide''</code>, cela produira tout de même du code xhtml val
 </ul>
 
 <h2 id="contact">Contact</h2>
-<p>WikiRenderer est réalisé par Laurent Jouanneau : jouanneau chez netcourrier point com.
+<p>WikiRenderer est rÃ©alisÃ© par Laurent Jouanneau : ljouanneau chez gmail point com.
 (site : <a href="http://ljouanneau.com">ljouanneau.com</a>).</p>
 
 <?php

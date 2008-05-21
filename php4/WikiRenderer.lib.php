@@ -2,7 +2,7 @@
 /**
  * Wikirenderer is a wiki text parser. It can transform a wiki text into xhtml or other formats
  * @package WikiRenderer
- * @author Laurent Jouanneau <jouanneau@netcourrier.com>
+ * @author Laurent Jouanneau
  * @copyright 2003-2007 Laurent Jouanneau
  * @link http://wikirenderer.berlios.de
  *

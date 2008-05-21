@@ -1,7 +1,7 @@
 <?php
 /**
  * Éléments de configuration pour WikiRenderer 2.0RC3
- * @author Laurent Jouanneau <jouanneau@netcourrier.com>
+ * @author Laurent Jouanneau
  * @copyright 2003-2004 Laurent Jouanneau
  * @module Wiki Renderer
  * @version 2.0.4

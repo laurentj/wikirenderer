@@ -4,7 +4,7 @@
  *
  * @package wikirenderer
  * @subpackage tests
- * @author Laurent Jouanneau <jouanneau@netcourrier.com>
+ * @author Laurent Jouanneau
  * @copyright 2006 Laurent Jouanneau
  */
 
@@ -28,10 +28,10 @@ class WikiRendererTestsWr3Primaire extends WikiRendererUnitTestCase {
                     $tag->addContent($wiki[0], $wiki[1]);
             }
 
-            if(!$this->assertEqual($val[1], $tag->getWikiContent(), "erreur wikicontent au num�ro $k")){
+            if(!$this->assertEqual($val[1], $tag->getWikiContent(), "erreur wikicontent au numéro $k")){
                 $this->_showDiff($val[1], $tag->getWikiContent());
             }
-            if(!$this->assertEqual($val[2], $tag->getContent(), "erreur content au num�ro $k")){
+            if(!$this->assertEqual($val[2], $tag->getContent(), "erreur content au numéro $k")){
                 $this->_showDiff($val[2], $tag->getContent());
             }
 

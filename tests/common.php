@@ -4,7 +4,7 @@
  *
  * @package wikirenderer
  * @subpackage tests
- * @author Laurent Jouanneau <jouanneau@netcourrier.com>
+ * @author Laurent Jouanneau 
  * @copyright 2003-2008 Laurent Jouanneau
  */
 error_reporting(E_ALL);

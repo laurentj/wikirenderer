@@ -4,7 +4,7 @@
  *
  * @package wikirenderer
  * @subpackage tests
- * @author Laurent Jouanneau <jouanneau@netcourrier.com>
+ * @author Laurent Jouanneau
  * @copyright 2006-2008 Laurent Jouanneau
  */
 
@@ -78,7 +78,7 @@ class WikiRendererTestsInlineParser extends WikiRendererUnitTestCase {
             '~~'=>array('~~','~~'),
         );
         foreach($wip->getListTag() as $b=>$t){
-            if($this->assertTrue(isset($test[$b]), 'tag pr�sent bizarre '. $b)){
+            if($this->assertTrue(isset($test[$b]), 'tag présent bizarre '. $b)){
                 $this->assertEqual($test[$b][0], $t->beginTag);
                 $this->assertEqual($test[$b][1], $t->endTag);
             }
