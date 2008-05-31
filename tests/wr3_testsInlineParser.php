@@ -115,6 +115,8 @@ class WR3TestsInlineParser extends WikiRendererUnitTestCase {
            =>'Lorem ipsum dolor sit amet, consectetuer adipiscing elit.',
         'Lorem ipsum dolor __sit amet__, consectetuer adipiscing elit.'
             =>'Lorem ipsum dolor <strong>sit amet</strong>, consectetuer adipiscing elit.',
+        'Lorem ipsum dolor __0__, consectetuer adipiscing elit.'
+            =>'Lorem ipsum dolor <strong>0</strong>, consectetuer adipiscing elit.',
         'Lorem __ipsum dolor__ sit amet, consectetuer adipiscing elit.'
             =>'Lorem <strong>ipsum dolor</strong> sit amet, consectetuer adipiscing elit.',
         'Lorem ipsum dolor \'\'sit amet\'\', consectetuer adipiscing elit.'

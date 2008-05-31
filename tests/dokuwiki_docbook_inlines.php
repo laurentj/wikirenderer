@@ -18,6 +18,8 @@ class dokuwiki_docbook_inlines extends WikiRendererUnitTestCase {
             =>'<para>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</para>',
         'Lorem **ipsum dolor** sit amet, consectetuer adipiscing elit.'
             =>'<para>Lorem <emphasis role="strong">ipsum dolor</emphasis> sit amet, consectetuer adipiscing elit.</para>',
+        'Lorem **0** sit amet, consectetuer adipiscing elit.'
+            =>'<para>Lorem <emphasis role="strong">0</emphasis> sit amet, consectetuer adipiscing elit.</para>',
         'Lorem ipsum dolor //sit amet//, consectetuer adipiscing elit.'
             =>'<para>Lorem ipsum dolor <emphasis>sit amet</emphasis>, consectetuer adipiscing elit.</para>',
         'Lorem ipsum dolor sit amet, \'\'consectetuer\'\' adipiscing elit.'

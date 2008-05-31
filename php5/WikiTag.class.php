@@ -71,11 +71,11 @@ abstract class WikiTag {
     */
     public function addContent($wikiContent, $parsedContent=false){
         if($parsedContent === false){
-            $parsedContent =$this->_doEscape($wikiContent);
+            $parsedContent = $this->_doEscape($wikiContent);
             if(count( $this->checkWikiWordIn)
                 && isset($this->attribute[$this->separatorCount])
                 && in_array($this->attribute[$this->separatorCount], $this->checkWikiWordIn)){
-                $parsedContent=$this->_findWikiWord($parsedContent);
+                $parsedContent = $this->_findWikiWord($parsedContent);
             }
         }
         $this->contents[$this->separatorCount] .= $parsedContent;
@@ -104,7 +104,7 @@ abstract class WikiTag {
     * @return string the separator
     */
     public function isCurrentSeparator($token){
-        return ($this->currentSeparator == $token);
+        return ($this->currentSeparator === $token);
     }
 
     /**
