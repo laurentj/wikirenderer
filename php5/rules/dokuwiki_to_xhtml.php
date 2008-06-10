@@ -1,6 +1,6 @@
 <?php
 /**
- * dokuwiki syntax to docbook 4.3
+ * dokuwiki syntax to xhtml
  *
  * @package WikiRenderer
  * @subpackage rules
@@ -23,22 +23,22 @@
  *
  */
 
-class dokuwiki_to_docbook  extends WikiRendererConfig  {
+class dokuwiki_to_xhtml  extends WikiRendererConfig  {
 
-    public $inlinetags= array( 'dkdbk_strong','dkdbk_emphasis','dkdbk_underlined','dkdbk_monospaced',
-        'dkdbk_subscript', 'dkdbk_superscript', 'dkdbk_del', 'dkdbk_link', 'dkdbk_footnote', 'dkdbk_image',
-        'dkdbk_nowiki_inline',);
+    public $inlinetags= array( 'dkxhtml_strong','dkxhtml_emphasis','dkxhtml_underlined','dkxhtml_monospaced',
+        'dkxhtml_subscript', 'dkxhtml_superscript', 'dkxhtml_del', 'dkxhtml_link', 'dkxhtml_footnote', 'dkxhtml_image',
+        'dkxhtml_nowiki_inline',);
 
     public $defaultTextLineContainer = 'WikiHtmlTextLine';
 
-    public $availabledTextLineContainers = array('WikiHtmlTextLine', 'dkdbk_table_row');
+    public $availabledTextLineContainers = array('WikiHtmlTextLine', 'dkxhtml_table_row');
 
    /**
    * liste des balises de type bloc reconnus par WikiRenderer.
    */
-   public $bloctags = array('dkdbk_title', 'dkdbk_list', 'dkdbk_blockquote','dkdbk_table', 'dkdbk_pre',
-         'dkdbk_syntaxhighlight', 'dkdbk_file', 'dkdbk_nowiki', 'dkdbk_html', 'dkdbk_php', 'dkdbk_para',
-         'dkdbk_macro'
+   public $bloctags = array('dkxhtml_title', 'dkxhtml_list', 'dkxhtml_blockquote','dkxhtml_table', 'dkxhtml_pre',
+         'dkxhtml_syntaxhighlight', 'dkxhtml_file', 'dkxhtml_nowiki', 'dkxhtml_html', 'dkxhtml_php', 'dkxhtml_para',
+         'dkxhtml_macro'
    );
 
 
@@ -48,11 +48,19 @@ class dokuwiki_to_docbook  extends WikiRendererConfig  {
 
    public $sectionLevel= array();
 
+   public $footnotes = array();
+   public $footnotesId='';
+   public $footnotesTemplate = '<div class="footnotes"><h4>Notes</h4>%s</div>';
+
+    public $startHeaderNumber = 1; // top level header will be <h1> if you set to 1, <h2> if it is 2 etc..
+
     /**
     * called before the parsing
     */
    public function onStart($texte){
         $this->sectionLevel = array();
+        $this->footnotesId = rand(0,30000);
+        $this->footnotes = array();
         return $texte;
     }
 
@@ -60,62 +68,64 @@ class dokuwiki_to_docbook  extends WikiRendererConfig  {
     * called after the parsing
     */
     public function onParse($finalTexte){
-        $finalTexte.= str_repeat('</section>', count($this->sectionLevel));
-
+        $finalTexte.= str_repeat('</div>', count($this->sectionLevel));
+        if(count($this->footnotes)){
+            $footnotes = implode("\n",$this->footnotes);
+            $finalTexte .= str_replace('%s', $footnotes, $this->footnotesTemplate);
+        }
         return $finalTexte;
     }
 }
 
 // ===================================== inline tags
 
-class dkdbk_strong extends WikiTagXhtml {
-    protected $name='emphasis';
+class dkxhtml_strong extends WikiTagXhtml {
+    protected $name='strong';
     public $beginTag='**';
     public $endTag='**';
-    protected $additionnalAttributes=array('role'=>'strong');
+    protected $additionnalAttributes=array();
 }
 
-class dkdbk_emphasis extends WikiTagXhtml {
-    protected $name='emphasis';
+class dkxhtml_emphasis extends WikiTagXhtml {
+    protected $name='em';
     public $beginTag='//';
     public $endTag='//';
 }
 
-class dkdbk_underlined extends WikiTagXhtml {
-    protected $name='underlined';
+class dkxhtml_underlined extends WikiTagXhtml {
+    protected $name='u';
     public $beginTag='__';
     public $endTag='__';
-    public function getContent(){ return $this->contents[0];}
 }
 
-class dkdbk_monospaced extends WikiTagXhtml {
+class dkxhtml_monospaced extends WikiTagXhtml {
     protected $name='code';
     public $beginTag='\'\'';
     public $endTag='\'\'';
 }
 
 
-class dkdbk_subscript extends WikiTagXhtml {
-    protected $name='subscript';
+class dkxhtml_subscript extends WikiTagXhtml {
+    protected $name='sub';
     public $beginTag='<sub>';
     public $endTag='</sub>';
 }
 
-class dkdbk_superscript extends WikiTagXhtml {
-    protected $name='superscript';
+class dkxhtml_superscript extends WikiTagXhtml {
+    protected $name='sup';
     public $beginTag='<sup>';
     public $endTag='</sup>';
 }
 
-class dkdbk_del extends WikiTagXhtml {
+class dkxhtml_del extends WikiTagXhtml {
     protected $name='del';
     public $beginTag='<del>';
     public $endTag='</del>';
     public function getContent(){ return '';}
 }
 
-class dkdbk_link extends WikiTagXhtml {
-    protected $name='ulink';
+class dkxhtml_link extends WikiTagXhtml {
+    protected $name='a';
     public $beginTag='[[';
     public $endTag=']]';
     protected $attribute=array('href','$$');
@@ -126,40 +136,46 @@ class dkdbk_link extends WikiTagXhtml {
         $cnt=($this->separatorCount + 1 > $cntattr?$cntattr:$this->separatorCount+1);
         if($cnt == 1 ){
             $contents = $this->wikiContentArr[0];
-
-            if(preg_match("/^\#(.+)$/", $contents, $m))
-                return '<link linkterm="'.htmlspecialchars(trim($m[1])).'">'.htmlspecialchars($contents).'</link>';
-            else
-                return '<ulink url="'.htmlspecialchars(trim($contents)).'">'.htmlspecialchars($contents).'</ulink>';
-
+            $href=$contents;
+            if(strpos($href,'javascript:')!==false) // for security reason
+                $href='#';
+            if(strlen($contents) > 40)
+                $contents=substr($contents,0,40).'(..)';
+            return '<a href="'.htmlspecialchars(trim($href)).'">'.htmlspecialchars($contents).'</a>';
         }else{
-            if(preg_match("/^\#(.+)$/", $this->wikiContentArr[0], $m))
-                return '<link linkterm="'.htmlspecialchars(trim($m[0])).'">'.$this->contents[1].'</link>';
-            else
-                return '<ulink url="'.htmlspecialchars(trim($this->wikiContentArr[0])).'">'.$this->contents[1].'</ulink>';
+            if(strpos($this->wikiContentArr[0],'javascript:')!==false) // for security reason
+                $this->wikiContentArr[0]='#';
+            return parent::getContent();
         }
     }
 }
 
-class dkdbk_footnote extends WikiTagXhtml {
+class dkxhtml_footnote extends WikiTagXhtml {
     protected $name='footnote';
     public $beginTag='((';
     public $endTag='))';
-    public function getContent(){ return '<footnote><para>'.$this->contents[0].'</para></footnote>';}
+
+    public function getContent(){
+        $number = count($this->config->footnotes) + 1;
+        $id = 'footnote-'.$this->config->footnotesId.'-'.$number;
+        $this->config->footnotes[] = "<p>[<a href=\"#rev-$id\" name=\"$id\" id=\"$id\">$number</a>] ".$this->contents[0].'</p>';
+
+        return "<span class=\"footnote-ref\">[<a href=\"#$id\" name=\"rev-$id\" id=\"rev-$id\">$number</a>]</span>";
+   }
 }
 
 
-class dkdbk_nowiki_inline extends WikiTagXhtml {
+class dkxhtml_nowiki_inline extends WikiTagXhtml {
     protected $name='nowiki';
     public $beginTag='<nowiki>';
     public $endTag='</nowiki>';
     public function getContent(){
-        return '<phrase>'.htmlspecialchars($this->wikiContentArr[0]).'</phrase>';
+        return '<div>'.htmlspecialchars($this->wikiContentArr[0]).'</div>';
     }
 }
 
 
-class dkdbk_image extends WikiTagXhtml {
+class dkxhtml_image extends WikiTagXhtml {
     protected $name='image';
     public $beginTag='{{';
     public $endTag='}}';
@@ -198,19 +214,18 @@ class dkdbk_image extends WikiTagXhtml {
             $href= $m[2];
         }
 
-        $tag = '<inlinemediaobject><imageobject><imagedata fileref="'.$href.'"';
+        $tag = '<img src="'.$href.'"';
         if($width != '')
-            $tag.=' contentwidth="'.$width.'px"';
+            $tag.=' width="'.$width.'"';
         if($height != '')
-            $tag.=' contentdepth="'.$height.'px"';
+            $tag.=' height="'.$height.'"';
         if($align != '')
             $tag.=' align="'.$align.'"';
 
-        $tag .='/></imageobject>';
         if($title != '') 
-                $tag.='<textobject><phrase>'.htmlspecialchars($title).'</phrase></textobject>';
+            $tag.=' title="'.htmlspecialchars($title).'"';
 
-        return $tag.'</inlinemediaobject>';
+        return $tag.' />';
     }
 }
 
@@ -221,7 +236,7 @@ class dkdbk_image extends WikiTagXhtml {
 /**
  * traite les signes de types liste
  */
-class dkdbk_list extends WikiRendererBloc {
+class dkxhtml_list extends WikiRendererBloc {
 
     public $type='list';
     protected $_stack=array();
@@ -234,9 +249,9 @@ class dkdbk_list extends WikiRendererBloc {
         $this->_firstTagLen = strlen($this->_detectMatch[1]);
         $this->_firstItem = true;
         if($this->_detectMatch[2] == '-')
-            return "<orderedlist>\n";
+            return "<ol>\n";
         else
-            return "<itemizedlist>\n";
+            return "<ul>\n";
    }
 
    public function close(){
@@ -245,7 +260,7 @@ class dkdbk_list extends WikiRendererBloc {
         for($i=count($this->_stack)-1; $i >=0; $i--){
             if($this->_stack[$i][0] < $this->_firstTagLen) break;
 
-            $str.=($this->_stack[$i][1]== '-'?"</listitem></orderedlist>\n":"</listitem></itemizedlist>\n");
+            $str.=($this->_stack[$i][1]== '-'?"</li></ol>\n":"</li></ul>\n");
             array_pop($this->_stack);
         }
         return $str;
@@ -259,7 +274,7 @@ class dkdbk_list extends WikiRendererBloc {
 
         if( $d < 0 ){ // un niveau de plus
             $this->_stack[] = array($newLen ,  $this->_detectMatch[2]);
-            $str=($this->_detectMatch[2] == '-'?"<orderedlist><listitem>":"<itemizedlist><listitem>");
+            $str=($this->_detectMatch[2] == '-'?"<ol><li>":"<ul><li>");
 
         } else {
             if( $d > 0 ){ // on remonte d'un ou plusieurs cran dans la hierarchie...
@@ -267,7 +282,7 @@ class dkdbk_list extends WikiRendererBloc {
                     if($this->_stack[$i][0] <= $newLen){
                         break;
                     } else {
-                        $str.=($this->_stack[$i][1]== '-'?"</listitem></orderedlist>\n":"</listitem></itemizedlist>\n");
+                        $str.=($this->_stack[$i][1]== '-'?"</li></ol>\n":"</li></ul>\n");
                     }
                     array_pop($this->_stack);
                 }
@@ -277,9 +292,9 @@ class dkdbk_list extends WikiRendererBloc {
                     $t = array($newLen,   $this->_detectMatch[2]);
                     $this->_stack[] = $t;
                     if($t[1] == '-')
-                        $str .= "<orderedlist>\n";
+                        $str .= "<ol>\n";
                     else
-                        $str .= "<itemizedlist>\n";
+                        $str .= "<ul>\n";
                 } else {
                     $t=end($this->_stack);
                 }
@@ -288,19 +303,19 @@ class dkdbk_list extends WikiRendererBloc {
 
             if($t[1] != $this->_detectMatch[2]) {
                 if(!$this->_firstItem)
-                    $str .='</listitem>';
+                    $str .='</li>';
 
                 if($t[1] == '-')
-                    $str .= "<orderedlist>\n<listitem>";
+                    $str .= "<ol>\n<li>";
                 else
-                    $str .= "<itemizedlist>\n<listitem>";
+                    $str .= "<ul>\n<li>";
                 array_pop($this->_stack);
                 $this->_stack[] = array($newLen ,  $this->_detectMatch[2]);
             } else {
                 if($this->_firstItem)
-                    $str.="<listitem>";
+                    $str.="<li>";
                 else
-                    $str.="</listitem>\n<listitem>";
+                    $str.="</li>\n<li>";
             }
 
         }
@@ -315,7 +330,7 @@ class dkdbk_list extends WikiRendererBloc {
 /**
  * traite les signes de types titre
  */
-class dkdbk_title extends WikiRendererBloc {
+class dkxhtml_title extends WikiRendererBloc {
     public $type='title';
     protected $regexp="/^\s*(\={1,6})([^=]*)(\={1,6})\s*$/";
     protected $_closeNow=true;
@@ -330,29 +345,32 @@ class dkdbk_title extends WikiRendererBloc {
             $last = end($conf->sectionLevel);
             if($last < $level) {
                 while($last = end($conf->sectionLevel) && $last <= $level) {
-                    $output.= '</section>';
+                    $output.= '</div>';
                     array_pop($conf->sectionLevel);
                 }
             }else if($last > $level) {
 
             }else{
                 array_pop($conf->sectionLevel);
-                $output.= '</section>';
+                $output.= '</div>';
             }
         }
 
         $conf->sectionLevel[] = $level;
-        return $output.'<section><title>'.$this->_renderInlineTag(trim($this->_detectMatch[2])).'</title>';
+        $h = $conf->startHeaderNumber -1 + $level;
+        if($h > 5) $h = 5;
+        elseif($h < 1) $h = 1;
+        return $output.'<div><h'.$h.'>'.$this->_renderInlineTag(trim($this->_detectMatch[2])).'</h'.$h.'>';
     }
 }
 
 /**
  * traite les signes de type paragraphe
  */
-class dkdbk_para extends WikiRendererBloc {
+class dkxhtml_para extends WikiRendererBloc {
     public $type='para';
-    protected $_openTag='<para>';
-    protected $_closeTag='</para>';
+    protected $_openTag='<p>';
+    protected $_closeTag='</p>';
 
     public function detect($string){
         if($string=='') return false;
@@ -369,19 +387,19 @@ class dkdbk_para extends WikiRendererBloc {
 /**
  * traite les signes de type blockquote
  */
-class dkdbk_blockquote extends WikiRendererBloc {
-   public $type='bq';
+class dkxhtml_blockquote extends WikiRendererBloc {
+   public $type='blockquote';
    protected $regexp="/^\s*(\>+)(.*)/";
 
    public function open(){
       $this->_previousTag = $this->_detectMatch[1];
       $this->_firstTagLen = strlen($this->_previousTag);
       $this->_firstLine = true;
-      return str_repeat('<blockquote>',$this->_firstTagLen).'<para>';
+      return str_repeat('<blockquote>',$this->_firstTagLen).'<p>';
    }
 
    public function close(){
-      return '</para>'.str_repeat('</blockquote>',strlen($this->_previousTag));
+      return '</p>'.str_repeat('</blockquote>',strlen($this->_previousTag));
    }
 
    public function getRenderedLine(){
@@ -390,11 +408,11 @@ class dkdbk_blockquote extends WikiRendererBloc {
       $str='';
 
       if( $d > 0 ){ // on remonte d'un cran dans la hierarchie...
-         $str='</para>'.str_repeat('</blockquote>',$d).'<para>';
+         $str='</p>'.str_repeat('</blockquote>',$d).'<p>';
          $this->_previousTag=$this->_detectMatch[1];
       }elseif( $d < 0 ){ // un niveau de plus
          $this->_previousTag=$this->_detectMatch[1];
-         $str='</para>'.str_repeat('<blockquote>',-$d).'<para>';
+         $str='</p>'.str_repeat('<blockquote>',-$d).'<p>';
       }else{
          if($this->_firstLine)
             $this->_firstLine=false;
@@ -403,13 +421,10 @@ class dkdbk_blockquote extends WikiRendererBloc {
    }
 }
 
-
-
-
 /**
  *
  */
-class dkdbk_table_row extends WikiTag {
+class dkxhtml_table_row extends WikiTag {
     public $isTextLineTag=true;
     protected $attribute=array('$$');
     protected $checkWikiWordIn=array('$$');
@@ -520,7 +535,7 @@ class dkdbk_table_row extends WikiTag {
 /**
  * traite les signes de types table
  */
-class dkdbk_table extends WikiRendererBloc {
+class dkxhtml_table extends WikiRendererBloc {
     public $type='table';
     protected $regexp="/^\s*(\||\^)(.*)/";
     protected $_openTag='<table>';
@@ -529,7 +544,7 @@ class dkdbk_table extends WikiRendererBloc {
     protected $_colcount=0;
 
     public function open(){
-        $this->engine->getConfig()->defaultTextLineContainer = 'dkdbk_table_row';
+        $this->engine->getConfig()->defaultTextLineContainer = 'dkxhtml_table_row';
         return $this->_openTag;
     }
 
@@ -545,11 +560,11 @@ class dkdbk_table extends WikiRendererBloc {
 }
 
 
-class dkdbk_syntaxhighlight extends WikiRendererBloc {
+class dkxhtml_syntaxhighlight extends WikiRendererBloc {
 
     public $type='syntaxhighlight';
-    protected $_openTag='<programlisting>';
-    protected $_closeTag='</programlisting>';
+    protected $_openTag='<pre><code>';
+    protected $_closeTag='</code></pre>';
     protected $isOpen = false;
     protected $dktag='code';
 
@@ -588,24 +603,24 @@ class dkdbk_syntaxhighlight extends WikiRendererBloc {
     }
 }
 
-class dkdbk_file extends dkdbk_syntaxhighlight {
-    public $type='syntaxhighlight';
-    protected $_openTag='<literallayout>';
-    protected $_closeTag='</literallayout>';
+class dkxhtml_file extends dkxhtml_syntaxhighlight {
+    public $type='filesyntaxhighlight';
+    protected $_openTag='<pre class="file-content">';
+    protected $_closeTag='</pre>';
     protected $dktag='file';
 }
 
-class dkdbk_nowiki extends dkdbk_syntaxhighlight {
-    public $type='syntaxhighlight';
-    protected $_openTag='<para>';
-    protected $_closeTag='</para>';
+class dkxhtml_nowiki extends dkxhtml_syntaxhighlight {
+    public $type='nowikisyntaxhighlight';
+    protected $_openTag='<pre>';
+    protected $_closeTag='</pre>';
     protected $dktag='nowiki';
 }
 
-class dkdbk_pre extends WikiRendererBloc {
+class dkxhtml_pre extends WikiRendererBloc {
     public $type='pre';
-    protected $_openTag='<literallayout>';
-    protected $_closeTag='</literallayout>';
+    protected $_openTag='<pre>';
+    protected $_closeTag='</pre>';
 
     public function detect($string){
         if($string=='') return false;
@@ -618,7 +633,7 @@ class dkdbk_pre extends WikiRendererBloc {
 }
 
 
-class dkdbk_html extends WikiRendererBloc {
+class dkxhtml_html extends WikiRendererBloc {
 
     public $type='html';
     protected $isOpen = false;
@@ -654,13 +669,13 @@ class dkdbk_html extends WikiRendererBloc {
     }
 }
 
-class dkdbk_php extends dkdbk_html {
+class dkxhtml_php extends dkxhtml_html {
     protected $dktag='php';
 }
 
 
 
-class dkdbk_macro extends WikiRendererBloc {
+class dkxhtml_macro extends WikiRendererBloc {
     public $type='macro';
     protected $regexp="/^\s*~~[^~]*~~\s*$/";
     protected $_closeNow=true;
@@ -675,19 +690,17 @@ class dkdbk_macro extends WikiRendererBloc {
 /**
  * definition list
  */
-class dkdbk_definition extends WikiRendererBloc {
+class dkxhtml_definition extends WikiRendererBloc {
 
    public $type='dfn';
    protected $regexp="/^\s*;(.*) : (.*)/i";
-   protected $_openTag='<variablelist>';
-   protected $_closeTag='</variablelist>';
+   protected $_openTag='<dl>';
+   protected $_closeTag='</dl>';
 
    public function getRenderedLine(){
       $dt=$this->_renderInlineTag($this->_detectMatch[1]);
       $dd=$this->_renderInlineTag($this->_detectMatch[2]);
-      return "<varlistentry><term>$dt</term>\n<listitem>$dd</listitem></varlistentry>\n";
+      return "<dt>$dt</dt>\n<dd>$dd</dd>\n";
    }
 }
-
-
 
