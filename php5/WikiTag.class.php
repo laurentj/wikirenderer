@@ -59,8 +59,8 @@ abstract class WikiTag {
     */
     function __construct($config){
         $this->config = $config;
-        $this->checkWikiWordFunction=$config->checkWikiWordFunction;
-        if($config->checkWikiWordFunction === null) $this->checkWikiWordIn=array();
+        $this->checkWikiWordFunction = $config->checkWikiWordFunction;
+        if($config->checkWikiWordFunction === null) $this->checkWikiWordIn = array();
         if(count($this->separators)) $this->currentSeparator = $this->separators[0];
     }
 

@@ -73,6 +73,9 @@ Unit tests on WikiRenderer <?php echo WIKIRENDERER_VERSION;?> (PHP <?php echo ph
     <a href="dokuwiki_docbook_inlines.php">inlines</a> |
     <a href="dokuwiki_docbook_blocks.php">blocks</a>
  </li>
+ <li>trac syntax:
+    <a href="wr3_testsInlines.php">inlines</a> |
+    <a href="wr3_testsBlocks.php">blocks</a> </li>
 </ul>
 </div>
 <h1><?php echo $test_name?></h1>
