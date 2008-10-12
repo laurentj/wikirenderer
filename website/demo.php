@@ -5,10 +5,9 @@ if($_SERVER['SERVER_NAME'] == 'wikirenderer.berlios.de'){
    require('wikirenderer/rules/wr3_to_xhtml.php');
 
 }else{
-   require('../php4/WikiRenderer.lib.php');
-   require('../php4/rules/wr3_to_text.php');
-   require('../php4/rules/wr3_to_xhtml.php');
-
+   require('../tests/wikirenderer/WikiRenderer.lib.php');
+   require('../tests/wikirenderer/rules/wr3_to_text.php');
+   require('../tests/wikirenderer/rules/wr3_to_xhtml.php');
 }
 
 $texte='';
