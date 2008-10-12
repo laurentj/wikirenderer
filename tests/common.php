@@ -11,16 +11,9 @@ error_reporting(E_ALL);
 require_once('simpletest/unit_tester.php');
 require_once('simpletest/reporter.php');
 
-if(version_compare(phpversion(),'5') < 0){
-    define('WR_DIR',realpath(dirname(__FILE__).'/../php4/').'/');
-    require_once('../php4/WikiRenderer.lib.php');
-    require_once('diff/diffhtml.php');
-}else{
-    define('WR_DIR',realpath(dirname(__FILE__).'/../php5/').'/');
-    require_once('../php5/WikiRenderer.lib.php');
-    require_once('diff_php5/diffhtml.php');
-
-}
+define('WR_DIR',realpath(dirname(__FILE__).'/wikirenderer/').'/');
+require_once('wikirenderer/WikiRenderer.lib.php');
+require_once('diff_php5/diffhtml.php');
 
 if(!defined('WIKIRENDERER_VERSION')) define('WIKIRENDERER_VERSION','');
 

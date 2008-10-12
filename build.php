@@ -14,7 +14,7 @@ $BUILD_OPTIONS = array(
     ), 
 'BASE_PATH'=> array(
     "the directory from which source will be copied",  // signification (false = option cachée)
-    '',                                        // valeur par défaut (boolean = option booleene)
+    'src/',                                        // valeur par défaut (boolean = option booleene)
     '',
     ), 
 'PACKAGE_TAR_GZ'=>array(
