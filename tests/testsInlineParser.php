@@ -11,21 +11,11 @@
 require_once('common.php');
 require_once(WR_DIR.'rules/classicwr_to_xhtml.php');
 
-// we use a injerited inline parser to access to some protected data, to verify them
-class WikiInlineParserTest extends WikiInlineParser {
-
-    function getSplitPattern(){ return $this->splitPattern; }
-    function getListTag(){ return $this->listTag; }
-}
-
-class WRConfigTest1 extends WikiRendererConfig { }
-
-
 class WikiRendererTestsInlineParser extends WikiRendererUnitTestCase {
 
     function testInlineParserConstructor() {
 
-        $conf = new WRConfigTest1();
+        $conf = new WRConfigTest();
         $conf->inlinetags=array( 'cwrxhtml_strong');
         $conf->defaultTextLineContainer= 'WikiHtmlTextLine';
         $conf->availabledTextLineContainers = array('WikiHtmlTextLine');
@@ -33,27 +23,21 @@ class WikiRendererTestsInlineParser extends WikiRendererUnitTestCase {
 
         $wip = new WikiInlineParserTest($conf);
         $trueResult = '/(__)|(\\\\)/';
-        if(!$this->assertEqual($trueResult, $wip->getSplitPattern(), "erreur")){
-            $this->_showDiff($trueResult,$wip->getSplitPattern());
-        }
+        $this->assertEqualOrDiff($trueResult, $wip->getSplitPattern(), "erreur");
 
         $conf->inlinetags=array( 'cwrxhtml_strong','cwrxhtml_em');
         $conf->simpletags=array('%%%'=>'');
 
         $wip = new WikiInlineParserTest($conf );
         $trueResult = '/(__)|(\'\')|(%%%)|(\\\\)/';
-        if(!$this->assertEqual($trueResult, $wip->getSplitPattern(), "erreur")){
-            $this->_showDiff($trueResult,$wip->getSplitPattern());
-        }
+        $this->assertEqualOrDiff($trueResult, $wip->getSplitPattern(), "erreur");
 
         $conf->inlinetags=array( 'cwrxhtml_strong','cwrxhtml_q');
         $conf->simpletags=array('%%%'=>'');
 
         $wip = new WikiInlineParserTest( $conf);
         $trueResult = '/(__)|(\^\^)|(%%%)|(\\|)|(\\\\)/';
-        if(!$this->assertEqual($trueResult, $wip->getSplitPattern(), "erreur")){
-            $this->_showDiff($trueResult,$wip->getSplitPattern());
-        }
+        $this->assertEqualOrDiff($trueResult, $wip->getSplitPattern(), "erreur");
 
 
         $conf->inlinetags=array( 'cwrxhtml_strong','cwrxhtml_em','cwrxhtml_code','cwrxhtml_q',
@@ -62,9 +46,7 @@ class WikiRendererTestsInlineParser extends WikiRendererUnitTestCase {
 
         $wip = new WikiInlineParserTest($conf );
         $trueResult = '/(__)|(\'\')|(@@)|(\\^\\^)|(\\{\\{)|(\\}\\})|(\\?\\?)|(\\[)|(\\])|(\\(\\()|(\\)\\))|(~~)|(%%%)|(\\:-\\))|(\\|)|(\\\\)/';
-        if(!$this->assertEqual($trueResult, $wip->getSplitPattern(), "erreur")){
-            $this->_showDiff($trueResult,$wip->getSplitPattern());
-        }
+        $this->assertEqualOrDiff($trueResult, $wip->getSplitPattern(), "erreur");
 
         $test = array(
             '__'=>array('__','__'),
@@ -94,7 +76,7 @@ class WikiRendererTestsInlineParser extends WikiRendererUnitTestCase {
     );
 
     function testInlineParser1() {
-        $conf = new WRConfigTest1();
+        $conf = new WRConfigTest();
         $conf->inlinetags=array( 'cwrxhtml_strong');
         $conf->defaultTextLineContainer= 'WikiHtmlTextLine';
         $conf->availabledTextLineContainers = array('WikiHtmlTextLine');
@@ -104,9 +86,7 @@ class WikiRendererTestsInlineParser extends WikiRendererUnitTestCase {
         $wip = new WikiInlineParser($conf);
         foreach($this->listinline1 as $source=>$trueResult){
             $res = $wip->parse($source);
-            if(!$this->assertEqual($trueResult,$res, "erreur")){
-                $this->_showDiff($trueResult,$res);
-            }
+            $this->assertEqualOrDiff($trueResult,$res, "erreur");
         }
     }
 
@@ -161,7 +141,7 @@ class WikiRendererTestsInlineParser extends WikiRendererUnitTestCase {
     );
 
     function testInlineParser2() {
-        $conf = new WRConfigTest1();
+        $conf = new WRConfigTest();
 
         $conf->inlinetags=array( 'cwrxhtml_strong','cwrxhtml_em','cwrxhtml_code','cwrxhtml_q',
             'cwrxhtml_cite','cwrxhtml_acronym','cwrxhtml_link', 'cwrxhtml_image', 'cwrxhtml_anchor');
@@ -183,15 +163,8 @@ class WikiRendererTestsInlineParser extends WikiRendererUnitTestCase {
             }
         }
     }
-
-
-
-
 }
-
-$test = &new WikiRendererTestsInlineParser();
-$test->run(new HtmlReporter2());
-
-
-
-?>
+if(!defined('ALL_TESTS')) {
+    $test = new WikiRendererTestsInlineParser();
+    $test->run(new HtmlReporter2());
+}

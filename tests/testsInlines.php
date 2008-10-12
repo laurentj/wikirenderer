@@ -86,9 +86,7 @@ class WikiRendererTestsInlines extends WikiRendererUnitTestCase {
         $wr = new WikiRenderer('classicwr_to_xhtml');
         foreach($this->listinline as $source=>$result){
             $res = $wr->render($source);
-            if(!$this->assertEqual($res,$result, "erreur")){
-                $this->_showDiff($result,$res);
-            }
+            $this->assertEqualOrDiff($res,$result, "erreur");
             $this->assertEqual(count($wr->errors),0, "Erreurs détéctées par wr ! (%s)");
         }
     }
@@ -108,10 +106,8 @@ class WikiRendererTestsInlines extends WikiRendererUnitTestCase {
     }
 
 }
+if(!defined('ALL_TESTS')) {
+    $test = new WikiRendererTestsInlines();
+    $test->run(new HtmlReporter2());
+}
 
-$test = &new WikiRendererTestsInlines();
-$test->run(new HtmlReporter2());
-
-
-
-?>

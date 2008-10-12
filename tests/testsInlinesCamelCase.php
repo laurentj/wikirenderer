@@ -83,9 +83,7 @@ class WikiRendererTestsInlinesCC extends WikiRendererUnitTestCase {
         $wr = new WikiRenderer($conf);
         foreach($this->listinline as $source=>$result){
             $res = $wr->render($source);
-            if(!$this->assertEqual($res,$result, "erreur")){
-                $this->_showDiff($result,$res);
-            }
+            $this->assertEqualOrDiff($res,$result, "erreur");
             $this->assertEqual(count($wr->errors),0, "Erreurs détéctées par wr ! (%s)");
         }
     }
@@ -116,9 +114,8 @@ function wikiword($ww){
     return $result;
 }
 
-$test = &new WikiRendererTestsInlinesCC();
-$test->run(new HtmlReporter2());
+if(!defined('ALL_TESTS')) {
+    $test = new WikiRendererTestsInlinesCC();
+    $test->run(new HtmlReporter2());
+}
 
-
-
-?>

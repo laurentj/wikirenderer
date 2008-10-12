@@ -8,8 +8,13 @@
  * @copyright 2003-2008 Laurent Jouanneau
  */
 error_reporting(E_ALL);
-require_once('simpletest/unit_tester.php');
-require_once('simpletest/reporter.php');
+if (! defined('SIMPLE_TEST')) {
+    define('SIMPLE_TEST', 'simpletest/');
+}
+
+require_once(SIMPLE_TEST . 'unit_tester.php');
+require_once(SIMPLE_TEST . 'reporter.php');
+
 
 define('WR_DIR',realpath(dirname(__FILE__).'/wikirenderer/').'/');
 require_once('wikirenderer/WikiRenderer.lib.php');
@@ -18,7 +23,53 @@ require_once('diff_php5/diffhtml.php');
 if(!defined('WIKIRENDERER_VERSION')) define('WIKIRENDERER_VERSION','');
 
 
+class WRConfigTest extends WikiRendererConfig { }
+
+// we use an inherited inline parser to access to some protected data, to verify them
+class WikiInlineParserTest extends WikiInlineParser {
+
+    function getSplitPattern(){ return $this->splitPattern; }
+    function getListTag(){ return $this->listTag; }
+}
+
 class WikiRendererUnitTestCase extends UnitTestCase {
+
+    /**
+    *    show difference between two strings
+    *    @param string $stringA  the first string
+    *    @param string $stringB  the second string
+    *    @param string $message        Message to send.
+    */
+    function diff($stringA, $stringB, $message='') {
+        if (! isset($this->_reporter)) {
+            trigger_error('Can only show diff within test methods');
+        }
+        if($message != '')
+            $this->_reporter->paintMessage($message);
+        $this->_reporter->paintDiff($stringA, $stringB);
+    }
+
+    /**
+    *    like assertEqual, but shows difference between two given strings
+    *    if it the test fail.
+    *    @param mixed $first  the first value
+    *    @param mixed $second  the second value
+    *    @param string $message        Message to send if it fail
+    *    @return boolean true if the test pass
+    */
+    function assertEqualOrDiff($first, $second, $message = "%s"){
+        $ret = $this->assertEqual($first, $second, $message);
+        if(!$ret){
+            if(is_string($first) && is_string($second))
+                $this->diff($first, $second);
+            else
+                $this->diff(var_export($first,true), var_export($second,true));
+        }
+        return $ret;
+    }
+
+
+
 
     function _showDiff($attendu, $result){
 
@@ -48,7 +99,8 @@ class HtmlReporter2 extends HtmlReporter{
 <div class="header">
 Unit tests on WikiRenderer <?php echo WIKIRENDERER_VERSION;?> (PHP <?php echo phpversion() ?>)
 <ul>
- <li>classicwr : <a href="index.php">internal tests</a> |
+ <li><a href="index.php">All tests</a></li>
+ <li>classicwr : <a href="tests_internal.php">internal tests</a> |
     <a href="testsInlineParser.php">inline parser</a> |
     <a href="testsInlines.php">inlines</a> |
     <a href="testsInlinesCamelCase.php">inlines wikiword</a> |
@@ -66,9 +118,9 @@ Unit tests on WikiRenderer <?php echo WIKIRENDERER_VERSION;?> (PHP <?php echo ph
     <a href="dokuwiki_docbook_inlines.php">inlines</a> |
     <a href="dokuwiki_docbook_blocks.php">blocks</a>
  </li>
- <li>trac syntax:
+ <!--<li>trac syntax:
     <a href="wr3_testsInlines.php">inlines</a> |
-    <a href="wr3_testsBlocks.php">blocks</a> </li>
+    <a href="wr3_testsBlocks.php">blocks</a> </li>-->
 </ul>
 </div>
 <h1><?php echo $test_name?></h1>
@@ -128,7 +180,16 @@ Unit tests on WikiRenderer <?php echo WIKIRENDERER_VERSION;?> (PHP <?php echo ph
         print "<p>" . $this->_htmlEntities($message) . "</p></div>\n";
     }
 
-
+   function paintDiff($stringA, $stringB){
+        $diff = new Diff(explode("\n",$stringA),explode("\n",$stringB));
+        if($diff->isEmpty()) {
+            echo '<p>Erreur diff : bizarre, aucune différence d\'aprés la difflib...</p>';
+        }else{
+            $fmt = new HtmlUnifiedDiffFormatter();
+            echo $fmt->format($diff);
+        }
+   }
+   
     function paintMessage($message) {
         echo '<div>'.$message.'</div>';
     }

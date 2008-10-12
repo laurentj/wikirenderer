@@ -11,8 +11,6 @@
 require_once('common.php');
 require_once(WR_DIR.'rules/wr3_to_docbook.php');
 
-class WRConfigTest extends WikiRendererConfig { }
-
 class WikiRendererTestsWr3Docbook extends WikiRendererUnitTestCase {
 
     function _tagtest( $list, $class) {
@@ -28,13 +26,8 @@ class WikiRendererTestsWr3Docbook extends WikiRendererUnitTestCase {
                     $tag->addContent($wiki[0], $wiki[1]);
             }
 
-            if(!$this->assertEqual($val[1], $tag->getWikiContent(), "erreur wikicontent au numero $k")){
-                $this->_showDiff($val[1], $tag->getWikiContent());
-            }
-            if(!$this->assertEqual($val[2], $tag->getContent(), "erreur content au numero $k")){
-                $this->_showDiff($val[2], $tag->getContent());
-            }
-
+            $this->assertEqualOrDiff($val[1], $tag->getWikiContent(), "erreur wikicontent au numero $k");
+            $this->assertEqualOrDiff($val[2], $tag->getContent(), "erreur content au numero $k");
         }
     }
 
@@ -96,9 +89,8 @@ class WikiRendererTestsWr3Docbook extends WikiRendererUnitTestCase {
     }
 }
 
-$test = &new WikiRendererTestsWr3Docbook();
-$test->run(new HtmlReporter2());
+if(!defined('ALL_TESTS')) {
+    $test = new WikiRendererTestsWr3Docbook();
+    $test->run(new HtmlReporter2());
+}
 
-
-
-?>

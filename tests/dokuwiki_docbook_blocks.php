@@ -42,9 +42,8 @@ class dokuwiki_docbook_blocks extends WikiRendererUnitTestCase {
 
             $res = $wr->render($source);
 
-            if(!$this->assertEqual($res,$result, "error on $file")){
-                $this->_showDiff($result,$res);
-            }
+            $this->assertEqualOrDiff($res,$result, "error on $file");
+
             if(!$this->assertEqual(count($wr->errors),$nberror, "Errors detected by wr ! (%s)")){
                 $this->dump($wr->errors);
             }
@@ -52,9 +51,7 @@ class dokuwiki_docbook_blocks extends WikiRendererUnitTestCase {
     }
 }
 
-$test = &new dokuwiki_docbook_blocks();
-$test->run(new HtmlReporter2());
-
-
-
-?>
+if(!defined('ALL_TESTS')) {
+    $test = new dokuwiki_docbook_blocks();
+    $test->run(new HtmlReporter2());
+}

@@ -1,7 +1,7 @@
-<p>Lorem <strong>ipsum dolor</strong> sit amet, <em>consectetuer adipiscing</em> elit. [<a href="#footnote-XXX-1" name="rev-footnote-XXX-1" id="rev-footnote-XXX-1">1</a>]. Ut iaculis ultrices nulla. Cras viverra diam nec justo.</p>
+<p>Lorem <strong>ipsum dolor</strong> sit amet, <em>consectetuer adipiscing</em> elit. <span class="footnote-ref">[<a href="#footnote-XXX-1" name="rev-footnote-XXX-1" id="rev-footnote-XXX-1">1</a>]</span>. Ut iaculis ultrices nulla. Cras viverra diam nec justo.</p>
 
 <ul>
-<li> Phasellus non eros sit amet [<a href="#footnote-XXX-2" name="rev-footnote-XXX-2" id="rev-footnote-XXX-2">2</a>] laoreet.
+<li> Phasellus non eros sit amet <span class="footnote-ref">[<a href="#footnote-XXX-2" name="rev-footnote-XXX-2" id="rev-footnote-XXX-2">2</a>]</span> laoreet.
 <ol><li> Nam mi wisi, pellentesque dictum,
 </li>
 <li> tristique in, tristique quis, erat.

@@ -7,108 +7,57 @@
  * @author Laurent Jouanneau
  * @copyright 2006 Laurent Jouanneau
  */
-
 require_once('common.php');
 require_once(WR_DIR.'rules/classicwr_to_xhtml.php');
 
-class WRConfigTest extends WikiRendererConfig { }
+define('ALL_TESTS', true);
 
-class WikiRendererTestsInternes extends WikiRendererUnitTestCase {
+$test = &new GroupTest('All tests');
 
-    function _tagtest( $list, $class) {
-        $conf= new WRConfigTest();
-        foreach($list as $k=> $val){
-            $tag = new $class($conf);
-            foreach($val[0] as $wiki){
-                if($wiki === false)
-                    $tag->addSeparator('|');
-                elseif(is_string($wiki))
-                    $tag->addContent($wiki);
-                else
-                    $tag->addContent($wiki[0], $wiki[1]);
-            }
+require_once('tests_internals.php');
+$test->addTestCase(new WikiRendererTestsInternes());
 
-            if(!$this->assertEqual($val[1], $tag->getWikiContent(), "erreur wikicontent au numéro $k")){
-                $this->_showDiff($val[1], $tag->getWikiContent());
-            }
-            if(!$this->assertEqual($val[2], $tag->getContent(), "erreur content au numéro $k")){
-                $this->_showDiff($val[2], $tag->getContent());
-            }
+require_once('testsInlineParser.php');
+$test->addTestCase(new WikiRendererTestsInlineParser());
 
-        }
-    }
+require_once('testsInlines.php');
+$test->addTestCase(new WikiRendererTestsInlines());
 
+require_once('testsInlinesCamelCase.php');
+$test->addTestCase(new WikiRendererTestsInlinesCC());
 
-    var $listlinetext = array(
-        array(
-            array('foo'),
-            'foo',
-            'foo'),
-        array(
-            array('foo', 'bar'),
-            'foobar',
-            'foobar'),
-        array(
-            array('foo', false, 'bar'),
-            'foobar',
-            'foo'),
-    );
+require_once('testsBlocks.php');
+$test->addTestCase(new WikiRendererTestsBlocks());
 
-    function testListLineText() {
-        $this->_tagtest( $this->listlinetext, 'WikiHtmlTextLine');
-    }
+require_once('testsSerie.php');
+$test->addTestCase(new WikiRendererTestsSerie());
 
+require_once('wr3_primaires.php');
+$test->addTestCase(new WikiRendererTestsWr3Primaire());
 
-    var $listtagstrong = array(
-        array(
-            array('foo'),
-            '__foo__',
-            '<strong>foo</strong>'),
-        array(
-            array('foo', 'bar'),
-            '__foobar__',
-            '<strong>foobar</strong>'),
-        array(
-            array('foo', false, 'bar'),
-            '__foobar__',
-            '<strong>foo</strong>'),
-    );
+require_once('wr3_testsInlineParser.php');
+$test->addTestCase(new WR3TestsInlineParser());
 
-    function testTagStrong() {
-        $this->_tagtest( $this->listtagstrong, 'cwrxhtml_strong');
-    }
+require_once('wr3_testsInlines.php');
+$test->addTestCase(new WR3TestsInlines());
 
-    var $listtagq = array(
-        array(
-            array('foo'),
-            '^^foo^^',
-            '<q>foo</q>'),
-        array(
-            array('foo',false, 'bar'),
-            '^^foo|bar^^',
-            '<q lang="bar">foo</q>'),
-        array(
-            array('foo', false, 'bar', false,'baz','truc'),
-            '^^foo|bar|baztruc^^',
-            '<q lang="bar" cite="baztruc">foo</q>'),
-        array(
-            array('foo',array('__hello__','<strong>hello</strong>'), false, 'bar', false,'baz','truc'),
-            '^^foo__hello__|bar|baztruc^^',
-            '<q lang="bar" cite="baztruc">foo<strong>hello</strong></q>'),
-        array(
-            array('foo', false, array('__bar__','<strong>bar</strong>'), 'fleur', false,'baz','truc'),
-            '^^foo|__bar__fleur|baztruc^^',
-            '<q lang="__bar__fleur" cite="baztruc">foo</q>'),
-    );
+require_once('wr3_testsBlocks.php');
+$test->addTestCase(new WR3TestsBlocks());
 
-    function testTagq() {
-        $this->_tagtest( $this->listtagq, 'cwrxhtml_q');
-    }
-}
+require_once('wr3_dbk_primary.php');
+$test->addTestCase(new WikiRendererTestsWr3Docbook());
 
-$test = &new WikiRendererTestsInternes();
+require_once('wr3_dbk_testsInlines.php');
+$test->addTestCase(new WR3DBKTestsInlines());
+
+require_once('wr3_dbk_testsBlocks.php');
+$test->addTestCase(new WR3DBKTestsBlocks());
+
+require_once('dokuwiki_docbook_inlines.php');
+$test->addTestCase(new dokuwiki_docbook_inlines());
+
+require_once('dokuwiki_docbook_blocks.php');
+$test->addTestCase(new dokuwiki_docbook_blocks());
+
 $test->run(new HtmlReporter2());
 
-
-
-?>

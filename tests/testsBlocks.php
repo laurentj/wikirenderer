@@ -37,22 +37,16 @@ class WikiRendererTestsBlocks extends WikiRendererUnitTestCase {
             fclose($handle);
 
             $res = $wr->render($source);
-            if(!$this->assertEqual($res,$result, "erreur sur $file")){
-                $this->_showDiff($result,$res);
-            }
+            $this->assertEqualOrDiff($res,$result, "erreur sur $file");
+
             if(!$this->assertEqual(count($wr->errors),$nberror, "Erreurs détéctées par wr ! (%s)")){
                 $this->dump($wr->errors);
             }
         }
     }
-
-
-
 }
 
-$test = &new WikiRendererTestsBlocks();
-$test->run(new HtmlReporter2());
-
-
-
-?>
+if(!defined('ALL_TESTS')) {
+    $test = new WikiRendererTestsBlocks();
+    $test->run(new HtmlReporter2());
+}

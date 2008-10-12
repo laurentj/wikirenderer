@@ -94,9 +94,7 @@ consectetuer adipiscing elit.</para>',
         $wr = new WikiRenderer(new dokuwiki_to_docbook());
         foreach($this->listinline as $source=>$result){
             $res = $wr->render($source);
-            if(!$this->assertEqual($res,$result, "erreur")){
-                $this->_showDiff($result,$res);
-            }
+            $this->assertEqualOrDiff($res,$result, "erreur");
             $this->assertEqual(count($wr->errors),0, "WR returns errors ! ".var_export($wr->errors,true)." (%s)");
         }
     }
@@ -137,8 +135,7 @@ consectetuer adipiscing elit.</para>',
     }
 */
 }
-
-$test = &new dokuwiki_docbook_inlines();
-$test->run(new HtmlReporter2());
-
-?>
+if(!defined('ALL_TESTS')) {
+      $test = new dokuwiki_docbook_inlines();
+      $test->run(new HtmlReporter2());
+}

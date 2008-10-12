@@ -36,8 +36,7 @@ class WikiRendererTestsSerie extends WikiRendererUnitTestCase {
 
 }
 
-
-$test = &new WikiRendererTestsSerie();
-$test->run(new HtmlReporter2());
-
-?>
+if(!defined('ALL_TESTS')) {
+   $test = new WikiRendererTestsSerie();
+   $test->run(new HtmlReporter2());
+}

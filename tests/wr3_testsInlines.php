@@ -86,9 +86,7 @@ class WR3TestsInlines extends WikiRendererUnitTestCase {
         $wr = new WikiRenderer(new wr3_to_xhtml());
         foreach($this->listinline as $source=>$result){
             $res = $wr->render($source);
-            if(!$this->assertEqual($res,$result, "erreur")){
-                $this->_showDiff($result,$res);
-            }
+            $this->assertEqualOrDiff($res,$result, "erreur");
             $this->assertEqual(count($wr->errors),0, "Erreurs détéctées par wr ! (%s)");
         }
     }
@@ -109,9 +107,10 @@ class WR3TestsInlines extends WikiRendererUnitTestCase {
 
 }
 
-$test = &new WR3TestsInlines();
-$test->run(new HtmlReporter2());
-
+if(!defined('ALL_TESTS')) {
+    $test = new WR3TestsInlines();
+    $test->run(new HtmlReporter2());
+}
 
 
 ?>

@@ -86,9 +86,7 @@ class TracTestsInlines extends WikiRendererUnitTestCase {
         $wr = new WikiRenderer(new wr3_to_xhtml());
         foreach($this->listinline as $source=>$result){
             $res = $wr->render($source);
-            if(!$this->assertEqual($res,$result, "erreur")){
-                $this->_showDiff($result,$res);
-            }
+            $this->assertEqualOrDiff($res,$result, "erreur");
             $this->assertEqual(count($wr->errors),0, "Erreurs détéctées par wr ! (%s)");
         }
     }
@@ -108,10 +106,10 @@ class TracTestsInlines extends WikiRendererUnitTestCase {
     }
 
 }
-
-$test = &new TracTestsInlines();
-$test->run(new HtmlReporter2());
-
+if(!defined('ALL_TESTS')) {
+    $test = new TracTestsInlines();
+    $test->run(new HtmlReporter2());
+}
 
 
 ?>

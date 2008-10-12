@@ -43,9 +43,7 @@ class WR3TestsBlocks extends WikiRendererUnitTestCase {
                 $conf = & $wr->getConfig();
                 $res=str_replace('-'.$conf->footnotesId.'-', '-XXX-',$res);
             }
-            if(!$this->assertEqual($res,$result, "erreur sur $file")){
-                $this->_showDiff($result,$res);
-            }
+            $this->assertEqualOrDiff($result, $res, "erreur sur $file");
             if(!$this->assertEqual(count($wr->errors),$nberror, "Errors detected by wr ! (%s)")){
                 $this->dump($wr->errors);
             }
@@ -56,9 +54,7 @@ class WR3TestsBlocks extends WikiRendererUnitTestCase {
 
 }
 
-$test = &new WR3TestsBlocks();
-$test->run(new HtmlReporter2());
-
-
-
-?>
+if(!defined('ALL_TESTS')) {
+    $test = new WR3TestsBlocks();
+    $test->run(new HtmlReporter2());
+}

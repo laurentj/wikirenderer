@@ -1,5 +1,5 @@
 <?php
-require('../WikiRenderer.lib.php');
+require('../tests/wikirenderer/WikiRenderer.lib.php');
 
 $texte='';
 

@@ -5,13 +5,13 @@
  * @package wikirenderer
  * @subpackage tests
  * @author Laurent Jouanneau
- * @copyright 2006 Laurent Jouanneau
+ * @copyright 2008 Laurent Jouanneau
  */
 
 require_once('common.php');
-require_once(WR_DIR.'rules/wr3_to_xhtml.php');
+require_once(WR_DIR.'rules/classicwr_to_xhtml.php');
 
-class WikiRendererTestsWr3Primaire extends WikiRendererUnitTestCase {
+class WikiRendererTestsInternes extends WikiRendererUnitTestCase {
 
     function _tagtest( $list, $class) {
         $conf= new WRConfigTest();
@@ -26,8 +26,8 @@ class WikiRendererTestsWr3Primaire extends WikiRendererUnitTestCase {
                     $tag->addContent($wiki[0], $wiki[1]);
             }
 
-            $this->assertEqualOrDiff($val[1], $tag->getWikiContent(), "erreur wikicontent au numÃ©ro $k");
-            $this->assertEqualOrDiff($val[2], $tag->getContent(), "erreur content au numÃ©ro $k");
+            $this->assertEqualOrDiff($val[1], $tag->getWikiContent(), "erreur wikicontent au numéro $k");
+            $this->assertEqualOrDiff($val[2], $tag->getContent(), "erreur content au numéro $k");
 
         }
     }
@@ -69,7 +69,7 @@ class WikiRendererTestsWr3Primaire extends WikiRendererUnitTestCase {
     );
 
     function testTagStrong() {
-        $this->_tagtest( $this->listtagstrong, 'wr3xhtml_strong');
+        $this->_tagtest( $this->listtagstrong, 'cwrxhtml_strong');
     }
 
     var $listtagq = array(
@@ -96,23 +96,13 @@ class WikiRendererTestsWr3Primaire extends WikiRendererUnitTestCase {
     );
 
     function testTagq() {
-        $this->_tagtest( $this->listtagq, 'wr3xhtml_q');
-    }
-
-    var $listtaga = array(
-        array(
-            array(array('__bar__','<strong>bar</strong>'), 'fleur', false,'fooo', false, 'baz','truc'),
-            '[[__bar__fleur|fooo|baztruc]]',
-            '<a href="fooo" hreflang="baztruc"><strong>bar</strong>fleur</a>'),
-    );
-
-    function testTaga() {
-        $this->_tagtest( $this->listtaga, 'wr3xhtml_link');
+        $this->_tagtest( $this->listtagq, 'cwrxhtml_q');
     }
 }
 
 if(!defined('ALL_TESTS')) {
-    $test = new WikiRendererTestsWr3Primaire();
+    $test = new WikiRendererTestsInternes();
     $test->run(new HtmlReporter2());
 }
 
+?>
