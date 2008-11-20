@@ -12,3 +12,4 @@ cd ./rules
   wr3_to_xhtml.php
   wr3_to_docbook.php
   dokuwiki_to_docbook.php
+  trac_to_xhtml.php

@@ -25,44 +25,65 @@
 
 class trac_to_xhtml  extends WikiRendererConfig  {
 
-    public $inlinetags= array( 'tracxhtml_strongem', 'tracxhtml_strong','tracxhtml_emphasis','tracxhtml_underlined',
-        'tracxhtml_monospaced', 'tracxhtml_monospaced2',
-        'tracxhtml_subscript', 'tracxhtml_superscript', 'tracxhtml_macro', 'tracxhtml_link',
+    public $inlinetags= array( 'tracxhtml_strongem', 'tracxhtml_strong','tracxhtml_emphasis',
+        'tracxhtml_underlined', 'tracxhtml_monospaced', 'tracxhtml_monospaced2', 'tracxhtml_strikethrough',
+        'tracxhtml_subscript', 'tracxhtml_superscript', 'tracxhtml_macro', //'tracxhtml_link',
         /*'tracxhtml_footnote', 'tracxhtml_image',
         'tracxhtml_nowiki_inline',*/);
 
-    public $defaultTextLineContainer = 'WikiHtmlTextLine';
+    public $defaultTextLineContainer = 'tracWikiHtmlTextLine';
 
-    public $availabledTextLineContainers = array('WikiHtmlTextLine', 'tracxhtml_table_row');
+    public $availabledTextLineContainers = array('tracWikiHtmlTextLine'/*, 'tracxhtml_table_row'*/);
 
     /**
     * liste des balises de type bloc reconnus par WikiRenderer.
     */
-    public $bloctags = array('tracxhtml_title', 'tracxhtml_list', 'tracxhtml_blockquote','tracxhtml_table', 'tracxhtml_pre',
-         'tracxhtml_syntaxhighlight', 'tracxhtml_file', 'tracxhtml_nowiki', 'tracxhtml_html', 'tracxhtml_php', 'tracxhtml_para',
-         'tracxhtml_macro'
+    public $bloctags = array(/*'tracxhtml_title', 'tracxhtml_list', 'tracxhtml_blockquote','tracxhtml_table', 'tracxhtml_pre',
+         'tracxhtml_syntaxhighlight', 'tracxhtml_file', 'tracxhtml_nowiki', 'tracxhtml_html', 'tracxhtml_php',*/ 'tracxhtml_para',
+         /*'tracxhtml_macro'*/
     );
 
+    public $simpletags = array();
 
-   public $simpletags = array("\\\\"=>"");
+    public $escapeChar = '';
 
-   public $escapeChar = '';
-
-   public $sectionLevel= array();
-
-   public $footnotes = array();
-   public $footnotesId='';
-   public $footnotesTemplate = '<div class="footnotes"><h4>Notes</h4>%s</div>';
+    public $sectionLevel= array();
 
     public $startHeaderNumber = 1; // top level header will be <h1> if you set to 1, <h2> if it is 2 etc..
+
+    public $wikiWordBaseUrl = '/';
+    public $linkBaseUrl = array(
+        'ticket'=>'/ticket/',
+        'report'=>'/report/',
+        'changeset'=>'/changeset/',
+        'log'=>'/log/',
+        'wiki'=>'/wiki/',
+        'milestone'=>'/milestone/',
+        'source'=>'/browser/',
+        'attachement'=>'/attachment/',
+    );
+
+    function __construct() {
+        $this->checkWikiWordFunction = array($this, 'transformWikiWord');
+
+    }
+
+    public function transformWikiWord($ww){
+        $result=array();
+        foreach($ww as $w){
+            if ($w{0} == '!')
+                $result[]=substr($w,1);
+            else
+                $result[]='<a href="'.$this->wikiWordBaseUrl.$w.'">'.$w.'</a>';
+        }
+        return $result;
+    }
 
     /**
     * called before the parsing
     */
     public function onStart($texte){
         $this->sectionLevel = array();
-        $this->footnotesId = rand(0,30000);
-        $this->footnotes = array();
         return $texte;
     }
 
@@ -71,22 +92,110 @@ class trac_to_xhtml  extends WikiRendererConfig  {
     */
     public function onParse($finalTexte){
         $finalTexte.= str_repeat('</div>', count($this->sectionLevel));
-        if(count($this->footnotes)){
-            $footnotes = implode("\n",$this->footnotes);
-            $finalTexte .= str_replace('%s', $footnotes, $this->footnotesTemplate);
-        }
         return $finalTexte;
+    }
+}
+
+function trac_callback_links1($match) {
+    
+
+}
+
+
+class tracWikiHtmlTextLine extends WikiTag {
+    public $isTextLineTag=true;
+    protected $attribute=array('$$');
+    protected $checkWikiWordIn=array('$$');
+
+    protected function _doEscape($string){
+
+        if(preg_match_all('/([a-z]+)\:([^\s]+)|#(\d+)|{(\d+)}/', $string, $m, PREG_SET_ORDER |PREG_OFFSET_CAPTURE)){
+            $str ='';
+            $begin = 0;
+
+            foreach($m as $match) {
+                $len = ($match[0][1])-$begin;
+                $str.= htmlspecialchars(substr($string, $begin, $len));
+                $begin = $match[0][1] + strlen($match[0][0]);
+
+                switch($match[1][0]) {
+                    case 'http': $str.= '<a href="'.$match[0][0].'">'.$match[0][0].'</a>'; break;
+                    case '':
+                        if($match[3][0] != '')
+                            $str.= '<a href="'.$this->config->linkBaseUrl['ticket'].$match[3][0].'">#'.$match[3][0].'</a>';
+                        else
+                            $str.= '<a href="'.$this->config->linkBaseUrl['report'].$match[4][0].'">{'.$match[4][0].'}</a>';
+                        break;
+                    default:
+                        if (isset($this->config->linkBaseUrl[$match[1][0]])) {
+                            $str.= '<a href="'.$this->config->linkBaseUrl[$match[1][0]].$match[2][0].'">'.$match[0][0].'</a>';
+                        }
+                        else
+                            $str.= htmlspecialchars($match[0][0]);
+                }
+
+            }
+            if($begin < strlen($string))
+                $str.= htmlspecialchars(substr($string, $begin));
+            return $str;
+        }
+        else
+            return htmlspecialchars($string);
     }
 }
 
 
 
+/*
+= Heading =
+== Subheading ==
+=== About ''this'' ===
+
+list
+ * Item 1
+   * Item 1.1
+ * Item 2
+
+ 1. Item 1
+   1. Item 1.1
+ 1. Item 2
+
+definition:
+ llama::
+   some kind of mammal, with hair
+ ppython::
+   some kind of reptile, without hair
+   (can you spot the typo?)
+
+ {{{
+  def HelloWorld():
+      print "Hello World"
+ }}}
+
+blockquote : 2 spaces
+  This text is a quote from someone else.
+
+
+||Cell 1||Cell 2||Cell 3||
+||Cell 4||Cell 5||Cell 6||
+
+
+hr
+ ----
+
+Macros :
+
+[[Image]]
+[[Timestamp]]
+
+
+*/
 // ===================================== inline tags
 
 class tracxhtml_strongem extends WikiTagXhtml {
-    protected $name='strong';
-    public $beginTag="'''";
-    public $endTag="'''";
+    protected $name='strongem';
+    public $beginTag="'''''";
+    public $endTag="'''''";
     protected $additionnalAttributes=array();
     public function getContent(){ 
          return '<strong><em>'.$this->contents[0].'</em></strong>';
@@ -124,6 +233,12 @@ class tracxhtml_monospaced2 extends WikiTagXhtml {
     public $endTag='`';
 }
 
+class tracxhtml_strikethrough extends WikiTagXhtml {
+    protected $name='del';
+    public $beginTag='~~';
+    public $endTag='~~';
+}
+
 class tracxhtml_subscript extends WikiTagXhtml {
     protected $name='sub';
     public $beginTag=',,';
@@ -144,20 +259,32 @@ class tracxhtml_macro extends WikiTagXhtml {
         if (strtoupper ($this->contents[0]) == 'BR')
             return '<br />';
         else
-            return '';
+            return '[['.$this->contents[0].']]';
     }
 }
 
 
 /*
-class tracxhtml_del extends WikiTagXhtml {
-    protected $name='del';
-    public $beginTag='<del>';
-    public $endTag='</del>';
-    public function getContent(){ return '';}
-}
+
+
+Links:
+ * http://www.edgewall.com/
+ * [http://www.edgewall.com/ Edgewall Software]
+ * [wiki:TitleIndex Title Index]
+ * [wiki:ISO9000]
+ * Tickets: #1 or ticket:1
+ * Reports: {1} or report:1
+ * Changesets: r1, [1] or changeset:1
+ * Revision Logs: r1:3, [1:3] or log:branches/0.8-stable#1:3
+ * Wiki pages: CamelCase or wiki:CamelCase
+ * Milestones: milestone:1.0 or milestone:"End-of-days Release"
+ * Files: source:trunk/COPYING
+ * Attachments: attachment:"file name.doc"
+ * A specific file revision: source:/trunk/COPYING#200
+ * A filename with embedded space: source:"/trunk/README FIRST"
 */
-/*
+
+
 class tracxhtml_link extends WikiTagXhtml {
     protected $name='a';
     public $beginTag='[';
@@ -184,6 +311,7 @@ class tracxhtml_link extends WikiTagXhtml {
     }
 }
 
+/*
 class tracxhtml_footnote extends WikiTagXhtml {
     protected $name='footnote';
     public $beginTag='((';
