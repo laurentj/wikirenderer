@@ -27,20 +27,19 @@ class trac_to_xhtml  extends WikiRendererConfig  {
 
     public $inlinetags= array( 'tracxhtml_strongem', 'tracxhtml_strong','tracxhtml_emphasis',
         'tracxhtml_underlined', 'tracxhtml_monospaced', 'tracxhtml_monospaced2', 'tracxhtml_strikethrough',
-        'tracxhtml_subscript', 'tracxhtml_superscript', 'tracxhtml_macro', //'tracxhtml_link',
-        /*'tracxhtml_footnote', 'tracxhtml_image',
-        'tracxhtml_nowiki_inline',*/);
+        'tracxhtml_subscript', 'tracxhtml_superscript', 'tracxhtml_macro', 'tracxhtml_link',
+        );
 
     public $defaultTextLineContainer = 'tracWikiHtmlTextLine';
 
-    public $availabledTextLineContainers = array('tracWikiHtmlTextLine'/*, 'tracxhtml_table_row'*/);
+    public $availabledTextLineContainers = array('tracWikiHtmlTextLine', 'tracxhtml_table_row');
 
     /**
     * liste des balises de type bloc reconnus par WikiRenderer.
     */
-    public $bloctags = array(/*'tracxhtml_title', 'tracxhtml_list', 'tracxhtml_blockquote','tracxhtml_table', 'tracxhtml_pre',
-         'tracxhtml_syntaxhighlight', 'tracxhtml_file', 'tracxhtml_nowiki', 'tracxhtml_html', 'tracxhtml_php',*/ 'tracxhtml_para',
-         /*'tracxhtml_macro'*/
+    public $bloctags = array('tracxhtml_title', 'tracxhtml_list', 'tracxhtml_definition','tracxhtml_pre',
+        'tracxhtml_blockquote', 'tracxhtml_blockquote2', 'tracxhtml_table','tracxhtml_image',
+          'tracxhtml_para', 'tracxhtml_hr', 'tracxhtml_timestamp',
     );
 
     public $simpletags = array();
@@ -96,12 +95,6 @@ class trac_to_xhtml  extends WikiRendererConfig  {
     }
 }
 
-function trac_callback_links1($match) {
-    
-
-}
-
-
 class tracWikiHtmlTextLine extends WikiTag {
     public $isTextLineTag=true;
     protected $attribute=array('$$');
@@ -128,7 +121,10 @@ class tracWikiHtmlTextLine extends WikiTag {
                         break;
                     default:
                         if (isset($this->config->linkBaseUrl[$match[1][0]])) {
-                            $str.= '<a href="'.$this->config->linkBaseUrl[$match[1][0]].$match[2][0].'">'.$match[0][0].'</a>';
+                            if($match[1][0] == 'wiki' || $match[1][0] == 'source')
+                                $str.= '<a href="'.$this->config->linkBaseUrl[$match[1][0]].$match[2][0].'">'.$match[2][0].'</a>';
+                            else
+                                $str.= '<a href="'.$this->config->linkBaseUrl[$match[1][0]].$match[2][0].'">'.$match[1][0].' '.$match[2][0].'</a>';
                         }
                         else
                             $str.= htmlspecialchars($match[0][0]);
@@ -146,57 +142,12 @@ class tracWikiHtmlTextLine extends WikiTag {
 
 
 
-/*
-= Heading =
-== Subheading ==
-=== About ''this'' ===
-
-list
- * Item 1
-   * Item 1.1
- * Item 2
-
- 1. Item 1
-   1. Item 1.1
- 1. Item 2
-
-definition:
- llama::
-   some kind of mammal, with hair
- ppython::
-   some kind of reptile, without hair
-   (can you spot the typo?)
-
- {{{
-  def HelloWorld():
-      print "Hello World"
- }}}
-
-blockquote : 2 spaces
-  This text is a quote from someone else.
-
-
-||Cell 1||Cell 2||Cell 3||
-||Cell 4||Cell 5||Cell 6||
-
-
-hr
- ----
-
-Macros :
-
-[[Image]]
-[[Timestamp]]
-
-
-*/
 // ===================================== inline tags
 
 class tracxhtml_strongem extends WikiTagXhtml {
     protected $name='strongem';
     public $beginTag="'''''";
     public $endTag="'''''";
-    protected $additionnalAttributes=array();
     public function getContent(){ 
          return '<strong><em>'.$this->contents[0].'</em></strong>';
     }
@@ -206,7 +157,6 @@ class tracxhtml_strong extends WikiTagXhtml {
     protected $name='strong';
     public $beginTag="'''";
     public $endTag="'''";
-    protected $additionnalAttributes=array();
 }
 
 class tracxhtml_emphasis extends WikiTagXhtml {
@@ -263,135 +213,78 @@ class tracxhtml_macro extends WikiTagXhtml {
     }
 }
 
-
-/*
-
-
-Links:
- * http://www.edgewall.com/
- * [http://www.edgewall.com/ Edgewall Software]
- * [wiki:TitleIndex Title Index]
- * [wiki:ISO9000]
- * Tickets: #1 or ticket:1
- * Reports: {1} or report:1
- * Changesets: r1, [1] or changeset:1
- * Revision Logs: r1:3, [1:3] or log:branches/0.8-stable#1:3
- * Wiki pages: CamelCase or wiki:CamelCase
- * Milestones: milestone:1.0 or milestone:"End-of-days Release"
- * Files: source:trunk/COPYING
- * Attachments: attachment:"file name.doc"
- * A specific file revision: source:/trunk/COPYING#200
- * A filename with embedded space: source:"/trunk/README FIRST"
-*/
-
-
 class tracxhtml_link extends WikiTagXhtml {
     protected $name='a';
     public $beginTag='[';
     public $endTag=']';
     protected $attribute=array('href','$$');
-    public $separators=array('|');
+    public $separators=array(' ');
 
     public function getContent(){
         $cntattr=count($this->attribute);
         $cnt=($this->separatorCount + 1 > $cntattr?$cntattr:$this->separatorCount+1);
+        $hasLabel = false;
         if($cnt == 1 ){
-            $contents = $this->wikiContentArr[0];
-            $href=$contents;
-            if(strpos($href,'javascript:')!==false) // for security reason
-                $href='#';
-            if(strlen($contents) > 40)
-                $contents=substr($contents,0,40).'(..)';
-            return '<a href="'.htmlspecialchars(trim($href)).'">'.htmlspecialchars($contents).'</a>';
-        }else{
-            if(strpos($this->wikiContentArr[0],'javascript:')!==false) // for security reason
-                $this->wikiContentArr[0]='#';
-            return parent::getContent();
+            $href = $this->wikiContentArr[0];
+            $label = $href;
+            if(strlen($label) > 40)
+                $label=substr($label,0,40).'(..)';
+            $label = htmlspecialchars($label);
         }
-    }
-}
-
-/*
-class tracxhtml_footnote extends WikiTagXhtml {
-    protected $name='footnote';
-    public $beginTag='((';
-    public $endTag='))';
-
-    public function getContent(){
-        $number = count($this->config->footnotes) + 1;
-        $id = 'footnote-'.$this->config->footnotesId.'-'.$number;
-        $this->config->footnotes[] = "<p>[<a href=\"#rev-$id\" name=\"$id\" id=\"$id\">$number</a>] ".$this->contents[0].'</p>';
-
-        return "<span class=\"footnote-ref\">[<a href=\"#$id\" name=\"rev-$id\" id=\"rev-$id\">$number</a>]</span>";
-   }
-}
-
-
-class tracxhtml_nowiki_inline extends WikiTagXhtml {
-    protected $name='nowiki';
-    public $beginTag='<nowiki>';
-    public $endTag='</nowiki>';
-    public function getContent(){
-        return '<div>'.htmlspecialchars($this->wikiContentArr[0]).'</div>';
-    }
-}
-
-
-class tracxhtml_image extends WikiTagXhtml {
-    protected $name='image';
-    public $beginTag='{{';
-    public $endTag='}}';
-    protected $attribute=array('fileref','title');
-    public $separators=array('|');
-
-    public function getContent(){
-        $contents = $this->wikiContentArr;
-
-        if(count($contents) == 1) {
-            $href = $contents[0];
-            $title = '';
-        } else {
-            $href = $contents[0];
-            $title = $contents[1];
+        else {
+            $href = $this->wikiContentArr[0];
+            $label = $this->contents[1];
+            $hasLabel=true;
         }
 
-        $align='';
-        $width='';
-        $height='';
+        if(!preg_match('/^([a-z]+):(.+)/', $href, $m))
+            return $this->getWikiContent();
 
-        $m= array('','','','','','','','');
-        if (preg_match("/^(\s*)([^\s\?]+)(\?(\d+)(x(\d+))?)?(\s*)$/", $href, $m)) {
-            if($m[1] != '' && $m[7] != ''){
-                $align='center';
-            } elseif($m[1] != ''){
-                $align='right';
-            } elseif($m[7] != ''){
-                $align='left';
+        if($m[1] == 'http' || $m[1] == 'https' || $m[1] == 'ftp' || $m[1] == 'irc' || $m[1] == 'mailto') {
+            return '<a href="'.htmlspecialchars(trim($href)).'">'.$label.'</a>';
+        }
+
+        if (isset($this->config->linkBaseUrl[$m[1]])) {
+            if($hasLabel) 
+                return '<a href="'.$this->config->linkBaseUrl[$m[1]].$m[2].'">'.$label.'</a>';
+            else if($m[1] == 'wiki' || $m[1] == 'source')
+                return '<a href="'.$this->config->linkBaseUrl[$m[1]].$m[2].'">'.$m[2].'</a>';
+            else
+                return '<a href="'.$this->config->linkBaseUrl[$m[1]].$m[2].'">'.$m[1].' '.$m[2].'</a>';
+        }
+
+        // all other protocols are forbidden for security reasons, (especially javascript:)
+        return $this->getWikiContent();
+    }
+
+    public function addContent($wikiContent, $parsedContent=false){
+        if($parsedContent === false){
+            $parsedContent = $this->_doEscape($wikiContent);
+            if(count( $this->checkWikiWordIn)
+                && isset($this->attribute[$this->separatorCount])
+                && in_array($this->attribute[$this->separatorCount], $this->checkWikiWordIn)){
+                $parsedContent = $this->_findWikiWord($parsedContent);
             }
-            if($m[3]) {
-                $width=$height=$m[4];
-                if($m[5])
-                   $height=$m[6];
-            }
-            $href= $m[2];
         }
+        $this->contents[$this->separatorCount] .= $parsedContent;
+        $this->wikiContentArr[$this->separatorCount] .= $wikiContent;
+    }
 
-        $tag = '<img src="'.$href.'"';
-        if($width != '')
-            $tag.=' width="'.$width.'"';
-        if($height != '')
-            $tag.=' height="'.$height.'"';
-        if($align != '')
-            $tag.=' align="'.$align.'"';
+    public function addSeparator($token){
+        $this->currentSeparator = ' ';
 
-        if($title != '') 
-            $tag.=' title="'.htmlspecialchars($title).'"';
-
-        return $tag.' />';
+        if($this->separatorCount < 1) {
+            $this->separatorCount++;
+            $this->wikiContent .= $this->wikiContentArr[0].' ';
+            $this->contents[1]='';
+            $this->wikiContentArr[1]='';
+        }
+        else {
+            $this->contents[1].=' ';
+            $this->wikiContentArr[1].=' ';
+        }
     }
 }
-*/
-
 
 // ===================================== blocs
 
@@ -486,9 +379,70 @@ class tracxhtml_list extends WikiRendererBloc {
     }
 }
 
+/**
+ * definition list
+ */
+class tracxhtml_definition extends WikiRendererBloc {
+
+    public $type='dfn';
+    protected $_openTag='<dl>';
+    protected $_closeTag='</dl>';
+    protected $isOpen = false;
+    protected $indent = 0;
+    protected $currentTag ='';
+
+    public function open(){
+       $this->isOpen = true;
+       return $this->_openTag;
+    }
+
+    public function close(){
+       $this->isOpen=false;
+       return $this->_closeTag;
+    }
+
+    public function getRenderedLine(){
+        return '<'.$this->currentTag.'>'.$this->_renderInlineTag($this->_detectMatch).'</'.$this->currentTag.'>';
+    }
+
+    public function detect($string){
+        if($this->isOpen){
+            if(preg_match('/^(\s*)([^:]+)(::)?(.*)/i',$string,$m)){
+                if (isset($m[3]) && $m[3] != '') {
+                    if(isset($m[4]) && $m[4] != '')
+                        return false;
+                    $this->_detectMatch=$m[2];
+                    $this->currentTag = 'dt';
+                    $this->indent = strlen($m[1]);
+                }
+                else {
+                    if(strlen($m[1]) <= $this->indent) {
+                        return false;
+                    }
+                    $this->_detectMatch = $m[2].(isset($m[4])?$m[4]:'');
+                    $this->currentTag = 'dd';
+                }
+                return true;
+            }
+            else {
+                return false;
+            }
+        }else{
+            if(preg_match('/^(\s*)([^:]+)::/i',$string,$m)){
+                $this->_detectMatch=$m[2];
+                $this->currentTag = 'dt';
+                $this->indent = strlen($m[1]);
+                return true;
+            }else{
+                return false;
+            }
+        }
+    }
+}
 
 /**
  * traite les signes de types titre
+ *
  */
 class tracxhtml_title extends WikiRendererBloc {
     public $type='title';
@@ -520,7 +474,7 @@ class tracxhtml_title extends WikiRendererBloc {
         $h = $conf->startHeaderNumber -1 + $level;
         if($h > 5) $h = 5;
         elseif($h < 1) $h = 1;
-        return $output.'<div><h'.$h.'>'.$this->_renderInlineTag(trim($this->_detectMatch[2])).'</h'.$h.'>';
+        return $output.'<div class="wr-section"><h'.$h.'>'.$this->_renderInlineTag(trim($this->_detectMatch[2])).'</h'.$h.'>';
     }
 }
 
@@ -534,7 +488,7 @@ class tracxhtml_para extends WikiRendererBloc {
 
     public function detect($string){
         if($string=='') return false;
-        if(preg_match("/^\s?([^\*\1\=\|\^\{\>;<=~].*)/",$string, $m)) {
+        if(preg_match("/^([^\s\*\1\=\-\|\^\{\>].*)/",$string, $m)) {
             $this->_detectMatch=array($m[1],$m[1]);
             return true;
         }
@@ -542,21 +496,22 @@ class tracxhtml_para extends WikiRendererBloc {
     }
 }
 
-
-
 /**
  * traite les signes de type blockquote
- *//*
+ */
 class tracxhtml_blockquote extends WikiRendererBloc {
-   public $type='blockquote';
-   protected $regexp="/^\s*(\>+)(.*)/";
-
-   public function open(){
-      $this->_previousTag = $this->_detectMatch[1];
-      $this->_firstTagLen = strlen($this->_previousTag);
-      $this->_firstLine = true;
-      return str_repeat('<blockquote>',$this->_firstTagLen).'<p>';
-   }
+    public $type='blockquote';
+    protected $regexp="/^\s*(\>+)(.*)/";
+    protected $_previousTag;
+    protected $_firstLine =true;
+    protected $_firstTagLen;
+    
+    public function open(){
+        $this->_previousTag = $this->_detectMatch[1];
+        $this->_firstTagLen = strlen($this->_previousTag);
+        $this->_firstLine = true;
+        return str_repeat('<blockquote>',$this->_firstTagLen).'<p>';
+    }
 
    public function close(){
       return '</p>'.str_repeat('</blockquote>',strlen($this->_previousTag));
@@ -580,17 +535,73 @@ class tracxhtml_blockquote extends WikiRendererBloc {
       return $str.$this->_renderInlineTag($this->_detectMatch[2]);
    }
 }
-   */
+
+class tracxhtml_blockquote2 extends WikiRendererBloc {
+    public $type='blockquote2';
+    protected $regexp='/^(\s+)([^\s\>\*1\=\{\-\[].*)/';
+    protected $_previousTag;
+    protected $_restart = false;
+    protected $_firstTagLen = 0;
+    protected $_previousTagLen;
+
+    public function open(){
+        $this->_previousTag = $this->_detectMatch[1];
+        $this->_previousTagLen = $this->_firstTagLen = strlen($this->_previousTag);
+        return '<blockquote><p>';
+    }
+
+    public function close(){
+       return '</p>'.str_repeat('</blockquote>',$this->_previousTagLen - $this->_firstTagLen+1);
+    }
+
+    public function getRenderedLine(){
+        $str='';
+        if($this->_restart) {
+            $str = '</p>'.str_repeat('</blockquote>',$this->_previousTagLen - $this->_firstTagLen+1);
+            $str .= '<blockquote><p>';
+            $this->_previousTag = $this->_detectMatch[1];
+            $this->_previousTagLen = $this->_firstTagLen = strlen($this->_previousTag);
+            $this->_restart = false;
+        }
+
+        $d= strlen($this->_previousTag) - strlen($this->_detectMatch[1]);
+ 
+        if( $d > 0 ){ // on remonte d'un cran dans la hierarchie...
+           $str='</p>'.str_repeat('</blockquote>',$d).'<p>';
+           $this->_previousTag = $this->_detectMatch[1];
+           $this->_previousTagLen = strlen($this->_previousTag);
+        }elseif( $d < 0 ){ // un niveau de plus
+           $this->_previousTag = $this->_detectMatch[1];
+           $this->_previousTagLen = strlen($this->_previousTag);
+           $str='</p>'.str_repeat('<blockquote>',-$d).'<p>';
+        }
+       return $str.$this->_renderInlineTag($this->_detectMatch[2]);
+    }
+
+    public function detect($string){
+        if(preg_match($this->regexp, $string, $this->_detectMatch)) {
+            if( strlen($this->_detectMatch[1]) < $this->_firstTagLen) {
+                $this->_restart = true;
+            }
+            return true;
+        }
+        return false;
+    }
+}
+
+
+
+
 /**
  *
  */
-/*
+
 class tracxhtml_table_row extends WikiTag {
     public $isTextLineTag=true;
     protected $attribute=array('$$');
     protected $checkWikiWordIn=array('$$');
 
-    public $separators=array('|','^');
+    public $separators=array('||');
 
     protected $columns = array('');
 
@@ -598,7 +609,6 @@ class tracxhtml_table_row extends WikiTag {
         return htmlspecialchars($string);
     }
 
-    
     // called by the inline parser, when it found a separator
     public function addSeparator($token){
         $this->wikiContent.= $this->wikiContentArr[$this->separatorCount];
@@ -611,7 +621,7 @@ class tracxhtml_table_row extends WikiTag {
     }
 
     public function isCurrentSeparator($token){
-        return ($token == '|' || $token == '^');
+        return ($token == '||');
     }
 
     public function isOtherTagAllowed() {
@@ -657,48 +667,22 @@ class tracxhtml_table_row extends WikiTag {
     }
 
     protected function addCol($num, $content, $colspan) {
-        if($this->columns[$num] == '^')
-            $t = 'th';
-        else
-            $t = 'td';
-
-        $align='';
-        $l = 0;
-        $r = 0;
-        if (preg_match("/^(\s+)/", $content, $m)) {
-            $l = strlen($m[1]);
-        }
-        if (preg_match("/(\s+)$/", $content, $m)) {
-            $r = strlen($m[1]);
-        }
-        if(trim($content) == '') {
-            $l=$r=0;
-        }
-
-        if($l==0 && $r > 2) {
-            $align=' align="left"';
-        }else if($r==0 && $l > 2) {
-            $align=' align="right"';
-        }else if($l > 2 && $l==$r) {
-            $align=' align="center"';
-        }
-
         if($colspan) {
-            return '<'.$t.' colspan="'.($colspan+1).'"'.$align.'>'.$content.'</'.$t.'>';
+            return '<td colspan="'.($colspan+1).'">'.$content.'</td>';
         } else {
-            return '<'.$t.$align.'>'.$content.'</'.$t.'>';
+            return '<td>'.$content.'</td>';
         }
     }
 
 }
-*/
+
 /**
  * traite les signes de types table
  */
-/*
+
 class tracxhtml_table extends WikiRendererBloc {
     public $type='table';
-    protected $regexp="/^\s*(\||\^)(.*)/";
+    protected $regexp="/^\s*(\|\|.*)/";
     protected $_openTag='<table>';
     protected $_closeTag='</table>';
 
@@ -710,24 +694,23 @@ class tracxhtml_table extends WikiRendererBloc {
     }
 
     public function close(){
-        $this->engine->getConfig()->defaultTextLineContainer = 'WikiHtmlTextLine';
+        $this->engine->getConfig()->defaultTextLineContainer = 'tracWikiHtmlTextLine';
         return $this->_closeTag;
     }
 
     public function getRenderedLine(){
-        return $this->engine->inlineParser->parse($this->_detectMatch[1].$this->_detectMatch[2]);
+        return $this->engine->inlineParser->parse($this->_detectMatch[1]);
     }
 
 }
-*/
-/*
-class tracxhtml_syntaxhighlight extends WikiRendererBloc {
 
-    public $type='syntaxhighlight';
-    protected $_openTag='<pre><code>';
-    protected $_closeTag='</code></pre>';
+
+class tracxhtml_pre extends WikiRendererBloc {
+
+    public $type='pre';
+    protected $_openTag='<pre>';
+    protected $_closeTag='</pre>';
     protected $isOpen = false;
-    protected $dktag='code';
 
    public function open(){
       $this->isOpen = true;
@@ -745,7 +728,7 @@ class tracxhtml_syntaxhighlight extends WikiRendererBloc {
 
     public function detect($string){
         if($this->isOpen){
-            if(preg_match('/(.*)<\/'.$this->dktag.'>\s*$/',$string,$m)){
+            if(preg_match('/(.*)}}}\s*$/',$string,$m)){
                 $this->_detectMatch=$m[1];
                 $this->isOpen=false;
             }else{
@@ -754,7 +737,7 @@ class tracxhtml_syntaxhighlight extends WikiRendererBloc {
             return true;
 
         }else{
-            if(preg_match('/^\s*<'.$this->dktag.'( \w+)?>(.*)/',$string,$m)){
+            if(preg_match('/^\s*{{{(.*)/',$string,$m)){
                 $this->_detectMatch=$m[1];
                 return true;
             }else{
@@ -762,110 +745,89 @@ class tracxhtml_syntaxhighlight extends WikiRendererBloc {
             }
         }
     }
-}*/
+}
 
-/*
-class tracxhtml_file extends tracxhtml_syntaxhighlight {
-    public $type='filesyntaxhighlight';
-    protected $_openTag='<pre class="file-content">';
-    protected $_closeTag='</pre>';
-    protected $dktag='file';
-}*/
 
-/*
-class tracxhtml_nowiki extends tracxhtml_syntaxhighlight {
-    public $type='nowikisyntaxhighlight';
-    protected $_openTag='<pre>';
-    protected $_closeTag='</pre>';
-    protected $dktag='nowiki';
-}*/
 
-/*
-class tracxhtml_pre extends WikiRendererBloc {
-    public $type='pre';
-    protected $_openTag='<pre>';
-    protected $_closeTag='</pre>';
+class tracxhtml_hr extends WikiRendererBloc {
+   public $type='hr';
+   protected $regexp='/^\s*-{3,}\s*$/';
+   protected $_closeNow=true;
 
-    public function detect($string){
-        if($string=='') return false;
-        if(preg_match("/^(\s{2,}[^\*\-\=\|\^>;<=~].*)/",$string)) {
-            $this->_detectMatch=array($string,$string);
-            return true;
-        }
-        return false;
-    }
-}*/
-
-/*
-class tracxhtml_html extends WikiRendererBloc {
-
-    public $type='html';
-    protected $isOpen = false;
-    protected $dktag='html';
-
-    public function open(){
-        $this->isOpen = true;
-        return '';
-    }
-
-   public function close(){
-      $this->isOpen=false;
-      return '';
+   public function getRenderedLine(){
+      return '<hr />';
    }
-
-    public function getRenderedLine(){
-        return '';
-    }
-
-    public function detect($string){
-        if($this->isOpen){
-            if(preg_match('/(.*)<\/'.$this->dktag.'>\s*$/',$string,$m)){
-                $this->isOpen=false;
-            }
-            return true;
-        }else{
-            if(preg_match('/^\s*<'.$this->dktag.'>(.*)/',$string,$m)){
-                return true;
-            }else{
-                return false;
-            }
-        }
-    }
 }
-*/
-/*
-class tracxhtml_php extends tracxhtml_html {
-    protected $dktag='php';
-}
-*/
+
+
 
 /*
-class tracxhtml_macro extends WikiRendererBloc {
-    public $type='macro';
-    protected $regexp="/^\s*~~[^~]*~~\s*$/";
+
+Macros :
+
+[[Image]]
+ [[Image(photo.jpg)]]                           # simplest
+    [[Image(photo.jpg, 120px)]]                    # with size
+    [[Image(photo.jpg, right)]]                    # aligned by keyword
+    [[Image(photo.jpg, nolink)]]                   # without link to source
+    [[Image(photo.jpg, align=right)]]
+[[Timestamp]]
+*/
+
+
+class tracxhtml_image extends WikiRendererBloc {
+    public $type='image';
+    protected $regexp="/^\s+\[\[Image\(([^\]\)]*)\)\]\]\s*$/";
     protected $_closeNow=true;
 
     public function getRenderedLine(){
-        return '';
+        $params = split(",",$this->_detectMatch[1]);
+        $file = trim(array_shift($params));
+        $width = null;
+        $nolink=false;
+        $attrs = ' src="'.$file.'"';
+        $hasAlt = false;
+        foreach($params as $p) {
+            $p=trim($p);
+            if(in_array($p, array('right', 'left', 'top','bottom'))) {
+                $attrs.=' align="'.$p.'"';
+            }
+            else if($p == 'nolink') {
+                $nolink = true;
+            }
+            else if(preg_match('/^(\d+)(px|em|\%)?$/',$p)) {
+                if($width === null) {
+                    $width = $p;
+                    $attrs.=' width="'.$p.'"';
+                }
+                else{
+                    $attrs.=' height="'.$p.'"';
+                }
+            }
+            else if(preg_match('/^(align|border|width|height|alt|title|longdesc|class|id)=(.*)$/', $p,$m)) {
+                if($m[1]=='alt') $hasAlt = true;
+                $attrs.=' '.$m[1].'="'.htmlspecialchars($m[2]).'"';
+            }
+        }
+        if(!$hasAlt)
+            $attrs.=' alt=""';
+        if($nolink)
+            return '<div><img'.$attrs.' /></div>';
+        else
+            return '<div><a href="'.$file.'"><img'.$attrs.' /></a></div>';
     }
 }
-*/
 
 
-/**
- * definition list
- */
-class tracxhtml_definition extends WikiRendererBloc {
+class tracxhtml_timestamp extends WikiRendererBloc {
+    public $type='timestamp';
+    protected $regexp="/^\s+\[\[Timestamp\]\]\s*$/";
+    protected $_closeNow=true;
 
-   public $type='dfn';
-   protected $regexp="/^\s*([^:]*)::/i";
-   protected $_openTag='<dl>';
-   protected $_closeTag='</dl>';
-
-   public function getRenderedLine(){
-      $dt=$this->_renderInlineTag($this->_detectMatch[1]);
-      //$dd=$this->_renderInlineTag($this->_detectMatch[2]);
-      return "<dt>$dt</dt>\n<dd>$dd</dd>\n";
-   }
+    public function getRenderedLine(){
+        return time();
+    }
 }
+
+
 

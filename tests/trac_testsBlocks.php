@@ -20,11 +20,8 @@ TODO :
 
 
 */
-
-
-
     var $listblocks = array(
-
+      'trac_demo'=>0,
     );
 
     function testBlock() {

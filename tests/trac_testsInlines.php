@@ -47,15 +47,40 @@ class TracTestsInlines extends WikiRendererUnitTestCase {
         'Lorem ipsum http://truc.com/bla/bla/bla?toto=po#pop dolor sit amet, consectetuer adipiscing elit.'
             =>'<p>Lorem ipsum <a href="http://truc.com/bla/bla/bla?toto=po#pop">http://truc.com/bla/bla/bla?toto=po#pop</a> dolor sit amet, consectetuer adipiscing elit.</p>',
         'Lorem ipsum #165 dolor sit amet, ticket:986 consectetuer adipiscing elit.'
-            =>'<p>Lorem ipsum <a href="/ticket/165">#165</a> dolor sit amet, <a href="/ticket/986">ticket:986</a> consectetuer adipiscing elit.</p>',
+            =>'<p>Lorem ipsum <a href="/ticket/165">#165</a> dolor sit amet, <a href="/ticket/986">ticket 986</a> consectetuer adipiscing elit.</p>',
         'Lorem ipsum dolor {68} sit amet, consectetuer report:15 adipiscing elit.'
-            =>'<p>Lorem ipsum dolor <a href="/report/68">{68}</a> sit amet, consectetuer <a href="/report/15">report:15</a> adipiscing elit.</p>',
+            =>'<p>Lorem ipsum dolor <a href="/report/68">{68}</a> sit amet, consectetuer <a href="/report/15">report 15</a> adipiscing elit.</p>',
         'Lorem ipsum changeset:65 dolor sit amet, consectetuer adipiscing elit.'
-            =>'<p>Lorem ipsum <a href="/changeset/65">changeset:65</a> dolor sit amet, consectetuer adipiscing elit.</p>',
+            =>'<p>Lorem ipsum <a href="/changeset/65">changeset 65</a> dolor sit amet, consectetuer adipiscing elit.</p>',
         'Lorem ipsum wiki:dolor sit amet, consectetuer adipiscing elit.'
-            =>'<p>Lorem ipsum <a href="/wiki/dolor">wiki:dolor</a> sit amet, consectetuer adipiscing elit.</p>',
+            =>'<p>Lorem ipsum <a href="/wiki/dolor">dolor</a> sit amet, consectetuer adipiscing elit.</p>',
        'Lorem ipsum dolor sit amet, milestone:658 consectetuer source:trunk/COPYING adipiscing attachment:my.patch elit.'
-            =>'<p>Lorem ipsum dolor sit amet, <a href="/milestone/658">milestone:658</a> consectetuer <a href="/browser/trunk/COPYING">source:trunk/COPYING</a> adipiscing attachment:my.patch elit.</p>',
+            =>'<p>Lorem ipsum dolor sit amet, <a href="/milestone/658">milestone 658</a> consectetuer <a href="/browser/trunk/COPYING">trunk/COPYING</a> adipiscing attachment:my.patch elit.</p>',
+
+        'Lorem [ipsum dolor] sit amet, consectetuer adipiscing elit.'
+            =>'<p>Lorem [ipsum dolor] sit amet, consectetuer adipiscing elit.</p>',
+        'Lorem [http://foo.com ipsum dolor] sit amet, consectetuer adipiscing elit.'
+            =>'<p>Lorem <a href="http://foo.com">ipsum dolor</a> sit amet, consectetuer adipiscing elit.</p>',
+        'Lorem [javascript:alert(window.title) ipsum dolor] sit amet, consectetuer adipiscing elit.'
+            =>'<p>Lorem [javascript:alert(window.title) ipsum dolor] sit amet, consectetuer adipiscing elit.</p>',
+
+
+        'Lorem [wiki:ipsum dolor sit amet], consectetuer adipiscing elit.'
+            =>'<p>Lorem <a href="/wiki/ipsum">dolor sit amet</a>, consectetuer adipiscing elit.</p>',
+        'Lorem [wiki:IpsumDolor] sit amet, consectetuer adipiscing elit.'
+            =>'<p>Lorem <a href="/wiki/IpsumDolor">IpsumDolor</a> sit amet, consectetuer adipiscing elit.</p>',
+        'Lorem [source:ipsum dolor] sit amet, consectetuer adipiscing elit.'
+            =>'<p>Lorem <a href="/browser/ipsum">dolor</a> sit amet, consectetuer adipiscing elit.</p>',
+        'Lorem [source:Ipsum/Dolor] sit amet, consectetuer adipiscing elit.'
+            =>'<p>Lorem <a href="/browser/Ipsum/Dolor">Ipsum/Dolor</a> sit amet, consectetuer adipiscing elit.</p>',
+        'Lorem [ticket:1] sit amet, consectetuer adipiscing elit.'
+            =>'<p>Lorem <a href="/ticket/1">ticket 1</a> sit amet, consectetuer adipiscing elit.</p>',
+        'Lorem [report:1] sit amet, consectetuer adipiscing elit.'
+            =>'<p>Lorem <a href="/report/1">report 1</a> sit amet, consectetuer adipiscing elit.</p>',
+        'Lorem [changeset:1] sit amet, consectetuer adipiscing elit.'
+            =>'<p>Lorem <a href="/changeset/1">changeset 1</a> sit amet, consectetuer adipiscing elit.</p>',
+        'Lorem [milestone:1] sit amet, consectetuer adipiscing elit.'
+            =>'<p>Lorem <a href="/milestone/1">milestone 1</a> sit amet, consectetuer adipiscing elit.</p>',
 
 
  /*        'Lorem ipsum dolor sit amet, consectetuer adipiscing elit.'
@@ -74,16 +99,6 @@ class TracTestsInlines extends WikiRendererUnitTestCase {
             =>'<p>Lorem ipsum dolor sit amet, <acronym>consectetuer adipiscing</acronym> elit.</p>',
         'Lorem ipsum dolor sit amet, ??consectetuer adipiscing|un titre?? elit.'
             =>'<p>Lorem ipsum dolor sit amet, <acronym title="un titre">consectetuer adipiscing</acronym> elit.</p>',
-        'Lorem [[ipsum dolor]] sit amet, consectetuer adipiscing elit.'
-            =>'<p>Lorem <a href="ipsum dolor">ipsum dolor</a> sit amet, consectetuer adipiscing elit.</p>',
-        'Lorem [[ipsum dolor|http://foo.com]] sit amet, consectetuer adipiscing elit.'
-            =>'<p>Lorem <a href="http://foo.com">ipsum dolor</a> sit amet, consectetuer adipiscing elit.</p>',
-        'Lorem [[ipsum dolor|javascript:alert(window.title)]] sit amet, consectetuer adipiscing elit.'
-            =>'<p>Lorem <a href="#">ipsum dolor</a> sit amet, consectetuer adipiscing elit.</p>',
-        'Lorem [[ipsum dolor|bar|fr]] sit amet, consectetuer adipiscing elit.'
-            =>'<p>Lorem <a href="bar" hreflang="fr">ipsum dolor</a> sit amet, consectetuer adipiscing elit.</p>',
-        'Lorem [[ipsum dolor|bar|fr|ceci est un titre]] sit amet, consectetuer adipiscing elit.'
-            =>'<p>Lorem <a href="bar" hreflang="fr" title="ceci est un titre">ipsum dolor</a> sit amet, consectetuer adipiscing elit.</p>',
         'Lorem ((ipsumdolorsit.png)) amet, consectetuer adipiscing elit.'
             =>'<p>Lorem <img src="ipsumdolorsit.png" alt=""/> amet, consectetuer adipiscing elit.</p>',
         'Lorem ((ipsumdolorsit.png|alternative text)) amet, consectetuer adipiscing elit.'
@@ -148,4 +163,3 @@ if(!defined('ALL_TESTS')) {
     $test = new TracTestsInlines();
     $test->run(new HtmlReporter2());
 }
-
