@@ -38,8 +38,8 @@ abstract class WikiTag {
      */
     public $separators=array();
 
-    protected $attribute=array();
-    protected $checkWikiWordIn=array();
+    protected $attribute=array('$$');
+    protected $checkWikiWordIn=array('$$');
     protected $contents=array('');
     /**
      * wiki content of each part of the tag

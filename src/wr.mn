@@ -14,3 +14,4 @@ cd ./rules
   dokuwiki_to_docbook.php
   dokuwiki_to_xhtml.php
   trac_to_xhtml.php
+  phpwiki_to_dokuwiki.php

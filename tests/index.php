@@ -65,6 +65,10 @@ $test->addTestCase(new TracTestsInlines());
 require_once('trac_testsBlocks.php');
 $test->addTestCase(new TracTestsBlocks());
 
+require_once('phpwiki_dokuwiki_inlines.php');
+$test->addTestCase(new phpwiki_dokuwiki_inlines());
+
+
 $test->run(new HtmlReporter2());
 
 

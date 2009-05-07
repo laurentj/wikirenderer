@@ -92,6 +92,7 @@ class HtmlReporter2 extends HtmlReporter{
         ?>
 <html><head><title><?php echo $test_name;?></title>
 <meta http-equiv="Content-Type" content="text/html; charset=<?php echo  $this->_character_set?>">
+<link rel="stylesheet" type="text/css" href="diff_php5/diff.css" />
 <style type="text/css"><?php echo $this->_getCss()?>
 </style>
 </head>
@@ -117,6 +118,10 @@ Unit tests on WikiRenderer <?php echo WIKIRENDERER_VERSION;?> (PHP <?php echo ph
  <li>dokuwiki to docbook :
     <a href="dokuwiki_docbook_inlines.php">inlines</a> |
     <a href="dokuwiki_docbook_blocks.php">blocks</a>
+ </li>
+ <li>phpwiki to dokuwiki:
+    <a href="phpwiki_dokuwiki_inlines.php">inlines</a> <!--|
+    <a href="phpwiki_dokuwiki_blocks.php">blocks</a>-->
  </li>
 
  <li>trac syntax:
@@ -146,19 +151,6 @@ Unit tests on WikiRenderer <?php echo WIKIRENDERER_VERSION;?> (PHP <?php echo ph
         div.exception p { font-size:0.9em; }
 
         pre { background-color: lightgray; }
-
-        .diff { background: white; border: 1px solid black; }
-        .diff .block { background: #ccc; padding-left: 1em; }
-        .diff .context { background: white; border: none; }
-        .diff .block tt { font-weight: normal;  font-family: monospace;  color: black;
-                margin-left: 0;  border: none; }
-        .diff del, .diff ins {  font-weight: bold; text-decoration: none; }
-        .diff .original, .diff .deleted,
-        .diff .final, .diff .added {  background: white; }
-        .diff .original, .diff .deleted {  background: #fcc;  border: none; }
-        .diff .final, .diff .added {  background: #cfc; border: none; }
-        .diff del { background: #f99; }
-        .diff ins { background: #9f9; }
         ";
     }
 

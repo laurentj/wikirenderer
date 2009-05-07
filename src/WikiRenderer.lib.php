@@ -50,8 +50,6 @@ class WikiTextLine extends WikiTag {
  */
 class WikiHtmlTextLine extends WikiTag {
     public $isTextLineTag=true;
-    protected $attribute=array('$$');
-    protected $checkWikiWordIn=array('$$');
 
     protected function _doEscape($string){
         return htmlspecialchars($string);
@@ -65,9 +63,6 @@ class WikiHtmlTextLine extends WikiTag {
  */
 abstract class WikiTagXhtml extends WikiTag {
    protected $name;
-   protected $attribute=array('$$');
-   protected $checkWikiWordIn=array('$$');
-
    protected $additionnalAttributes=array();
 
    /**
