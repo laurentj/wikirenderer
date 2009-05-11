@@ -49,6 +49,7 @@ class _HWLDF_WordAccumulator {
             // new-line should only come as first char of word.
             if ($word === null)
                 continue;
+
             if ($word[0] == "\n") {
                 $this->_group .= " ";
                 $this->_flushLine($tag);

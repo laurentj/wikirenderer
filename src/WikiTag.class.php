@@ -88,11 +88,11 @@ abstract class WikiTag {
     public function addSeparator($token){
         $this->wikiContent.= $this->wikiContentArr[$this->separatorCount];
         $this->separatorCount++;
-        if($this->separatorCount> count($this->separators))
+        if($this->separatorCount > count($this->separators))
             $this->currentSeparator = end($this->separators);
         else
             $this->currentSeparator = $this->separators[$this->separatorCount-1];
-        $this->wikiContent.= $this->currentSeparator;
+        $this->wikiContent .= $this->currentSeparator;
         $this->contents[$this->separatorCount]='';
         $this->wikiContentArr[$this->separatorCount]='';
     }
@@ -122,7 +122,10 @@ abstract class WikiTag {
     public function getContent(){ return $this->contents[0];}
 
     public function isOtherTagAllowed() {
-        return ($this->attribute[$this->separatorCount] == '$$');
+        if (isset($this->attribute[$this->separatorCount]))
+            return ($this->attribute[$this->separatorCount] == '$$');
+        else
+            return false;
     }
 
     /**

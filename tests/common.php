@@ -120,8 +120,8 @@ Unit tests on WikiRenderer <?php echo WIKIRENDERER_VERSION;?> (PHP <?php echo ph
     <a href="dokuwiki_docbook_blocks.php">blocks</a>
  </li>
  <li>phpwiki to dokuwiki:
-    <a href="phpwiki_dokuwiki_inlines.php">inlines</a> <!--|
-    <a href="phpwiki_dokuwiki_blocks.php">blocks</a>-->
+    <a href="phpwiki_dokuwiki_inlines.php">inlines</a> |
+    <a href="phpwiki_dokuwiki_blocks.php">blocks</a>
  </li>
 
  <li>trac syntax:
@@ -129,6 +129,7 @@ Unit tests on WikiRenderer <?php echo WIKIRENDERER_VERSION;?> (PHP <?php echo ph
     <a href="trac_testsBlocks.php">blocks</a> </li>
 </ul>
 </div>
+
 <h1><?php echo $test_name?></h1>
         <?php
         flush();
