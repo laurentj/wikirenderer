@@ -29,14 +29,16 @@ class phpwiki_to_dokuwiki  extends WikiRendererConfig {
   
     public $defaultTextLineContainer = 'PhpWikiDkTextLine';
   
-    public $availabledTextLineContainers = array('PhpWikiDkTextLine');
+    public $availabledTextLineContainers = array('PhpWikiDkTextLine', 'pwdk_table_row');
   
-    public $bloctags = array('pwdk_title', 'pwdk_list', /*'pwdk_pre',*/'pwdk_hr',
-                          /*'pwdk_blockquote','pwdk_definition','pwdk_table',*/ 'pwdk_p');
+    public $bloctags = array('pwdk_title', 'pwdk_list', 'pwdk_pre', 'pwdk_hr',
+                          /*'pwdk_blockquote','pwdk_definition',*/'pwdk_table', 'pwdk_p');
   
     public $simpletags = array('%%%'=>"\n");
   
     public $footnotes = array();
+    
+    public $rowspan = array();
 
     function __construct() {
         $this->checkWikiWordFunction = array($this, 'transformWikiWord');
@@ -296,25 +298,6 @@ class pwdk_list extends PwDkBloc {
 }
 
 
-/**
- * Table
-
-||  __Nom__               |v __Coût__   |v __Notes__
-| __Prénom__   | __Nom de famille__
-|> Jeff       |< Dairiki   |^  Pas cher     |< Pas valable
-|> Marco      |< Polo      | Encore moins cher     |< Pas disponible
-
-__||__ colspan
-__v__ rowspan
-__>__ une colonne cadrée à droite,
-__<__ une colonne cadrée à gauche
-__^__ une colonne centrée
-
- */
-class pwdk_table extends PwDkBloc {
-   public $type='table';
-   protected $regexp="/^(\| ?.*)/";
-}
 
 /**
  * 
@@ -415,3 +398,187 @@ class pwdk_plugin extends PwDkBloc {
    public $type='dfn';
    protected $regexp="/^(;.* : .*)/i";
 }
+
+
+
+/**
+ *
+ */
+class pwdk_table_row extends PhpWikiTag {
+    public $isTextLineTag=true;
+    protected $attribute=array('$$');
+    protected $checkWikiWordIn=array('$$');
+
+    public $separators = array('|', '>', '<', '^', 'v');
+
+    protected $columns = array('');
+
+    function __construct($config){
+      parent::__construct($config);
+      
+    }
+
+    /**
+    * called by the inline parser, when it found a separator
+    */
+    public function addSeparator($token){
+        $this->wikiContent.= $this->wikiContentArr[$this->separatorCount];
+        $this->separatorCount++;
+        $this->currentSeparator = $token;
+        $this->wikiContent.= $token;
+        $this->contents[$this->separatorCount]='';
+        $this->wikiContentArr[$this->separatorCount]='';
+        $this->columns[$this->separatorCount]=$token;
+    }
+
+    public function isCurrentSeparator($token){
+        return in_array($token, $this->separators);
+    }
+
+    public function isOtherTagAllowed() {
+        return true;
+    }
+
+    public function getBogusContent(){
+        $c = $this->beginTag;
+        foreach ($this->contents as $k=>$v) {
+            $c .= $this->columns[$k].$v;
+        }
+        return $c;
+    }
+
+    public function getContent(){
+        $c = "";
+        $currentCell = '';
+        $currentCol = '';
+        $this->colNum = 0;
+        foreach ($this->columns as $k=>$col) {
+          if($col == '|') {
+            if ($currentCell) {
+              $c.= $this->addCol($currentCell, $currentCol);
+              $currentCol = '';
+            }
+            $this->colNum ++;
+            $c.=$col;
+            $currentCell = $this->contents[$k];
+          }
+          else {
+            if ($k > 0 && $this->contents[$k-1] != '') {
+              $currentCell .= $col.$this->contents[$k];
+            }
+            else {
+              $currentCol = $col;
+              $currentCell = $this->contents[$k];
+            }
+          }
+        }
+
+        if ($currentCell) {
+          $c .= $this->addCol($currentCell, $currentCol);
+        }
+        $this->colNum++;
+        if (!$this->config->firstRow) {
+          $fc = true;
+          while(isset($this->config->rowspan[$this->colNum]) && $this->config->rowspan[$this->colNum]) {
+            if ($fc) {
+              $c .= '|';
+              $fc = false;
+            }
+            else
+              $c .= ' |';
+            $this->config->rowspan[$this->colNum] = false;
+            $this->colNum++;
+          }
+          $c.=($fc?'|':' |');
+        }
+        else
+          $c.='|';
+        $this->config->firstRow = false;
+        return $c;
+    }
+    
+    protected $latestColNum=0;
+    protected $colNum = 0;
+    protected function addCol($content, $type) {
+      $c = '';
+      if (!$this->config->firstRow) {
+        while(isset($this->config->rowspan[$this->colNum]) && $this->config->rowspan[$this->colNum]) {
+          $c .= ' |';
+          $this->config->rowspan[$this->colNum] = false;
+          $this->colNum++;
+        }
+      }
+      
+      $this->config->rowspan[$this->colNum] = false;
+      $left='';
+      $right='';
+      switch($type) {
+        case '<':
+          $left=' ';
+          $right = '   ';
+          break;
+        case '>':
+          $left = '   ';
+          $right=' ';
+          break;
+        case '^':
+          $left = '   ';
+          $right = '   ';
+          break;
+        case 'v':
+          $this->config->rowspan[$this->colNum] = true;
+        case '':
+          $left = ' ';
+          $right = ' ';
+          break;
+      }
+
+      return $c.$left.trim($content).$right;
+    }
+}
+
+
+
+/**
+ * Table
+
+||  __Nom__               |v __Coût__   |v __Notes__
+| __Prénom__   | __Nom de famille__
+|> Jeff       |< Dairiki   |^  Pas cher     |< Pas valable
+|> Marco      |< Polo      | Encore moins cher     |< Pas disponible
+
+__||__ colspan
+__v__ rowspan
+__>__ une colonne cadrée à droite,
+__<__ une colonne cadrée à gauche
+__^__ une colonne centrée
+
+ */
+class pwdk_table extends PwDkBloc {
+    public $type='table';
+    protected $regexp="/^(\| ?.*)/";
+
+    protected $_colcount=0;
+
+    public function open(){
+        $this->engine->getConfig()->defaultTextLineContainer = 'pwdk_table_row';
+        $this->engine->getConfig()->rowspan = array();
+        $this->engine->getConfig()->firstRow = true;
+        return '';
+    }
+
+    public function close(){
+        $this->engine->getConfig()->defaultTextLineContainer = 'PhpWikiDkTextLine';
+        return '';
+    }
+
+    public function getRenderedLine(){
+        return $this->engine->inlineParser->parse($this->_detectMatch[1]);
+    }
+
+}
+
+
+
+
+

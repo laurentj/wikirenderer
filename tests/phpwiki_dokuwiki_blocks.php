@@ -123,19 +123,46 @@ Phasellus non eros sit amet sem tristique laoreet.
 Duis sollicitudin tempor arcu. Mauris porta leo id dui
 luctus luctus. Aliquam nec lacus. Integer egestas.',
 0),
-/*
+
+
 7=>array(
-'',
-'',
+'Lorem ipsum __dolor__ sit amet, consectetuer adipiscing elit.
+
+ Cras interdum.
+ Donec DiCtum. [Sed fringilla].
+ Duis !FeuGiat [[pharetra] tortor.
+ Nulla facilisi.
+
+In hac habitasse platea dictumst. Nulla facilisi.',
+'Lorem ipsum **dolor** sit amet, consectetuer adipiscing elit.
+
+<code> Cras interdum.
+ Donec DiCtum. [Sed fringilla].
+ Duis FeuGiat [pharetra] tortor.
+ Nulla facilisi.</code>
+
+In hac habitasse platea dictumst. Nulla facilisi.',
 0),
 8=>array(
-'',
-'',
+'||  __Nom__               |v __Coût__   |v __Notes__
+| __Prénom__   | __Nom de famille__
+|> Jeff       |< Dairiki   |^  Pas cher     |< Pas valable
+|> Marco      |< Polo      | Encore moins cher     |< Pas disponible',
+'|| **Nom** | **Coût** | **Notes** |
+| **Prénom** | **Nom de famille** | | |
+|   Jeff | Dairiki   |   Pas cher   | Pas valable   |
+|   Marco | Polo   | Encore moins cher | Pas disponible   |',
 0),
 9=>array(
-'',
-'',
-0),*/
+'| __Nom__               |v __Coût__   | __Notes__ 
+| __Prénom__   | __Nom de famille__
+|v Jeff       |< Dairiki   |^  Pas cher    
+|< Polo      | Encore moins cher  ',
+'| **Nom** | **Coût** | **Notes** |
+| **Prénom** | | **Nom de famille** |
+| Jeff | Dairiki   |   Pas cher   |
+| | Polo   | Encore moins cher |',
+0),
 
     );
 

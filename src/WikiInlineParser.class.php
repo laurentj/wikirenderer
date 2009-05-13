@@ -77,7 +77,7 @@ class WikiInlineParser {
             $this->splitPattern .='|('.preg_quote($this->escapeChar, '/').')';
         $this->splitPattern = '/'.substr($this->splitPattern,1).'/';
 
-        $this->simpletags= $config->simpletags;
+        $this->simpletags = $config->simpletags;
     }
 
     /**
@@ -89,7 +89,7 @@ class WikiInlineParser {
         $this->error=false;
         $firsttag = clone ($this->textLineContainers[$this->config->defaultTextLineContainer]);
 
-        $this->str = preg_split($this->splitPattern,$line, -1, PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_NO_EMPTY);
+        $this->str = preg_split($this->splitPattern, $line, -1, PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_NO_EMPTY);
         $this->end = count($this->str);
 
         if($this->end > 1){
@@ -110,11 +110,11 @@ class WikiInlineParser {
     protected function _parse($tag, $posstart){
 
       $checkNextTag=true;
-      $brutContent = '';
+
       // we analyse each part of the string, 
       for($i=$posstart+1; $i < $this->end; $i++){
             $t=&$this->str[$i];
-            $brutContent.=$t;
+
             // is it the escape char ?
             if($this->escapeChar !='' && $t === $this->escapeChar){
                if($checkNextTag){
@@ -164,7 +164,7 @@ class WikiInlineParser {
             }
       }
       if(!$tag->isTextLineTag ){
-         //we didn't find the eneded tag, error
+         //we didn't find the ended tag, error
          $this->error=true;
          return false;
       }else

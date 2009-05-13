@@ -38,9 +38,9 @@ abstract class WikiTag {
      */
     public $separators=array();
 
-    protected $attribute=array('$$');
-    protected $checkWikiWordIn=array('$$');
-    protected $contents=array('');
+    protected $attribute = array('$$');
+    protected $checkWikiWordIn = array('$$');
+    protected $contents = array('');
     /**
      * wiki content of each part of the tag
      */
@@ -67,7 +67,7 @@ abstract class WikiTag {
     /**
     * called by the inline parser, when it found a new content
     * @param string $wikiContent   the original content in wiki syntax if $parsedContent is given, or a simple string if not
-    * @param string $parsedContent the content already parsed (by an other wikitag object), when this wikitag contents other wikitags
+    * @param string $parsedContent the content already parsed (by an other wikitag object), when this wikitag contains other wikitags
     */
     public function addContent($wikiContent, $parsedContent=false){
         if($parsedContent === false){
