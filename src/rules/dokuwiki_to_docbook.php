@@ -154,7 +154,7 @@ class dkdbk_nowiki_inline extends WikiTagXhtml {
     public $beginTag='<nowiki>';
     public $endTag='</nowiki>';
     public function getContent(){
-        return '<phrase>'.htmlspecialchars($this->wikiContentArr[0]).'</phrase>';
+        return '<phrase>'.htmlspecialchars($this->wikiContentArr[0], ENT_NOQUOTES).'</phrase>';
     }
 }
 
@@ -355,13 +355,7 @@ class dkdbk_para extends WikiRendererBloc {
     protected $_closeTag='</para>';
 
     public function detect($string){
-        /*if($string=='') return false;
-        if(preg_match("/^\s?([^\*\-\=\|\^>;<=~].*)/",$string, $m)) {
-            $this->_detectMatch=array($m[1],$m[1]);
-            return true;
-        }
-        return false;*/
-            if($string=='') return false;
+        if($string=='') return false;
         if (preg_match("/^\s+[\*\-\=\|\^>;<=~]/",$string))
             return false;
         if(preg_match("/^\s*([^\*\-\=\|\^>;<=~].*)/",$string, $m)) {
@@ -427,7 +421,7 @@ class dkdbk_table_row extends WikiTag {
     protected $columns = array('');
 
     protected function _doEscape($string){
-        return htmlspecialchars($string);
+        return htmlspecialchars($string, ENT_NOQUOTES);
     }
 
     /**
@@ -572,7 +566,7 @@ class dkdbk_syntaxhighlight extends WikiRendererBloc {
    }
 
     public function getRenderedLine(){
-        return htmlspecialchars($this->_detectMatch);
+        return htmlspecialchars($this->_detectMatch, ENT_NOQUOTES);
     }
 
     public function detect($string){
@@ -624,7 +618,7 @@ class dkdbk_pre extends WikiRendererBloc {
 
     public function detect($string){
         if($string=='') return false;
-        if(preg_match("/^(\s{2,}[^\*\-\=\|\^>;<=~].*)/",$string)) {
+        if(preg_match("/^(\s{2,}[^\s\*\-\=\|\^>;<=~].*)/",$string)) {
             $this->_detectMatch=array($string,$string);
             return true;
         }
@@ -661,6 +655,12 @@ class dkdbk_html extends WikiRendererBloc {
             return true;
         }else{
             if(preg_match('/^\s*<'.$this->dktag.'>(.*)/',$string,$m)){
+                if(preg_match('/(.*)<\/'.$this->dktag.'>\s*$/',$string,$m)){
+                    $this->_closeNow = true;
+                }
+                else {
+                    $this->_closeNow = false;
+                }
                 return true;
             }else{
                 return false;

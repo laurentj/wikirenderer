@@ -25,7 +25,7 @@
 
 class phpwiki_to_dokuwiki  extends WikiRendererConfig {
 
-    public $inlinetags= array( 'pwdk_strong','pwdk_em', 'pwdk_nolink2', 'pwdk_nolink1', 'pwdk_link',/* 'pwdk_image'*/);
+    public $inlinetags= array( 'pwdk_strong','pwdk_em', 'pwdk_nolink2', 'pwdk_nolink1', 'pwdk_link');
   
     public $defaultTextLineContainer = 'PhpWikiDkTextLine';
   
@@ -62,7 +62,7 @@ class phpwiki_to_dokuwiki  extends WikiRendererConfig {
     public function onStart($texte){
          $this->footnotes = array();
          return $texte;
-     }
+    }
   
     /**
      * called after the parsing
