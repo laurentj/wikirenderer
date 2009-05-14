@@ -13,6 +13,53 @@ require_once(WR_DIR.'rules/dokuwiki_to_docbook.php');
 
 class dokuwiki_docbook_blocks extends WikiRendererUnitTestCase {
 
+
+    protected $data = array(
+0=>array(
+'',
+'',
+0
+),
+
+1=>array(
+'<code> machin </code>',
+'<programlisting> machin </programlisting>',
+0
+),
+
+2=>array(
+'<code> machin
+truc </code>',
+'<programlisting> machin
+truc </programlisting>',
+0
+),
+
+
+3=>array(
+'<code bidule> machin
+truc3 </code>',
+'<programlisting> machin
+truc3 </programlisting>',
+0
+),
+
+    );
+    public function testBlocks() {
+        $wr = new WikiRenderer(new dokuwiki_to_docbook());
+        foreach($this->data as $k=>$test){
+            list($source, $result, $nberror) = $test;
+            $res = $wr->render($source);
+
+            $this->assertEqualOrDiff($result, $res, "error on $k th test");
+
+            if(!$this->assertEqual(count($wr->errors), $nberror, "Errors detected by wr ! (%s)")){
+                $this->dump($wr->errors);
+            }
+        }
+    }
+
+
     var $listblocks = array(
         'para'=>0,
         'para2'=>0,
@@ -25,7 +72,7 @@ class dokuwiki_docbook_blocks extends WikiRendererUnitTestCase {
         'pre'=>0,
     );
 
-    function testBlock() {
+    function testBlockFiles() {
 
         $wr = new WikiRenderer(new dokuwiki_to_docbook());
         foreach($this->listblocks as $file=>$nberror){

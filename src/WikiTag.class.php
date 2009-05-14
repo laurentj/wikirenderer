@@ -157,7 +157,7 @@ abstract class WikiTag {
     }
 
     protected function _findWikiWord($string){
-        if($this->checkWikiWordFunction !== null && preg_match_all("/(?:(?<=\b)|!)[A-Z][a-z]+[A-Z0-9]\w*/", $string, $matches)){
+        if($this->checkWikiWordFunction !== null && preg_match_all("/(?:(?<=\b)|!)[A-Z]\p{Ll}+[A-Z0-9][\p{Ll}\p{Lu}0-9]*/u", $string, $matches)){
             $match = array_unique($matches[0]); // we must have a list without duplicated values, because of str_replace.
             if(is_array($this->checkWikiWordFunction)) {
                 $o = $this->checkWikiWordFunction[0];

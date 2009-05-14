@@ -79,45 +79,88 @@ class dokuwiki_to_xhtml  extends WikiRendererConfig  {
 
 // ===================================== inline tags
 
-class dkxhtml_strong extends WikiTagXhtml {
+
+class DokuWikiTag extends WikiTagXhtml {
+
+    protected function _findWikiWord($string){
+/*$t = array (
+                0 => array (
+                        0 => array (
+                                0 => 'http://ipsum.dolor',
+                                1 => 6,
+                                ),
+                        1 => array (
+                                0 => '',
+                                1 => 6,
+                                ),
+                        2 => array (
+                                0 => 'http://ipsum.dolor',
+                                1 => 6,
+                                ),
+                        ),
+        )
+    */
+        if(preg_match_all('/([a-z]+\:(?:\/\/)?\w+[^\s]*)/', $string, $m, PREG_SET_ORDER |PREG_OFFSET_CAPTURE)){
+            $str ='';
+            $begin = 0;
+
+            foreach($m as $match) {
+                $len = ($match[0][1])-$begin;
+                $str.= substr($string, $begin, $len);
+                $begin = $match[0][1] + strlen($match[0][0]);
+                $str.='<a href="'.$match[2][0].'">UUUUU'.$match[2][0].'</a>';
+            }
+            if($begin < strlen($string))
+                $str.= substr($string, $begin);
+            return $str;
+        }
+        else return 'KKKKK'.$string;
+    }
+}
+
+
+
+
+
+class dkxhtml_strong extends DokuWikiTag {
     protected $name='strong';
     public $beginTag='**';
     public $endTag='**';
     protected $additionnalAttributes=array();
 }
 
-class dkxhtml_emphasis extends WikiTagXhtml {
+class dkxhtml_emphasis extends DokuWikiTag {
     protected $name='em';
     public $beginTag='//';
     public $endTag='//';
 }
 
-class dkxhtml_underlined extends WikiTagXhtml {
+class dkxhtml_underlined extends DokuWikiTag {
     protected $name='u';
     public $beginTag='__';
     public $endTag='__';
 }
 
-class dkxhtml_monospaced extends WikiTagXhtml {
+class dkxhtml_monospaced extends DokuWikiTag {
     protected $name='code';
     public $beginTag='\'\'';
     public $endTag='\'\'';
 }
 
 
-class dkxhtml_subscript extends WikiTagXhtml {
+class dkxhtml_subscript extends DokuWikiTag {
     protected $name='sub';
     public $beginTag='<sub>';
     public $endTag='</sub>';
 }
 
-class dkxhtml_superscript extends WikiTagXhtml {
+class dkxhtml_superscript extends DokuWikiTag {
     protected $name='sup';
     public $beginTag='<sup>';
     public $endTag='</sup>';
 }
 
-class dkxhtml_del extends WikiTagXhtml {
+class dkxhtml_del extends DokuWikiTag {
     protected $name='del';
     public $beginTag='<del>';
     public $endTag='</del>';
@@ -150,7 +193,7 @@ class dkxhtml_link extends WikiTagXhtml {
     }
 }
 
-class dkxhtml_footnote extends WikiTagXhtml {
+class dkxhtml_footnote extends DokuWikiTag {
     protected $name='footnote';
     public $beginTag='((';
     public $endTag='))';
@@ -374,7 +417,9 @@ class dkxhtml_para extends WikiRendererBloc {
 
     public function detect($string){
         if($string=='') return false;
-        if(preg_match("/^\s?([^\*\-\=\|\^>;<=~].*)/",$string, $m)) {
+        if (preg_match("/^\s+[\*\-\=\|\^>;<=~]/",$string))
+            return false;
+        if(preg_match("/^\s*([^\*\-\=\|\^>;<=~].*)/",$string, $m)) {
             $this->_detectMatch=array($m[1],$m[1]);
             return true;
         }
@@ -594,7 +639,14 @@ class dkxhtml_syntaxhighlight extends WikiRendererBloc {
 
         }else{
             if(preg_match('/^\s*<'.$this->dktag.'( \w+)?>(.*)/',$string,$m)){
-                $this->_detectMatch=$m[1];
+                if(preg_match('/(.*)<\/'.$this->dktag.'>\s*$/',$m[2],$m2)){
+                    $this->_closeNow = true;
+                    $this->_detectMatch=$m2[1];
+                }
+                else {
+                    $this->_closeNow = false;
+                    $this->_detectMatch=$m[2];
+                }
                 return true;
             }else{
                 return false;

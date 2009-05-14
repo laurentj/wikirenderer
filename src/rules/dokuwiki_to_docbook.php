@@ -355,8 +355,16 @@ class dkdbk_para extends WikiRendererBloc {
     protected $_closeTag='</para>';
 
     public function detect($string){
-        if($string=='') return false;
+        /*if($string=='') return false;
         if(preg_match("/^\s?([^\*\-\=\|\^>;<=~].*)/",$string, $m)) {
+            $this->_detectMatch=array($m[1],$m[1]);
+            return true;
+        }
+        return false;*/
+            if($string=='') return false;
+        if (preg_match("/^\s+[\*\-\=\|\^>;<=~]/",$string))
+            return false;
+        if(preg_match("/^\s*([^\*\-\=\|\^>;<=~].*)/",$string, $m)) {
             $this->_detectMatch=array($m[1],$m[1]);
             return true;
         }
@@ -579,7 +587,14 @@ class dkdbk_syntaxhighlight extends WikiRendererBloc {
 
         }else{
             if(preg_match('/^\s*<'.$this->dktag.'( \w+)?>(.*)/',$string,$m)){
-                $this->_detectMatch=$m[1];
+                if(preg_match('/(.*)<\/'.$this->dktag.'>\s*$/',$m[2],$m2)){
+                    $this->_closeNow = true;
+                    $this->_detectMatch=$m2[1];
+                }
+                else {
+                    $this->_closeNow = false;
+                    $this->_detectMatch=$m[2];
+                }
                 return true;
             }else{
                 return false;

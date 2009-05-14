@@ -66,6 +66,10 @@ consectetuer adipiscing elit.',
                     =>'Lorem [[ipsumdolorsit amet]], [consectetuer] adipiscing elit.',
         'Lorem IpsumDolorSit amet, consectetuer adipiscing elit.'
                     =>'Lorem [[IpsumDolorSit]] amet, consectetuer adipiscing elit.',
+        'Lorem IpsuméDolorSit amet, consectetuer adipiscing elit.'
+                    =>'Lorem [[IpsuméDolorSit]] amet, consectetuer adipiscing elit.',
+        'Lorem IpsumDoloréSit amet, consectetuer adipiscing elit.'
+                    =>'Lorem [[IpsumDoloréSit]] amet, consectetuer adipiscing elit.',
         'Lorem !IpsumDolorSit amet, consectetuer adipiscing elit.'
                     =>'Lorem IpsumDolorSit amet, consectetuer adipiscing elit.',
         'Lorem !!IpsumDolorSit amet, consectetuer adipiscing elit.'
@@ -90,7 +94,8 @@ consectetuer adipiscing elit.',
                     =>'Lorem **[[http://flou.local/Ipsum/DolorSit]] amet**, consectetuer adipiscing elit.',
         'Lorem [phpwiki:IpsumDolorSit?action=browse] amet, consectetuer adipiscing elit.'
                     =>'Lorem [[IpsumDolorSit?]] amet, consectetuer adipiscing elit.',
-
+        'Lorem "http:" Ipsum Dolor Sit amet, consectetuer adipiscing elit.'
+                    =>'Lorem "http:" Ipsum Dolor Sit amet, consectetuer adipiscing elit.',
         'Lorem ipsum dolor[2] sit amet, consectetuer adipiscing elit.'
                     =>'Lorem ipsum dolor[[!PWNOTE2!]] sit amet, consectetuer adipiscing elit.',
 

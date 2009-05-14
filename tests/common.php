@@ -87,6 +87,9 @@ class WikiRendererUnitTestCase extends UnitTestCase {
 }
 
 class HtmlReporter2 extends HtmlReporter{
+    function __construct($character_set = 'UTF-8') {
+        parent::HtmlReporter($character_set);
+    }
     function paintHeader($test_name) {
         $this->sendNoCacheHeaders();
         ?>

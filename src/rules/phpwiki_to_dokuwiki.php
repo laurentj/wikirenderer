@@ -32,7 +32,7 @@ class phpwiki_to_dokuwiki  extends WikiRendererConfig {
     public $availabledTextLineContainers = array('PhpWikiDkTextLine', 'pwdk_table_row');
   
     public $bloctags = array('pwdk_title', 'pwdk_list', 'pwdk_pre', 'pwdk_hr',
-                          /*'pwdk_blockquote','pwdk_definition',*/'pwdk_table', 'pwdk_p');
+                          'pwdk_blockquote', 'pwdk_note', 'pwdk_plugin','pwdk_table', 'pwdk_p');
   
     public $simpletags = array('%%%'=>"\n");
   
@@ -68,8 +68,9 @@ class phpwiki_to_dokuwiki  extends WikiRendererConfig {
      * called after the parsing
      */
     public function onParse($finalTexte){
-        if (count($this->footnotes)){
-            $finalTexte = str_replace(array_keys($this->footnotes), array_values($this->footnotes), $finalTexte);
+        foreach($this->footnotes as $id=>$text) {
+          if ($text)
+            $finalTexte = str_replace($id, '(('.$text.'))', $finalTexte);  
         }
         return $finalTexte;
     }
@@ -99,7 +100,7 @@ class PhpWikiTag extends WikiTag {
                         ),
         )
     */
-        if(preg_match_all('/(!?)([a-z]+\:[^\s]+)/', $string, $m, PREG_SET_ORDER |PREG_OFFSET_CAPTURE)){
+        if(preg_match_all('/(!?)([a-z]+\:(?:\/\/)?\w+[^\s]*)/', $string, $m, PREG_SET_ORDER |PREG_OFFSET_CAPTURE)){
             $str ='';
             $begin = 0;
 
@@ -213,7 +214,10 @@ class pwdk_link extends PhpWikiTag {
         if($href{0} == '#' || $href{0} == '/')
           return $href;
         if(is_numeric($href)) {
-          return '!PWNOTE'.$href.'!';
+          $href = '!PWNOTE'.$href.'!';
+          if (!isset($this->config->footnotes['[['.$href.']]']))
+            $this->config->footnotes['[['.$href.']]'] = '';
+          return $href;
         }
         //return $this->config->wikiWordBaseUrl.$href;
         return str_replace("/",":",$href);
@@ -231,6 +235,23 @@ class pwdk_nolink1 extends PhpWikiTag {
     public $separators=array('|');
     public function getContent(){
         return '['.implode('|',$this->contents).']';
+    }
+
+    public function getBogusContent(){
+        $c='[';
+        $m= count($this->contents)-1;
+        $s= count($this->separators);
+        foreach($this->contents as $k=>$v){
+            $c.=$v;
+            if($k< $m){
+                if($k < $s)
+                    $c.=$this->separators[$k];
+                else
+                    $c.=end($this->separators);
+            }
+        }
+
+        return $c;
     }
 }
 
@@ -345,7 +366,7 @@ class pwdk_p extends PwDkBloc {
 
    public function detect($string){
       if($string=='') return false;
-      if(preg_match('/^-{4,}\s*$/',$string)) return false;
+      if(preg_match('/^(<\?plugin|-{4,})/',$string)) return false;
       $c=$string{0};
       if(strpos("*#!| \t>;" ,$c) === false){
         $this->_detectMatch = array($string,$string);
@@ -355,6 +376,59 @@ class pwdk_p extends PwDkBloc {
       }
    }
 }
+
+
+
+class pwdk_note extends PwDkBloc {
+   public $type='note';
+   protected $isOpen = false;
+   
+   protected $noteid = '';
+   
+   public function open(){
+      $this->isOpen = true;
+      return '';
+   }
+
+   public function close(){
+      $this->isOpen=false;
+      $c = $this->engine->getConfig();
+      $c->footnotes[$this->noteid] = $this->_renderInlineTag($c->footnotes[$this->noteid] );
+      return '';
+   }
+   public function detect($string){
+      if ($this->isOpen) {
+        if(trim($string)=='' || preg_match('/^(<\?plugin|-{4,})/',$string)) {
+          $this->isOpen=false;
+          return false;
+        }
+        $c=$string{0};
+        if(strpos("*#!| \t>;" ,$c) === false){
+          $this->_detectMatch = $string;
+          return true;
+        }else{
+          $this->isOpen = false;
+          return false;
+        }
+      }
+      else {
+        if (preg_match('/^\[([0-9]+)\](.+)$/',$string, $m)) {
+          $this->noteid = '[[!PWNOTE'.$m[1].'!]]';
+          if(!isset($this->engine->getConfig()->footnotes[$this->noteid]))
+            $this->engine->getConfig()->footnotes[$this->noteid] = '';
+          $this->_detectMatch = $m[2];
+          return true;
+        }else{
+          return false;
+        }
+      }
+   }
+   public function getRenderedLine(){
+      $this->engine->getConfig()->footnotes[$this->noteid] .= $this->_detectMatch;
+      return '';
+   }
+}
+
 
 /**
  * Texte preformaté
@@ -375,28 +449,31 @@ class pwdk_pre extends PwDkBloc {
  * ;: ceci est un bloc de texte indenté
  */
 class pwdk_blockquote extends PwDkBloc {
-   public $type='bq';
-   protected $regexp="/^(\>+.*)/";
+  public $type='bq';
+  protected $regexp="/^;:(.*)/";
+  public function getRenderedLine(){
+    return '>'.$this->_renderInlineTag($this->_detectMatch[1]);
+  }
 }
 
-/**
- * Definitions
- * ; terme : definition
- */
-class pwdk_definition extends PwDkBloc {
-
-   public $type='dfn';
-   protected $regexp="/^(;.* : .*)/i";
-}
 
 /**
  * Plugins
  * <?plugin nom  param=value?>
  */
 class pwdk_plugin extends PwDkBloc {
-
-   public $type='dfn';
-   protected $regexp="/^(;.* : .*)/i";
+  protected $_closeNow=true;
+  public $type='plugin';
+  protected $regexp='/^<\?plugin\s+([^\?\>]+)\?\>\s*$/i';
+  public function getRenderedLine(){
+    if (preg_match('/^(\w+)(\s+(.*))?$/', $this->_detectMatch[1], $m)) {
+      if (isset($m[3]) && $m[3]) {
+        return '~~'.$m[1].':'.$m[3].'~~';
+      }
+      return '~~'.$m[1].'~~';
+    }
+    else return '~~PHPWIKI '.$this->_detectMatch[1].'~~';
+  }
 }
 
 
@@ -412,11 +489,6 @@ class pwdk_table_row extends PhpWikiTag {
     public $separators = array('|', '>', '<', '^', 'v');
 
     protected $columns = array('');
-
-    function __construct($config){
-      parent::__construct($config);
-      
-    }
 
     /**
     * called by the inline parser, when it found a separator
@@ -447,19 +519,28 @@ class pwdk_table_row extends PhpWikiTag {
         return $c;
     }
 
+    protected $colspan='';
     public function getContent(){
         $c = "";
         $currentCell = '';
         $currentCol = '';
         $this->colNum = 0;
+        $this->colspan = '';
+        $this->previousColNum = 0;
         foreach ($this->columns as $k=>$col) {
           if($col == '|') {
             if ($currentCell) {
               $c.= $this->addCol($currentCell, $currentCol);
               $currentCol = '';
+              $c.=$col;
+            }
+            else {
+              if ($this->colNum > 0)
+                $this->colspan.=$col;
+              else
+                $c.=$col;
             }
             $this->colNum ++;
-            $c.=$col;
             $currentCell = $this->contents[$k];
           }
           else {
@@ -489,15 +570,15 @@ class pwdk_table_row extends PhpWikiTag {
             $this->config->rowspan[$this->colNum] = false;
             $this->colNum++;
           }
-          $c.=($fc?'|':' |');
+          $c .= ($fc?'|':' |');
         }
         else
-          $c.='|';
+          $c .= '|';
         $this->config->firstRow = false;
         return $c;
     }
     
-    protected $latestColNum=0;
+    protected $previousColNum=0;
     protected $colNum = 0;
     protected function addCol($content, $type) {
       $c = '';
@@ -508,7 +589,7 @@ class pwdk_table_row extends PhpWikiTag {
           $this->colNum++;
         }
       }
-      
+      $this->previousColNum = $this->colNum;
       $this->config->rowspan[$this->colNum] = false;
       $left='';
       $right='';
@@ -532,8 +613,9 @@ class pwdk_table_row extends PhpWikiTag {
           $right = ' ';
           break;
       }
-
-      return $c.$left.trim($content).$right;
+      $c.=$left.trim($content).$right.$this->colspan;
+      $this->colspan = '';
+      return $c;
     }
 }
 
@@ -577,8 +659,3 @@ class pwdk_table extends PwDkBloc {
     }
 
 }
-
-
-
-
-

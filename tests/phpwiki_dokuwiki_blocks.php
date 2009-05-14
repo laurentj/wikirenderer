@@ -124,7 +124,6 @@ Duis sollicitudin tempor arcu. Mauris porta leo id dui
 luctus luctus. Aliquam nec lacus. Integer egestas.',
 0),
 
-
 7=>array(
 'Lorem ipsum __dolor__ sit amet, consectetuer adipiscing elit.
 
@@ -137,7 +136,7 @@ In hac habitasse platea dictumst. Nulla facilisi.',
 'Lorem ipsum **dolor** sit amet, consectetuer adipiscing elit.
 
 <code> Cras interdum.
- Donec DiCtum. [Sed fringilla].
+ Donec [[DiCtum]]. [[Sed fringilla]].
  Duis FeuGiat [pharetra] tortor.
  Nulla facilisi.</code>
 
@@ -148,7 +147,7 @@ In hac habitasse platea dictumst. Nulla facilisi.',
 | __Prénom__   | __Nom de famille__
 |> Jeff       |< Dairiki   |^  Pas cher     |< Pas valable
 |> Marco      |< Polo      | Encore moins cher     |< Pas disponible',
-'|| **Nom** | **Coût** | **Notes** |
+'| **Nom** || **Coût** | **Notes** |
 | **Prénom** | **Nom de famille** | | |
 |   Jeff | Dairiki   |   Pas cher   | Pas valable   |
 |   Marco | Polo   | Encore moins cher | Pas disponible   |',
@@ -156,12 +155,65 @@ In hac habitasse platea dictumst. Nulla facilisi.',
 9=>array(
 '| __Nom__               |v __Coût__   | __Notes__ 
 | __Prénom__   | __Nom de famille__
-|v Jeff       |< Dairiki   |^  Pas cher    
-|< Polo      | Encore moins cher  ',
+|  Jeff       |< Dairiki   |^  Pas cher    
+|| Polo    | ooo   ',
 '| **Nom** | **Coût** | **Notes** |
 | **Prénom** | | **Nom de famille** |
 | Jeff | Dairiki   |   Pas cher   |
-| | Polo   | Encore moins cher |',
+| Polo || ooo |',
+0),
+/* bug on latest line: combination on rowspan+colspan
+10=>array(
+'| __Nom__               |v __Coût__   | __Notes__ 
+| __Prénom__   | __Nom de famille__
+|v Jeff       |< Dairiki   |^  Pas cher    
+|| Polo       ',
+'| **Nom** | **Coût** | **Notes** |
+| **Prénom** | | **Nom de famille** |
+| Jeff | Dairiki   |   Pas cher   |
+| | Polo ||',
+0),
+              */
+11=>array(
+'Lorem ipsum __dolor__ sit amet, consectetuer adipiscing elit. Cras interdum.
+;:Donec dictum. Sed fringilla. Duis feugiat pharetra tortor. Nulla facilisi.
+;:
+;:In hac habitasse platea \'\'dictumst. Nulla\'\' facilisi. Pellentesque sodales laoreet est.
+Nulla varius egestas risus. Duis sollicitudin tempor arcu. Mauris porta leo id dui
+luctus luctus. Aliquam nec lacus. Integer egestas.
+',
+'Lorem ipsum **dolor** sit amet, consectetuer adipiscing elit. Cras interdum.
+>Donec dictum. Sed fringilla. Duis feugiat pharetra tortor. Nulla facilisi.
+>
+>In hac habitasse platea //dictumst. Nulla// facilisi. Pellentesque sodales laoreet est.
+Nulla varius egestas risus. Duis sollicitudin tempor arcu. Mauris porta leo id dui
+luctus luctus. Aliquam nec lacus. Integer egestas.
+',
+0),
+
+12=>array(
+'Lorem ipsum __dolor__ sit amet, consectetuer adipiscing elit. Cras interdum.
+Donec dictum. Sed fringilla. Duis feugiat pharetra tortor. Nulla facilisi.
+
+<?plugin nom  param=value?>
+
+In hac habitasse platea \'\'dictumst. Nulla\'\' facilisi.
+<?plugin nom2 ?>
+<?plugin nom3?>
+
+Pellentesque sodales laoreet est.
+Nulla varius egestas risus.',
+'Lorem ipsum **dolor** sit amet, consectetuer adipiscing elit. Cras interdum.
+Donec dictum. Sed fringilla. Duis feugiat pharetra tortor. Nulla facilisi.
+
+~~nom:param=value~~
+
+In hac habitasse platea //dictumst. Nulla// facilisi.
+~~nom2~~
+~~nom3~~
+
+Pellentesque sodales laoreet est.
+Nulla varius egestas risus.',
 0),
 
     );
@@ -183,21 +235,22 @@ In hac habitasse platea dictumst. Nulla facilisi.',
     }
 
 
-    protected $listblocks = array(
+    protected $listblocks = array( '1'=>0
     );
 
     function testBlockFiles() {
 
         $wr = new WikiRenderer(new phpwiki_to_dokuwiki());
         foreach($this->listblocks as $file=>$nberror){
-            $sourceFile = 'datasblocks/pw_doku_'.$file.'.src';
-            $resultFile = 'datasblocks/pw_doku_'.$file.'.res';
+            $sourceFile = 'datasblocks/pw_dk_'.$file.'.src';
+            $resultFile = 'datasblocks/pw_dk_'.$file.'.res';
 
             $source = file_get_contents($sourceFile);
             $result = file_get_contents($resultFile);
 
             $res = $wr->render($source);
             $this->assertEqualOrDiff($result, $res, "error on $file");
+            echo '<!--'.$res.'-->';
             if(!$this->assertEqual(count($wr->errors), $nberror, "Errors detected by wr ! (%s)")){
                 $this->dump($wr->errors);
             }
