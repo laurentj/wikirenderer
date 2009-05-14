@@ -1,6 +1,6 @@
 Changelog of WikiRenderer
 
-Version 3.1
+Version 3.1pre
 
 - no more PHP4 version, only PHP5
 - fixed bug: / was not allowed in patterns for inline tags
@@ -14,8 +14,11 @@ Version 3.1
 - WikiTag::addContent and WikiTag::addSeparator are no more final methods
 - WikiTag::addSeparator receive now the separator as  argument
 - renamed WikiTag::getCurrentSeparator() to WikiTag::isCurrentSeparator($token)
+- fixed a little bug when the content of a wiki tag contains only 0
 - CamelCaseWord can be ignored with a ! before the word
+- support of utf8 characters in CamelCaseWord
 - checkWikiWordFunction can be an array to indicate a method of an object
+- new rules: wr3_to_docbook, dokuwiki_to_docbook, trac_to_xhtml, phpwiki_to_dokuwiki, jwiki_to_xhtml
 
 Version 3.0
 
