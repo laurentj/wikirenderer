@@ -54,7 +54,7 @@ class phpwiki_to_dokuwiki  extends WikiRendererConfig {
             if ($w{0} == '!')
                 $result[]=substr($w,1);
             elseif($this->enableLinkOnWikiWord)
-                $result[]='[['.$this->wikiWordBaseUrl.$w.']]';
+                $result[]='[['.$this->wikiWordBaseUrl.$w.'|'.$w.']]';
             else
                 $result[]=$w;
         }
