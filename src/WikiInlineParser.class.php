@@ -21,6 +21,16 @@
  *
  */
 
+
+class WikiTextLineContainer {
+    public $tag = null;
+    
+    public $allowedTags = array();
+    
+    public $pattern = '';
+}
+
+
 /**
  * The parser used to find all inline tag in a single line of text
  * @package WikiRenderer
@@ -30,52 +40,59 @@ class WikiInlineParser {
 
     public $error=false;
 
-    protected $listTag=array();
     protected $simpletags=array();
 
     protected $resultline='';
+
     protected $str=array();
-    protected $splitPattern='';
 
     protected $config;
 
     protected $textLineContainers=array();
+    
+    protected $currentTextLineContainer = null;
 
     /**
     * constructor
     * @param WikiRendererConfig $config  a config object
     */
     function __construct($config ){
-        $separators = array();
         $this->escapeChar = $config->escapeChar;
         $this->config = $config;
 
-        foreach($config->inlinetags as $class){
-            $t = new $class($config);
-            $this->listTag[$t->beginTag]=$t;
-
-            $this->splitPattern .= '|('.preg_quote($t->beginTag, '/').')';
-            if($t->beginTag!= $t->endTag)
-                $this->splitPattern .= '|('.preg_quote($t->endTag, '/').')';
-            $separators = array_merge($separators, $t->separators);
-        }
+        $simpletagPattern = '';
         foreach($config->simpletags as $tag=>$html){
-            $this->splitPattern.='|('.preg_quote($tag, '/').')';
+            $simpletagPattern.='|('.preg_quote($tag, '/').')';
         }
-
-        foreach($config->availabledTextLineContainers as $class){
-            $t = new $class($config);
-            $this->textLineContainers[$class] = $t;
-            $separators = array_merge($separators, $t->separators);
-        }
-
-        $separators= array_unique($separators);
-        foreach($separators as $sep){
-            $this->splitPattern.='|('.preg_quote($sep, '/').')';
-        }
+        
+        $escapePattern = '';
         if($this->escapeChar != '')
-            $this->splitPattern .='|('.preg_quote($this->escapeChar, '/').')';
-        $this->splitPattern = '/'.substr($this->splitPattern,1).'/';
+            $escapePattern ='|('.preg_quote($this->escapeChar, '/').')';
+
+
+        foreach($config->textLineContainers as $class=>$tags){
+            $c = new WikiTextLineContainer();
+            $c->tag = new $class($config);
+            $separators = $c->tag->separators;
+            
+            $tagList = array();
+            foreach($tags as $tag) {
+                $t = new $tag($config);
+                $c->allowedTags[$t->beginTag] = $t;
+                $c->pattern .= '|('.preg_quote($t->beginTag, '/').')';
+                if($t->beginTag!= $t->endTag)
+                    $c->pattern .= '|('.preg_quote($t->endTag, '/').')';
+                $separators = array_merge($separators, $t->separators);
+            }
+            $separators= array_unique($separators);
+            foreach($separators as $sep){
+                $c->pattern .='|('.preg_quote($sep, '/').')';
+            }
+            $c->pattern .= $simpletagPattern. $escapePattern;
+            $c->pattern = '/'.substr($c->pattern,1).'/';
+
+            $this->textLineContainers[$class] = $c;
+        }
 
         $this->simpletags = $config->simpletags;
     }
@@ -87,9 +104,10 @@ class WikiInlineParser {
     */
     public function parse($line){
         $this->error=false;
-        $firsttag = clone ($this->textLineContainers[$this->config->defaultTextLineContainer]);
+        $this->currentTextLineContainer = $this->textLineContainers[$this->config->defaultTextLineContainer];
+        $firsttag = clone ($this->currentTextLineContainer->tag);
 
-        $this->str = preg_split($this->splitPattern, $line, -1, PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_NO_EMPTY);
+        $this->str = preg_split($this->currentTextLineContainer->pattern, $line, -1, PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_NO_EMPTY);
         $this->end = count($this->str);
 
         if($this->end > 1){
@@ -139,8 +157,8 @@ class WikiInlineParser {
                     $tag->addContent($t);
 
                 // is there a tag which begin something ?
-                }elseif( isset($this->listTag[$t]) ){
-                    $newtag = clone $this->listTag[$t];
+                }elseif( isset($this->currentTextLineContainer->allowedTags[$t]) ){
+                    $newtag = clone $this->currentTextLineContainer->allowedTags[$t];
                     $i=$this->_parse($newtag,$i);
                     if($i !== false){
                         $tag->addContent($newtag->getWikiContent(), $newtag->getContent());
@@ -156,7 +174,7 @@ class WikiInlineParser {
                     $tag->addContent($t);
                 }
             }else{
-                if(isset($this->listTag[$t]) || isset($this->simpletags[$t]) || $tag->endTag == $t)
+                if(isset($this->currentTextLineContainer->allowedTags[$t]) || isset($this->simpletags[$t]) || $tag->endTag == $t)
                     $tag->addContent($t);
                 else
                     $tag->addContent($this->escapeChar.$t);

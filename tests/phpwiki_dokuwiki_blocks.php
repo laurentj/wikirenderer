@@ -136,7 +136,7 @@ In hac habitasse platea dictumst. Nulla facilisi.',
 'Lorem ipsum **dolor** sit amet, consectetuer adipiscing elit.
 
 <code> Cras interdum.
- Donec [[DiCtum]]. [[Sed fringilla]].
+ Donec DiCtum. [Sed fringilla].
  Duis FeuGiat [pharetra] tortor.
  Nulla facilisi.</code>
 
@@ -235,7 +235,7 @@ Nulla varius egestas risus.',
     }
 
 
-    protected $listblocks = array( '1'=>0
+    protected $listblocks = array( '1'=>3
     );
 
     function testBlockFiles() {

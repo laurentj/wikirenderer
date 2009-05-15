@@ -108,6 +108,11 @@ consectetuer adipiscing elit.',
                     =>'Lorem {{ipsumdolorsit.png|alternative text}} amet, consectetuer adipiscing elit.',
         'Lorem [ ipsumdolorsit.png] amet, consectetuer adipiscing elit.'
                     =>'Lorem {{ ipsumdolorsit.png}} amet, consectetuer adipiscing elit.',
+
+
+        'Le binding de Python, fut à l\'origine PyXpcom, réalisé par Activestate et anciennement disponible sur  http://public.activestate.com/pyxpcom/. Ce binding est depuis 2004 ou 2005 [intégré dans les sources de Mozilla|http://lxr.mozilla.org/seamonkey/source/extensions/python/].'
+                    =>'Le binding de Python, fut à l\'origine [[PyXpcom]], réalisé par Activestate et anciennement disponible sur  [[http://public.activestate.com/pyxpcom/]]. Ce binding est depuis 2004 ou 2005 [[http://lxr.mozilla.org/seamonkey/source/extensions/python/|intégré dans les sources de Mozilla]].',
+
     );
 
 

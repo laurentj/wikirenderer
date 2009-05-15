@@ -25,11 +25,13 @@
 
 class phpwiki_to_dokuwiki  extends WikiRendererConfig {
 
-    public $inlinetags= array( 'pwdk_strong','pwdk_em', 'pwdk_nolink2', 'pwdk_nolink1', 'pwdk_link');
-  
     public $defaultTextLineContainer = 'PhpWikiDkTextLine';
   
-    public $availabledTextLineContainers = array('PhpWikiDkTextLine', 'pwdk_table_row');
+    public $textLineContainers = array(
+        'PhpWikiDkTextLine'=>array( 'pwdk_strong','pwdk_em', 'pwdk_nolink2', 'pwdk_nolink1', 'pwdk_link'),
+        'pwdk_table_row'=>array( 'pwdk_strong','pwdk_em', 'pwdk_nolink2', 'pwdk_nolink1', 'pwdk_link'),
+        'pwdk_pre_textLine'=>array( 'pwdk_nolink2', 'pwdk_nolink1')
+    );
   
     public $bloctags = array('pwdk_title', 'pwdk_list', 'pwdk_pre', 'pwdk_hr',
                           'pwdk_blockquote', 'pwdk_note', 'pwdk_plugin','pwdk_table', 'pwdk_p');
@@ -45,13 +47,16 @@ class phpwiki_to_dokuwiki  extends WikiRendererConfig {
     }
 
     public $wikiWordBaseUrl = '';
+    public $enableLinkOnWikiWord = true;
     public function transformWikiWord($ww){
         $result=array();
         foreach($ww as $w){
             if ($w{0} == '!')
                 $result[]=substr($w,1);
-            else
+            elseif($this->enableLinkOnWikiWord)
                 $result[]='[['.$this->wikiWordBaseUrl.$w.']]';
+            else
+                $result[]=$w;
         }
         return $result;
     }
@@ -83,6 +88,16 @@ class PhpWikiTag extends WikiTag {
     }
 
     protected function _findWikiWord($string){
+/*echo "STR=$string <br>";
+            $arr = debug_backtrace();
+            $messageLog="\ttrace:";
+            foreach($arr as $k=>$t){
+                $messageLog.="\n\t$k\t".(isset($t['class'])?$t['class'].$t['type']:'').$t['function']."()\t";
+                $messageLog.=(isset($t['file'])?$t['file']:'[php]').' : '.(isset($t['line'])?$t['line']:'');
+            }
+            $messageLog.="\n";
+  echo "<pre>$messageLog</pre>";
+*/
 /*$t = array (
                 0 => array (
                         0 => array (
@@ -100,7 +115,7 @@ class PhpWikiTag extends WikiTag {
                         ),
         )
     */
-        if(preg_match_all('/(!?)([a-z]+\:(?:\/\/)?\w+[^\s]*)/', $string, $m, PREG_SET_ORDER |PREG_OFFSET_CAPTURE)){
+        if(preg_match_all('/(!?)([a-z]+\:(?:\/\/)?\w+[^\s]*)/u', $string, $m, PREG_SET_ORDER |PREG_OFFSET_CAPTURE)){
             $str ='';
             $begin = 0;
 
@@ -108,6 +123,10 @@ class PhpWikiTag extends WikiTag {
                 $len = ($match[0][1])-$begin;
                 $str.= parent::_findWikiWord(substr($string, $begin, $len));
                 $begin = $match[0][1] + strlen($match[0][0]);
+                if(preg_match('![^\w\\/]$!', substr($match[0][0],-1,1)) ) {
+                  $begin--;
+                  $match[2][0] = substr($match[2][0],0,-1);
+                }
                 if ($match[1][0] !='') {
                   $str.= $match[2][0];
                 }
@@ -115,8 +134,9 @@ class PhpWikiTag extends WikiTag {
                   $str.="[[".$match[2][0]."]]";
                 }
             }
-            if($begin < strlen($string))
+            if($begin < strlen($string)) {
                 $str.= parent::_findWikiWord(substr($string, $begin));
+            }
             return $str;
         }
         else return parent::_findWikiWord($string);
@@ -430,6 +450,15 @@ class pwdk_note extends PwDkBloc {
 }
 
 
+class pwdk_pre_textLine extends PhpWikiTag {
+    public $isTextLineTag=true;
+    protected $attribute=array('$$');
+    protected $checkWikiWordIn=array('$$');
+
+    public $separators = array();
+}
+
+
 /**
  * Texte preformaté
  * indentation avec des espaces
@@ -437,9 +466,27 @@ class pwdk_note extends PwDkBloc {
 class pwdk_pre extends PwDkBloc {
 
   public $type='pre';
-  protected $regexp="/^(\s.*)/";
+  protected $regexp="/^(\s+.*)/";
   protected $_openTag="<code>";
   protected $_closeTag="</code>";
+
+
+  public function open(){
+      $this->engine->getConfig()->defaultTextLineContainer = 'pwdk_pre_textLine';
+      $this->engine->getConfig()->enableLinkOnWikiWord = false;
+      return parent::open();
+  }
+
+  public function close(){
+      $this->engine->getConfig()->defaultTextLineContainer = 'PhpWikiDkTextLine';
+      $this->engine->getConfig()->enableLinkOnWikiWord = true;
+      return parent::close();
+  }
+
+  public function getRenderedLine(){
+      return $this->engine->inlineParser->parse($this->_detectMatch[1]);
+  }
+
 
 }
 

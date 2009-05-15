@@ -16,36 +16,32 @@ class WikiRendererTestsInlineParser extends WikiRendererUnitTestCase {
     function testInlineParserConstructor() {
 
         $conf = new WRConfigTest();
-        $conf->inlinetags=array( 'cwrxhtml_strong');
         $conf->defaultTextLineContainer= 'WikiHtmlTextLine';
-        $conf->availabledTextLineContainers = array('WikiHtmlTextLine');
-
-
+        $conf->textLineContainers = array('WikiHtmlTextLine'=>array( 'cwrxhtml_strong'));
         $wip = new WikiInlineParserTest($conf);
         $trueResult = '/(__)|(\\\\)/';
         $this->assertEqualOrDiff($trueResult, $wip->getSplitPattern(), "erreur");
 
-        $conf->inlinetags=array( 'cwrxhtml_strong','cwrxhtml_em');
+        $conf->textLineContainers = array('WikiHtmlTextLine'=>array( 'cwrxhtml_strong','cwrxhtml_em'));
         $conf->simpletags=array('%%%'=>'');
 
         $wip = new WikiInlineParserTest($conf );
         $trueResult = '/(__)|(\'\')|(%%%)|(\\\\)/';
         $this->assertEqualOrDiff($trueResult, $wip->getSplitPattern(), "erreur");
 
-        $conf->inlinetags=array( 'cwrxhtml_strong','cwrxhtml_q');
         $conf->simpletags=array('%%%'=>'');
-
+        $conf->textLineContainers = array('WikiHtmlTextLine'=>array( 'cwrxhtml_strong','cwrxhtml_q'));
         $wip = new WikiInlineParserTest( $conf);
-        $trueResult = '/(__)|(\^\^)|(%%%)|(\\|)|(\\\\)/';
+        $trueResult = '/(__)|(\^\^)|(\\|)|(%%%)|(\\\\)/';
         $this->assertEqualOrDiff($trueResult, $wip->getSplitPattern(), "erreur");
 
 
-        $conf->inlinetags=array( 'cwrxhtml_strong','cwrxhtml_em','cwrxhtml_code','cwrxhtml_q',
-        'cwrxhtml_cite','cwrxhtml_acronym','cwrxhtml_link', 'cwrxhtml_image', 'cwrxhtml_anchor');
+        $conf->textLineContainers = array('WikiHtmlTextLine'=>array( 'cwrxhtml_strong','cwrxhtml_em','cwrxhtml_code','cwrxhtml_q',
+        'cwrxhtml_cite','cwrxhtml_acronym','cwrxhtml_link', 'cwrxhtml_image', 'cwrxhtml_anchor'));
         $conf->simpletags=array('%%%'=>'', ':-)'=>'');
 
         $wip = new WikiInlineParserTest($conf );
-        $trueResult = '/(__)|(\'\')|(@@)|(\\^\\^)|(\\{\\{)|(\\}\\})|(\\?\\?)|(\\[)|(\\])|(\\(\\()|(\\)\\))|(~~)|(%%%)|(\\:-\\))|(\\|)|(\\\\)/';
+        $trueResult = '/(__)|(\'\')|(@@)|(\\^\\^)|(\\{\\{)|(\\}\\})|(\\?\\?)|(\\[)|(\\])|(\\(\\()|(\\)\\))|(~~)|(\\|)|(%%%)|(\\:-\\))|(\\\\)/';
         $this->assertEqualOrDiff($trueResult, $wip->getSplitPattern(), "erreur");
 
         $test = array(
@@ -77,11 +73,8 @@ class WikiRendererTestsInlineParser extends WikiRendererUnitTestCase {
 
     function testInlineParser1() {
         $conf = new WRConfigTest();
-        $conf->inlinetags=array( 'cwrxhtml_strong');
         $conf->defaultTextLineContainer= 'WikiHtmlTextLine';
-        $conf->availabledTextLineContainers = array('WikiHtmlTextLine');
-
-
+        $conf->textLineContainers = array('WikiHtmlTextLine'=>array( 'cwrxhtml_strong'));
 
         $wip = new WikiInlineParser($conf);
         foreach($this->listinline1 as $source=>$trueResult){
@@ -143,11 +136,10 @@ class WikiRendererTestsInlineParser extends WikiRendererUnitTestCase {
     function testInlineParser2() {
         $conf = new WRConfigTest();
 
-        $conf->inlinetags=array( 'cwrxhtml_strong','cwrxhtml_em','cwrxhtml_code','cwrxhtml_q',
-            'cwrxhtml_cite','cwrxhtml_acronym','cwrxhtml_link', 'cwrxhtml_image', 'cwrxhtml_anchor');
         $conf->simpletags=array('%%%'=>'');
         $conf->defaultTextLineContainer= 'WikiHtmlTextLine';
-        $conf->availabledTextLineContainers = array('WikiHtmlTextLine');
+        $conf->textLineContainers = array('WikiHtmlTextLine'=>array( 'cwrxhtml_strong','cwrxhtml_em','cwrxhtml_code','cwrxhtml_q',
+            'cwrxhtml_cite','cwrxhtml_acronym','cwrxhtml_link', 'cwrxhtml_image', 'cwrxhtml_anchor'));
 
         $conf->funcCheckWikiWord = null;
 

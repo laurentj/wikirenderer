@@ -16,34 +16,33 @@ class WR3TestsInlineParser extends WikiRendererUnitTestCase {
     function testInlineParserConstructor() {
 
         $conf = new WRConfigTest();
-        $conf->inlinetags=array( 'wr3xhtml_strong');
         $conf->defaultTextLineContainer= 'WikiHtmlTextLine';
-        $conf->availabledTextLineContainers = array('WikiHtmlTextLine');
+        $conf->textLineContainers = array('WikiHtmlTextLine'=>array( 'wr3xhtml_strong'));
 
         $wip = new WikiInlineParserTest($conf);
         $trueResult = '/(__)|(\\\\)/';
         $this->assertEqualOrDiff($trueResult, $wip->getSplitPattern(), "erreur");
 
-        $conf->inlinetags=array( 'wr3xhtml_strong','wr3xhtml_em');
+        $conf->textLineContainers = array('WikiHtmlTextLine'=>array( 'wr3xhtml_strong','wr3xhtml_em'));
         $conf->simpletags=array('%%%'=>'');
 
         $wip = new WikiInlineParserTest($conf );
         $trueResult = '/(__)|(\'\')|(%%%)|(\\\\)/';
         $this->assertEqualOrDiff($trueResult, $wip->getSplitPattern(), "erreur");
 
-        $conf->inlinetags=array( 'wr3xhtml_strong','wr3xhtml_q');
+        $conf->textLineContainers = array('WikiHtmlTextLine'=>array( 'wr3xhtml_strong','wr3xhtml_q'));
         $conf->simpletags=array('%%%'=>'');
 
         $wip = new WikiInlineParserTest( $conf);
-        $trueResult = '/(__)|(\^\^)|(%%%)|(\\|)|(\\\\)/';
+        $trueResult = '/(__)|(\^\^)|(\\|)|(%%%)|(\\\\)/';
         $this->assertEqualOrDiff($trueResult, $wip->getSplitPattern(), "erreur");
 
-        $conf->inlinetags=array( 'wr3xhtml_strong','wr3xhtml_em','wr3xhtml_code','wr3xhtml_q',
-        'wr3xhtml_cite','wr3xhtml_acronym','wr3xhtml_link', 'wr3xhtml_image', 'wr3xhtml_anchor');
+        $conf->textLineContainers = array('WikiHtmlTextLine'=>array( 'wr3xhtml_strong','wr3xhtml_em','wr3xhtml_code','wr3xhtml_q',
+        'wr3xhtml_cite','wr3xhtml_acronym','wr3xhtml_link', 'wr3xhtml_image', 'wr3xhtml_anchor'));
         $conf->simpletags=array('%%%'=>'', ':-)'=>'');
 
         $wip = new WikiInlineParserTest($conf );
-        $trueResult = '/(__)|(\'\')|(@@)|(\\^\\^)|(\\{\\{)|(\\}\\})|(\\?\\?)|(\\[\\[)|(\\]\\])|(\\(\\()|(\\)\\))|(~~)|(%%%)|(\\:-\\))|(\\|)|(\\\\)/';
+        $trueResult = '/(__)|(\'\')|(@@)|(\\^\\^)|(\\{\\{)|(\\}\\})|(\\?\\?)|(\\[\\[)|(\\]\\])|(\\(\\()|(\\)\\))|(~~)|(\\|)|(%%%)|(\\:-\\))|(\\\\)/';
         $this->assertEqualOrDiff($trueResult, $wip->getSplitPattern(), "erreur");
 
         $test = array(
@@ -75,11 +74,8 @@ class WR3TestsInlineParser extends WikiRendererUnitTestCase {
 
     function testInlineParser1() {
         $conf = new WRConfigTest();
-        $conf->inlinetags=array( 'wr3xhtml_strong');
+        $conf->textLineContainers = array('WikiHtmlTextLine'=>array( 'wr3xhtml_strong'));
         $conf->defaultTextLineContainer= 'WikiHtmlTextLine';
-        $conf->availabledTextLineContainers = array('WikiHtmlTextLine');
-
-
 
         $wip = new WikiInlineParser($conf);
         foreach($this->listinline1 as $source=>$trueResult){

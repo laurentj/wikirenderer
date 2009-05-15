@@ -70,8 +70,8 @@ ne marche pas''
 ===  Tableaux ===
 
    * Les tables simples sont disponibles. Une rangée dans une table est introduite par une barre **|** dans la première colonne. Cela est mieux décrit par un exemple :
-<code>      ||  _////_Nom_////_                       |v _////_Coût_////_           |v _////_Notes_////_
-      | _////_Prénom_////_ | _////_Nom de famille_////_
+<code>      ||  _''''_Nom_''''_                       |v _''''_Coût_''''_           |v _''''_Notes_''''_
+      | _''''_Prénom_''''_ | _''''_Nom de famille_''''_
       |> Jeff      |< Dairiki           |^  Pas cher          |< Pas valable
       |> Marco     |< Polo              | Encore moins cher   |< Pas disponible</code>
 > produira

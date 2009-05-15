@@ -25,13 +25,17 @@
 
 class dokuwiki_to_docbook  extends WikiRendererConfig  {
 
-    public $inlinetags= array( 'dkdbk_strong','dkdbk_emphasis','dkdbk_underlined','dkdbk_monospaced',
-        'dkdbk_subscript', 'dkdbk_superscript', 'dkdbk_del', 'dkdbk_link', 'dkdbk_footnote', 'dkdbk_image',
-        'dkdbk_nowiki_inline',);
 
     public $defaultTextLineContainer = 'WikiHtmlTextLine';
 
-    public $availabledTextLineContainers = array('WikiHtmlTextLine', 'dkdbk_table_row');
+    public $textLineContainers = array(
+            'WikiHtmlTextLine'=>array( 'dkdbk_strong','dkdbk_emphasis','dkdbk_underlined','dkdbk_monospaced',
+        'dkdbk_subscript', 'dkdbk_superscript', 'dkdbk_del', 'dkdbk_link', 'dkdbk_footnote', 'dkdbk_image',
+        'dkdbk_nowiki_inline',),
+            'dkdbk_table_row'=>array( 'dkdbk_strong','dkdbk_emphasis','dkdbk_underlined','dkdbk_monospaced',
+        'dkdbk_subscript', 'dkdbk_superscript', 'dkdbk_del', 'dkdbk_link', 'dkdbk_footnote', 'dkdbk_image',
+        'dkdbk_nowiki_inline',)
+    );
 
    /**
    * liste des balises de type bloc reconnus par WikiRenderer.

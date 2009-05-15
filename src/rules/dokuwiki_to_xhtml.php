@@ -25,13 +25,15 @@
 
 class dokuwiki_to_xhtml  extends WikiRendererConfig  {
 
-    public $inlinetags= array( 'dkxhtml_strong','dkxhtml_emphasis','dkxhtml_underlined','dkxhtml_monospaced',
-        'dkxhtml_subscript', 'dkxhtml_superscript', 'dkxhtml_del', 'dkxhtml_link', 'dkxhtml_footnote', 'dkxhtml_image',
-        'dkxhtml_nowiki_inline',);
-
     public $defaultTextLineContainer = 'WikiHtmlTextLine';
 
-    public $availabledTextLineContainers = array('WikiHtmlTextLine', 'dkxhtml_table_row');
+    public $textLineContainers = array(
+            'WikiHtmlTextLine'=>array( 'dkxhtml_strong','dkxhtml_emphasis','dkxhtml_underlined','dkxhtml_monospaced',
+        'dkxhtml_subscript', 'dkxhtml_superscript', 'dkxhtml_del', 'dkxhtml_link', 'dkxhtml_footnote', 'dkxhtml_image',
+        'dkxhtml_nowiki_inline',),
+            'dkxhtml_table_row'=>array( 'dkxhtml_strong','dkxhtml_emphasis','dkxhtml_underlined','dkxhtml_monospaced',
+        'dkxhtml_subscript', 'dkxhtml_superscript', 'dkxhtml_del', 'dkxhtml_link', 'dkxhtml_footnote', 'dkxhtml_image',
+        'dkxhtml_nowiki_inline',));
 
    /**
    * liste des balises de type bloc reconnus par WikiRenderer.

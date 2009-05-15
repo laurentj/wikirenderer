@@ -24,17 +24,19 @@
  */
 
 class jwiki_to_xhtml  extends WikiRendererConfig  {
-    
-    public $inlinetags= array( 'jwxhtml_strong','jwxhtml_emphasis','jwxhtml_underlined','jwxhtml_code',
-        'jwxhtml_subscript', 'jwxhtml_superscript', 'jwxhtml_del', 'jwxhtml_link', 'jwxhtml_footnote',
-        'jwxhtml_image', 'jwxhtml_q', 'jwxhtml_anchor', 'jwxhtml_nowiki_inline',);
-    
+
     public $defaultTextLineContainer = 'WikiHtmlTextLine';
     
-    public $availabledTextLineContainers = array('WikiHtmlTextLine', 'jwxhtml_table_row');
+    public $textLineContainers = array(
+            'WikiHtmlTextLine'=>array( 'jwxhtml_strong','jwxhtml_emphasis','jwxhtml_underlined','jwxhtml_code',
+        'jwxhtml_subscript', 'jwxhtml_superscript', 'jwxhtml_del', 'jwxhtml_link', 'jwxhtml_footnote',
+        'jwxhtml_image', 'jwxhtml_q', 'jwxhtml_anchor', 'jwxhtml_nowiki_inline',),
+            'jwxhtml_table_row'=>array( 'jwxhtml_strong','jwxhtml_emphasis','jwxhtml_underlined','jwxhtml_code',
+        'jwxhtml_subscript', 'jwxhtml_superscript', 'jwxhtml_del', 'jwxhtml_link', 'jwxhtml_footnote',
+        'jwxhtml_image', 'jwxhtml_q', 'jwxhtml_anchor', 'jwxhtml_nowiki_inline',));
 
     public $bloctags = array('jwxhtml_title', 'jwxhtml_list', 'jwxhtml_blockquote','jwxhtml_table',
-        'jwxhtml_pre', 'jwxhtml_syntaxhighlight', 'jwxhtml_file', 'jwxhtml_nowiki', 'jwxhtml_macro',
+        'jwxhtml_syntaxhighlight', 'jwxhtml_file', 'jwxhtml_nowiki', 'jwxhtml_macro',
         'jwxhtml_definition', 'jwxhtml_para'
     );
 
@@ -249,7 +251,7 @@ class jwxhtml_image extends WikiTagXhtml {
         $height='';
 
         $m= array('','','','','','','','');
-        if (preg_match("/^(\s*)([^\s\?]+)(\?(\d+)(x(\d+))?)?(\s*)$/", $attrs, $m)) {
+        if (preg_match("/^(\s*)([^\s\?]+)(\?(\d+)(x(\d+))?)?(\s*)$/", $href, $m)) {
             if($m[1] != '' && $m[7] != ''){
                 $align='center';
             } elseif($m[1] != ''){

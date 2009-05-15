@@ -28,8 +28,8 @@ class WRConfigTest extends WikiRendererConfig { }
 // we use an inherited inline parser to access to some protected data, to verify them
 class WikiInlineParserTest extends WikiInlineParser {
 
-    function getSplitPattern(){ return $this->splitPattern; }
-    function getListTag(){ return $this->listTag; }
+    function getSplitPattern(){ return $this->textLineContainers[$this->config->defaultTextLineContainer]->pattern; }
+    function getListTag(){ return $this->textLineContainers[$this->config->defaultTextLineContainer]->allowedTags; }
 }
 
 class WikiRendererUnitTestCase extends UnitTestCase {
