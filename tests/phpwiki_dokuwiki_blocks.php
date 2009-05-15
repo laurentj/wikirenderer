@@ -127,7 +127,7 @@ luctus luctus. Aliquam nec lacus. Integer egestas.',
 7=>array(
 'Lorem ipsum __dolor__ sit amet, consectetuer adipiscing elit.
 
- Cras interdum.
+ Cras __interdum__.
  Donec DiCtum. [Sed fringilla].
  Duis !FeuGiat [[pharetra] tortor.
  Nulla facilisi.

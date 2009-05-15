@@ -77,7 +77,7 @@ consectetuer adipiscing elit.',
         'Lorem [IpsumDolorSit] amet, consectetuer adipiscing elit.'
                     =>'Lorem [[IpsumDolorSit]] amet, consectetuer adipiscing elit.',
         'Lorem [Ipsum/DolorSit] amet, consectetuer adipiscing elit.'
-                    =>'Lorem [[Ipsum:DolorSit]] amet, consectetuer adipiscing elit.',
+                    =>'Lorem [[Ipsum:DolorSit|Ipsum/DolorSit]] amet, consectetuer adipiscing elit.',
         'Lorem [/Ipsum/DolorSit] amet, consectetuer adipiscing elit.'
                     =>'Lorem [[/Ipsum/DolorSit]] amet, consectetuer adipiscing elit.',
         'Lorem [http://flou.local/Ipsum/DolorSit] amet, consectetuer adipiscing elit.'

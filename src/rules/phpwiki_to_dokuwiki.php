@@ -30,7 +30,7 @@ class phpwiki_to_dokuwiki  extends WikiRendererConfig {
     public $textLineContainers = array(
         'PhpWikiDkTextLine'=>array( 'pwdk_strong','pwdk_em', 'pwdk_nolink2', 'pwdk_nolink1', 'pwdk_link'),
         'pwdk_table_row'=>array( 'pwdk_strong','pwdk_em', 'pwdk_nolink2', 'pwdk_nolink1', 'pwdk_link'),
-        'pwdk_pre_textLine'=>array( 'pwdk_nolink2', 'pwdk_nolink1')
+        'pwdk_pre_textLine'=>array( 'pwdk_nostrong','pwdk_nolink2', 'pwdk_nolink1')
     );
   
     public $bloctags = array('pwdk_title', 'pwdk_list', 'pwdk_pre', 'pwdk_hr',
@@ -53,8 +53,12 @@ class phpwiki_to_dokuwiki  extends WikiRendererConfig {
         foreach($ww as $w){
             if ($w{0} == '!')
                 $result[]=substr($w,1);
-            elseif($this->enableLinkOnWikiWord)
+            elseif($this->enableLinkOnWikiWord) {
+              if ($this->wikiWordBaseUrl)
                 $result[]='[['.$this->wikiWordBaseUrl.$w.'|'.$w.']]';
+              else
+                $result[]='[['.$w.']]';
+            }
             else
                 $result[]=$w;
         }
@@ -207,18 +211,20 @@ class pwdk_link extends PhpWikiTag {
         if($this->separatorCount == 0){
             if($this->isImage($this->wikiContentArr[0]))
               return '{{'.$this->wikiContentArr[0].'}}';
-            else
+            else {
               return '[['.$this->transformWikiLink($this->contents[0]).']]';
+            }
         }
         else {
             if($this->isImage($this->wikiContentArr[1]))
                 return '{{'.$this->wikiContentArr[1].'|'.$this->contents[0].'}}';
             else
-                return '[['.$this->transformWikiLink($this->wikiContentArr[1]).'|'.$this->contents[0].']]';
+                return '[['.$this->transformWikiLink($this->wikiContentArr[1], $this->contents[0]).']]';
         }
     }
     
-    function transformWikiLink($href) {
+    function transformWikiLink($href, $label='') {
+        if ($href == '') return '';
         if(preg_match("!^([a-z]+)\:(.+)!", trim($href), $m)) {
           if ($m[1] == 'phpwiki') {
             $href = str_replace(array('action=browse', 'action=info', 'action=diff', 'action=search',
@@ -228,19 +234,32 @@ class pwdk_link extends PhpWikiTag {
                                 array('', 'action=default:details', 'action=diff','','action=edit:index',
                                       '','','','action=delete:index','','','','','',''), $m[2]);
           }
-          return $href;
+          if ($label!='')
+            return $href.'|'.$label;
+          else
+            return $href;
         }
 
-        if($href{0} == '#' || $href{0} == '/')
-          return $href;
+        if($href{0} == '#' || $href{0} == '/') {
+          if ($label!='')
+            return $href.'|'.$label;
+          else
+            return $href;
+        }
         if(is_numeric($href)) {
           $href = '!PWNOTE'.$href.'!';
           if (!isset($this->config->footnotes['[['.$href.']]']))
             $this->config->footnotes['[['.$href.']]'] = '';
           return $href;
         }
-        //return $this->config->wikiWordBaseUrl.$href;
-        return str_replace("/",":",$href);
+        //$newhref = $this->config->wikiWordBaseUrl.$href;
+        $newhref = str_replace("/",":",$href);
+        if ($label!='')
+          return $newhref.'|'.$label;
+        elseif( $href != $newhref)
+          return $newhref.'|'.$href;
+        else
+          return $newhref;
     }
     
     function isImage($href) {
@@ -285,7 +304,15 @@ class pwdk_nolink2 extends PhpWikiTag {
     }
 }
 
-
+class pwdk_nostrong extends PhpWikiTag {
+    public $beginTag='__';
+    public $endTag='__';
+    protected $attribute=array('$$');
+    public $separators=array();
+    public function getContent(){
+        return $this->contents[0];
+    }
+}
 
 // ===================================== déclaration des différents bloc wiki
 
