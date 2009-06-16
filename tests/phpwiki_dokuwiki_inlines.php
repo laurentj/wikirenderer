@@ -57,7 +57,7 @@ consectetuer adipiscing elit.',
         'Lorem [[ipsum dolor|http://foo.com] sit amet, consectetuer adipiscing elit.'
                     =>'Lorem [ipsum dolor|[[http://foo.com]]] sit amet, consectetuer adipiscing elit.',
         'Lorem [ ipsum dolor | javascript:alert(window.title)] sit amet, consectetuer adipiscing elit.'
-                    =>'Lorem [[ javascript:alert(window.title)| ipsum dolor ]] sit amet, consectetuer adipiscing elit.',
+                    =>'Lorem [[javascript:alert(window.title)| ipsum dolor ]] sit amet, consectetuer adipiscing elit.',
         'Lorem [[ipsumdolorsit amet], consectetuer adipiscing elit.'
                     =>'Lorem [ipsumdolorsit amet], consectetuer adipiscing elit.',
         'Lorem [[[[ipsumdolor sit amet], consectetuer adipiscing elit.'

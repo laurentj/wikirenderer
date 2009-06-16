@@ -16,3 +16,9 @@ cd ./rules
   wr3_to_text.php
   wr3_to_xhtml.php
   wr3_to_docbook.php
+
+cd ./mods/phorum
+  install.txt
+cd ./mods/phorum/wiki
+  info.txt
+  wiki.php
