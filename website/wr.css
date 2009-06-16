@@ -1,6 +1,5 @@
 body {
-  font-family: Verdane, Arial, sans-serif;
-
+  font-family: Verdana, Arial, sans-serif;
   margin:0;
   padding:0;
 }
@@ -14,12 +13,10 @@ pre,code {
 
 pre {
  overflow:auto;
-
  border-right: 2px solid #e2dfcc;
  border-bottom: 2px solid #e2dfcc;
  border-top: 2px solid #fcf9e3;
  border-left: 2px solid #fcf9e3;
-
 }
 
 dt { font-weight:bold;}
@@ -53,18 +50,23 @@ font-stretch:extra-expanded;
 #entete li:before { content: " >> ";
 color: #ff0000;}
 
-
+#lang {
+    position:absolute;
+    right:0;
+    top:0;
+    padding: 2px 5px;
+    margin:0;
+}
 #contenu {
    padding:1em;
    float:left;
    width:75%;
-
 }
 
 #contenu h2 {
    border-left: 10px solid #a7c8e2;
    border-bottom: 2px solid #a7c8e2;
-     -moz-border-radius: 0 0 0 20px;
+    -moz-border-radius: 0 0 0 20px;
    padding-left:0.5em;
    background-color:#e0eef9;
 
