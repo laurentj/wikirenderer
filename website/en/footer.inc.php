@@ -7,7 +7,7 @@
       <li><a href="/en/documentation.php">Documentation</a>
 
       </li>
-      <li><a href="/en/faq.php"><acronym title="Frequently Asked Questions">FAQ</acronym></a></li>
+      <!--<li><a href="/en/faq.php"><acronym title="Frequently Asked Questions">FAQ</acronym></a></li>-->
       <li><a href="/en/history.php">History</a></li>
    </ul>
 

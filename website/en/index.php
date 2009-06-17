@@ -6,17 +6,18 @@ require(dirname(__FILE__).'/header.inc.php');
 <h2>What is WikiRenderer?</h2>
 
 <p>WikiRenderer is a php component which can parse a wiki content, and transform
-it to XHTML content or an other wiki content with a different syntax. You can
-use it in your CMS, your wiki, your forum etc.</p>
+it to XHTML content, to any other markup language, or to an other wiki content
+with a different syntax. So this is useful to transform and display
+wiki content into your CMS, your wiki, your forum, or for example
+to migrate wiki contents from an old wiki CMS to a new one.</p>
 
 <p>See <a href="/en/demo.php">the demonstration</a>.</p>
 <p>WikiRenderer is released under <a href="http://www.gnu.org/licenses/licenses.html#LGPL">the LGPL licence</a>.</p>
 
-
 <h2>Latest version</h2>
 <dl>
 <dt>Stable</dt>
-<dd><strong>3.0</strong>, for php4 and php5 (02/03/2006)</dd>
+<dd><strong>3.1</strong>, only for php5 (06/20/2009)</dd>
 </dl>
 <p>See the <a href="http://developer.berlios.de/project/showfiles.php?group_id=5378">download page</a>.</p>
 
@@ -41,16 +42,13 @@ A set of classes is called a "rule".
        <li>dokuwiki syntax to Docbook</li>
        <li>jwiki syntax to XHTML</li>
        <li>phpwiki syntax to dokuwiki syntax</li>
-       <li>trac syntax toXHTML</li>
+       <li>trac syntax to XHTML</li>
        <li>and others...</li>
       </ul>
     </li>
-    <li>You can develop your own rules, by creating them form scratch or by extending existing rules.</li>
-    <li>Rules can be configured through a class :
-       <ul>
-        <li>callbacks functions to support additionnal processing on the content, before or
-        after the transformation</li>
-       </ul>
+    <li>You can develop your own rules, by creating them from scratch or by extending existing rules.</li>
+    <li>Rules can be configured through a config class. You can specify for example callbacks
+      functions to support additionnal processing on the content, before or after the transformation
     </li>
     <li>The engine of WikiRenderer supports complex syntaxes like:
       <ul>

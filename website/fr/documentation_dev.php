@@ -1,146 +1,15 @@
 <?php
-$path_link=array('documentation'=>'documentation.php');
+$path_link=array('documentation'=>'documentation.php', 'développement des rêgles'=>'documentation_dev.php');
 require('header.inc.php');
 ?>
 
-<h2>Utilisation de Wikirenderer 2.0</h2>
+<h2>Créer ses propres rêgles pour Wikirenderer 3.0</h2>
 
-<p><strong>La version 2.0 est obsolète et n'est plus maintenue.</strong>.</p>
+<p>La création des rêgles a été modifiée dans la version 3.0.</p>
 
+<p>En cours de rédaction.</p>
 
-<p style="font-style:italic">Dernière mise à jour le 16/05/2004</p>
-<h3>Simple</h3>
-<pre><code> include('WikiRenderer.lib.php');
- $wkr = new WikiRenderer();
- $monTexteXHTML = $wkr->render($monTexteWiki);
-</code></pre>
-
-<h3>Modifier la configuration par défaut</h3>
-<p>Il suffit d'instancier l'objet WikiRendererConfig et de modifier ses propriétés :</p>
-<pre><code> include('WikiRenderer.lib.php');
-
- $config = new WikiRendererConfig();
-
- <span style="text-style:italic">// exemple de désactivation de l'interpretation des balises wiki pour les tableaux</span>
- $config->bloctags['table']=false;
-
-  <span style="text-style:italic">// exemple de désactivation de l'interpretation des balises wiki pour les citations</span>
- unset($config->inlinetags['cite']);
-
-  <span style="text-style:italic">// ajout de l'interpretation d'un smiley</span>
- $config->simpletags[';-)']='&lt;img src="smiley_clindoeil.png" alt=""/>';
-
- $wkr = new WikiRenderer(<strong>$config</strong>);
- $monTexteXHTML = $wkr->render($monTexteWiki);
-</code></pre>
-
-<h3>Connaître les erreurs</h3>
-<p>Il est possible de savoir si lors de la transformation, WikiRenderer a rencontré
-des erreurs (balises wikis malformée, imbriquée...). Il suffit, aprés la
-transformation, de regarder le contenu de la propriété <code>errors</code>. Exemple :</p>
-<pre><code>include('WikiRenderer.lib.php');
-$wkr = new WikiRenderer();
-$monTexteXHTML = $wkr->render($monTexteWiki);
-
-if($wkr->errors){
-   echo '&lt;p style="color:red;">Il y a des erreurs wiki aux lignes : ';
-   echo implode(',',array_keys($wkr->errors)),'&lt/p>' ;
-}
-</code></pre>
-<p>La propriété <code>errors</code> est un tableau d'élements dont la clé
-est un numéro de ligne, et la valeur le contenu de la ligne en question. On peut
-donc si on le désire, afficher aussi les lignes en erreur.</p>
-<p>WikiRenderer ne s'arrete pas à la première erreur rencontrée. Les tags wiki qui
-posent problèmes ne sont pas interpretés, ni enlevés dans le texte résultat.</p>
-
-<h3>Les paramètres de configuration</h3>
-<p>Ils sont situés dans l'objet WikiRendererConfig</p>
-<dl>
-<dt><code>inlinetags</code></dt>
-<dd>liste des tags wiki que l'on peut utiliser à l'intérieur les phrases. Voir
-<a href="#confavancee">la partie configuration avançée</a>.
-</dd>
-<dt><code>bloctags</code></dt>
-<dd>liste des tags de type blocs disponible. La clé de chaque élement de la liste
-est le nom du bloc et la valeur, <code>true</code> ou <code>false</code>
-suivant si on active ou non la détection du bloc. Voir
-<a href="#confavancee">la partie configuration avançée</a>.</dd>
-<dt><code>simpletags</code></dt>
-<dd>tags simples pour lesquels il y a juste un remplacement à faire. C'est donc un tableau PHP
-d'élements 'chaine à remplacer'=>'chaine remplacante'.</dd>
-<dt><code>minHeaderLevel</code></dt>
-<dd>Niveau minimal pour la génération des titres avec la balise <code>&lt;Hx&gt;</code>.
-Par exemple, si on met 3, !!! donnera  <code>&lt;H3&gt;</code>, !! donnera <code>&lt;H4&gt;</code>
-et ! donnera <code>&lt;H5&gt;</code>.
-</dd>
-<dt><code>headerOrder</code></dt>
-<dd> indique le sens dans lequel il faut interpreter le nombre de signe de titre :
-   <ul>
-   <li><var>true</var> : ! = titre , !! = sous titre, !!! = sous-sous-titre</li>
-   <li><var>false</var> : !!! = titre , !! = sous titre, ! = sous-sous-titre</li>
-   </ul>
-</dd>
-<dt><code>inlineTagSeparator</code></dt>
-<dd>Séparateur des differents attributs des tags wiki. Par defaut : <code>|</code></dd>
-<dt><code>checkWikiWord</code></dt>
-<dd>Indique si il faut détecter les mots wiki (un mot wiki est un mot commençant
-par une majuscule, et contenant au moins une deuxième majuscule à l'interieur du mot)</dd>
-<dt><code>checkWikiWordFunction</code></dt>
-<dd>Indique le nom de la fonction qui sera appelée si la détection des mots wiki est activé.
-Cette fonction devra recuperer en paramètre une liste de mots wiki, et devra
-renvoyé une liste des chaines qui remplaceront les mots wiki indiqués.
-Cette fonction est à implémenter par vous-même selon votre application. Voir
-<a href="#confavancee">la partie configuration avançée</a>.</dd>
-<dt><code>escapeSpecialChars</code> (version >= 2.0.5)</dt>
-<dd>Indique si il faut échapper (true) ou non les balises html incluses dans le texte wiki pour ne
-pas qu'elles soient interpretées par le navigateur. Par mesure de sécurité, toujours
-laisser à <var>true</var> sauf si vous vous faîtes une configuration pour transformer dans
-un format autre que XHTML/HTML.</dd>
-</dl>
-
-<h3>Les tags wiki par défauts</h3>
-
-<h4>de types bloc :</h4>
-<ul>
-<li>Paragraphe       : 2 sauts de lignes</li>
-<li>Trait HR          : <code>====</code> (4 signes "égale" ou plus) + saut de ligne</li>
-<li>Liste             : une ou plusieurs <code>*</code> ou  <code>-</code> (liste simple) ou
-                        <code>#</code> (liste numérotée) par item + saut de ligne</li>
-<li>Tableaux          : <code>| texte | texte</code>. <code>|</code> <strong>encadré par des espaces</strong>
-(sauf pour le premier)     = caractere séparateur de colonne, chaque ligne écrite =
-                     une ligne de tableau</li>
-<li>sous titre niveau 1 : <code>!!!</code>titre + saut de ligne</li>
-<li>sous titre niveau 2 : <code>!!</code>titre + saut de ligne</li>
-<li>sous titre niveau 3 : <code>!</code>titre + saut de ligne</li>
-<li>texte préformaté :  un espace + texte + saut de ligne</li>
-<li>citation (blockquote) :  un ou plusieurs <code>&gt;</code> + texte + saut de ligne</li>
-<li>Définitions : <code>;</code>terme<code> : </code>définition + saut de ligne
-(le <code>:</code> doit être <strong>encadré par des espaces</strong>)</li>
-</ul>
-
-<h4>de type inline :</h4>
-<ul>
-<li>emphase forte (gras)   : <code>__</code>texte<code>__</code> (2 underscores)</li>
-<li>emphase simple (italique) : <code>''</code>texte<code>''</code> (deux apostrophes)</li>
-<li>Retour à la ligne forcée    : <code>%%%</code></li>
-<li>Lien    : <code>[</code> nomdulien <code>|</code> lien <code>|</code> langue <code>|</code> déscription (title)<code>]</code></li>
-<li>Image    : <code>((</code> lien vers l'image <code>|</code> textalternatif
-             <code>|</code> position <code>|</code> longue déscription <code>))</code> .
-               valeurs de position : l/L/g/G => gauche, r/R/d/D =>droite,
-               rien : en ligne. Dans le code généré, c'est une balise style qui est crée, et non un attribut align (obsolète).</li>
-<li>code            : <code>@@</code>code<code>@@</code></li>
-<li>citation         : <code>^^</code>phrase<code>|</code>langue<code>|</code>lien source<code>^^</code></li>
-<li>reférence (cite)      : <code>{{</code>reference<code>}}</code></li>
-<li>acronym         : <code>??</code>acronyme<code>|</code>signification<code>??</code></li>
-<li>ancre : <code>~~</code>monancre<code>~~</code></li>
-</ul>
-
-<h4>Note</h4>
-<p>Dans un texte wiki, on peut désactiver l'interpretation d'un tag wiki
-en mettant un antislash devant la balise d'ouverture (et de fermeture
-pour les tags en lignes). Exemple : <code>\__emphase\__</code>.</p>
-
-<h2 id="confavancee">Configuration avançée</h2>
+<!--
 
 <p>Si le balisage wiki proposée par défaut ne vous convient pas, il faut le redéfinir.
 Voici comment.</p>
@@ -454,7 +323,7 @@ HTML pour chaque mot wiki, liens qui sont différents si ces mots correspondent 
 }
 </code></pre>
 
-
+-->
 
 <?php
 

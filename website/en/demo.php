@@ -3,21 +3,21 @@ require('../inc.demo.php');
 
 ?>
 
-<h2>Testez Wikirenderer <?php echo WIKIRENDERER_VERSION; ?></h2>
-<p>Vous pouvez tester le moteur de WikiRenderer : saisissez votre texte wiki, validez, et
-celui-ci sera transformé.</p>
+<h2>Test Wikirenderer <?php echo WIKIRENDERER_VERSION; ?></h2>
+<p>You can test WikiRenderer: write your wiki text in the field, select the
+corresponding wiki syntax, and validate. You will see the transformation.</p>
 
 <form action="demo.php#resultats" method="POST" id="test" name="test">
-<fieldset><legend>Saisissez un texte wiki</legend>
-<label>texte :
+<fieldset><legend>Test</legend>
+<label>Your wiki text:
 <textarea style="border:1px solid;" name="texte" cols="50" rows="20"><?php echo htmlspecialchars($texte)?></textarea></label>
 <br />
-<label>Transformation en :
+<label>Rule:
 <?php showRuleList() ?>
 </label>
-<input type="button" value="editer un exemple" onclick="exemple()" />
+<input type="button" value="edit an example" onclick="exemple()" />
 <br />
-<input type="submit" value="Valider et voir la transformation" />
+<input type="submit" value="Validate" />
 </fieldset>
 </form>
 
@@ -25,16 +25,16 @@ celui-ci sera transformé.</p>
 if($texte!=''){
 
     $ctr=new WikiRenderer($rule);
-    echo '<h2 id="resultats">Source du resultat:</h2>';
+    echo '<h2 id="resultats">Result source:</h2>';
 
     $texte=$ctr->render($texte);
     if($ctr->errors){
-        echo '<p style="color:red;">Il y a ';
+        echo '<p style="color:red;"> ';
         if(count($ctr->errors)>1)
-           echo 'des erreurs wiki aux lignes : ',implode(',',array_keys($ctr->errors)),'</p>' ;
+           echo 'There are some wiki syntax errors at lines: ',implode(',',array_keys($ctr->errors)),'</p>' ;
         else{
            list($num,$l)=each($ctr->errors);
-           echo 'une erreur wiki à la ligne ', $num,'</p>';
+           echo 'There is a wiki syntax error at line', $num,'</p>';
        }
     }
 
