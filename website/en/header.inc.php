@@ -11,7 +11,7 @@ $lang = 'en';
     <meta name="author" content="Laurent Jouanneau" />
 
     <meta name="description" content="WikiRenderer, parser for wiki content, and converter wiki to any other syntax" />
-    <meta name="keywords" content="wikirenderer php converter wiki syntax standards w3c html xhtml" />
+    <meta name="keywords" content="wikirenderer php converter wiki syntax docbook dokuwiki phpwiki standards w3c html xhtml" />
     <link rel="stylesheet" href="/wr.css" media="all" type="text/css" />
 </head>
 <body>

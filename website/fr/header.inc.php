@@ -10,7 +10,7 @@ $lang = 'fr';
     <meta name="author" content="Laurent Jouanneau" />
 
     <meta name="description" content="WikiRenderer, convertisseur texte wiki en XHTML et autre format" />
-    <meta name="keywords" content="wikirenderer php convertisseur analyseur wiki standards w3c html xhtml" />
+    <meta name="keywords" content="wikirenderer php convertisseur analyseur wiki  docbook dokuwiki phpwiki standards w3c html xhtml" />
     <link rel="stylesheet" href="/wr.css" media="all" type="text/css" />
 </head>
 <body>

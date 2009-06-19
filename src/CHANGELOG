@@ -1,6 +1,6 @@
 Changelog of WikiRenderer
 
-Version 3.1pre
+Version 3.1
 
 - no more PHP4 version, only PHP5
 - fixed bug: / was not allowed in patterns for inline tags

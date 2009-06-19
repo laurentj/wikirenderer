@@ -4,15 +4,72 @@ require('header.inc.php');
 ?>
 
 <h2>Historique de Wikirenderer.</h2>
-<p>WikiRenderer est distribué sous <a href="http://www.gnu.org/licenses/licenses.html#LGPL">licence LGPL</a>.</p>
+<p>WikiRenderer est distribuÃ© sous <a href="http://www.gnu.org/licenses/licenses.html#LGPL">licence LGPL</a>.</p>
 
 <dl>
+   <dt>Version 3.1, 19/06/2009</dt>
+   <dd>
+    <ul>
+        
+<li> Ne fonctionne plus sur PHP4.</li>
+<li>Les mots wiki CamelCase peuvent maintenant Ãªtre ignorÃ© en mettant un "!" devant</li>
+<li> Nouvelle rÃ¨gles de transformation fournies: wr3_to_docbook, dokuwiki_to_docbook, dokuwiki_to_xhtml,
+  trac_to_xhtml, phpwiki_to_dokuwiki, jwiki_to_xhtml</li>
+<li> [FIX] bug : mauvais comportement quand un tag wiki contenait
+uniquement la valeur "0"</li>
+<li> [FIX] bug : les mots CamelCase en UTF-8 n'Ã©taient pas reconnus</li>
+
+<li> Corrections de bugs pour les dÃ©veloppeurs de rÃ¨gles :
+    <ul>
+        <li> "/" n'etait pas permis dans les patterns des tags inline</li>
+        <li>Le parser inline fait maintenant attention aux attributs qui n'acceptent
+        pas de tags wiki</li>
+        
+    </ul>
+</li>
+<li>
+    AmÃ©lioration Ã  l'intention des dÃ©veloppeurs de rÃ¨gles :
+    <ul>
+        <li>Nouvelle propriÃ©tÃ© <code>WikiTagXhtml::additionnalAttributes</code> :
+        vous pouvez ainsi spÃ©cifier des attributs statiques Ã  ajouter
+        sur l'Ã©lement</li>
+        <li>Nouvelle propriÃ©tÃ© <code>WikiTagXhtml::ignoreAttribute</code></li>
+        <li>Le caractÃ¨re d'Ã©chappement est maintenant configurable</li>
+        <li>Correction sur les valeurs par dÃ©faut des propriÃ©tÃ©s de <code>WikiTag</code>.</li>
+        <li>la propriÃ©tÃ© de configuration <code>checkWikiWordFunction</code>
+        peut maintenant Ãªtre un tableau contenant un nom d'objet et un nom de mÃ©thode,
+        plus seulement un nom de fonction.</li>
+        <li></li>
+    </ul>
+</li>
+
+<li> Changement d'API pour les objets des rÃ¨gles
+    <ul>
+        <li>La propriÃ©tÃ© <code>WikiRendererConfig::$textLineContainer</code> a Ã©tÃ© renommÃ©e
+  en <code>WikiRendererConfig::$defaultTextLineContainer</code></li>
+        <li>nouvelle propriÃ©tÃ© <code>WikiRendererConfig::$textLineContainers</code>
+        qui remplace maintenant la propriÃ©tÃ© <code>WikiRendererConfig::$inlineTag</code>,
+        et qui a une structure diffÃ©rente.</li>
+        <li>Renommage de <code>WikiTag::$separator</code> en <code>WikiTag::$currentSeparator</code></li>
+        <li><code>WikiTag::addContent()</code> et <code>WikiTag::addSeparator</code> ne sont plus
+des mÃ©thodes finales, et peuvent donc Ãªtre redÃ©finies.</li>
+        <li><code>WikiTag::addSeparator</code> reÃ§oit maintenant un separateur comme argument</li>
+        <li>Renommage de  <code>WikiTag::getCurrentSeparator()</code> en <code>WikiTag::isCurrentSeparator($token)</code></li>
+
+    </ul>
+</li>
+
+    </ul>
+    
+   </dd>
+    
+    
    <dt>Version 3.0, 03/02/2007</dt>
    <dd>
     <ul>
         <li>petit nettoyage de code</li>
-        <li>[FIX] bug : la fonction de callback pour les mots wiki n'était jamais appelée</li>
-        <li>[FIX] bug : il y avait une erreur quand on utilisait la rule par défaut (nom de classe invalide)</li>
+        <li>[FIX] bug : la fonction de callback pour les mots wiki n'Ã©tait jamais appelÃ©e</li>
+        <li>[FIX] bug : il y avait une erreur quand on utilisait la rule par dÃ©faut (nom de classe invalide)</li>
     </ul>
    </dd>
 
@@ -21,39 +78,39 @@ require('header.inc.php');
         <ul>
             <li>Ajout d'une classe de base pour la configuration</li>
 
-            <li>La classe de configuration peut rédéfinir des hooks : onStart, onParse. Cela
-            permet de modifier le texte en entrée, mais aussi le texte en sortie.</li>
+            <li>La classe de configuration peut rÃ©dÃ©finir des hooks : onStart, onParse. Cela
+            permet de modifier le texte en entrÃ©e, mais aussi le texte en sortie.</li>
 
-            <li>Ajout d'une propriété pointant vers la config, dans les objets dérivant de wikitag ou
+            <li>Ajout d'une propriÃ©tÃ© pointant vers la config, dans les objets dÃ©rivant de wikitag ou
             de WikiRendererBloc</li>
 
-            <li>le constructeur accepte maintenant un nom de config. Les objets de config de rêgles
-            doivent avoir le même nom que le fichier de rêgle. renommage en conséquences des noms
+            <li>le constructeur accepte maintenant un nom de config. Les objets de config de rÃªgles
+            doivent avoir le mÃªme nom que le fichier de rÃªgle. renommage en consÃ©quences des noms
             des objets de config existants.</li>
 
-            <li>Nouvelle syntaxe WR3, similaire à classicwr, mais avec la prise en charge de notes
-            de bas de page, de blocs type pre entouré de &lt;code&gt; au lieu de chaque ligne
-            commençant par un éspace.</li>
-            <li>ajout des rêgles classicwr_to_wr3, pour convertir un texte classicwr en syntaxe wr3.</li>
-            <li>ajout des rêgles wr3_to_text</li>
+            <li>Nouvelle syntaxe WR3, similaire Ã  classicwr, mais avec la prise en charge de notes
+            de bas de page, de blocs type pre entourÃ© de &lt;code&gt; au lieu de chaque ligne
+            commenÃ§ant par un Ã©space.</li>
+            <li>ajout des rÃªgles classicwr_to_wr3, pour convertir un texte classicwr en syntaxe wr3.</li>
+            <li>ajout des rÃªgles wr3_to_text</li>
         </ul>
    </dd>
 
    <dt>Version 3.0 beta, 28/09/2006</dt>
-   <dd> Refonte complète du moteur pour résoudre certains problèmes :
+   <dd> Refonte complÃ¨te du moteur pour rÃ©soudre certains problÃ¨mes :
         <ul>
             <li>[FIX] bug sur les tags de lien : si il n'y avait que l'url et que celle-ci comportait par
-               inadvertance des balises wiki, cela générait du code invalide (des balises xhtml dans les attributs par
+               inadvertance des balises wiki, cela gÃ©nÃ©rait du code invalide (des balises xhtml dans les attributs par
                exemple)</li>
-            <li>On ne parle plus de "configuration", mais de "rêgles" de transformation (rules)</li>
+            <li>On ne parle plus de "configuration", mais de "rÃªgles" de transformation (rules)</li>
             <li>Il n'y a plus de fonctions de formatage pour les balises type inline : ce sont maintenant
-                des objets à part entière</li>
-            <li>Caractère de séparation d'attributs dans les tags inlines, paramètrables pour chaque tag</li>
-            <li>Possibilité d'indiqué quel attribut servira de contenu, donc quel attribut accepte des
+                des objets Ã  part entiÃ¨re</li>
+            <li>CaractÃ¨re de sÃ©paration d'attributs dans les tags inlines, paramÃ¨trables pour chaque tag</li>
+            <li>PossibilitÃ© d'indiquÃ© quel attribut servira de contenu, donc quel attribut accepte des
                tag wiki</li>
             <li>Modifications dans l'api des objets traitant les tags wiki de type blocs</li>
-            <li>Possiblité d'avoir une syntaxe de bloc utilisant un délimiteur de début et de fin, et non
-                pas qu'une syntaxe se reposant sur un caractère significatif en début de chaque ligne de bloc.</li>
+            <li>PossiblitÃ© d'avoir une syntaxe de bloc utilisant un dÃ©limiteur de dÃ©but et de fin, et non
+                pas qu'une syntaxe se reposant sur un caractÃ¨re significatif en dÃ©but de chaque ligne de bloc.</li>
        </ul>
    </dd>
 
@@ -61,68 +118,68 @@ require('header.inc.php');
    <dt>Version 2.0.6, 26/09/2004.</dt>
    <dd>
     <ul>
-    <li>[FIX] problème d'expression régulière lors de la recherche de tags simples comportant certaines lettres ;</li>
-    <li>[FIX] bug dans le moteur qui avait un impact sur les bloc commençant par les espaces ;</li>
-    <li>[FIX] bug sur les caractères séparateurs : ils ne s'affichaient toujours pas dans les tags inline qui
+    <li>[FIX] problÃ¨me d'expression rÃ©guliÃ¨re lors de la recherche de tags simples comportant certaines lettres ;</li>
+    <li>[FIX] bug dans le moteur qui avait un impact sur les bloc commenÃ§ant par les espaces ;</li>
+    <li>[FIX] bug sur les caractÃ¨res sÃ©parateurs : ils ne s'affichaient toujours pas dans les tags inline qui
     n'avaient pas d'attributs.</li>
-    <li>[NEW] on peut désormais avoir un caractère | dans la valeur d'un attribut, il suffit de l'échapper. <br/>
+    <li>[NEW] on peut dÃ©sormais avoir un caractÃ¨re | dans la valeur d'un attribut, il suffit de l'Ã©chapper. <br/>
     <code>[aaa\|aa|bbb]</code> donne <code>&lt;a href="bbb">aaa|aa&lt;/a></code></li>
-    <li>[FIX] suppression d'une erreur "notice" lors de la génération HTML d'un tag wiki vide</li>
-    <li>[FIX] problème d'interpretation des balises wiki qui suivent un \\</li>
-    <li>[FIX]  generation de la génération d'un attribut lang au lieu de hreflang sur les liens</li>
+    <li>[FIX] suppression d'une erreur "notice" lors de la gÃ©nÃ©ration HTML d'un tag wiki vide</li>
+    <li>[FIX] problÃ¨me d'interpretation des balises wiki qui suivent un \\</li>
+    <li>[FIX]  generation de la gÃ©nÃ©ration d'un attribut lang au lieu de hreflang sur les liens</li>
  </ul>
 
    </dd>
    <dt>Version 2.0.5, 16/05/2004.</dt>
    <dd><ul>
-      <li>[FIX] bug critique : les balises html contenues dans le texte wiki n'étaient pas échappées dans certains cas.</li>
-      <li>[FIX] les caractères séparateurs (|) qui étaient en dehors de balises wiki disparaissaient</li>
-      <li>[FIX] Le caractère d'échappement \ disparaissait aussi systématiquement, même si il
-        n'échappait rien. Dorénavant, pour l'avoir dans un texte, il faut le doubler.</li>
-      <li>[NEW] possibilité d'indiquer dans la config si on veut échapper ou non les balises HTML
-      et autres caractères spéciaux inclus dans le texte wiki,
+      <li>[FIX] bug critique : les balises html contenues dans le texte wiki n'Ã©taient pas Ã©chappÃ©es dans certains cas.</li>
+      <li>[FIX] les caractÃ¨res sÃ©parateurs (|) qui Ã©taient en dehors de balises wiki disparaissaient</li>
+      <li>[FIX] Le caractÃ¨re d'Ã©chappement \ disparaissait aussi systÃ©matiquement, mÃªme si il
+        n'Ã©chappait rien. DorÃ©navant, pour l'avoir dans un texte, il faut le doubler.</li>
+      <li>[NEW] possibilitÃ© d'indiquer dans la config si on veut Ã©chapper ou non les balises HTML
+      et autres caractÃ¨res spÃ©ciaux inclus dans le texte wiki,
       ceci pour les configurations de transformations autre qu'au format xhtml/xml</li>
-      <li>[FIX] bug sur la génération des listes dans certains cas</li>
+      <li>[FIX] bug sur la gÃ©nÃ©ration des listes dans certains cas</li>
       <li>petite corrections sur le fichier DOCUMENTATION</li>
       </ul>
     </dd>
 
 
    <dt>Version 2.0.4, 28/01/2004</dt>
-   <dd><ul><li>Petite modification au niveau de la syntaxe wiki pour les tableaux et les définitions.
+   <dd><ul><li>Petite modification au niveau de la syntaxe wiki pour les tableaux et les dÃ©finitions.
 Lors de l'interpretation des tableaux, il y avait confusion entre le <code>|</code> separateur de
    colonne et le <code>|</code> separateur d'attributs pour les tags inlines (comme les liens).
-   La syntaxe pour les tableaux impose dorénavant d'avoir un
-   éspace <em>avant et aprés</em> chaque séparateur de colonne
-   (sauf pour le premier <code>|</code> en début de ligne).</li>
-  <li>Problème identique pour les définitions, avec le caractère : qui sert de séparateur
-  entre le terme et la définition. Quand il y avait un lien complet au niveau du terme
-  (http://truc.com), le ':' du lien etait pris comme séparateur.
-  Changement de syntaxe donc pour les définitions
-  où il faut dorénavant encadrer le ':' séparateur par des espaces.</li></ul></dd>
+   La syntaxe pour les tableaux impose dorÃ©navant d'avoir un
+   Ã©space <em>avant et aprÃ©s</em> chaque sÃ©parateur de colonne
+   (sauf pour le premier <code>|</code> en dÃ©but de ligne).</li>
+  <li>ProblÃ¨me identique pour les dÃ©finitions, avec le caractÃ¨re : qui sert de sÃ©parateur
+  entre le terme et la dÃ©finition. Quand il y avait un lien complet au niveau du terme
+  (http://truc.com), le ':' du lien etait pris comme sÃ©parateur.
+  Changement de syntaxe donc pour les dÃ©finitions
+  oÃ¹ il faut dorÃ©navant encadrer le ':' sÃ©parateur par des espaces.</li></ul></dd>
    <dt>Version 2.0.3, 22/01/2004.</dt>
    <dd>correction d'un bug sur le remplacement des mots wiki lorsque un mot wiki est
-   répété plusieurs fois dans une même ligne.</dd>
+   rÃ©pÃ©tÃ© plusieurs fois dans une mÃªme ligne.</dd>
 
    <dt>Version 2.0.2, 21/01/2004.</dt>
-   <dd>Correction sur les tags inlines qui n'ont pas de fonctions spécialisées :
-      mauvaise génération des attributs html.</dd>
+   <dd>Correction sur les tags inlines qui n'ont pas de fonctions spÃ©cialisÃ©es :
+      mauvaise gÃ©nÃ©ration des attributs html.</dd>
    <dt>Version 2.0.1, 19/01/2004.</dt>
-   <dd>Toute petite correction sur la génération des acronymes (la déscription allait dans
+   <dd>Toute petite correction sur la gÃ©nÃ©ration des acronymes (la dÃ©scription allait dans
    l'attribut lang)</dd>
 
    <dt>Version 2.0.0,  18/01/2004.</dt>
    <dd><ul>
-      <li>légères optimisations</li>
-      <li>la méthode WikiRendererBloc::getRenderedLine n'accepte plus la ligne courante
-         en paramètre pour des raisons d'optimisations puisqu'en fait, on la
+      <li>lÃ©gÃ¨res optimisations</li>
+      <li>la mÃ©thode WikiRendererBloc::getRenderedLine n'accepte plus la ligne courante
+         en paramÃ¨tre pour des raisons d'optimisations puisqu'en fait, on la
          retrouve dans $this->_detectMatch[0].</li>
-      <li>ajout d'un paramètre dans la configuration par défaut, pour indiquer l'ordre
+      <li>ajout d'un paramÃ¨tre dans la configuration par dÃ©faut, pour indiquer l'ordre
       d'importance des signes de titre ( ! &gt; !! &gt; !!! ou !!! &gt; !! &gt; ! )</li>
-      <li>citations imbriquées dorénavant possibles</li>
+      <li>citations imbriquÃ©es dorÃ©navant possibles</li>
       <li>correction de bugs sur le traitement des attributs des tags wiki inlines (WikiTag)</li>
-      <li>correction de bug sur la détection des mots wiki dans les lignes ne contenant pas de balises wiki</li>
-      <li>correction d'un bug sur la numérotation des lignes indiquées dans les erreurs.</li>
+      <li>correction de bug sur la dÃ©tection des mots wiki dans les lignes ne contenant pas de balises wiki</li>
+      <li>correction d'un bug sur la numÃ©rotation des lignes indiquÃ©es dans les erreurs.</li>
       </ul>
    </dd>
 
@@ -130,13 +187,13 @@ Lors de l'interpretation des tableaux, il y avait confusion entre le <code>|</co
    <dt>Version 2.0RC2, 07/01/2004.</dt>
    <dd> <ul>
          <li>Meilleure prise en charge pour les liens : interdit les liens de type javascript
-         pour plus de sécurité, et pour les liens tout simple (<code>[http://site.com/]</code>),
-         mais trés long, troncage à l'affichage.</li>
-         <li>Ajout de la détection des mots wiki, désactivé par défaut.</li>
+         pour plus de sÃ©curitÃ©, et pour les liens tout simple (<code>[http://site.com/]</code>),
+         mais trÃ©s long, troncage Ã  l'affichage.</li>
+         <li>Ajout de la dÃ©tection des mots wiki, dÃ©sactivÃ© par dÃ©faut.</li>
       </ul>
    </dd>
    <dt>Version 2.0RC1,   23/12/2003.</dt>
-   <dd>Refonte totale avec un code xhtml généré valide en toute circonstance (sauf bug ;-)</dd>
+   <dd>Refonte totale avec un code xhtml gÃ©nÃ©rÃ© valide en toute circonstance (sauf bug ;-)</dd>
    <dt>Version 1.0 , 15/04/2003.</dt>
 </dl>
 
