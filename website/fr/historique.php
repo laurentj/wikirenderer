@@ -7,7 +7,19 @@ require('header.inc.php');
 <p>WikiRenderer est distribué sous <a href="http://www.gnu.org/licenses/licenses.html#LGPL">licence LGPL</a>.</p>
 
 <dl>
-   <dt>Version 3.1, 19/06/2009</dt>
+    
+    
+    <dt id="v3.1.1">Version 3.1.1, 08/09/2009)</dt>
+    <dd>
+        <ul>
+            <li>Meilleure compatibilité avec PHP 5.3</li>   
+            <li>Correction d'une notice sur une variable indéfinie</li>   
+            <li>Correction d'un bug sur la rule WR3 : mauvaise génération de contenu quand
+             <code>&lt;/code&gt;</code> était sur la même ligne que <code>&lt;code&gt;</code></li>   
+        </ul>
+    </dd>
+    
+   <dt id="v3.1">Version 3.1, 19/06/2009</dt>
    <dd>
     <ul>
         
@@ -64,7 +76,7 @@ des méthodes finales, et peuvent donc être redéfinies.</li>
    </dd>
     
     
-   <dt>Version 3.0, 03/02/2007</dt>
+   <dt id="v3.0">Version 3.0, 03/02/2007</dt>
    <dd>
     <ul>
         <li>petit nettoyage de code</li>
@@ -73,7 +85,7 @@ des méthodes finales, et peuvent donc être redéfinies.</li>
     </ul>
    </dd>
 
-   <dt>Version 3.0 RC1, 10/10/2006</dt>
+   <dt id="v3.0RC1">Version 3.0 RC1, 10/10/2006</dt>
    <dd>
         <ul>
             <li>Ajout d'une classe de base pour la configuration</li>

@@ -7,12 +7,22 @@ require('header.inc.php');
 <p>WikiRenderer is released under the 
 <a href="http://www.gnu.org/licenses/licenses.html#LGPL">LGPL licence</a>.</p>
 
+<dl>
+    <dt id="v3.1.1">Version 3.1.1, 09/08/2009</dt>
+    <dd>
+        <ul>
+            <li>better compatibility with PHP 5.3</li>
+            <li>fixed a notice on an undefined variable</li>
+            <li>fixed a bug: WR3 rule didn't generate good markup when
+            <code>&lt;/code&gt;</code> was on the same line of <code>&lt;code&gt;</code></li>
+        </ul>
+    </dd>
+</dl>
 
 <p>For the following versions, no changelog since it was only used by some
 frenchies, so it is useless for the futur users of the world :-) (I didn't publish the web site
 in english until the 3.1 version). However, you can see old history
-by getting the changelog of the subversion repository of WikiRenderer. Of course,
-changelog of future versions will be print here.</p>
+by retrieving the changelog from the subversion repository of WikiRenderer.</p>
 <dl>
    <dt>Version 3.1, 06/19/2009</dt>
    <dt>Version 3.0, 02/03/2007</dt>
