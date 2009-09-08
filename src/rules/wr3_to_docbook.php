@@ -222,7 +222,7 @@ class wr3dbk_list extends WikiRendererBloc {
       $str='';
 
       for($i=strlen($t); $i >= $this->_firstTagLen; $i--){
-          $str.=($t{$i-1}== '#'?"</listitem></orderedlist>\n":"</listitem></itemizedlist>\n");
+          $str.=($t[$i-1]== '#'?"</listitem></orderedlist>\n":"</listitem></itemizedlist>\n");
       }
       return $str;
    }
@@ -235,7 +235,7 @@ class wr3dbk_list extends WikiRendererBloc {
       if( $d > 0 ){ // on remonte d'un ou plusieurs cran dans la hierarchie...
          $l=strlen($this->_detectMatch[1]);
          for($i=strlen($t); $i>$l; $i--){
-            $str.=($t{$i-1}== '#'?"</listitem></orderedlist>\n":"</listitem></itemizedlist>\n");
+            $str.=($t[$i-1]== '#'?"</listitem></orderedlist>\n":"</listitem></itemizedlist>\n");
          }
          $str.="</listitem>\n<listitem>";
          $this->_previousTag=substr($this->_previousTag,0,-$d); // pour �tre sur...
@@ -405,7 +405,14 @@ class wr3dbk_pre extends WikiRendererBloc {
 
         }else{
             if(preg_match('/^\s*<code>(.*)/',$string,$m)){
-                $this->_detectMatch=$m[1];
+                if(preg_match('/(.*)<\/code>\s*$/',$m[1],$m2)){
+                    $this->_closeNow = true;
+                    $this->_detectMatch=$m2[1];
+                }
+                else {
+                    $this->_closeNow = false;
+                    $this->_detectMatch=$m[1];
+                }
                 return true;
             }else{
                 return false;

@@ -29,13 +29,9 @@ class WR3TestsBlocks extends WikiRendererUnitTestCase {
             $sourceFile = 'datasblocks/'.$file.'.src';
             $resultFile = 'datasblocks/'.$file.'.res';
 
-            $handle = fopen($sourceFile, "r");
-            $source = fread($handle, filesize($sourceFile));
-            fclose($handle);
+            $source = file_get_contents($sourceFile);
 
-            $handle = fopen($resultFile, "r");
-            $result = fread($handle, filesize($resultFile));
-            fclose($handle);
+            $result = file_get_contents($resultFile);
 
             $res = $wr->render($source);
 
@@ -43,15 +39,51 @@ class WR3TestsBlocks extends WikiRendererUnitTestCase {
                 $conf = & $wr->getConfig();
                 $res=str_replace('-'.$conf->footnotesId.'-', '-XXX-',$res);
             }
-            $this->assertEqualOrDiff($result, $res, "erreur sur $file");
+            $this->assertEqualOrDiff($result, $res, "error on $file");
             if(!$this->assertEqual(count($wr->errors),$nberror, "Errors detected by wr ! (%s)")){
                 $this->dump($wr->errors);
             }
         }
     }
 
+    function testOther() {
 
+        $wr = new WikiRenderer(new wr3_to_xhtml());
+        
+        $source = '<code>foo</code>';
+        $expected = '<pre>foo</pre>';
+        
+        $result = $wr->render($source);
+        $this->assertEqualOrDiff($expected, $result);
+        if(!$this->assertEqual(count($wr->errors),0, "Errors detected by wr ! (%s)")){
+            $this->dump($wr->errors);
+        }
 
+        $source = "<code>foo</code>
+__bar__";
+        $expected = "<pre>foo</pre>
+<p><strong>bar</strong></p>";
+        
+        $result = $wr->render($source);
+        $this->assertEqualOrDiff($expected, $result);
+        if(!$this->assertEqual(count($wr->errors),0, "Errors detected by wr ! (%s)")){
+            $this->dump($wr->errors);
+        }
+
+        $source = '';
+        $expected = '';
+        $source = "__bar__
+<code>foo</code>";
+        $expected = "<p><strong>bar</strong></p>
+<pre>foo</pre>";
+        
+        $result = $wr->render($source);
+        $this->assertEqualOrDiff($expected, $result);
+        if(!$this->assertEqual(count($wr->errors),0, "Errors detected by wr ! (%s)")){
+            $this->dump($wr->errors);
+        }
+
+    }
 }
 
 if(!defined('ALL_TESTS')) {
