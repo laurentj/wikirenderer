@@ -122,6 +122,10 @@ Unit tests on WikiRenderer <?php echo WIKIRENDERER_VERSION;?> (PHP <?php echo ph
     <a href="dokuwiki_docbook_inlines.php">inlines</a> |
     <a href="dokuwiki_docbook_blocks.php">blocks</a>
  </li>
+ <li>dokuwiki to xhtml :
+    <!--<a href="dokuwiki_docbook_inlines.php">inlines</a> |-->
+    <a href="dokuwiki_xhtml_blocks.php">blocks</a>
+ </li>
  <li>phpwiki to dokuwiki:
     <a href="phpwiki_dokuwiki_inlines.php">inlines</a> |
     <a href="phpwiki_dokuwiki_blocks.php">blocks</a>

@@ -59,6 +59,9 @@ $test->addTestCase(new dokuwiki_docbook_inlines());
 require_once('dokuwiki_docbook_blocks.php');
 $test->addTestCase(new dokuwiki_docbook_blocks());
 
+require_once('dokuwiki_xhtml_blocks.php');
+$test->addTestCase(new dokuwiki_xhtml_blocks());
+
 require_once('trac_testsInlines.php');
 $test->addTestCase(new TracTestsInlines());
 
