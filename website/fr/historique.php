@@ -8,7 +8,13 @@ require('header.inc.php');
 
 <dl>
     
-    
+    <dt id="v3.1.2">Version 3.1.2, 27/12/2009</dt>
+    <dd>
+        <ul>
+            <li>correction de bugs  dans la rêgle dokuwiki_to_xhtml</li>
+        </ul>
+    </dd>
+
     <dt id="v3.1.1">Version 3.1.1, 08/09/2009)</dt>
     <dd>
         <ul>

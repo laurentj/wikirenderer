@@ -8,6 +8,12 @@ require('header.inc.php');
 <a href="http://www.gnu.org/licenses/licenses.html#LGPL">LGPL licence</a>.</p>
 
 <dl>
+    <dt id="v3.1.2">Version 3.1.2, 12/27/2009</dt>
+    <dd>
+        <ul>
+            <li>fixed bugs in the dokuwiki_to_xhtml rule</li>
+        </ul>
+    </dd>
     <dt id="v3.1.1">Version 3.1.1, 09/08/2009</dt>
     <dd>
         <ul>
