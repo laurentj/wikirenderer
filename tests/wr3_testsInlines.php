@@ -58,7 +58,10 @@ class WR3TestsInlines extends WikiRendererUnitTestCase {
             =>'<p>Lorem <img longdesc="longue description" style="float:right;" alt="alternative text" src="ipsumdolorsit.png"/> amet, consectetuer adipiscing elit.</p>',
         'Lorem ~~ipsumdolorsit~~ amet, consectetuer adipiscing elit.'
             =>'<p>Lorem <a name="ipsumdolorsit"></a> amet, consectetuer adipiscing elit.</p>',
-
+        '@@$cond->addCondition(\'property\', \'IS NOT NULL\', \'\');@@'
+            =>'<p><code>$cond-&gt;addCondition(\'property\', \'IS NOT NULL\', \'\');</code></p>',
+        '@@$cond->addCondition(\'property\', \'IS NOT NULL\');@@'
+            =>'<p><code>$cond-&gt;addCondition(\'property\', \'IS NOT NULL\');</code></p>',
     );
 
 
