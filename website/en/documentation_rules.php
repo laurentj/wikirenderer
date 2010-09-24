@@ -31,9 +31,8 @@ require('header.inc.php');
 <li>emphase forte (gras)   : <code>__</code>texte<code>__</code> (2 underscores)</li>
 <li>emphase simple (italique) : <code>''</code>texte<code>''</code> (deux apostrophes)</li>
 <li>Retour à la ligne forcée    : <code>%%%</code></li>
-<li>Lien    : <code>[[</code> nomdulien <code>|</code> lien <code>|</code> langue <code>|</code> déscription (title)<code>]]</code></li>
-<li>Image    : <code>((</code> lien vers l'image <code>|</code> textalternatif
-             <code>|</code> position <code>|</code> longue déscription <code>))</code> .
+<li>Lien    : <code>[[</code>nomdulien<code>|</code>lien<code>|</code>langue<code>|</code>déscription (title)<code>]]</code></li>
+<li>Image    : <code>((</code>lien vers l'image<code>|</code>textalternatif<code>|</code>position<code>|</code>longue déscription<code>))</code> .
                valeurs de position : l/L/g/G => gauche, r/R/d/D =>droite,
                rien : en ligne. Dans le code généré, c'est une balise style qui est crée, et non un attribut align (obsolète).</li>
 <li>code            : <code>@@</code>code<code>@@</code></li>
