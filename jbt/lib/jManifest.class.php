@@ -13,23 +13,49 @@ require_once(dirname(__FILE__).'/preprocessor.lib.php');
 require_once(dirname(__FILE__).'/jBuildUtils.lib.php');
 require_once(dirname(__FILE__).'/class.JavaScriptPacker.php');
 
-
+/**
+ * jManifest copy files indicated in a 'manifest' file, to a specific directory
+ * in order to generate a set of PHP files ready to be executed. It can do
+ * pre-processing on these files during the copying, strip comments and
+ * compress whitespaces, so sources will take less disk spaces and it will
+ * improve performances a bit.
+ *
+ * jManifest supports also VCS like Subversion or Mercurial, so when it detect
+ * that new files are added, it will call the VCS to add these files in the repository.
+ */
 class jManifest {
 
+    /**
+     * @var boolean true if you want to strip comment and compress whitespaces
+     */
     static public $stripComment = false;
     
+    /**
+     * @var boolean true if you want more messages during the copy
+    */
     static public $verbose = false;
 
+    /**
+     * @var string  the name of the vcs to use. 'svn' for Subversion, 'hg' for mercurial. '' for no support.
+     */
     static public $usedVcs = ''; 
 
     static public $sourcePropertiesFilesDefaultCharset = 'utf-8';
     
     static public $targetPropertiesFilesCharset = 'utf-8';
+    
+    /**
+     * when compressing whitespaces, jManifest will replace indentation made with spaces
+     * by a tab character.
+     * @var integer  the number of spaces for indentation used in your sources
+     */
+    static public $indentation = 4;
 
     /**
+     * read the given manifest file and copy files
      * @param string $ficlist manifest file name
-     * @param string $sourcepath directory where it reads files
-     * @param string $distpath directory were files are copied
+     * @param string $sourcepath main directory where it reads files
+     * @param string $distpath main directory were files are copied
      */
     static public function process($ficlist, $sourcepath, $distpath, $preprocvars){
 
@@ -80,7 +106,7 @@ class jManifest {
                         try{
                             $contents = $preproc->parseFile($sourcefile);
                         }catch(Exception $e){
-                            throw new Exception ( "$ficlist : line $nbline, cannot process file ".$m[2]." (". $e->getMessage() .")\n");
+                            throw new Exception ( "$ficlist : line $nbline, cannot process file ".$m[2]." (". $e .")\n");
                         }
                         if($doCompression) {
                             if( preg_match("/\.php$/",$destfile)) {
@@ -136,12 +162,15 @@ class jManifest {
                             fwrite($file, mb_convert_encoding($content, $val, $encode));
                             fclose($file);
                             if ($addIntoRepo) {
+                                $d = getcwd();
+                                chdir(dirname($encodefile));
                                 if (self::$usedVcs == 'svn') {
                                     exec("svn add $encodefile");
                                 }
                                 else if (self::$usedVcs  == 'hg') {
                                     exec("hg add $encodefile");
                                 }
+                                chdir($d);
                             }
                         }
                         $addIntoRepo = false;
@@ -155,16 +184,20 @@ class jManifest {
                     }
 
                     if ($addIntoRepo) {
+                        $d = getcwd();
+                        chdir(dirname($destfile));
+
                         if (self::$usedVcs == 'svn') {
                             exec("svn add $destfile");
                         }
                         else if (self::$usedVcs  == 'hg') {
                             exec("hg add $destfile");
                         }
+                        chdir($d);
                     }
                 }
             }elseif(preg_match("!^\s*(\#.*)?$!",$line)){
-                // commentaire, on ignore
+                // we ignore comments
             }else{
                 throw new Exception ( "$ficlist : syntax error on line $nbline \n");
             }
@@ -178,25 +211,25 @@ class jManifest {
         $firstcomment= true;
         $currentWhitespace ='';
         $firstPHPfound = false;
+        $canRemoveNextSpaces = false;
+        $operators = array(T_AND_EQUAL,T_BOOLEAN_AND,T_BOOLEAN_OR,T_CONCAT_EQUAL,T_DIV_EQUAL,T_DOUBLE_ARROW ,T_DOUBLE_COLON,
+                            T_IS_EQUAL,T_IS_GREATER_OR_EQUAL,T_IS_IDENTICAL, T_IS_NOT_EQUAL,T_IS_NOT_IDENTICAL,
+                            T_IS_SMALLER_OR_EQUAL,T_MINUS_EQUAL,T_MOD_EQUAL,T_MUL_EQUAL,T_OBJECT_OPERATOR,
+                            T_OR_EQUAL,T_PAAMAYIM_NEKUDOTAYIM,T_PLUS_EQUAL,T_SL, T_SL_EQUAL,T_SR,T_SR_EQUAL, T_XOR_EQUAL);
+        $signs = array('(',')','{','}','=',',', ';');
         foreach($tokens as $token) {
             if (is_string($token)) {
-                if(in_array($token, array('(',')','{','}')) && strpos($currentWhitespace, "\n") === false) {
+                $isSign = in_array($token, $signs);
+                if($isSign && strpos($currentWhitespace, "\n") === false) {
                    $currentWhitespace='';
                 }
-                if($currentWhitespace != '') {
-                    $s = self::strip_ws($currentWhitespace);
-                    $result.=$s;
-                    $currentWhitespace ='';
-                }
+                $result.= self::strip_ws($currentWhitespace, $canRemoveNextSpaces);
+                $canRemoveNextSpaces = $isSign;
                 $result.=$token;
             } else {
                 switch ($token[0]) {
                     case T_OPEN_TAG:
-                        if($currentWhitespace != '') {
-                            $s = self::strip_ws($currentWhitespace);
-                            $result.=$s;
-                            $currentWhitespace ='';
-                        }
+                        $result.= self::strip_ws($currentWhitespace, $canRemoveNextSpaces);
                         $result.=$token[1];
                         if(!$firstPHPfound) {
                             $result.= "/* comments & extra-whitespaces have been removed by jBuildTools*/\n";
@@ -207,13 +240,9 @@ class jManifest {
                         $currentWhitespace.="\n";
                         break;
                     case T_DOC_COMMENT:
-                        // on garde le premier commentaire documentaire
+                        // wee keep the first doc comment
                         if($firstcomment){
-                            if($currentWhitespace != '') {
-                                $s = self::strip_ws($currentWhitespace);
-                                $result.=$s;
-                                $currentWhitespace ='';
-                            }
+                            $result.= self::strip_ws($currentWhitespace, $canRemoveNextSpaces);
                             $result.=$token[1];
                             $firstcomment = false;
                         }
@@ -222,31 +251,65 @@ class jManifest {
                         $currentWhitespace.=$token[1];
                         break;
                     default:
-                        if($currentWhitespace != '') {
-                            $s = self::strip_ws($currentWhitespace);
-                            $result.=$s;
-                            $currentWhitespace ='';
+                        if (in_array($token[0], $operators)) {
+                            if(strpos($currentWhitespace, "\n") === false) {
+                                $currentWhitespace='';
+                            }
+                            $result.= self::strip_ws($currentWhitespace, $canRemoveNextSpaces);
+                            $canRemoveNextSpaces = true;
+                        }
+                        else {
+                            $result.=self::strip_ws($currentWhitespace, $canRemoveNextSpaces);
                         }
                         $result.=$token[1];
                         break;
                 }
             }
         }
-        return $result;
+        return $result."\n";
     }
 
-    static protected function strip_ws($s){
+    static protected function strip_ws(& $s, &$canRemoveNextSpaces){
+        
+        if ($s == '') {
+            $canRemoveNextSpaces = false;
+            return $s;
+        }
+
+        $indent = str_repeat(" ", self::$indentation);
         $result = $s;
-        $result = str_replace("\n\r","\n",$result); // removed \r
+        $result = str_replace("\r\n","\n",$result); // removed \r
         $result = str_replace("\r","\n",$result); // removed standalone \r
         $result = preg_replace("(\n+)", "\n", $result);
-        $result = str_replace("\t","    ",$result);
-        $result = str_replace("    ","\t",$result);
+        $result = str_replace("\t",$indent,$result);
+        $result = str_replace($indent,"\t",$result);
+        
         $result = preg_replace("/^([\n \t]+)\n([ \t]*)$/", "\n$2", $result);
+        
+        if (strpos($result, "\n") === false && $canRemoveNextSpaces) {
+            $result = '';
+        }
+        else if (preg_match("/( +)$/", $result,$m)) {
+            // if there are  still spaces at the end, we remove it or replace it by a
+            // tab, depending of the len of this spaces.
+            $s = $m[1];
+            $l = strlen($s);
+            if ($l < strlen($result)) {   
+                $result = substr($result, 0, -$l);
+                if ($l > (self::$indentation/2))
+                    $result .= "\t";
+            }
+            else if ($canRemoveNextSpaces)
+                $result = '';
+        }
+        $s = '';
+        $canRemoveNextSpaces = false;
         return $result;
     }
     
     /**
+     * delete files indicated in the given manifest file, from the indicated target
+     * directory.
      * @param string $ficlist manifest file name
      * @param string $distpath directory were files are copied
      */
@@ -288,18 +351,23 @@ class jManifest {
                         case 'rm':
                             if (!unlink($destfile))
                                 throw new Exception ( " $ficlist: cannot remove file ".$m[2].", line $nbline \n");
-                            //echo "unlink $destfile \n";
                             break;
                         case 'svn':
+                            $d = getcwd();
+                            chdir(dirname($destfile));
                             exec("svn remove $destfile");
+                            chdir($d);
                             break;
                         case 'hg':
+                            $d = getcwd();
+                            chdir(dirname($destfile));
                             exec("hg remove $destfile");
+                            chdir($d);
                             break;
                     }
                 }
             }elseif(preg_match("!^\s*(\#.*)?$!",$line)){
-                // commentaire, on ignore
+                // we ignore comments
             }else{
                 throw new Exception ( "$ficlist : syntax error on line $nbline \n");
             }

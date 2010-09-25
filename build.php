@@ -29,7 +29,7 @@ $BUILD_OPTIONS = array(
     false,
     '',
     ),
-'SVN_REVISION'=> array(
+'HG_REVISION'=> array(
     false,
     ),
 );
@@ -43,15 +43,15 @@ if ($BASE_PATH == '')
 $BASE_PATH = jBuildUtils::normalizeDir($BASE_PATH);
 
 Env::setFromFile('VERSION',$BASE_PATH.'/VERSION', true);
-$SVN_REVISION = Subversion::revision($BASE_PATH);
+$HG_REVISION = Mercurial::revision(dirname(__FILE__).'/');
 
-$IS_NIGHTLY = (strpos($VERSION,'SVN') !== false);
+$IS_NIGHTLY = (strpos($VERSION,'SERIAL') !== false);
 
 if($IS_NIGHTLY){
-    $PACKAGE_NAME='wikirenderer-'.str_replace('SVN', '', $VERSION);
+    $PACKAGE_NAME='wikirenderer-'.str_replace('SERIAL', '', $VERSION);
     if(substr($PACKAGE_NAME,-1,1) == '.')
       $PACKAGE_NAME = substr($PACKAGE_NAME,0,-1);
-    $VERSION = str_replace('SVN', $SVN_REVISION, $VERSION);
+    $VERSION = str_replace('SERIAL', $HG_REVISION, $VERSION);
 }
 else {
     $PACKAGE_NAME='wikirenderer-'.$VERSION;

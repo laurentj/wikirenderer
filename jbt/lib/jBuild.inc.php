@@ -76,7 +76,7 @@ class Env {
 
     static public function set($name,$value){
         if(!self::verifyName($name)){
-            echo "warning: unknow option name ($name)\n";
+            echo "warning: unknown option name ($name)\n";
         }else{
             self::storeValue($name,$value);
         }
@@ -88,7 +88,7 @@ class Env {
                 if(self::verifyName($k)){
                     self::storeValue($k,$v);
                 }else{
-                    echo "warning: unknow option name ($k) in the ini file\n";
+                    echo "warning: unknown option name ($k) in the ini file\n";
                 }
             }
         }else{
@@ -99,7 +99,7 @@ class Env {
     static public function setFromFile($name,$file, $onlyIfNotExists=false){
         if($onlyIfNotExists && isset($GLOBALS[$name]) && $GLOBALS[$name] !='') return;
         if(!self::verifyName($name)){
-            echo "warning: unknow option name ($name)\n";
+            echo "warning: unknown option name ($name)\n";
         }else{
             self::storeValue($name,file_get_contents($file));
         }
@@ -194,19 +194,26 @@ class Subversion {
         $path=jBuildUtils::normalizeDir($path);
         $rev=-1;
         if(file_exists($path.'.svn/entries')){
-            /* FIXME : namespace invalide dans les fichiers entries, on ne peut
-              donc pas les lire à partir de simplxml ou dom
-
-            $path = $path.'.svn/entries';
-            $svninfo = simplexml_load_file ( $path);
-            if(isset($svninfo->entry[0]))
-                $rev=$svninfo->entry[0]['revision'];
-            */
             $rev=`svnversion $path --no-newline`;
             if(preg_match("/(\d+)[MS]+/",$rev, $m))
                 $rev=$m[1];
         }
         return $rev;
+    }
+}
+
+class Mercurial {
+    static public function revision($path='.') {
+        $path=jBuildUtils::normalizeDir($path);
+        $rev=-1;
+        if(file_exists($path.'.hg')){
+            $rev=`hg tip --template "{rev}" -R $path`;
+            if(preg_match("/(\d+)/",$rev, $m))
+                $rev=$m[1];
+        }
+        return $rev;
+        
+        
     }
 }
 

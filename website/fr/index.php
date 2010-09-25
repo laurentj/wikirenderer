@@ -23,12 +23,13 @@ syntaxe différente.</p>
 </dl>
 <p>Wikirenderer est
 <a href="https://developer.berlios.de/project/showfiles.php?group_id=5378">disponible
-en téléchargement</a>. Vous pouvez aussi lire <a href="/fr/historique.php#v3.1.2">la liste des changements</a> pour cette version.</p>
+en téléchargement</a>. Vous pouvez aussi lire
+<a href="/fr/historique.php#v3.1.2">la liste des changements</a> pour cette version.</p>
 
 <h2 id="caracteristiques">Caractéristiques</h2>
 <h3>Caractéristiques</h3>
 
-<p> Contrairement à certains moteurs wiki, WikiRenderer génère du contenu valide
+<p>Contrairement à certains moteurs wiki, WikiRenderer génère du contenu valide
 en toute circonstance, même si il y a des erreurs dans le balisage wiki. Par exemple,
 si on ecrit un "chevauchement" de balises wiki comme ceci, <code>ceci est __un exemple
 de ''code wiki__ invalide''</code>, cela produira tout de même du code xhtml valide.</p>
