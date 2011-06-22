@@ -4,7 +4,7 @@
  *
  * @package wikirenderer
  * @subpackage tests
- * @author Laurent Jouanneau 
+ * @author Laurent Jouanneau
  * @copyright 2003-2008 Laurent Jouanneau
  */
 error_reporting(E_ALL);
@@ -104,12 +104,6 @@ class HtmlReporter2 extends HtmlReporter{
 Unit tests on WikiRenderer <?php echo WIKIRENDERER_VERSION;?> (PHP <?php echo phpversion() ?>)
 <ul>
  <li><a href="index.php">All tests</a></li>
- <li>classicwr : <a href="tests_internals.php">internal tests</a> |
-    <a href="testsInlineParser.php">inline parser</a> |
-    <a href="testsInlines.php">inlines</a> |
-    <a href="testsInlinesCamelCase.php">inlines wikiword</a> |
-    <a href="testsBlocks.php">blocks</a> |
-    <a href="testsSerie.php">Big tests</a></li>
  <li>wr3 : <a href="wr3_primaires.php">tags</a> |
     <a href="wr3_testsInlineParser.php">parser inline</a> |
     <a href="wr3_testsInlines.php">inlines</a> |
@@ -190,7 +184,7 @@ Unit tests on WikiRenderer <?php echo WIKIRENDERER_VERSION;?> (PHP <?php echo ph
             echo $fmt->format($diff);
         }
    }
-   
+
     function paintMessage($message) {
         echo '<div>'.$message.'</div>';
     }

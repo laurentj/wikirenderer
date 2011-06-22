@@ -5,13 +5,12 @@
  * @package wikirenderer
  * @subpackage tests
  * @author Laurent Jouanneau
- * @copyright 2006 Laurent Jouanneau
+ * @copyright 2006-2011 Laurent Jouanneau
  */
 
-require_once('common.php');
 require_once(WR_DIR.'rules/classicwr_to_xhtml.php');
 
-class WikiRendererTestsInlinesCC extends WikiRendererUnitTestCase {
+class classicwr_inlinesCCTest extends PHPUnit_Framework_TestCase {
     var $listinline = array(
 
         'Lorem ipsum dolor sit amet, ConsecTetuer adipiscing elit.'
@@ -83,8 +82,8 @@ class WikiRendererTestsInlinesCC extends WikiRendererUnitTestCase {
         $wr = new WikiRenderer($conf);
         foreach($this->listinline as $source=>$result){
             $res = $wr->render($source);
-            $this->assertEqualOrDiff($res,$result, "erreur");
-            $this->assertEqual(count($wr->errors),0, "Erreurs détéctées par wr ! (%s)");
+            $this->assertEquals($result, $res, "erreur");
+            $this->assertEquals(0, count($wr->errors), "Erreurs détéctées par wr ! (%s)");
         }
     }
 
@@ -94,13 +93,8 @@ class WikiRendererTestsInlinesCC extends WikiRendererUnitTestCase {
         $wr = new WikiRenderer($conf);
         foreach($this->listinline2 as $source=>$result){
             $res = $wr->render($source);
-            if(!$this->assertEqual($res,$result[1], "erreur")){
-                $this->sendMessage('test : '.$source);
-                $this->_showDiff($result[1],$res);
-            }
-            if(!$this->assertEqual(count($wr->errors),$result[0], "Nombre d'erreurs différents (%s)")){
-                $this->dump($wr->errors);
-            }
+            $this->assertEquals($result[1], $res);
+            $this->assertEquals($result[0], count($wr->errors), "Nombre d'erreurs différents (%s)");
         }
     }
 
@@ -112,10 +106,5 @@ function wikiword($ww){
         $result[]='<a href="truc/'.$w.'/">'.$w.'</a>';
     }
     return $result;
-}
-
-if(!defined('ALL_TESTS')) {
-    $test = new WikiRendererTestsInlinesCC();
-    $test->run(new HtmlReporter2());
 }
 

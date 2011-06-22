@@ -5,13 +5,12 @@
  * @package wikirenderer
  * @subpackage tests
  * @author Laurent Jouanneau
- * @copyright 2006-2008 Laurent Jouanneau
+ * @copyright 2006-2011 Laurent Jouanneau
  */
 
-require_once('common.php');
 require_once(WR_DIR.'rules/classicwr_to_xhtml.php');
 
-class WikiRendererTestsInlineParser extends WikiRendererUnitTestCase {
+class classicwr_inlineParserTest extends PHPUnit_Framework_TestCase {
 
     function testInlineParserConstructor() {
 
@@ -20,20 +19,20 @@ class WikiRendererTestsInlineParser extends WikiRendererUnitTestCase {
         $conf->textLineContainers = array('WikiHtmlTextLine'=>array( 'cwrxhtml_strong'));
         $wip = new WikiInlineParserTest($conf);
         $trueResult = '/(__)|(\\\\)/';
-        $this->assertEqualOrDiff($trueResult, $wip->getSplitPattern(), "erreur");
+        $this->assertEquals($trueResult, $wip->getSplitPattern(), "erreur");
 
         $conf->textLineContainers = array('WikiHtmlTextLine'=>array( 'cwrxhtml_strong','cwrxhtml_em'));
         $conf->simpletags=array('%%%'=>'');
 
         $wip = new WikiInlineParserTest($conf );
         $trueResult = '/(__)|(\'\')|(%%%)|(\\\\)/';
-        $this->assertEqualOrDiff($trueResult, $wip->getSplitPattern(), "erreur");
+        $this->assertEquals($trueResult, $wip->getSplitPattern(), "erreur");
 
         $conf->simpletags=array('%%%'=>'');
         $conf->textLineContainers = array('WikiHtmlTextLine'=>array( 'cwrxhtml_strong','cwrxhtml_q'));
         $wip = new WikiInlineParserTest( $conf);
         $trueResult = '/(__)|(\^\^)|(\\|)|(%%%)|(\\\\)/';
-        $this->assertEqualOrDiff($trueResult, $wip->getSplitPattern(), "erreur");
+        $this->assertEquals($trueResult, $wip->getSplitPattern(), "erreur");
 
 
         $conf->textLineContainers = array('WikiHtmlTextLine'=>array( 'cwrxhtml_strong','cwrxhtml_em','cwrxhtml_code','cwrxhtml_q',
@@ -41,8 +40,8 @@ class WikiRendererTestsInlineParser extends WikiRendererUnitTestCase {
         $conf->simpletags=array('%%%'=>'', ':-)'=>'');
 
         $wip = new WikiInlineParserTest($conf );
-        $trueResult = '/(__)|(\'\')|(@@)|(\\^\\^)|(\\{\\{)|(\\}\\})|(\\?\\?)|(\\[)|(\\])|(\\(\\()|(\\)\\))|(~~)|(\\|)|(%%%)|(\\:-\\))|(\\\\)/';
-        $this->assertEqualOrDiff($trueResult, $wip->getSplitPattern(), "erreur");
+        $trueResult = '/(__)|(\'\')|(@@)|(\\^\\^)|(\\{\\{)|(\\}\\})|(\\?\\?)|(\\[)|(\\])|(\\(\\()|(\\)\\))|(~~)|(\\|)|(%%%)|(\\:\\-\\))|(\\\\)/';
+        $this->assertEquals($trueResult, $wip->getSplitPattern(), "erreur");
 
         $test = array(
             '__'=>array('__','__'),
@@ -57,8 +56,8 @@ class WikiRendererTestsInlineParser extends WikiRendererUnitTestCase {
         );
         foreach($wip->getListTag() as $b=>$t){
             if($this->assertTrue(isset($test[$b]), 'tag présent bizarre '. $b)){
-                $this->assertEqual($test[$b][0], $t->beginTag);
-                $this->assertEqual($test[$b][1], $t->endTag);
+                $this->assertEquals($test[$b][0], $t->beginTag);
+                $this->assertEquals($test[$b][1], $t->endTag);
             }
         }
     }
@@ -79,7 +78,7 @@ class WikiRendererTestsInlineParser extends WikiRendererUnitTestCase {
         $wip = new WikiInlineParser($conf);
         foreach($this->listinline1 as $source=>$trueResult){
             $res = $wip->parse($source);
-            $this->assertEqualOrDiff($trueResult,$res, "erreur");
+            $this->assertEquals($trueResult,$res, "erreur");
         }
     }
 
@@ -149,14 +148,7 @@ class WikiRendererTestsInlineParser extends WikiRendererUnitTestCase {
         foreach($this->listinline2 as $source=>$trueResult){
             $k++;
             $res = $wip->parse($source);
-            if(!$this->assertEqual($trueResult,$res, "erreur")){
-                $this->sendMessage('test '.$k++ .' : '.$source);
-                $this->_showDiff($trueResult,$res);
-            }
+            $this->assertEquals($trueResult,$res, "erreur");
         }
     }
-}
-if(!defined('ALL_TESTS')) {
-    $test = new WikiRendererTestsInlineParser();
-    $test->run(new HtmlReporter2());
 }

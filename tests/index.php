@@ -14,24 +14,6 @@ define('ALL_TESTS', true);
 
 $test = &new GroupTest('All tests');
 
-require_once('tests_internals.php');
-$test->addTestCase(new WikiRendererTestsInternes());
-
-require_once('testsInlineParser.php');
-$test->addTestCase(new WikiRendererTestsInlineParser());
-
-require_once('testsInlines.php');
-$test->addTestCase(new WikiRendererTestsInlines());
-
-require_once('testsInlinesCamelCase.php');
-$test->addTestCase(new WikiRendererTestsInlinesCC());
-
-require_once('testsBlocks.php');
-$test->addTestCase(new WikiRendererTestsBlocks());
-
-require_once('testsSerie.php');
-$test->addTestCase(new WikiRendererTestsSerie());
-
 require_once('wr3_primaires.php');
 $test->addTestCase(new WikiRendererTestsWr3Primaire());
 
@@ -75,7 +57,3 @@ require_once('phpwiki_dokuwiki_blocks.php');
 $test->addTestCase(new phpwiki_dokuwiki_blocks());
 
 $test->run(new HtmlReporter2());
-
-
-
-

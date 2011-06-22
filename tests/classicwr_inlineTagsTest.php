@@ -5,13 +5,12 @@
  * @package wikirenderer
  * @subpackage tests
  * @author Laurent Jouanneau
- * @copyright 2006 Laurent Jouanneau
+ * @copyright 2006-2011 Laurent Jouanneau
  */
 
-require_once('common.php');
 require_once(WR_DIR.'rules/classicwr_to_xhtml.php');
 
-class WikiRendererTestsInlines extends WikiRendererUnitTestCase {
+class classicwr_inlineTagsTest extends PHPUnit_Framework_TestCase {
     var $listinline = array(
 
         'Lorem ipsum dolor sit amet, consectetuer adipiscing elit.'
@@ -82,12 +81,13 @@ class WikiRendererTestsInlines extends WikiRendererUnitTestCase {
             =>array(1,'<p>Lorem [ips<strong>um dolor|bar|fr] sit</strong> amet, consectetuer adipiscing elit.</p>'),
 
     );
+
     function testBalisesInlineSimples() {
         $wr = new WikiRenderer('classicwr_to_xhtml');
         foreach($this->listinline as $source=>$result){
             $res = $wr->render($source);
-            $this->assertEqualOrDiff($res,$result, "erreur");
-            $this->assertEqual(count($wr->errors),0, "Erreurs détéctées par wr ! (%s)");
+            $this->assertEquals($result, $res);
+            $this->assertEquals(0, count($wr->errors), "Erreurs détéctées par wr ! (%s)");
         }
     }
 
@@ -95,19 +95,8 @@ class WikiRendererTestsInlines extends WikiRendererUnitTestCase {
         $wr = new WikiRenderer('classicwr_to_xhtml');
         foreach($this->listinline2 as $source=>$result){
             $res = $wr->render($source);
-            if(!$this->assertEqual($res,$result[1], "erreur")){
-                $this->sendMessage('test : '.$source);
-                $this->_showDiff($result[1],$res);
-            }
-            if(!$this->assertEqual(count($wr->errors),$result[0], "Nombre d'erreurs différents (%s)")){
-                $this->dump($wr->errors);
-            }
+            $this->assertEquals($result[1], $res);
+            $this->assertEquals($result[0], count($wr->errors), "Nombre d'erreurs différents (%s)");
         }
     }
-
 }
-if(!defined('ALL_TESTS')) {
-    $test = new WikiRendererTestsInlines();
-    $test->run(new HtmlReporter2());
-}
-

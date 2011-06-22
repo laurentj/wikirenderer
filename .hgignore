@@ -1,3 +1,6 @@
+~$
+(^|/)TAGS$
+(^|/)\.DS_Store$
+\.komodoproject$
 ^tests/wikirenderer
 ^_dist
-^wikirenderer.kpf

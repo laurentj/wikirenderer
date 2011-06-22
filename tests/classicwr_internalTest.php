@@ -5,13 +5,12 @@
  * @package wikirenderer
  * @subpackage tests
  * @author Laurent Jouanneau
- * @copyright 2008 Laurent Jouanneau
+ * @copyright 2008-2011 Laurent Jouanneau
  */
 
-require_once('common.php');
 require_once(WR_DIR.'rules/classicwr_to_xhtml.php');
 
-class WikiRendererTestsInternes extends WikiRendererUnitTestCase {
+class classicwr_internalTest extends PHPUnit_Framework_TestCase {
 
     function _tagtest( $list, $class) {
         $conf= new WRConfigTest();
@@ -26,9 +25,8 @@ class WikiRendererTestsInternes extends WikiRendererUnitTestCase {
                     $tag->addContent($wiki[0], $wiki[1]);
             }
 
-            $this->assertEqualOrDiff($val[1], $tag->getWikiContent(), "erreur wikicontent au numéro $k");
-            $this->assertEqualOrDiff($val[2], $tag->getContent(), "erreur content au numéro $k");
-
+            $this->assertEquals($val[1], $tag->getWikiContent(), "erreur wikicontent au numéro $k");
+            $this->assertEquals($val[2], $tag->getContent(), "erreur content au numéro $k");
         }
     }
 
@@ -99,10 +97,3 @@ class WikiRendererTestsInternes extends WikiRendererUnitTestCase {
         $this->_tagtest( $this->listtagq, 'cwrxhtml_q');
     }
 }
-
-if(!defined('ALL_TESTS')) {
-    $test = new WikiRendererTestsInternes();
-    $test->run(new HtmlReporter2());
-}
-
-?>

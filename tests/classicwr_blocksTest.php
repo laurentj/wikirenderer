@@ -5,13 +5,12 @@
  * @package wikirenderer
  * @subpackage tests
  * @author Laurent Jouanneau
- * @copyright 2006 Laurent Jouanneau
+ * @copyright 2006-2011 Laurent Jouanneau
  */
 
-require_once('common.php');
 require_once(WR_DIR.'rules/classicwr_to_xhtml.php');
 
-class WikiRendererTestsBlocks extends WikiRendererUnitTestCase {
+class classicwr_blocksTest extends PHPUnit_Framework_TestCase {
 
     var $listblocks = array(
         'b1'=>0,
@@ -37,16 +36,8 @@ class WikiRendererTestsBlocks extends WikiRendererUnitTestCase {
             fclose($handle);
 
             $res = $wr->render($source);
-            $this->assertEqualOrDiff($res,$result, "erreur sur $file");
-
-            if(!$this->assertEqual(count($wr->errors),$nberror, "Erreurs détéctées par wr ! (%s)")){
-                $this->dump($wr->errors);
-            }
+            $this->assertEquals($result, $res);
+            $this->assertEquals($nberror, count($wr->errors), "Erreurs détéctées par wr ! (%s)");
         }
     }
-}
-
-if(!defined('ALL_TESTS')) {
-    $test = new WikiRendererTestsBlocks();
-    $test->run(new HtmlReporter2());
 }

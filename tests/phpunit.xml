@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<phpunit bootstrap="bootstrap.php">
+  <testsuites>
+    <testsuite name="Classicwr">
+      <file>classicwr_inlineTagsTest.php</file>
+      <file>classicwr_internalTest.php</file>
+      <file>classicwr_blocksTest.php</file>
+      <file>classicwr_inlineCamelCaseTest.php</file>
+      <file>classicwr_inlineParserTest.php</file>
+      <file>classicwr_seriesTest.php</file>
+    </testsuite>
+
+    <testsuite name="Misc">
+    </testsuite>
+
+  </testsuites>
+</phpunit>
