@@ -5,13 +5,12 @@
  * @package wikirenderer
  * @subpackage tests
  * @author Laurent Jouanneau
- * @copyright 2006 Laurent Jouanneau
+ * @copyright 2006-2011 Laurent Jouanneau
  */
 
-require_once('common.php');
 require_once(WR_DIR.'rules/wr3_to_xhtml.php');
 
-class WR3TestsInlineParser extends WikiRendererUnitTestCase {
+class WR3TestsInlineParser extends PHPUnit_Framework_TestCase {
 
     function testInlineParserConstructor() {
 
@@ -21,29 +20,29 @@ class WR3TestsInlineParser extends WikiRendererUnitTestCase {
 
         $wip = new WikiInlineParserTest($conf);
         $trueResult = '/(__)|(\\\\)/';
-        $this->assertEqualOrDiff($trueResult, $wip->getSplitPattern(), "erreur");
+        $this->assertEquals($trueResult, $wip->getSplitPattern());
 
         $conf->textLineContainers = array('WikiHtmlTextLine'=>array( 'wr3xhtml_strong','wr3xhtml_em'));
         $conf->simpletags=array('%%%'=>'');
 
         $wip = new WikiInlineParserTest($conf );
         $trueResult = '/(__)|(\'\')|(%%%)|(\\\\)/';
-        $this->assertEqualOrDiff($trueResult, $wip->getSplitPattern(), "erreur");
+        $this->assertEquals($trueResult, $wip->getSplitPattern());
 
         $conf->textLineContainers = array('WikiHtmlTextLine'=>array( 'wr3xhtml_strong','wr3xhtml_q'));
         $conf->simpletags=array('%%%'=>'');
 
         $wip = new WikiInlineParserTest( $conf);
         $trueResult = '/(__)|(\^\^)|(\\|)|(%%%)|(\\\\)/';
-        $this->assertEqualOrDiff($trueResult, $wip->getSplitPattern(), "erreur");
+        $this->assertEquals($trueResult, $wip->getSplitPattern());
 
         $conf->textLineContainers = array('WikiHtmlTextLine'=>array( 'wr3xhtml_strong','wr3xhtml_em','wr3xhtml_code','wr3xhtml_q',
         'wr3xhtml_cite','wr3xhtml_acronym','wr3xhtml_link', 'wr3xhtml_image', 'wr3xhtml_anchor'));
         $conf->simpletags=array('%%%'=>'', ':-)'=>'');
 
         $wip = new WikiInlineParserTest($conf );
-        $trueResult = '/(__)|(\'\')|(@@)|(\\^\\^)|(\\{\\{)|(\\}\\})|(\\?\\?)|(\\[\\[)|(\\]\\])|(\\(\\()|(\\)\\))|(~~)|(\\|)|(%%%)|(\\:-\\))|(\\\\)/';
-        $this->assertEqualOrDiff($trueResult, $wip->getSplitPattern(), "erreur");
+        $trueResult = '/(__)|(\'\')|(@@)|(\\^\\^)|(\\{\\{)|(\\}\\})|(\\?\\?)|(\\[\\[)|(\\]\\])|(\\(\\()|(\\)\\))|(~~)|(\\|)|(%%%)|(\\:\\-\\))|(\\\\)/';
+        $this->assertEquals($trueResult, $wip->getSplitPattern());
 
         $test = array(
             '__'=>array('__','__'),
@@ -58,8 +57,8 @@ class WR3TestsInlineParser extends WikiRendererUnitTestCase {
         );
         foreach($wip->getListTag() as $b=>$t){
             if($this->assertTrue(isset($test[$b]), 'tag présent bizarre '. $b)){
-                $this->assertEqual($test[$b][0], $t->beginTag);
-                $this->assertEqual($test[$b][1], $t->endTag);
+                $this->assertEquals($test[$b][0], $t->beginTag);
+                $this->assertEquals($test[$b][1], $t->endTag);
             }
         }
     }
@@ -80,7 +79,7 @@ class WR3TestsInlineParser extends WikiRendererUnitTestCase {
         $wip = new WikiInlineParser($conf);
         foreach($this->listinline1 as $source=>$trueResult){
             $res = $wip->parse($source);
-            $this->assertEqualOrDiff($trueResult,$res, "erreur");
+            $this->assertEquals($trueResult,$res);
         }
     }
 
@@ -145,10 +144,7 @@ class WR3TestsInlineParser extends WikiRendererUnitTestCase {
         foreach($this->listinline2 as $source=>$trueResult){
             $k++;
             $res = $wip->parse($source);
-            if(!$this->assertEqual($trueResult,$res, "erreur")){
-                $this->sendMessage('test '.$k++ .' : '.$source);
-                $this->_showDiff($trueResult,$res);
-            }
+            $this->assertEquals($trueResult,$res);
         }
     }
 
@@ -166,15 +162,10 @@ class WR3TestsInlineParser extends WikiRendererUnitTestCase {
         $trueResult='Lorem ipsum dolor sit amet, <span class="footnote-ref">[<a href="#'.$id.'" name="rev-'.$id.'" id="rev-'.$id.'">1</a>]</span> elit.';
         $trueFootnote = '<p>[<a href="#rev-'.$id.'" name="'.$id.'" id="'.$id.'">1</a>] consectetuer <strong>adipis</strong>cing</p>';
 
-        $this->assertEqualOrDiff($trueResult,$res, "erreur footnote");
-        $this->assertEqual(1,count($conf->footnotes),"erreur footnote : nombre de footnote");
-        $this->assertEqualOrDiff($trueFootnote, $conf->footnotes[0],"erreur footnote : mauvaise footnote");
+        $this->assertEquals($trueResult,$res);
+        $this->assertEquals(1,count($conf->footnotes));
+        $this->assertEquals($trueFootnote, $conf->footnotes[0]);
     }
 
 
-}
-
-if(!defined('ALL_TESTS')) {
-    $test = new WR3TestsInlineParser();
-    $test->run(new HtmlReporter2());
 }

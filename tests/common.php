@@ -104,14 +104,6 @@ class HtmlReporter2 extends HtmlReporter{
 Unit tests on WikiRenderer <?php echo WIKIRENDERER_VERSION;?> (PHP <?php echo phpversion() ?>)
 <ul>
  <li><a href="index.php">All tests</a></li>
- <li>wr3 : <a href="wr3_primaires.php">tags</a> |
-    <a href="wr3_testsInlineParser.php">parser inline</a> |
-    <a href="wr3_testsInlines.php">inlines</a> |
-    <a href="wr3_testsBlocks.php">blocks</a> </li>
- <li>wr3 to docbook : <a href="wr3_dbk_primary.php">tags</a> |
-    <a href="wr3_dbk_testsInlines.php">inlines</a> |
-    <a href="wr3_dbk_testsBlocks.php">blocks</a>
- </li>
  <li>dokuwiki to docbook :
     <a href="dokuwiki_docbook_inlines.php">inlines</a> |
     <a href="dokuwiki_docbook_blocks.php">blocks</a>

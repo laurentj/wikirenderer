@@ -5,13 +5,12 @@
  * @package wikirenderer
  * @subpackage tests
  * @author Laurent Jouanneau
- * @copyright 2006 Laurent Jouanneau
+ * @copyright 2006-2011 Laurent Jouanneau
  */
 
-require_once('common.php');
 require_once(WR_DIR.'rules/wr3_to_docbook.php');
 
-class WikiRendererTestsWr3Docbook extends WikiRendererUnitTestCase {
+class WikiRendererTestsWr3Docbook extends PHPUnit_Framework_TestCase {
 
     function _tagtest( $list, $class) {
         $conf= new WRConfigTest();
@@ -26,8 +25,8 @@ class WikiRendererTestsWr3Docbook extends WikiRendererUnitTestCase {
                     $tag->addContent($wiki[0], $wiki[1]);
             }
 
-            $this->assertEqualOrDiff($val[1], $tag->getWikiContent(), "erreur wikicontent au numero $k");
-            $this->assertEqualOrDiff($val[2], $tag->getContent(), "erreur content au numero $k");
+            $this->assertEquals($val[1], $tag->getWikiContent(), "erreur wikicontent au numero $k");
+            $this->assertEquals($val[2], $tag->getContent(), "erreur content au numero $k");
         }
     }
 
@@ -87,10 +86,5 @@ class WikiRendererTestsWr3Docbook extends WikiRendererUnitTestCase {
     function testTaga() {
         $this->_tagtest( $this->listtaga, 'wr3dbk_link');
     }
-}
-
-if(!defined('ALL_TESTS')) {
-    $test = new WikiRendererTestsWr3Docbook();
-    $test->run(new HtmlReporter2());
 }
 

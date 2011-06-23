@@ -4,14 +4,13 @@
  *
  * @package wikirenderer
  * @subpackage tests
- * @author Laurent Jouanneau 
- * @copyright 2006 Laurent Jouanneau
+ * @author Laurent Jouanneau
+ * @copyright 2006-2011 Laurent Jouanneau
  */
 
-require_once('common.php');
 require_once(WR_DIR.'rules/wr3_to_xhtml.php');
 
-class WR3TestsBlocks extends WikiRendererUnitTestCase {
+class WR3TestsBlocks extends PHPUnit_Framework_TestCase {
 
     var $listblocks = array(
         'b1'=>0,
@@ -39,36 +38,30 @@ class WR3TestsBlocks extends WikiRendererUnitTestCase {
                 $conf = & $wr->getConfig();
                 $res=str_replace('-'.$conf->footnotesId.'-', '-XXX-',$res);
             }
-            $this->assertEqualOrDiff($result, $res, "error on $file");
-            if(!$this->assertEqual(count($wr->errors),$nberror, "Errors detected by wr ! (%s)")){
-                $this->dump($wr->errors);
-            }
+            $this->assertEquals($result, $res, "error on $file");
+            $this->assertEquals($nberror, count($wr->errors), "Errors detected by wr!");
         }
     }
 
     function testOther() {
 
         $wr = new WikiRenderer(new wr3_to_xhtml());
-        
+
         $source = '<code>foo</code>';
         $expected = '<pre>foo</pre>';
-        
+
         $result = $wr->render($source);
-        $this->assertEqualOrDiff($expected, $result);
-        if(!$this->assertEqual(count($wr->errors),0, "Errors detected by wr ! (%s)")){
-            $this->dump($wr->errors);
-        }
+        $this->assertEquals($expected, $result);
+        $this->assertEquals(0, count($wr->errors),"Errors detected by wr !");
 
         $source = "<code>foo</code>
 __bar__";
         $expected = "<pre>foo</pre>
 <p><strong>bar</strong></p>";
-        
+
         $result = $wr->render($source);
-        $this->assertEqualOrDiff($expected, $result);
-        if(!$this->assertEqual(count($wr->errors),0, "Errors detected by wr ! (%s)")){
-            $this->dump($wr->errors);
-        }
+        $this->assertEquals($expected, $result);
+        $this->assertEquals(0, count($wr->errors),"Errors detected by wr !");
 
         $source = '';
         $expected = '';
@@ -76,17 +69,10 @@ __bar__";
 <code>foo</code>";
         $expected = "<p><strong>bar</strong></p>
 <pre>foo</pre>";
-        
+
         $result = $wr->render($source);
-        $this->assertEqualOrDiff($expected, $result);
-        if(!$this->assertEqual(count($wr->errors),0, "Errors detected by wr ! (%s)")){
-            $this->dump($wr->errors);
-        }
+        $this->assertEquals($expected, $result);
+        $this->assertEquals(0, count($wr->errors),"Errors detected by wr !");
 
     }
-}
-
-if(!defined('ALL_TESTS')) {
-    $test = new WR3TestsBlocks();
-    $test->run(new HtmlReporter2());
 }

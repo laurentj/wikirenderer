@@ -14,27 +14,6 @@ define('ALL_TESTS', true);
 
 $test = &new GroupTest('All tests');
 
-require_once('wr3_primaires.php');
-$test->addTestCase(new WikiRendererTestsWr3Primaire());
-
-require_once('wr3_testsInlineParser.php');
-$test->addTestCase(new WR3TestsInlineParser());
-
-require_once('wr3_testsInlines.php');
-$test->addTestCase(new WR3TestsInlines());
-
-require_once('wr3_testsBlocks.php');
-$test->addTestCase(new WR3TestsBlocks());
-
-require_once('wr3_dbk_primary.php');
-$test->addTestCase(new WikiRendererTestsWr3Docbook());
-
-require_once('wr3_dbk_testsInlines.php');
-$test->addTestCase(new WR3DBKTestsInlines());
-
-require_once('wr3_dbk_testsBlocks.php');
-$test->addTestCase(new WR3DBKTestsBlocks());
-
 require_once('dokuwiki_docbook_inlines.php');
 $test->addTestCase(new dokuwiki_docbook_inlines());
 

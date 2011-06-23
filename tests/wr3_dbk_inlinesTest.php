@@ -5,13 +5,12 @@
  * @package wikirenderer
  * @subpackage tests
  * @author Laurent Jouanneau
- * @copyright 2006 Laurent Jouanneau
+ * @copyright 2006-2011 Laurent Jouanneau
  */
 
-require_once('common.php');
 require_once(WR_DIR.'rules/wr3_to_docbook.php');
 
-class WR3DBKTestsInlines extends WikiRendererUnitTestCase {
+class WR3DBKTestsInlines extends PHPUnit_Framework_TestCase {
     var $listinline = array(
 
         'Lorem ipsum dolor sit amet, consectetuer adipiscing elit.'
@@ -71,8 +70,8 @@ class WR3DBKTestsInlines extends WikiRendererUnitTestCase {
         $wr = new WikiRenderer(new wr3_to_docbook());
         foreach($this->listinline as $source=>$result){
             $res = $wr->render($source);
-            $this->assertEqualOrDiff($res,$result, "erreur");
-            $this->assertEqual(count($wr->errors),0, "WR returns errors ! (%s)");
+            $this->assertEquals($res,$result, "erreur");
+            $this->assertEquals(count($wr->errors),0, "WR returns errors ! (%s)");
         }
     }
 
@@ -101,19 +100,9 @@ class WR3DBKTestsInlines extends WikiRendererUnitTestCase {
         $wr = new WikiRenderer(new wr3_to_docbook());
         foreach($this->listinline2 as $source=>$result){
             $res = $wr->render($source);
-            if(!$this->assertEqual($res,$result[1], "erreur")){
-                $this->sendMessage('test : '.$source);
-                $this->_showDiff($result[1],$res);
-            }
-            if(!$this->assertEqual(count($wr->errors),$result[0], "Bad number of errors (%s)")){
-                $this->dump($wr->errors);
-            }
+            $this->assertEquals($result[1], $res);
+            $this->assertEquals($result[0], count($wr->errors), "Bad number of errors");
         }
     }
 
-}
-
-if(!defined('ALL_TESTS')) {
-    $test = new WR3DBKTestsInlines();
-    $test->run(new HtmlReporter2());
 }

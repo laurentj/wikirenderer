@@ -5,13 +5,12 @@
  * @package wikirenderer
  * @subpackage tests
  * @author Laurent Jouanneau
- * @copyright 2006 Laurent Jouanneau
+ * @copyright 2006-2011 Laurent Jouanneau
  */
 
-require_once('common.php');
 require_once(WR_DIR.'rules/wr3_to_docbook.php');
 
-class WR3DBKTestsBlocks extends WikiRendererUnitTestCase {
+class WR3DBKTestsBlocks extends PHPUnit_Framework_TestCase {
 
     var $listblocks = array(
         'b1'=>0,
@@ -38,10 +37,8 @@ class WR3DBKTestsBlocks extends WikiRendererUnitTestCase {
 
             $res = $wr->render($source);
 
-            $this->assertEqualOrDiff($res,$result, "error on $file");
-            if(!$this->assertEqual(count($wr->errors),$nberror, "Errors detected by wr ! (%s)")){
-                $this->dump($wr->errors);
-            }
+            $this->assertEquals($res,$result, "error on $file");
+            $this->assertEquals($nberror, count($wr->errors), "Errors detected by wr");
         }
     }
 
@@ -68,17 +65,10 @@ class WR3DBKTestsBlocks extends WikiRendererUnitTestCase {
 
             $res = $wr->render($source);
 
-            $this->assertEqualOrDiff($res,$result, "error on $file");
-            if(!$this->assertEqual(count($wr->errors),$nberror, "Errors detected by wr ! (%s)")){
-                $this->dump($wr->errors);
-            }
+            $this->assertEquals($res,$result, "error on $file");
+            $this->assertEquals($nberror, count($wr->errors),"Errors detected by wr");
         }
     }
 
 
 }
-if(!defined('ALL_TESTS')) {
-    $test = new WR3DBKTestsBlocks();
-    $test->run(new HtmlReporter2());
-}
-
