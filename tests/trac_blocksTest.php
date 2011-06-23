@@ -4,14 +4,13 @@
  *
  * @package wikirenderer
  * @subpackage tests
- * @author Laurent Jouanneau 
- * @copyright 200 Laurent Jouanneau
+ * @author Laurent Jouanneau
+ * @copyright 2008-2011 Laurent Jouanneau
  */
 
-require_once('common.php');
 require_once(WR_DIR.'rules/trac_to_xhtml.php');
 
-class TracTestsBlocks extends WikiRendererUnitTestCase {
+class TracTestsBlocks extends PHPUnit_Framework_TestCase {
 
 /*
 TODO :
@@ -45,18 +44,8 @@ TODO :
                 $conf = & $wr->getConfig();
                 $res=str_replace('-'.$conf->footnotesId.'-', '-XXX-',$res);
             }
-            $this->assertEqualOrDiff($result, $res, "erreur sur $file");
-            if(!$this->assertEqual(count($wr->errors),$nberror, "Errors detected by wr ! (%s)")){
-                $this->dump($wr->errors);
-            }
+            $this->assertEquals($result, $res, "erreur sur $file");
+            $this->assertEquals($nberror, count($wr->errors),"Errors detected by wr");
         }
     }
-
-
-
-}
-
-if(!defined('ALL_TESTS')) {
-    $test = new TracTestsBlocks();
-    $test->run(new HtmlReporter2());
 }

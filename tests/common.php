@@ -109,9 +109,6 @@ Unit tests on WikiRenderer <?php echo WIKIRENDERER_VERSION;?> (PHP <?php echo ph
     <a href="phpwiki_dokuwiki_blocks.php">blocks</a>
  </li>
 
- <li>trac syntax:
-    <a href="trac_testsInlines.php">inlines</a> |
-    <a href="trac_testsBlocks.php">blocks</a> </li>
 </ul>
 </div>
 

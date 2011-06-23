@@ -4,14 +4,13 @@
  *
  * @package wikirenderer
  * @subpackage tests
- * @author Laurent Jouanneau 
- * @copyright 2008 Laurent Jouanneau
+ * @author Laurent Jouanneau
+ * @copyright 2008-2011 Laurent Jouanneau
  */
 
-require_once('common.php');
 require_once(WR_DIR.'rules/trac_to_xhtml.php');
 
-class TracTestsInlines extends WikiRendererUnitTestCase {
+class TracTestsInlines extends PHPUnit_Framework_TestCase {
     var $listinline = array(
 
         'Lorem ipsum dolor sit amet, consectetuer adipiscing elit.'
@@ -139,8 +138,8 @@ class TracTestsInlines extends WikiRendererUnitTestCase {
         $wr = new WikiRenderer(new trac_to_xhtml());
         foreach($this->listinline as $source=>$result){
             $res = $wr->render($source);
-            $this->assertEqualOrDiff($result, $res, "erreur");
-            $this->assertEqual(count($wr->errors),0, "Errors detected by wr in \"$source\"! (%s)");
+            $this->assertEquals($result, $res);
+            $this->assertEquals(0, count($wr->errors), "Errors detected by wr in \"$source\"");
         }
     }
 
@@ -148,18 +147,8 @@ class TracTestsInlines extends WikiRendererUnitTestCase {
         $wr = new WikiRenderer(new trac_to_xhtml());
         foreach($this->listinline2 as $source=>$result){
             $res = $wr->render($source);
-            if(!$this->assertEqual($res,$result[1], "erreur")){
-                $this->sendMessage('test : '.$source);
-                $this->_showDiff($result[1],$res);
-            }
-            if(!$this->assertEqual(count($wr->errors),$result[0], "Nombre d'erreurs différent (%s)")){
-                $this->dump($wr->errors);
-            }
+            $this->assertEquals($result[1], $res);
+            $this->assertEquals($result[0], count($wr->errors), "Nombre d'erreurs différent");
         }
     }
-
-}
-if(!defined('ALL_TESTS')) {
-    $test = new TracTestsInlines();
-    $test->run(new HtmlReporter2());
 }

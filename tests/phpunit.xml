@@ -23,10 +23,15 @@
         <file>wr3_dbk_primaryTest.php</file>
     </testsuite>
 
-    <testsuite name="Dokuwiki">
+    <testsuite name="Dokuwiki syntax">
       <file>dokuwiki_docbook_blocksTest.php</file>
       <file>dokuwiki_docbook_inlinesTest.php</file>
       <file>dokuwiki_xhtml_blocksTest.php</file>
+    </testsuite>
+
+    <testsuite name="trac syntax">
+      <file>trac_blocksTest.php</file>
+      <file>trac_inlinesTest.php</file>
     </testsuite>
   </testsuites>
 </phpunit>
