@@ -14,7 +14,7 @@ class classicwr_seriesTest extends PHPUnit_Framework_TestCase {
 
     function testSerie() {
 
-        include('datasSerie.php');
+        include('dataSeries.php');
         $wr= new WikiRenderer('classicwr_to_xhtml');
         foreach($list as $k=> $t){
             $res = $wr->render($t[0]);
