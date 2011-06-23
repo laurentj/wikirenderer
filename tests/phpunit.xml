@@ -22,5 +22,11 @@
         <file>wr3_dbk_inlinesTest.php</file>
         <file>wr3_dbk_primaryTest.php</file>
     </testsuite>
+
+    <testsuite name="Dokuwiki">
+      <file>dokuwiki_docbook_blocksTest.php</file>
+      <file>dokuwiki_docbook_inlinesTest.php</file>
+      <file>dokuwiki_xhtml_blocksTest.php</file>
+    </testsuite>
   </testsuites>
 </phpunit>

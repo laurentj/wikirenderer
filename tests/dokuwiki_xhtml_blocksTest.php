@@ -5,13 +5,12 @@
  * @package wikirenderer
  * @subpackage tests
  * @author Laurent Jouanneau
- * @copyright 2009 Laurent Jouanneau
+ * @copyright 2009-2011 Laurent Jouanneau
  */
 
-require_once('common.php');
 require_once(WR_DIR.'rules/dokuwiki_to_xhtml.php');
 
-class dokuwiki_xhtml_blocks extends WikiRendererUnitTestCase {
+class dokuwiki_xhtml_blocks extends PHPUnit_Framework_TestCase {
 
 
     protected $data = array(
@@ -50,12 +49,8 @@ truc3 </code></pre>',
         foreach($this->data as $k=>$test){
             list($source, $result, $nberror) = $test;
             $res = $wr->render($source);
-
-            $this->assertEqualOrDiff($result, $res, "error on $k th test");
-
-            if(!$this->assertEqual(count($wr->errors), $nberror, "Errors detected by wr ! (%s)")){
-                $this->dump($wr->errors);
-            }
+            $this->assertEquals($result, $res, "error on $k th test");
+            $this->assertEquals($nberror, count($wr->errors), "Errors detected by wr");
         }
     }
 
@@ -92,16 +87,10 @@ truc3 </code></pre>',
                 $conf = & $wr->getConfig();
                 $res=str_replace('-'.$conf->footnotesId.'-', '-XXX-',$res);
             }
-            $this->assertEqualOrDiff($res,$result, "error on $file");
+            $this->assertEquals($result, $res,"error on $file");
 
-            if(!$this->assertEqual(count($wr->errors),$nberror, "Errors detected by wr ! (%s)")){
-                $this->dump($wr->errors);
-            }
+            $this->assertEquals($nberror, count($wr->errors), "Errors detected by wr");
         }
     }
 }
 
-if(!defined('ALL_TESTS')) {
-    $test = new dokuwiki_xhtml_blocks();
-    $test->run(new HtmlReporter2());
-}

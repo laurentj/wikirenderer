@@ -5,13 +5,12 @@
  * @package wikirenderer
  * @subpackage tests
  * @author Laurent Jouanneau
- * @copyright 2006 Laurent Jouanneau
+ * @copyright 2006-2011 Laurent Jouanneau
  */
 
-require_once('common.php');
 require_once(WR_DIR.'rules/dokuwiki_to_docbook.php');
 
-class dokuwiki_docbook_inlines extends WikiRendererUnitTestCase {
+class dokuwiki_docbook_inlines extends PHPUnit_Framework_TestCase {
       var $listinline = array(
 
         'Lorem ipsum dolor sit amet, consectetuer adipiscing elit.'
@@ -36,7 +35,7 @@ class dokuwiki_docbook_inlines extends WikiRendererUnitTestCase {
             =>'<para>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</para>',
         'Lorem ipsum dolor sit amet, \\\\
 consectetuer adipiscing elit.'
-            =>'<para>Lorem ipsum dolor sit amet, 
+            =>'<para>Lorem ipsum dolor sit amet,
 consectetuer adipiscing elit.</para>',
         'Lorem [[ipsum dolor]] sit amet, consectetuer adipiscing elit.'
             =>'<para>Lorem <ulink url="ipsum dolor">ipsum dolor</ulink> sit amet, consectetuer adipiscing elit.</para>',
@@ -67,7 +66,6 @@ consectetuer adipiscing elit.</para>',
         'Lorem ipsum dolor sit <nowiki>amet, consectetuer</nowiki> adipiscing elit.'
             =>'<para>Lorem ipsum dolor sit <phrase>amet, consectetuer</phrase> adipiscing elit.</para>',
 
-
 /*        'Lorem ipsum ^^dolor sit amet^^, consectetuer adipiscing elit.'
             =>'<para>Lorem ipsum <quote>dolor sit amet</quote>, consectetuer adipiscing elit.</para>',
         'Lorem ipsum ^^dolor sit amet|fr^^, consectetuer adipiscing elit.'
@@ -92,10 +90,11 @@ consectetuer adipiscing elit.</para>',
 
     function testBalisesInlineSimples() {
         $wr = new WikiRenderer(new dokuwiki_to_docbook());
+        $k=0;
         foreach($this->listinline as $source=>$result){
             $res = $wr->render($source);
-            $this->assertEqualOrDiff($res,$result, "erreur");
-            $this->assertEqual(count($wr->errors),0, "WR returns errors ! ".var_export($wr->errors,true)." (%s)");
+            $this->assertEquals($result, $res, "item ".(++$k));
+            $this->assertEquals(0, count($wr->errors), "WR returns errors ! ".var_export($wr->errors,true));
         }
     }
 /*
@@ -134,8 +133,4 @@ consectetuer adipiscing elit.</para>',
         }
     }
 */
-}
-if(!defined('ALL_TESTS')) {
-      $test = new dokuwiki_docbook_inlines();
-      $test->run(new HtmlReporter2());
 }
