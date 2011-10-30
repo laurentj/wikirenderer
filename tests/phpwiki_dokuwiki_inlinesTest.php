@@ -7,15 +7,13 @@
  * @package wikirenderer
  * @subpackage tests
  * @author Laurent Jouanneau
- * @copyright 2009 Laurent Jouanneau
+ * @copyright 2009-2011 Laurent Jouanneau
  */
 
-
-require_once('common.php');
 require_once(WR_DIR.'rules/phpwiki_to_dokuwiki.php');
 
-class phpwiki_dokuwiki_inlines extends WikiRendererUnitTestCase {
-    
+class phpwiki_dokuwiki_inlines extends PHPUnit_Framework_TestCase {
+
     var $listinline = array(
         'Lorem ipsum dolor sit amet, consectetuer adipiscing elit.'
                     =>'Lorem ipsum dolor sit amet, consectetuer adipiscing elit.',
@@ -41,9 +39,9 @@ class phpwiki_dokuwiki_inlines extends WikiRendererUnitTestCase {
 consectetuer adipiscing elit.'
                     =>'Lorem ipsum dolor sit amet, \\
 consectetuer adipiscing elit.',
-                    
+
         //---- links
-        
+
         'Lorem [ipsum dolor] sit amet, consectetuer adipiscing elit.'
                     =>'Lorem [[ipsum dolor]] sit amet, consectetuer adipiscing elit.',
         'Lorem [#ipsum.dolor] sit amet, consectetuer adipiscing elit.'
@@ -123,13 +121,10 @@ consectetuer adipiscing elit.',
         foreach($this->listinline as $source=>$result){
             $k++;
             $res = $wr->render($source);
-            $this->assertEqualOrDiff($result, $res, "erreur on $k th test");
-            $this->assertEqual(count($wr->errors),0, "WR returns errors ! ".var_export($wr->errors,true)." (%s)");
+            $this->assertEquals($result, $res, "erreur on $k th test");
+            $this->assertEquals(0, count($wr->errors), "WR returns errors ! ".var_export($wr->errors,true));
         }
     }
 
 }
-if(!defined('ALL_TESTS')) {
-      $test = new phpwiki_dokuwiki_inlines();
-      $test->run(new HtmlReporter2());
-}
+

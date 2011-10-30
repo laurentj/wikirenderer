@@ -7,13 +7,12 @@
  * @package wikirenderer
  * @subpackage tests
  * @author Laurent Jouanneau
- * @copyright 2009 Laurent Jouanneau
+ * @copyright 2009-2011 Laurent Jouanneau
  */
 
-require_once('common.php');
 require_once(WR_DIR.'rules/phpwiki_to_dokuwiki.php');
 
-class phpwiki_dokuwiki_blocks extends WikiRendererUnitTestCase {
+class phpwiki_dokuwiki_blocks extends PHPUnit_Framework_TestCase {
 
     protected $data = array(
 0=>array(
@@ -100,7 +99,7 @@ Mauris [[http://ljouanneau.com|sit amet massa]] pretium dapibus.",
 -----
 Nulla varius egestas risus. Duis sollicitudin tempor arcu. Mauris porta leo id dui
 luctus luctus. Aliquam nec lacus. Integer egestas.',
-    
+
 'In hac habitasse platea dictumst. Nulla facilisi. Pellentesque sodales laoreet est.
 
 Nulla varius egestas risus. Duis sollicitudin tempor arcu. Mauris porta leo id dui
@@ -153,9 +152,9 @@ In hac habitasse platea dictumst. Nulla facilisi.',
 |   Marco | Polo   | Encore moins cher | Pas disponible   |',
 0),
 9=>array(
-'| __Nom__               |v __Coût__   | __Notes__ 
+'| __Nom__               |v __Coût__   | __Notes__
 | __Prénom__   | __Nom de famille__
-|  Jeff       |< Dairiki   |^  Pas cher    
+|  Jeff       |< Dairiki   |^  Pas cher
 || Polo    | ooo   ',
 '| **Nom** | **Coût** | **Notes** |
 | **Prénom** | | **Nom de famille** |
@@ -164,9 +163,9 @@ In hac habitasse platea dictumst. Nulla facilisi.',
 0),
 /* bug on latest line: combination on rowspan+colspan
 10=>array(
-'| __Nom__               |v __Coût__   | __Notes__ 
+'| __Nom__               |v __Coût__   | __Notes__
 | __Prénom__   | __Nom de famille__
-|v Jeff       |< Dairiki   |^  Pas cher    
+|v Jeff       |< Dairiki   |^  Pas cher
 || Polo       ',
 '| **Nom** | **Coût** | **Notes** |
 | **Prénom** | | **Nom de famille** |
@@ -225,12 +224,9 @@ Nulla varius egestas risus.',
         foreach($this->data as $k=>$test){
             list($source, $result, $nberror) = $test;
             $res = $wr->render($source);
+            $this->assertEquals($result, $res, "error on $k th test");
 
-            $this->assertEqualOrDiff($result, $res, "error on $k th test");
-
-            if(!$this->assertEqual(count($wr->errors), $nberror, "Errors detected by wr ! (%s)")){
-                $this->dump($wr->errors);
-            }
+            $this->assertEquals($nberror, count($wr->errors), "Errors detected by wr");
         }
     }
 
@@ -249,16 +245,8 @@ Nulla varius egestas risus.',
             $result = file_get_contents($resultFile);
 
             $res = $wr->render($source);
-            $this->assertEqualOrDiff($result, $res, "error on $file");
-            echo '<!--'.$res.'-->';
-            if(!$this->assertEqual(count($wr->errors), $nberror, "Errors detected by wr ! (%s)")){
-                $this->dump($wr->errors);
-            }
+            $this->assertEquals($result, $res, "error on $file");
+            $this->assertEquals($nberror, count($wr->errors), "Errors detected by wr");
         }
     }
-}
-
-if(!defined('ALL_TESTS')) {
-    $test = new phpwiki_dokuwiki_blocks();
-    $test->run(new HtmlReporter2());
 }

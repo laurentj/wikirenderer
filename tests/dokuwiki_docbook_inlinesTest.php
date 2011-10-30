@@ -35,7 +35,7 @@ class dokuwiki_docbook_inlines extends PHPUnit_Framework_TestCase {
             =>'<para>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</para>',
         'Lorem ipsum dolor sit amet, \\\\
 consectetuer adipiscing elit.'
-            =>'<para>Lorem ipsum dolor sit amet,
+            =>'<para>Lorem ipsum dolor sit amet, 
 consectetuer adipiscing elit.</para>',
         'Lorem [[ipsum dolor]] sit amet, consectetuer adipiscing elit.'
             =>'<para>Lorem <ulink url="ipsum dolor">ipsum dolor</ulink> sit amet, consectetuer adipiscing elit.</para>',
