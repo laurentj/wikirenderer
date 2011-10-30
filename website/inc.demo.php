@@ -1,5 +1,5 @@
 <?php
-if($_SERVER['SERVER_NAME'] == 'wikirenderer.berlios.de'){
+if($_SERVER['SERVER_NAME'] == 'wikirenderer.jelix.org'){
    require('wikirenderer/WikiRenderer.lib.php');
    require('wikirenderer/rules/wr3_to_text.php');
    require('wikirenderer/rules/wr3_to_xhtml.php');
