@@ -22,7 +22,7 @@ syntaxe différente.</p>
 <dd><strong>3.1.2</strong>, uniquement pour PHP 5 (27/12/2009)</dd>
 </dl>
 <p>Wikirenderer est
-<a href="https://developer.berlios.de/project/showfiles.php?group_id=5378">disponible
+<a href="https://bitbucket.org/laurentj/wikirenderer/downloads">disponible
 en téléchargement</a>. Vous pouvez aussi lire
 <a href="/fr/historique.php#v3.1.2">la liste des changements</a> pour cette version.</p>
 

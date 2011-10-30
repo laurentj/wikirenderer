@@ -12,7 +12,7 @@
    </ul>
 
    <ul>
-      <li><a href="http://developer.berlios.de/project/showfiles.php?group_id=5378">Download</a></li>
+      <li><a href="https://bitbucket.org/laurentj/wikirenderer/downloads">Download</a></li>
       <li><a href="https://bitbucket.org/laurentj/wikirenderer/issues">A bug, a contribution ?</a></li>
    </ul>
 </div>

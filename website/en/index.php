@@ -19,7 +19,7 @@ to migrate wiki contents from an old wiki CMS to a new one.</p>
 <dt>Stable</dt>
 <dd><strong>3.1.2</strong>, only for php5 (12/27/2009)</dd>
 </dl>
-<p>See the <a href="http://developer.berlios.de/project/showfiles.php?group_id=5378">download page</a>,
+<p>See the <a href="https://bitbucket.org/laurentj/wikirenderer/downloads">download page</a>,
 and <a href="/en/history.php#v3.1.2">the changes</a>.</p>
 
 <h2 id="caracteristiques">Features</h2>
