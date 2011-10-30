@@ -7,6 +7,11 @@ require('header.inc.php');
 <p>WikiRenderer est distribué sous <a href="http://www.gnu.org/licenses/licenses.html#LGPL">licence LGPL</a>.</p>
 
 <dl>
+
+    <dt>Nouvel hebergement, 30/10/2011</dt>
+   <dd>
+    Hebergement sur https://bitbucket.org/laurentj/wikirenderer
+   </dd>
     
     <dt id="v3.1.2">Version 3.1.2, 27/12/2009</dt>
     <dd>
@@ -132,6 +137,10 @@ des méthodes finales, et peuvent donc être redéfinies.</li>
        </ul>
    </dd>
 
+   <dt>Nouvel hebergement, 23/11/2005</dt>
+   <dd>
+    Hebergement sur developer.berlios.de.
+   </dd>
 
    <dt>Version 2.0.6, 26/09/2004.</dt>
    <dd>

@@ -8,6 +8,10 @@ require('header.inc.php');
 <a href="http://www.gnu.org/licenses/licenses.html#LGPL">LGPL licence</a>.</p>
 
 <dl>
+    <dt>New hosting, 10/30/2011</dt>
+   <dd>
+    The project is hosted on https://bitbucket.org/laurentj/wikirenderer
+   </dd>
     <dt id="v3.1.2">Version 3.1.2, 12/27/2009</dt>
     <dd>
         <ul>
