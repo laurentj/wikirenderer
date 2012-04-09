@@ -29,6 +29,7 @@
  * @see WikiInlineParser
  */
 abstract class WikiTag {
+    protected $name ='';
 
     public $beginTag='';
     public $endTag='';

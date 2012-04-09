@@ -188,7 +188,7 @@ class jwxhtml_link extends WikiTagXhtml {
         $cntattr = count($this->attribute);
         $cnt = ($this->separatorCount + 1 > $cntattr?$cntattr:$this->separatorCount+1);
         if ($cnt == 1 ) {
-            $contents = $this->wikiContentArr[0];
+            $contents = $this->config->processLink($this->wikiContentArr[0], $this->name);
             $href=$contents;
             if(strpos($href,'javascript:')!==false) // for security reason
                 $href='#';
@@ -199,6 +199,8 @@ class jwxhtml_link extends WikiTagXhtml {
         else {
             if(strpos($this->wikiContentArr[0],'javascript:')!==false) // for security reason
                 $this->wikiContentArr[0]='#';
+            else
+                $this->wikiContentArr[0] = $this->config->processLink($this->wikiContentArr[0], $this->name);
             return parent::getContent();
         }
     }
@@ -266,7 +268,7 @@ class jwxhtml_image extends WikiTagXhtml {
             }
             $href= $m[2];
         }
-
+        $href = $this->config->processLink($href, $this->name);
         $tag = '<img src="'.$href.'"';
         if($width != '')
             $tag.=' width="'.$width.'"';

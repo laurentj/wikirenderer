@@ -57,9 +57,16 @@ abstract class WikiRendererConfig {
     * called after the parsing. You can add additionnal data to
     * the result of the parsing
     */
-    public function onParse($finalTexte){
-        return $finalTexte;
-    }
+   public function onParse($finalTexte){
+       return $finalTexte;
+   }
 
+   /**
+    * in some wiki system, some links are specials. You should override this method
+    * to transform this specific links to real URL
+    */
+   public function processLink($url, $tagName='') {
+      return $url;
+   }
 }
 

@@ -62,7 +62,7 @@ class WikiHtmlTextLine extends WikiTag {
  * @package WikiRenderer
  */
 abstract class WikiTagXhtml extends WikiTag {
-   protected $name;
+
    protected $additionnalAttributes=array();
 
    /**

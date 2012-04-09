@@ -145,7 +145,7 @@ class wr3xhtml_link extends WikiTagXhtml {
         $cntattr=count($this->attribute);
         $cnt=($this->separatorCount + 1 > $cntattr?$cntattr:$this->separatorCount+1);
         if($cnt == 1 ){
-            $contents = $this->wikiContentArr[0];
+            $contents = $this->config->processLink($this->wikiContentArr[0], $this->name);
             $href=$contents;
             if(strpos($href,'javascript:')!==false) // for security reason
                 $href='#';
@@ -155,6 +155,8 @@ class wr3xhtml_link extends WikiTagXhtml {
         }else{
             if(strpos($this->wikiContentArr[1],'javascript:')!==false) // for security reason
                 $this->wikiContentArr[1]='#';
+            else
+                $this->wikiContentArr[1] = $this->config->processLink($this->wikiContentArr[1], $this->name);
             return parent::getContent();
         }
     }
@@ -186,7 +188,7 @@ class wr3xhtml_image extends WikiTagXhtml {
                 $attribut.=' alt="'.$contents[1].'"';
             case 1:
             default:
-                $attribut.=' src="'.$contents[0].'"';
+                $attribut.=' src="'.$this->config->processLink($contents[0], $this->name).'"';
                 if($cnt == 1) $attribut.=' alt=""';
         }
         return '<img'.$attribut.'/>';
