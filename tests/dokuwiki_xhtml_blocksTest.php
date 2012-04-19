@@ -38,7 +38,7 @@ truc </code></pre>',
 3=>array(
 '<code bidule> machin
 truc3 </code>',
-'<pre><code> machin
+'<pre><code class="language-bidule"> machin
 truc3 </code></pre>',
 0
 ),

@@ -133,7 +133,7 @@ class classicwr_inlineParserTest extends PHPUnit_Framework_TestCase {
     );
 
     function testInlineParser2() {
-        $conf = new WRConfigTest();
+        $conf = new classicwr_to_xhtml();
 
         $conf->simpletags=array('%%%'=>'');
         $conf->defaultTextLineContainer= 'WikiHtmlTextLine';
