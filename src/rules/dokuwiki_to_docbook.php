@@ -72,6 +72,16 @@ class dokuwiki_to_docbook  extends WikiRendererConfig  {
     public function getSectionId($title) {
         return '';
     }
+
+    public function processLink($url, $tagName='') {
+        $label = $url;
+        if(strlen($label) > 40)
+            $label = substr($label,0,40).'(..)';
+  
+        if(strpos($url,'javascript:')!==false) // for security reason
+            $url='#';
+        return array($url, $label);
+    }
 }
 
 
@@ -142,8 +152,12 @@ class dkdbk_link extends WikiTagXml {
             $label = $this->contents[1];
         }
         
-        if(preg_match("/^\#(.+)$/", $href, $m))
+        if ($href == '#' || $href == '')
+            return $label;
+        
+        if(preg_match("/^\#(.+)$/", $href, $m)) {
             return '<link linkterm="'.htmlspecialchars(trim($m[1])).'">'.$label.'</link>';
+        }
         else
             return '<ulink url="'.htmlspecialchars(trim($href)).'">'.$label.'</ulink>';
     }
