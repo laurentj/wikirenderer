@@ -8,10 +8,43 @@ require('header.inc.php');
 <a href="http://www.gnu.org/licenses/licenses.html#LGPL">LGPL licence</a>.</p>
 
 <dl>
+
+    <dt>New hosting 12/28/2012</dt>
+   <dd>
+    The project is hosted on https://github.com/laurentj/wikirenderer
+   </dd>
+
+    <dt id="v3.1.5">Version 3.1.5, 07/14/2012</dt>
+    <dd>
+        <ul>
+            <li>improvements into the dokuwiki_to_docbook rules</li>
+        </ul>
+    </dd>
+
+    <dt id="v3.1.4">Version 3.1.4, 04/20/2012</dt>
+    <dd>
+        <ul>
+            <li>Improved WikiRendererConfig::processLink. It returns now the url and the label</li>
+        </ul>
+    </dd>
+   
+    <dt id="v3.1.3">Version 3.1.3, 04/09/2012</dt>
+    <dd>
+        <ul>
+            <li>WikiRendererConfig contains now a processLink method so it is easier to reuse an existing rules with a different link process without redefining classes</li>
+            <li>fixed wr to wr3 convertion</li>
+            <li>wr3 rules: tags should be ignored inside the code tag, so we don't have to escape every reserved characters</li>
+        </ul>
+    </dd>
+
     <dt>New hosting, 10/30/2011</dt>
    <dd>
-    The project is hosted on https://bitbucket.org/laurentj/wikirenderer
+        <ul>
+            <li>The web site has been moved to http://wikirenderer.jelix.org</li>
+            <li>The project is hosted on https://bitbucket.org/laurentj/wikirenderer</li>
+        </ul>
    </dd>
+
     <dt id="v3.1.2">Version 3.1.2, 12/27/2009</dt>
     <dd>
         <ul>

@@ -19,12 +19,12 @@ syntaxe différente.</p>
 <h2>Dernière version</h2>
 <dl>
 <dt>Stable</dt>
-<dd><strong>3.1.2</strong>, uniquement pour PHP 5 (27/12/2009)</dd>
+<dd><strong>3.1.5</strong>, uniquement pour PHP 5 (14/07/2012)</dd>
 </dl>
 <p>Wikirenderer est
-<a href="https://bitbucket.org/laurentj/wikirenderer/downloads">disponible
+<a href="http://download.jelix.org/wikirenderer/">disponible
 en téléchargement</a>. Vous pouvez aussi lire
-<a href="/fr/historique.php#v3.1.2">la liste des changements</a> pour cette version.</p>
+<a href="/fr/historique.php#v3.1.5">la liste des changements</a> pour cette version.</p>
 
 <h2 id="caracteristiques">Caractéristiques</h2>
 <h3>Caractéristiques</h3>

@@ -17,10 +17,10 @@ to migrate wiki contents from an old wiki CMS to a new one.</p>
 <h2>Latest version</h2>
 <dl>
 <dt>Stable</dt>
-<dd><strong>3.1.2</strong>, only for php5 (12/27/2009)</dd>
+<dd><strong>3.1.5</strong>, only for php5 (07/14/2012)</dd>
 </dl>
-<p>See the <a href="https://bitbucket.org/laurentj/wikirenderer/downloads">download page</a>,
-and <a href="/en/history.php#v3.1.2">the changes</a>.</p>
+<p>See the <a href="http://download.jelix.org/wikirenderer/">download page</a>,
+and <a href="/en/history.php#v3.1.5">the changes</a>.</p>
 
 <h2 id="caracteristiques">Features</h2>
 

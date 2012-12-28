@@ -12,8 +12,8 @@
    </ul>
 
    <ul>
-      <li><a href="https://bitbucket.org/laurentj/wikirenderer/downloads">Download</a></li>
-      <li><a href="https://bitbucket.org/laurentj/wikirenderer/issues">A bug, a contribution ?</a></li>
+      <li><a href="http://download.jelix.org/wikirenderer/">Download</a></li>
+      <li><a href="https://github.com/laurentj/wikirenderer">A bug, a contribution ?</a></li>
    </ul>
 </div>
 

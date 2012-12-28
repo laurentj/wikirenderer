@@ -7,10 +7,40 @@ require('header.inc.php');
 <p>WikiRenderer est distribué sous <a href="http://www.gnu.org/licenses/licenses.html#LGPL">licence LGPL</a>.</p>
 
 <dl>
+    <dt>Nouvel hebergement, 28/12/2012</dt>
+   <dd>
+    Hebergement du code source sur https://github.com/laurentj/wikirenderer
+   </dd>
+
+    <dt id="v3.1.5">Version 3.1.5, 14/07/2012</dt>
+    <dd>
+        <ul>
+            <li>Amélioration de la rêgle dokuwiki_to_docbook</li>
+        </ul>
+    </dd>
+
+    <dt id="v3.1.4">Version 3.1.4, 20/04/2012</dt>
+    <dd>
+        <ul>
+            <li>Amélioration de WikiRendererConfig::processLink() :  elle retourne maintenant l'URL et le label</li>
+        </ul>
+    </dd>
+   
+    <dt id="v3.1.3">Version 3.1.3, 09/04/2012</dt>
+    <dd>
+        <ul>
+            <li>WikiRendererConfig possède maintenant une méthode processLink que l'on peut rédéfinir pour traiter les URLS de manière spécifique</li>
+            <li>Correction de la convertion wr vers wr3</li>
+            <li>wr3 rules : les tags doivent être ignorés dans le tag code</li>
+        </ul>
+    </dd>
 
     <dt>Nouvel hebergement, 30/10/2011</dt>
    <dd>
-    Hebergement sur https://bitbucket.org/laurentj/wikirenderer
+        <ul>
+            <li>Hebergement du site sur http://wikirenderer.jelix.org</li>
+            <li>Hebergement du code source sur https://bitbucket.org/laurentj/wikirenderer</li>
+        </ul>
    </dd>
     
     <dt id="v3.1.2">Version 3.1.2, 27/12/2009</dt>
