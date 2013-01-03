@@ -121,7 +121,10 @@ class Renderer
                         if ($block->closeNow()) {
                             $this->_newtext[] = $block->open() . $block->getRenderedLine() . $block->close();
                         } else {
-                            $this->_currentBlock = clone $block; // careful ! it MUST be a copy here !
+			    if ($block->mustClone())
+                                $this->_currentBlock = clone $block; // careful ! it MUST be a copy here !
+                            else
+                                $this->_currentBlock = $block;
                             $this->_newtext[] = $this->_currentBlock->open() . $this->_currentBlock->getRenderedLine();
                         }
                         break;
