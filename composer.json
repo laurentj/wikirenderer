@@ -1,0 +1,11 @@
+{
+    "name": "amaury/wikirenderer",
+    "require": {
+        "php": ">=5.3"
+    },
+    "autoload": {
+        "psr-0": {
+            "WikiRenderer": "lib/"
+        }
+    }
+}
