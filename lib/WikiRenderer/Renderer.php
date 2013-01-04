@@ -76,7 +76,7 @@ class Renderer
     {
         $text = $this->config->onStart($text);
 
-        $lignes=preg_split("/\015\012|\015|\012/",$text); // we split the text at all line feeds
+        $lignes = preg_split("/\015\012|\015|\012/",$text); // we split the text at all line feeds
 
         $this->_newtext = array();
         $this->errors = array();

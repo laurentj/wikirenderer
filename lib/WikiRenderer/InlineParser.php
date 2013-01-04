@@ -126,7 +126,7 @@ class InlineParser
             $t = &$this->str[$i];
 
             // is it the escape char ?
-            if ($this->escapeChar !='' && $t === $this->escapeChar) {
+            if ($this->escapeChar != '' && $t === $this->escapeChar) {
                 if ($checkNextTag) {
                     $t = ''; // yes -> let's ignore the tag
                     $checkNextTag=false;

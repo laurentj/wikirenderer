@@ -30,7 +30,7 @@ namespace WikiRenderer\Markup\WR3DocBook;
  * @package	WikiRenderer
  * @subpackage	WR3DocBook
  */
-class Table extends \WikiRendererBlock
+class Table extends \WikiRenderer\Block
 {
     public $type = 'table';
     protected $regexp = "/^\s*\| ?(.*)/";
