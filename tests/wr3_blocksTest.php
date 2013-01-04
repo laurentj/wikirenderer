@@ -20,7 +20,6 @@ class WR3TestsBlocks extends PHPUnit_Framework_TestCase {
     );
 
     function testBlock() {
-
         $wr = new \WikiRenderer\Renderer(new \WikiRenderer\Markup\WR3Html\Config());
         foreach($this->listblocks as $file=>$nberror){
             $sourceFile = 'datasblocks/'.$file.'.src';
