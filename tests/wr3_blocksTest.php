@@ -5,10 +5,8 @@
  * @package wikirenderer
  * @subpackage tests
  * @author Laurent Jouanneau
- * @copyright 2006-2011 Laurent Jouanneau
+ * @copyright 2006-2013 Laurent Jouanneau
  */
-
-require_once(WR_DIR.'rules/wr3_to_xhtml.php');
 
 class WR3TestsBlocks extends PHPUnit_Framework_TestCase {
 
@@ -23,7 +21,7 @@ class WR3TestsBlocks extends PHPUnit_Framework_TestCase {
 
     function testBlock() {
 
-        $wr = new WikiRenderer(new wr3_to_xhtml());
+        $wr = new \WikiRenderer\Renderer(new \WikiRenderer\Markup\WR3Html\Config());
         foreach($this->listblocks as $file=>$nberror){
             $sourceFile = 'datasblocks/'.$file.'.src';
             $resultFile = 'datasblocks/'.$file.'.res';
@@ -45,7 +43,7 @@ class WR3TestsBlocks extends PHPUnit_Framework_TestCase {
 
     function testOther() {
 
-        $wr = new WikiRenderer(new wr3_to_xhtml());
+        $wr = new \WikiRenderer\Renderer(new \WikiRenderer\Markup\WR3Html\Config());
 
         $source = '<code>foo</code>';
         $expected = '<pre>foo</pre>';

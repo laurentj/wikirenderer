@@ -5,10 +5,9 @@
  * @package wikirenderer
  * @subpackage tests
  * @author Laurent Jouanneau
- * @copyright 2006-2011 Laurent Jouanneau
+ * @copyright 2006-2013 Laurent Jouanneau
  */
 
-require_once(WR_DIR.'rules/wr3_to_xhtml.php');
 
 class WR3TestsInlines extends PHPUnit_Framework_TestCase {
     var $listinline = array(
@@ -85,7 +84,7 @@ class WR3TestsInlines extends PHPUnit_Framework_TestCase {
 
     );
     function testBalisesInlineSimples() {
-        $wr = new WikiRenderer(new wr3_to_xhtml());
+        $wr = new \WikiRenderer\Renderer(new \WikiRenderer\Markup\WR3Html\Config());
         foreach($this->listinline as $source=>$result){
             $res = $wr->render($source);
             $this->assertEquals($res,$result);
@@ -94,7 +93,7 @@ class WR3TestsInlines extends PHPUnit_Framework_TestCase {
     }
 
     function testBalisesInlineComplexes() {
-        $wr = new WikiRenderer(new wr3_to_xhtml());
+        $wr = new \WikiRenderer\Renderer(new \WikiRenderer\Markup\WR3Html\Config());
         foreach($this->listinline2 as $source=>$result){
             $res = $wr->render($source);
             $this->assertEquals($res,$result[1]);
