@@ -29,7 +29,7 @@ namespace WikiRenderer\Markup\WR3Html;
  * @package	WikiRenderer
  * @subpackage	WR3Html
  */
-class WikiListist extends \WikiRenderer\Block
+class WikiList extends \WikiRenderer\Block
 {
     public $type = 'list';
     protected $_previousTag;

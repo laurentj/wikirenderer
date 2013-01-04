@@ -47,7 +47,7 @@ class Config extends \WikiRenderer\Config
         )
     );
     /** Liste des balises de type bloc reconnus par WikiRenderer. */
-    public $bloctags = array(
+    public $blocktags = array(
         '\WikiRenderer\Markup\WR3Text\Title',
         '\WikiRenderer\Markup\WR3Text\List',
         '\WikiRenderer\Markup\WR3Text\Pre',

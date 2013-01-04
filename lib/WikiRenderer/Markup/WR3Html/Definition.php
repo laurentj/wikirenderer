@@ -29,7 +29,7 @@ namespace WikiRenderer\Markup\WR3Html;
  * @package	WikiRenderer
  * @subpackage	WR3Html
  */
-class Definition extends \WikiRendererBlock
+class Definition extends \WikiRenderer\Block
 {
     public $type = 'dfn';
     protected $regexp = "/^\s*;(.*) : (.*)/i";
