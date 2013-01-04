@@ -5,19 +5,18 @@
  * @package wikirenderer
  * @subpackage tests
  * @author Laurent Jouanneau
- * @copyright 2003-2011 Laurent Jouanneau
+ * @copyright 2003-2013 Laurent Jouanneau
  */
 
-define('WR_DIR',realpath(dirname(__FILE__).'/wikirenderer/').'/');
-require_once('wikirenderer/WikiRenderer.lib.php');
+define('WR_DIR',realpath(__DIR__.'/../lib/').'/');
+require_once(WR_DIR.'SplClassLoader.php');
+$classLoader = new SplClassLoader('WikiRenderer', WR_DIR);
+$classLoader->register();
 
-if(!defined('WIKIRENDERER_VERSION')) define('WIKIRENDERER_VERSION','');
-
-
-class WRConfigTest extends WikiRendererConfig { }
+class WRConfigTest extends \WikiRenderer\Config { }
 
 // we use an inherited inline parser to access to some protected data, to verify them
-class WikiInlineParserTest extends WikiInlineParser {
+class WikiInlineParserTest extends \WikiRenderer\InlineParser {
 
     function getSplitPattern(){ return $this->textLineContainers[$this->config->defaultTextLineContainer]->pattern; }
     function getListTag(){ return $this->textLineContainers[$this->config->defaultTextLineContainer]->allowedTags; }

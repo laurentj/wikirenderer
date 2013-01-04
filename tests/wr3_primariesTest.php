@@ -5,10 +5,8 @@
  * @package wikirenderer
  * @subpackage tests
  * @author Laurent Jouanneau
- * @copyright 2006-2011 Laurent Jouanneau
+ * @copyright 2006-2013 Laurent Jouanneau
  */
-
-require_once(WR_DIR.'rules/wr3_to_xhtml.php');
 
 class WikiRendererTestsWr3Primaire extends PHPUnit_Framework_TestCase {
 
@@ -48,7 +46,7 @@ class WikiRendererTestsWr3Primaire extends PHPUnit_Framework_TestCase {
     );
 
     function testListLineText() {
-        $this->_tagtest( $this->listlinetext, 'WikiHtmlTextLine');
+        $this->_tagtest( $this->listlinetext, '\WikiRenderer\HtmlTextLine');
     }
 
 
@@ -68,7 +66,7 @@ class WikiRendererTestsWr3Primaire extends PHPUnit_Framework_TestCase {
     );
 
     function testTagStrong() {
-        $this->_tagtest( $this->listtagstrong, 'wr3xhtml_strong');
+        $this->_tagtest( $this->listtagstrong, '\WikiRenderer\Markup\WR3Html\Strong');
     }
 
     var $listtagq = array(
@@ -95,7 +93,7 @@ class WikiRendererTestsWr3Primaire extends PHPUnit_Framework_TestCase {
     );
 
     function testTagq() {
-        $this->_tagtest( $this->listtagq, 'wr3xhtml_q');
+        $this->_tagtest( $this->listtagq, '\WikiRenderer\Markup\WR3Html\Q');
     }
 
     var $listtaga = array(
@@ -106,6 +104,6 @@ class WikiRendererTestsWr3Primaire extends PHPUnit_Framework_TestCase {
     );
 
     function testTaga() {
-        $this->_tagtest( $this->listtaga, 'wr3xhtml_link');
+        $this->_tagtest( $this->listtaga, '\WikiRenderer\Markup\WR3Html\Link');
     }
 }
