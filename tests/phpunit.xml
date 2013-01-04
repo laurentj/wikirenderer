@@ -16,13 +16,13 @@
         <file>wr3_inlinesTest.php</file>
         <file>wr3_primariesTest.php</file>
     </testsuite>
-<!--
+
     <testsuite name="wr3 to docbook">
         <file>wr3_dbk_blocksTest.php</file>
         <file>wr3_dbk_inlinesTest.php</file>
         <file>wr3_dbk_primaryTest.php</file>
     </testsuite>
-
+<!--
     <testsuite name="Dokuwiki syntax">
       <file>dokuwiki_docbook_blocksTest.php</file>
       <file>dokuwiki_docbook_inlinesTest.php</file>

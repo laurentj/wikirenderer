@@ -21,3 +21,8 @@ class WikiInlineParserTest extends \WikiRenderer\InlineParser {
     function getSplitPattern(){ return $this->textLineContainers[$this->config->defaultTextLineContainer]->pattern; }
     function getListTag(){ return $this->textLineContainers[$this->config->defaultTextLineContainer]->allowedTags; }
 }
+
+
+function testlog($str) {
+    error_log($str."\n", 3, __DIR__.'/log.txt');
+}

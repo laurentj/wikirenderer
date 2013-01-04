@@ -5,10 +5,8 @@
  * @package wikirenderer
  * @subpackage tests
  * @author Laurent Jouanneau
- * @copyright 2006-2011 Laurent Jouanneau
+ * @copyright 2006-2013 Laurent Jouanneau
  */
-
-require_once(WR_DIR.'rules/wr3_to_docbook.php');
 
 class WR3DBKTestsBlocks extends PHPUnit_Framework_TestCase {
 
@@ -22,7 +20,7 @@ class WR3DBKTestsBlocks extends PHPUnit_Framework_TestCase {
 
     function testBlock() {
 
-        $wr = new WikiRenderer(new wr3_to_docbook());
+        $wr = new \WikiRenderer\Renderer(new \WikiRenderer\Markup\WR3DocBook\Config());
         foreach($this->listblocks as $file=>$nberror){
             $sourceFile = 'datasblocks/'.$file.'.src';
             $resultFile = 'datasblocks/dbk_'.$file.'.res';
@@ -50,7 +48,7 @@ class WR3DBKTestsBlocks extends PHPUnit_Framework_TestCase {
 
     function testBlock2() {
 
-        $wr = new WikiRenderer(new wr3_to_docbook());
+        $wr = new \WikiRenderer\Renderer(new \WikiRenderer\Markup\WR3DocBook\Config());
         foreach($this->listblocks2 as $file=>$nberror){
             $sourceFile = 'datasblocks/'.$file.'.src';
             $resultFile = 'datasblocks/'.$file.'.res';

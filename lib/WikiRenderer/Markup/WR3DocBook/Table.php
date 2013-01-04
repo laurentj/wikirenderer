@@ -55,7 +55,7 @@ class Table extends \WikiRenderer\Block
         $this->_colcount = count($result);
 
         for ($i = 0; $i < $this->_colcount; $i++) {
-            $str . ='<td>' . $this->_renderInlineTag($result[$i]) . '</td>';
+            $str .='<td>' . $this->_renderInlineTag($result[$i]) . '</td>';
         }
         $str = $t . '<tr>' . $str . '</tr>';
 

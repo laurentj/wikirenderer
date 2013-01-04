@@ -5,10 +5,8 @@
  * @package wikirenderer
  * @subpackage tests
  * @author Laurent Jouanneau
- * @copyright 2006-2011 Laurent Jouanneau
+ * @copyright 2006-2013 Laurent Jouanneau
  */
-
-require_once(WR_DIR.'rules/wr3_to_docbook.php');
 
 class WikiRendererTestsWr3Docbook extends PHPUnit_Framework_TestCase {
 
@@ -46,7 +44,7 @@ class WikiRendererTestsWr3Docbook extends PHPUnit_Framework_TestCase {
     );
 
     function testTagStrong() {
-        $this->_tagtest( $this->listtagstrong, 'wr3dbk_strong');
+        $this->_tagtest( $this->listtagstrong, '\WikiRenderer\Markup\WR3DocBook\Strong');
     }
 
     var $listtagq = array(
@@ -73,7 +71,7 @@ class WikiRendererTestsWr3Docbook extends PHPUnit_Framework_TestCase {
     );
 
     function testTagq() {
-        $this->_tagtest( $this->listtagq, 'wr3dbk_q');
+        $this->_tagtest( $this->listtagq, '\WikiRenderer\Markup\WR3DocBook\Q');
     }
 
     var $listtaga = array(
@@ -84,7 +82,7 @@ class WikiRendererTestsWr3Docbook extends PHPUnit_Framework_TestCase {
     );
 
     function testTaga() {
-        $this->_tagtest( $this->listtaga, 'wr3dbk_link');
+        $this->_tagtest( $this->listtaga, '\WikiRenderer\Markup\WR3DocBook\Link');
     }
 }
 
