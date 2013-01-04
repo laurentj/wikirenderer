@@ -1,5 +1,8 @@
 
 
+TO UPDATE.
+
+
 ---- utilisation simple de la classe
 
 include('wikirenderer/WikiRenderer.lib.php');
@@ -8,4 +11,4 @@ include('wikirenderer/WikiRenderer.lib.php');
  $monTexteXHTML = $ctr->render($montexte);
 
 
-Pour une doc plus complete : http://wikirenderer.berlios.de
+Pour une doc plus complete : http://wikirenderer.jelix.org

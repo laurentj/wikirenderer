@@ -5,7 +5,8 @@
  * @package WikiRenderer
  * @subpackage wr3_to_text
  * @author Laurent Jouanneau
- * @copyright 2003-2010 Laurent Jouanneau
+ * @contributor  Amaury Bouchard
+ * @copyright 2003-2013 Laurent Jouanneau
  * @link http://wikirenderer.jelix.org
  *
  * This library is free software; you can redistribute it and/or

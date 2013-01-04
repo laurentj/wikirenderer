@@ -3,7 +3,8 @@
  * Wikirenderer is a wiki text parser. It can transform a wiki text into xhtml or other formats
  * @package WikiRenderer
  * @author Laurent Jouanneau
- * @copyright 2003-2008 Laurent Jouanneau
+ * @contributor  Amaury Bouchard
+ * @copyright 2003-2013 Laurent Jouanneau
  * @link http://wikirenderer.jelix.org
  *
  * This library is free software; you can redistribute it and/or
@@ -121,7 +122,7 @@ class Renderer
                         if ($block->closeNow()) {
                             $this->_newtext[] = $block->open() . $block->getRenderedLine() . $block->close();
                         } else {
-			    if ($block->mustClone())
+                            if ($block->mustClone())
                                 $this->_currentBlock = clone $block; // careful ! it MUST be a copy here !
                             else
                                 $this->_currentBlock = $block;
