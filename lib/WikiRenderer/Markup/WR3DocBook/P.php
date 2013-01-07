@@ -36,7 +36,7 @@ class P extends \WikiRenderer\Block
     protected $_openTag = '<para>';
     protected $_closeTag = '</para>';
 
-    public function detect($string)
+    public function detect($string, $inBlock = false)
     {
         if ($string == '')
             return false;

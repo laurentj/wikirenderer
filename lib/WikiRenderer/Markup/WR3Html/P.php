@@ -35,7 +35,7 @@ class P extends \WikiRenderer\Block
     protected $_openTag = '<p>';
     protected $_closeTag = '</p>';
 
-    public function detect($string)
+    public function detect($string, $inBlock = false)
     {
         if ($string == '')
             return false;

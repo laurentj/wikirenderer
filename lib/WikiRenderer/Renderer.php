@@ -86,7 +86,7 @@ class Renderer
         foreach ($lignes as $num => $ligne) {
             if ($this->_currentBlock) {
                 // a block is already open
-                if ($this->_currentBlock->detect($ligne)) {
+                if ($this->_currentBlock->detect($ligne, true)) {
                     $s = $this->_currentBlock->getRenderedLine();
                     if ($s !== false)
                         $this->_newtext[] = $s;
@@ -94,7 +94,7 @@ class Renderer
                     $this->_newtext[count($this->_newtext)-1] .= $this->_currentBlock->close();
                     $found = false;
                     foreach ($this->_blockList as $block) {
-                        if ($block->type != $this->_currentBlock->type && $block->detect($ligne)) {
+                        if ($block->type != $this->_currentBlock->type && $block->detect($ligne, true)) {
                             $found = true;
                             // we open the new block
                             if ($block->closeNow()) {

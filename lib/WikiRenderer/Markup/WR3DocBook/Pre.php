@@ -54,7 +54,7 @@ class Pre extends \WikiRenderer\Block
         return htmlspecialchars($this->_detectMatch);
     }
 
-    public function detect($string)
+    public function detect($string, $inBlock = false)
     {
         if ($this->isOpen) {
             if (preg_match('/(.*)<\/code>\s*$/', $string, $m)) {

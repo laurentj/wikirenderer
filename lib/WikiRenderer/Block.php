@@ -88,9 +88,10 @@ abstract class Block
     /**
      * Says if the given line belongs to the block.
      * @param string   $string  The string to check.
+     * @param bool     $inBlock (optional) True if the parser is already in the block. False by default.
      * @return bool True if the line is part of the block.
      */
-    public function detect($string)
+    public function detect($string, $inBlock = false)
     {
         return preg_match($this->regexp, $string, $this->_detectMatch);
     }
