@@ -55,7 +55,7 @@ class Renderer
             if (is_subclass_of($config, '\WikiRenderer\Config'))
                 $this->config = $config;
             else
-                throw new Exception('WikiRenderer: Bad configuration.');
+                throw new \Exception('WikiRenderer: Bad configuration.');
         } else
             $this->config = new \WikiRenderer\Markup\WR3Html\Config();
 
