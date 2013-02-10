@@ -47,7 +47,7 @@ class Html extends \WikiRenderer\Block
         return '';
     }
 
-    public function detect($string)
+    public function detect($string, $inBlock = false)
     {
         if ($this->isOpen) {
             if (preg_match('/(.*)<\/'.$this->dktag.'>\s*$/', $string, $m))

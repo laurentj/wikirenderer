@@ -30,7 +30,7 @@ class Pre extends \WikiRenderer\Block
     protected $_openTag = '<pre>';
     protected $_closeTag = '</pre>';
 
-    public function detect($string)
+    public function detect($string, $inBlock = false)
     {
         if ($string == '')
             return false;

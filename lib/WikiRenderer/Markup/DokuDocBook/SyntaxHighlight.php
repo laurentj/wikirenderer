@@ -49,7 +49,7 @@ class SyntaxHighlight extends \WikiRenderer\Block
         return htmlspecialchars($this->_detectMatch, ENT_NOQUOTES);
     }
 
-    public function detect($string)
+    public function detect($string, $inBlock = false)
     {
         if ($this->isOpen) {
             if (preg_match('/(.*)<\/' . $this->dktag . '>\s*$/', $string, $m)) {
