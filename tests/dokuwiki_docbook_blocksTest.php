@@ -8,10 +8,7 @@
  * @copyright 2006-2011 Laurent Jouanneau
  */
 
-require_once(WR_DIR.'rules/dokuwiki_to_docbook.php');
-
-class dokuwiki_docbook_blocks extends PHPUnit_Framework_TestCase {
-
+class DokuWikiDocbookTestBlocks extends PHPUnit_Framework_TestCase {
 
     protected $data = array(
 0=>array(
@@ -45,7 +42,7 @@ truc3 </programlisting>',
 
     );
     public function testBlocks() {
-        $wr = new WikiRenderer(new dokuwiki_to_docbook());
+        $wr = new \WikiRenderer\Renderer(new \WikiRenderer\Markup\DokuDocBook\Config());
         foreach($this->data as $k=>$test){
             list($source, $result, $nberror) = $test;
             $res = $wr->render($source);
@@ -68,8 +65,7 @@ truc3 </programlisting>',
     );
 
     function testBlockFiles() {
-
-        $wr = new WikiRenderer(new dokuwiki_to_docbook());
+        $wr = new \WikiRenderer\Renderer(new \WikiRenderer\Markup\DokuDocBook\Config());
         foreach($this->listblocks as $file=>$nberror){
             $sourceFile = 'datasblocks/doku_dbk_'.$file.'.src';
             $resultFile = 'datasblocks/doku_dbk_'.$file.'.res';

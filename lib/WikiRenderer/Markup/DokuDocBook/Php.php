@@ -1,11 +1,11 @@
 <?php
 /**
- * dokuwiki syntax to xhtml
+ * dokuwiki syntax to docbook 4.3
  *
  * @package WikiRenderer
  * @subpackage rules
  * @author Laurent Jouanneau
- * @copyright 2008-2012 Laurent Jouanneau
+ * @copyright 2008 Laurent Jouanneau
  * @link http://wikirenderer.jelix.org
  *
  * This library is free software; you can redistribute it and/or
@@ -22,28 +22,10 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
  */
-namespace WikiRenderer\Markup\DokuHtml;
+namespace WikiRenderer\Markup\DokuDocBook;
 
-/**
- * traite les signes de type paragraphe
- */
-class Para extends \WikiRenderer\Block
+class Php extends Html
 {
-    public $type = 'para';
-    protected $_openTag = '<p>';
-    protected $_closeTag = '</p>';
-
-    public function detect($string)
-    {
-        if ($string == '')
-            return false;
-        if (preg_match("/^\s+[\*\-\=\|\^>;<=~]/", $string))
-            return false;
-        if (preg_match("/^\s*((\*\*|[^\*\-\=\|\^>;<=~]).*)/", $string, $m)) {
-            $this->_detectMatch = array($m[1], $m[1]);
-            return true;
-        }
-        return false;
-    }
+    protected $dktag = 'php';
 }
 

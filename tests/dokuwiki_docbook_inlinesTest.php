@@ -8,11 +8,9 @@
  * @copyright 2006-2011 Laurent Jouanneau
  */
 
-require_once(WR_DIR.'rules/dokuwiki_to_docbook.php');
-
-class dokuwiki_docbook_inlines extends PHPUnit_Framework_TestCase {
+class DokuWikiDocbookTestsInlines extends PHPUnit_Framework_TestCase {
       var $listinline = array(
-
+/*
         'Lorem ipsum dolor sit amet, consectetuer adipiscing elit.'
             =>'<para>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</para>',
         'Lorem **ipsum dolor** sit amet, consectetuer adipiscing elit.'
@@ -89,7 +87,7 @@ consectetuer adipiscing elit.</para>',
 
 
     function testBalisesInlineSimples() {
-        $wr = new WikiRenderer(new dokuwiki_to_docbook());
+        $wr = new \WikiRenderer\Renderer(new \WikiRenderer\Markup\DokuDocBook\Config());
         $k=0;
         foreach($this->listinline as $source=>$result){
             $res = $wr->render($source);

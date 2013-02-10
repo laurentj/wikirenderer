@@ -8,10 +8,7 @@
  * @copyright 2009-2011 Laurent Jouanneau
  */
 
-require_once(WR_DIR.'rules/dokuwiki_to_xhtml.php');
-
-class dokuwiki_xhtml_blocks extends PHPUnit_Framework_TestCase {
-
+class DokuWikiXhtmlTestsBlocks extends PHPUnit_Framework_TestCase {
 
     protected $data = array(
 0=>array(
@@ -45,7 +42,7 @@ truc3 </code></pre>',
 
     );
     public function testBlocks() {
-        $wr = new WikiRenderer(new dokuwiki_to_xhtml());
+        $wr = new \WikiRenderer\Renderer(new \WikiRenderer\Markup\DokuHtml\Config());
         foreach($this->data as $k=>$test){
             list($source, $result, $nberror) = $test;
             $res = $wr->render($source);
@@ -68,8 +65,7 @@ truc3 </code></pre>',
     );
 
     function testBlockFiles() {
-
-        $wr = new WikiRenderer(new dokuwiki_to_xhtml());
+        $wr = new \WikiRenderer\Renderer(new \WikiRenderer\Markup\DokuHtml\Config());
         foreach($this->listblocks as $file=>$nberror){
             $sourceFile = 'datasblocks/doku_xhtml_'.$file.'.src';
             $resultFile = 'datasblocks/doku_xhtml_'.$file.'.res';

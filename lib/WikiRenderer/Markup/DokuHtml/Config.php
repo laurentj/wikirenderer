@@ -61,7 +61,7 @@ class Config extends \WikiRenderer\Config
      */
     public $blocktags = array(
         '\WikiRenderer\Markup\DokuHtml\Title',
-        '\WikiRenderer\Markup\DokuHtml\List',
+        '\WikiRenderer\Markup\DokuHtml\WikiList',
         '\WikiRenderer\Markup\DokuHtml\Blockquote',
         '\WikiRenderer\Markup\DokuHtml\Table',
         '\WikiRenderer\Markup\DokuHtml\Pre',

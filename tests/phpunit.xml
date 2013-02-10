@@ -9,7 +9,8 @@
       <file>classicwr_inlineParserTest.php</file>
       <file>classicwr_seriesTest.php</file>
     </testsuite>-->
-
+<!--
+***
     <testsuite name="wr3">
         <file>wr3_blocksTest.php</file>
         <file>wr3_inlineParserTest.php</file>
@@ -22,13 +23,14 @@
         <file>wr3_dbk_inlinesTest.php</file>
         <file>wr3_dbk_primaryTest.php</file>
     </testsuite>
-<!--
+***
+-->
     <testsuite name="Dokuwiki syntax">
       <file>dokuwiki_docbook_blocksTest.php</file>
       <file>dokuwiki_docbook_inlinesTest.php</file>
       <file>dokuwiki_xhtml_blocksTest.php</file>
     </testsuite>
-
+<!--
     <testsuite name="trac syntax">
       <file>trac_blocksTest.php</file>
       <file>trac_inlinesTest.php</file>
