@@ -37,13 +37,13 @@ class Table extends \WikiRenderer\Block
 
     public function open()
     {
-        $this->engine->getConfig()->defaultTextLineContainer = 'dkdbk_table_row';
+        $this->engine->getConfig()->defaultTextLineContainer = '\WikiRenderer\Markup\DokuDocBook\TableRow';
         return $this->_openTag;
     }
 
     public function close()
     {
-        $this->engine->getConfig()->defaultTextLineContainer = 'WikiXmlTextLine';
+        $this->engine->getConfig()->defaultTextLineContainer = '\WikiRenderer\XmlTextLine';
         return $this->_closeTag;
     }
 
