@@ -10,7 +10,7 @@
 
 class DokuWikiDocbookTestsInlines extends PHPUnit_Framework_TestCase {
       var $listinline = array(
-/*
+
         'Lorem ipsum dolor sit amet, consectetuer adipiscing elit.'
             =>'<para>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</para>',
         'Lorem **ipsum dolor** sit amet, consectetuer adipiscing elit.'
@@ -42,7 +42,7 @@ consectetuer adipiscing elit.</para>',
         'Lorem [[http://foo.com|ipsum dolor]] sit amet, consectetuer adipiscing elit.'
             =>'<para>Lorem <ulink url="http://foo.com">ipsum dolor</ulink> sit amet, consectetuer adipiscing elit.</para>',
         'Lorem [[ javascript:alert(window.title) | ipsum dolor]] sit amet, consectetuer adipiscing elit.'
-            =>'<para>Lorem <ulink url="javascript:alert(window.title)"> ipsum dolor</ulink> sit amet, consectetuer adipiscing elit.</para>',
+            =>'<para>Lorem  ipsum dolor sit amet, consectetuer adipiscing elit.</para>',
         'Lorem ((ipsumdolorsit amet)), consectetuer adipiscing elit.'
             =>'<para>Lorem <footnote><para>ipsumdolorsit amet</para></footnote>, consectetuer adipiscing elit.</para>',
         'Lorem {{ipsumdolorsit.png}} amet, consectetuer adipiscing elit.'
@@ -69,19 +69,17 @@ consectetuer adipiscing elit.</para>',
         'Lorem ipsum ^^dolor sit amet|fr^^, consectetuer adipiscing elit.'
             =>'<para>Lorem ipsum <quote lang="fr">dolor sit amet</quote>, consectetuer adipiscing elit.</para>',
         'Lorem ipsum ^^dolor sit amet|fr|foo bar^^, consectetuer adipiscing elit.'
-            =>'<para>Lorem ipsum <quote lang="fr">dolor sit amet</quote>, consectetuer adipiscing elit.</para>',
+            =>'<para>Lorem ipsum <quote lang="fr">dolor sit amet</quote>, consectetuer adipiscing elit.</para>',*/
         'Lorem ipsum dolor sit amet, {{consectetuer adipiscing}} elit.'
-            =>'<para>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</para>',
+            =>'<para>Lorem ipsum dolor sit amet, <inlinemediaobject><imageobject><imagedata fileref="consectetuer adipiscing"/></imageobject></inlinemediaobject> elit.</para>',
         'Lorem ipsum dolor sit amet, {{consectetuer adipiscing|un titre}} elit.'
-            =>'<para>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</para>',
-        'Lorem ipsum dolor sit amet, ??consectetuer adipiscing?? elit.'
+            =>'<para>Lorem ipsum dolor sit amet, <inlinemediaobject><imageobject><imagedata fileref="consectetuer adipiscing"/></imageobject><textobject><phrase>un titre</phrase></textobject></inlinemediaobject> elit.</para>',
+/*        'Lorem ipsum dolor sit amet, ??consectetuer adipiscing?? elit.'
             =>'<para>Lorem ipsum dolor sit amet, <acronym>consectetuer adipiscing</acronym> elit.</para>',
         'Lorem ipsum dolor sit amet, ??consectetuer adipiscing|un titre?? elit.'
-            =>'<para>Lorem ipsum dolor sit amet, <acronym>consectetuer adipiscing</acronym> elit.</para>',
-            =>'<para>Lorem <inlinemediaobject><imageobject><imagedata align="right" fileref="ipsumdolorsit.png"/></imageobject><textobject><phrase>alternative text</phrase></textobject></inlinemediaobject> amet, consectetuer adipiscing elit.</para>',
+            =>'<para>Lorem ipsum dolor sit amet, <acronym title="un titre">consectetuer adipiscing</acronym> elit.</para>',
         'Lorem ~~ipsumdolorsit~~ amet, consectetuer adipiscing elit.'
-            =>'<para>Lorem <anchor id="ipsumdolorsit"/> amet, consectetuer adipiscing elit.</para>',
-*/
+            =>'<para>Lorem <anchor id="ipsumdolorsit"/> amet, consectetuer adipiscing elit.</para>',*/
     );
 
 
@@ -95,7 +93,7 @@ consectetuer adipiscing elit.</para>',
             $this->assertEquals(0, count($wr->errors), "WR returns errors ! ".var_export($wr->errors,true));
         }
     }
-/*
+
     var $listinline2 = array(
         // 'source' => array( nb_error, 'resultat')
         'Lorem __ipsum \'\'dolor sit\'\' amet__, consectetuer adipiscing elit.'
@@ -118,17 +116,12 @@ consectetuer adipiscing elit.</para>',
     );
 
     function testBalisesInlineComplexes() {
-        $wr = new WikiRenderer(new dokuwiki_to_docbook());
+        $wr = new \WikiRenderer\Renderer(new \WikiRenderer\Markup\DokuDocBook\Config());
         foreach($this->listinline2 as $source=>$result){
             $res = $wr->render($source);
-            if(!$this->assertEqual($res,$result[1], "erreur")){
-                $this->sendMessage('test : '.$source);
-                $this->_showDiff($result[1],$res);
-            }
-            if(!$this->assertEqual(count($wr->errors),$result[0], "Bad number of errors (%s)")){
-                $this->dump($wr->errors);
-            }
+            $this->assertEquals($res,$result[1], "erreur");
+            $this->assertEquals(count($wr->errors),$result[0], "Bad number of errors (%s)");
         }
     }
-*/
+
 }
