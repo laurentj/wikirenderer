@@ -36,11 +36,11 @@ consectetuer adipiscing elit.'
             =>'<para>Lorem ipsum dolor sit amet, 
 consectetuer adipiscing elit.</para>',
         'Lorem [[ipsum dolor]] sit amet, consectetuer adipiscing elit.'
-            =>'<para>Lorem <ulink url="ipsum dolor">ipsum dolor</ulink> sit amet, consectetuer adipiscing elit.</para>',
+            =>'<para>Lorem <link xlink:href="ipsum dolor">ipsum dolor</link> sit amet, consectetuer adipiscing elit.</para>',
         'Lorem [[#ipsum.dolor]] sit amet, consectetuer adipiscing elit.'
-            =>'<para>Lorem <link linkterm="ipsum.dolor">#ipsum.dolor</link> sit amet, consectetuer adipiscing elit.</para>',
+            =>'<para>Lorem <link linkend="ipsum.dolor">#ipsum.dolor</link> sit amet, consectetuer adipiscing elit.</para>',
         'Lorem [[http://foo.com|ipsum dolor]] sit amet, consectetuer adipiscing elit.'
-            =>'<para>Lorem <ulink url="http://foo.com">ipsum dolor</ulink> sit amet, consectetuer adipiscing elit.</para>',
+            =>'<para>Lorem <link xlink:href="http://foo.com">ipsum dolor</link> sit amet, consectetuer adipiscing elit.</para>',
         'Lorem [[ javascript:alert(window.title) | ipsum dolor]] sit amet, consectetuer adipiscing elit.'
             =>'<para>Lorem  ipsum dolor sit amet, consectetuer adipiscing elit.</para>',
         'Lorem ((ipsumdolorsit amet)), consectetuer adipiscing elit.'
@@ -103,10 +103,10 @@ consectetuer adipiscing elit.</para>',
         'Lorem **ipsum //dolor sit** amet**, consectetuer adipiscing elit.' // bad end tag
             =>array(1,'<para>Lorem **ipsum //dolor sit<emphasis role="strong"> amet</emphasis>, consectetuer adipiscing elit.</para>'),
         'Lorem [[bar|ips**um dol**or|fr]] sit amet, consectetuer adipiscing elit.'
-            =>array(0,'<para>Lorem <ulink url="bar">ips<emphasis role="strong">um dol</emphasis>or</ulink> sit amet, consectetuer adipiscing elit.</para>'),
+            =>array(0,'<para>Lorem <link xlink:href="bar">ips<emphasis role="strong">um dol</emphasis>or</link> sit amet, consectetuer adipiscing elit.</para>'),
 
         'Lorem [[bar|ips[[um dol]]or|fr]] sit amet, consectetuer adipiscing elit.'
-            =>array(0,'<para>Lorem <ulink url="bar">ips<ulink url="um dol">um dol</ulink>or</ulink> sit amet, consectetuer adipiscing elit.</para>'),
+            =>array(0,'<para>Lorem <link xlink:href="bar">ips<link xlink:href="um dol">um dol</link>or</link> sit amet, consectetuer adipiscing elit.</para>'),
 
         'Lorem [[bar|ips**um dolor|fr]] sit** amet, consectetuer adipiscing elit.'
             =>array(1,'<para>Lorem [[bar|ips<emphasis role="strong">um dolor|fr]] sit</emphasis> amet, consectetuer adipiscing elit.</para>'),

@@ -36,6 +36,8 @@ class Renderer
     protected $_newtext;
     /** @var \WikiRenderer\Block The currently opened block element. */
     protected $_currentBlock = null;
+    /** @var \WikiRenderer\Block The previous opened block element. */
+    protected $_previousBloc = null;
     /** @var array      List of all possible blocks. */
     protected $_blockList = array();
     /** @var \WikiRenderer\InlineParser   The parser for inline content. */
@@ -81,6 +83,7 @@ class Renderer
         $this->_newtext = array();
         $this->errors = array();
         $this->_currentBlock = null;
+        $this->_previousBloc = null;
 
         // we loop over all lines
         foreach ($lignes as $num => $ligne) {
@@ -100,8 +103,10 @@ class Renderer
                             if ($block->closeNow()) {
                                 // if we have to close now the block, we close.
                                 $this->_newtext[] = $block->open() . $block->getRenderedLine() . $block->close();
+                                $this->_previousBloc = $block;
                                 $this->_currentBlock = null;
                             } else {
+                                $this->_previousBloc = $this->_currentBlock;
                                 $this->_currentBlock = clone $block; // careful ! it MUST be a copy here !
                                 $this->_newtext[] = $this->_currentBlock->open() . $this->_currentBlock->getRenderedLine();
                             }
@@ -110,6 +115,7 @@ class Renderer
                     }
                     if (!$found) {
                         $this->_newtext[] = $this->inlineParser->parse($ligne);
+                        $this->_previousBloc = $this->_currentBlock;
                         $this->_currentBlock = null;
                     }
                 }
@@ -121,11 +127,14 @@ class Renderer
                         $found = true;
                         if ($block->closeNow()) {
                             $this->_newtext[] = $block->open() . $block->getRenderedLine() . $block->close();
+                            $this->_previousBloc = $block;
                         } else {
-                            if ($block->mustClone())
+                            if ($block->mustClone()) {
                                 $this->_currentBlock = clone $block; // careful ! it MUST be a copy here !
-                            else
+                            }
+                            else {
                                 $this->_currentBlock = $block;
+                            }
                             $this->_newtext[] = $this->_currentBlock->open() . $this->_currentBlock->getRenderedLine();
                         }
                         break;
@@ -153,5 +162,10 @@ class Renderer
     {
         return $this->config;
     }
+
+    public function getPreviousBloc() {
+        return $this->_previousBloc;
+    }
+
 }
 

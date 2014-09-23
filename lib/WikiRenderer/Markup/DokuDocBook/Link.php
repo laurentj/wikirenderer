@@ -26,7 +26,7 @@ namespace WikiRenderer\Markup\DokuDocBook;
 
 class Link extends \WikiRenderer\TagXml
 {
-    protected $name = 'ulink';
+    protected $name = 'link';
     public $beginTag = '[[';
     public $endTag = ']]';
     protected $attribute = array('href', '$$');
@@ -44,9 +44,9 @@ class Link extends \WikiRenderer\TagXml
         if ($href == '#' || $href == '')
             return $label;
         if (preg_match("/^\#(.+)$/", $href, $m))
-            return '<link linkterm="' . htmlspecialchars(trim($m[1])) . '">' . $label . '</link>';
+            return '<link linkend="' . htmlspecialchars(trim($m[1])) . '">' . $label . '</link>';
         else
-            return '<ulink url="' . htmlspecialchars(trim($href)) . '">' . $label . '</ulink>';
+            return '<link xlink:href="' . htmlspecialchars(trim($href)) . '">' . $label . '</link>';
     }
 }
 

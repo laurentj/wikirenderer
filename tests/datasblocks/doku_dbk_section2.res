@@ -4,7 +4,9 @@
 <section><title>bbb</title>
 <para>Lorem <emphasis role="strong">ipsum dolor</emphasis> sit amet, <emphasis>consectetuer adipiscing</emphasis> elit. Ut scelerisque. Ut iaculis ultrices nulla. Cras viverra diam nec justo.</para>
 
-</section><section><title>ccc</title>
+</section><section><title>bbb2</title>
+
+<para> </para></section><section><title>ccc</title>
 
 <para>tristique in, tristique quis, erat.</para>
 

@@ -59,7 +59,7 @@
 </tr>
 
 <tr>
-<th> Heading 4    </th><td> no <ulink url="colspan this"> time again</ulink> </td><td>                    </td>
+<th> Heading 4    </th><td> no <link xlink:href="colspan this"> time again</link> </td><td>                    </td>
 </tr>
 
 <tr>

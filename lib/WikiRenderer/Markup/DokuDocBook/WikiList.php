@@ -109,7 +109,7 @@ class WikiList extends \WikiRenderer\Block
             }
         }
         $this->_firstItem = false;
-        return $str . $this->_renderInlineTag(trim($this->_detectMatch[3]));
+        return $str . '<para>'. $this->_renderInlineTag(trim($this->_detectMatch[3])).'</para>';
     }
 }
 

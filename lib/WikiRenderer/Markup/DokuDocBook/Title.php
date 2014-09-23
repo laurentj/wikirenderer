@@ -41,14 +41,26 @@ class Title extends \WikiRenderer\Block
         if (count($conf->sectionLevel)) {
             $last = end($conf->sectionLevel);
             if ($last < $level) {
+                $first = true;
                 while ($last = end($conf->sectionLevel) && $last <= $level) {
+                    if ($this->engine->getPreviousBloc()) {
+                        if ($first && $this->engine->getPreviousBloc() instanceof Title) {
+                            $output .= '<para> </para>';
+                        }
+                    }
                     $output .= '</section>';
+                    $first = false;
                     array_pop($conf->sectionLevel);
                 }
             } else if($last > $level) {
 
             } else {
                 array_pop($conf->sectionLevel);
+                if ($this->engine->getPreviousBloc()) {
+                    if ($this->engine->getPreviousBloc() instanceof Title) {
+                        $output .= '<para> </para>';
+                    }
+                }
                 $output .= '</section>';
             }
         }
@@ -56,7 +68,7 @@ class Title extends \WikiRenderer\Block
         $title = trim($this->_detectMatch[2]);
         $id = $conf->getSectionId($title);
         if ($id)
-            return $output . '<section id="' . $id . '"><title>' . $this->_renderInlineTag($title) . '</title>';
+            return $output . '<section xml:id="' . $id . '"><title>' . $this->_renderInlineTag($title) . '</title>';
         else
             return $output . '<section><title>' . $this->_renderInlineTag($title) . '</title>';
     }

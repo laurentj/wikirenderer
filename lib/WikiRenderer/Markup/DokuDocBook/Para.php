@@ -35,10 +35,14 @@ class Para extends \WikiRenderer\Block
 
     public function detect($string, $inBlock = false)
     {
-        if ($string == '')
+        if (trim($string) == '')
             return false;
         if (preg_match("/^\s+[\*\-\=\|\^>;<=~]/", $string))
             return false;
+        if(preg_match("/^\s*(\*\*.*)/",$string, $m)) {
+            $this->_detectMatch=array($m[1],$m[1]);
+            return true;
+        }
         if (preg_match("/^\s*([^\*\-\=\|\^>;<=~].*)/", $string, $m)) {
             $this->_detectMatch = array($m[1], $m[1]);
             return true;
