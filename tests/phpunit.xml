@@ -28,6 +28,10 @@
       <file>dokuwiki_docbook_inlinesTest.php</file>
       <file>dokuwiki_xhtml_blocksTest.php</file>
     </testsuite>
+
+    <testsuite name="Wr to Wr3">
+        <file>wr_wr3Test.php</file>
+    </testsuite>
 <!--
     <testsuite name="trac syntax">
       <file>trac_blocksTest.php</file>

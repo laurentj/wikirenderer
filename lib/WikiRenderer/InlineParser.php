@@ -133,24 +133,26 @@ class InlineParser
                 } else {
                     // if we are here, this is because the previous part was the escape char
                     $tag->addContent($this->escapeChar);
+                    if ($this->config->outputEscapeChar)
+                        $tag->addContent($this->escapeChar);
                     $checkNextTag=true;
                 }
 
             // is this a separator ?
             } elseif ($tag->isCurrentSeparator($t)) {
                 $tag->addSeparator($t);
-
             // ???
             } elseif ($checkNextTag) {
+
                 // is there a ended tag
                 if ($tag->endTag == $t && !$tag->isTextLineTag) {
                     return $i;
-
-                } elseif (!$tag->isOtherTagAllowed()) {
+                }
+                else if (!$tag->isOtherTagAllowed()) {
                     $tag->addContent($t);
-
+                }
                 // is there a tag which begin something ?
-                } elseif (isset($this->currentTextLineContainer->allowedTags[$t])) {
+                elseif (isset($this->currentTextLineContainer->allowedTags[$t])) {
                     $newtag = clone $this->currentTextLineContainer->allowedTags[$t];
                     $i = $this->_parse($newtag, $i);
                     if ($i !== false) {
@@ -159,18 +161,25 @@ class InlineParser
                         $i = $this->end;
                         $tag->addContent($newtag->getWikiContent(), $newtag->getBogusContent());
                     }
-
+                }
                 // is there a simple tag ?
-                } elseif (isset($this->simpletags[$t])) {
+                elseif (isset($this->simpletags[$t])) {
                     $tag->addContent($t, $this->simpletags[$t]);
-                } else {
+                }
+                else {
                     $tag->addContent($t);
                 }
             } else {
-                if (isset($this->currentTextLineContainer->allowedTags[$t]) || isset($this->simpletags[$t]) || $tag->endTag == $t)
+
+                if (!$this->config->outputEscapeChar &&
+                    (isset($this->currentTextLineContainer->allowedTags[$t]) ||
+                    isset($this->simpletags[$t]) ||
+                    $tag->endTag == $t)) {
                     $tag->addContent($t);
-                else
+                }
+                else {
                     $tag->addContent($this->escapeChar . $t);
+                }
                 $checkNextTag = true;
             }
         }
@@ -178,8 +187,10 @@ class InlineParser
             //we didn't find the ended tag, error
             $this->error=true;
             return false;
-        } else
+        }
+        else {
             return $this->end;
+        }
     }
 }
 

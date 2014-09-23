@@ -45,6 +45,9 @@ abstract class Config
     /** Character used to escape wiki syntax. */
     public $escapeChar = '\\';
 
+    /** escape char is taken account to escape tags but it is kept into the output */
+    public $outputEscapeChar = false;
+
     /**
      * Called before the wiki text parsing.
      * @param string $text  The wiki text.
