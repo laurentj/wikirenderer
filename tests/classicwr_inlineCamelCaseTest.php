@@ -8,8 +8,6 @@
  * @copyright 2006-2011 Laurent Jouanneau
  */
 
-require_once(WR_DIR.'rules/classicwr_to_xhtml.php');
-
 class classicwr_inlinesCCTest extends PHPUnit_Framework_TestCase {
     var $listinline = array(
 
@@ -77,9 +75,9 @@ class classicwr_inlinesCCTest extends PHPUnit_Framework_TestCase {
     );
 
     function testInlineSimplesWikiWord() {
-        $conf = new classicwr_to_xhtml();
+        $conf = new \WikiRenderer\Markup\WRHtml\Config();
         $conf->checkWikiWordFunction = 'wikiword';
-        $wr = new WikiRenderer($conf);
+        $wr = new \WikiRenderer\Renderer($conf);
         foreach($this->listinline as $source=>$result){
             $res = $wr->render($source);
             $this->assertEquals($result, $res, "erreur");
@@ -88,9 +86,9 @@ class classicwr_inlinesCCTest extends PHPUnit_Framework_TestCase {
     }
 
     function testInlineWikiWord() {
-        $conf = new classicwr_to_xhtml();
+        $conf = new \WikiRenderer\Markup\WRHtml\Config();
         $conf->checkWikiWordFunction = 'wikiword';
-        $wr = new WikiRenderer($conf);
+        $wr = new \WikiRenderer\Renderer($conf);
         foreach($this->listinline2 as $source=>$result){
             $res = $wr->render($source);
             $this->assertEquals($result[1], $res);

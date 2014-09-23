@@ -8,7 +8,6 @@
  * @copyright 2006-2011 Laurent Jouanneau
  */
 
-require_once(WR_DIR.'rules/classicwr_to_xhtml.php');
 
 class classicwr_blocksTest extends PHPUnit_Framework_TestCase {
 
@@ -22,7 +21,7 @@ class classicwr_blocksTest extends PHPUnit_Framework_TestCase {
     );
 
     function testBlock() {
-        $wr = new WikiRenderer('classicwr_to_xhtml');
+        $wr = new \WikiRenderer\Renderer(new \WikiRenderer\Markup\WRHtml\Config());
         foreach($this->listblocks as $file=>$nberror){
             $sourceFile = 'datasblocks/'.$file.'.src';
             $resultFile = 'datasblocks/'.$file.'.res';

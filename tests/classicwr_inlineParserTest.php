@@ -8,20 +8,20 @@
  * @copyright 2006-2011 Laurent Jouanneau
  */
 
-require_once(WR_DIR.'rules/classicwr_to_xhtml.php');
+
 
 class classicwr_inlineParserTest extends PHPUnit_Framework_TestCase {
 
     function testInlineParserConstructor() {
 
         $conf = new WRConfigTest();
-        $conf->defaultTextLineContainer= 'WikiHtmlTextLine';
-        $conf->textLineContainers = array('WikiHtmlTextLine'=>array( 'cwrxhtml_strong'));
+        $conf->defaultTextLineContainer= '\WikiRenderer\HtmlTextLine';
+        $conf->textLineContainers = array('\WikiRenderer\HtmlTextLine'=>array( '\WikiRenderer\Markup\WR3Html\Strong'));
         $wip = new WikiInlineParserTest($conf);
         $trueResult = '/(__)|(\\\\)/';
         $this->assertEquals($trueResult, $wip->getSplitPattern(), "erreur");
 
-        $conf->textLineContainers = array('WikiHtmlTextLine'=>array( 'cwrxhtml_strong','cwrxhtml_em'));
+        $conf->textLineContainers = array('\WikiRenderer\HtmlTextLine'=>array( '\WikiRenderer\Markup\WR3Html\Strong','\WikiRenderer\Markup\WR3Html\Em'));
         $conf->simpletags=array('%%%'=>'');
 
         $wip = new WikiInlineParserTest($conf );
@@ -29,14 +29,14 @@ class classicwr_inlineParserTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals($trueResult, $wip->getSplitPattern(), "erreur");
 
         $conf->simpletags=array('%%%'=>'');
-        $conf->textLineContainers = array('WikiHtmlTextLine'=>array( 'cwrxhtml_strong','cwrxhtml_q'));
+        $conf->textLineContainers = array('\WikiRenderer\HtmlTextLine'=>array( '\WikiRenderer\Markup\WR3Html\Strong','\WikiRenderer\Markup\WR3Html\Q'));
         $wip = new WikiInlineParserTest( $conf);
         $trueResult = '/(__)|(\^\^)|(\\|)|(%%%)|(\\\\)/';
         $this->assertEquals($trueResult, $wip->getSplitPattern(), "erreur");
 
 
-        $conf->textLineContainers = array('WikiHtmlTextLine'=>array( 'cwrxhtml_strong','cwrxhtml_em','cwrxhtml_code','cwrxhtml_q',
-        'cwrxhtml_cite','cwrxhtml_acronym','cwrxhtml_link', 'cwrxhtml_image', 'cwrxhtml_anchor'));
+        $conf->textLineContainers = array('\WikiRenderer\HtmlTextLine'=>array( '\WikiRenderer\Markup\WR3Html\Strong','\WikiRenderer\Markup\WR3Html\Em','\WikiRenderer\Markup\WRHtml\Code','\WikiRenderer\Markup\WR3Html\Q',
+        '\WikiRenderer\Markup\WR3Html\Cite','\WikiRenderer\Markup\WR3Html\Acronym','\WikiRenderer\Markup\WRHtml\Link', '\WikiRenderer\Markup\WR3Html\Image', '\WikiRenderer\Markup\WR3Html\Anchor'));
         $conf->simpletags=array('%%%'=>'', ':-)'=>'');
 
         $wip = new WikiInlineParserTest($conf );
@@ -72,10 +72,10 @@ class classicwr_inlineParserTest extends PHPUnit_Framework_TestCase {
 
     function testInlineParser1() {
         $conf = new WRConfigTest();
-        $conf->defaultTextLineContainer= 'WikiHtmlTextLine';
-        $conf->textLineContainers = array('WikiHtmlTextLine'=>array( 'cwrxhtml_strong'));
+        $conf->defaultTextLineContainer= '\WikiRenderer\HtmlTextLine';
+        $conf->textLineContainers = array('\WikiRenderer\HtmlTextLine'=>array( '\WikiRenderer\Markup\WR3Html\Strong'));
 
-        $wip = new WikiInlineParser($conf);
+        $wip = new WikiRenderer\InlineParser($conf);
         foreach($this->listinline1 as $source=>$trueResult){
             $res = $wip->parse($source);
             $this->assertEquals($trueResult,$res, "erreur");
@@ -133,16 +133,16 @@ class classicwr_inlineParserTest extends PHPUnit_Framework_TestCase {
     );
 
     function testInlineParser2() {
-        $conf = new classicwr_to_xhtml();
+        $conf = new \WikiRenderer\Markup\WRHtml\Config();
 
         $conf->simpletags=array('%%%'=>'');
-        $conf->defaultTextLineContainer= 'WikiHtmlTextLine';
-        $conf->textLineContainers = array('WikiHtmlTextLine'=>array( 'cwrxhtml_strong','cwrxhtml_em','cwrxhtml_code','cwrxhtml_q',
-            'cwrxhtml_cite','cwrxhtml_acronym','cwrxhtml_link', 'cwrxhtml_image', 'cwrxhtml_anchor'));
+        $conf->defaultTextLineContainer= '\WikiRenderer\HtmlTextLine';
+        $conf->textLineContainers = array('\WikiRenderer\HtmlTextLine'=>array( '\WikiRenderer\Markup\WR3Html\Strong','\WikiRenderer\Markup\WR3Html\Em','\WikiRenderer\Markup\WRHtml\Code','\WikiRenderer\Markup\WR3Html\Q',
+            '\WikiRenderer\Markup\WR3Html\Cite','\WikiRenderer\Markup\WR3Html\Acronym','\WikiRenderer\Markup\WRHtml\Link', '\WikiRenderer\Markup\WR3Html\Image', '\WikiRenderer\Markup\WR3Html\Anchor'));
 
         $conf->funcCheckWikiWord = null;
 
-        $wip = new WikiInlineParser($conf  );
+        $wip = new WikiRenderer\InlineParser($conf  );
 
         $k=0;
         foreach($this->listinline2 as $source=>$trueResult){
