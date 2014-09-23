@@ -96,22 +96,20 @@ consectetuer adipiscing elit.</para>',
 
     var $listinline2 = array(
         // 'source' => array( nb_error, 'resultat')
-        'Lorem __ipsum \'\'dolor sit\'\' amet__, consectetuer adipiscing elit.'
+        'Lorem **ipsum //dolor sit// amet**, consectetuer adipiscing elit.'
             =>array(0,'<para>Lorem <emphasis role="strong">ipsum <emphasis>dolor sit</emphasis> amet</emphasis>, consectetuer adipiscing elit.</para>'),
-        'Lorem __ipsum \'\'dolor sit__ amet\'\', consectetuer adipiscing elit.'
-            =>array(1,'<para>Lorem __ipsum \'\'dolor sit__ amet\'\', consectetuer adipiscing elit.</para>'),
-        'Lorem __ipsum \'\'dolor sit__ amet__, consectetuer adipiscing elit.'
-            =>array(1,'<para>Lorem __ipsum \'\'dolor sit<emphasis role="strong"> amet</emphasis>, consectetuer adipiscing elit.</para>'),
-        'Lorem [[ips__um dol__or|bar|fr]] sit amet, consectetuer adipiscing elit.'
+        'Lorem **ipsum //dolor sit** amet//, consectetuer adipiscing elit.' // crossed tag 
+            =>array(1,'<para>Lorem **ipsum //dolor sit** amet//, consectetuer adipiscing elit.</para>'),
+        'Lorem **ipsum //dolor sit** amet**, consectetuer adipiscing elit.' // bad end tag
+            =>array(1,'<para>Lorem **ipsum //dolor sit<emphasis role="strong"> amet</emphasis>, consectetuer adipiscing elit.</para>'),
+        'Lorem [[bar|ips**um dol**or|fr]] sit amet, consectetuer adipiscing elit.'
             =>array(0,'<para>Lorem <ulink url="bar">ips<emphasis role="strong">um dol</emphasis>or</ulink> sit amet, consectetuer adipiscing elit.</para>'),
 
-        'Lorem [[ips[[um dol]]or|bar|fr]] sit amet, consectetuer adipiscing elit.'
+        'Lorem [[bar|ips[[um dol]]or|fr]] sit amet, consectetuer adipiscing elit.'
             =>array(0,'<para>Lorem <ulink url="bar">ips<ulink url="um dol">um dol</ulink>or</ulink> sit amet, consectetuer adipiscing elit.</para>'),
 
-        'Lorem [[ips[[um dolor|bar|fr]] sit]] amet, consectetuer adipiscing elit.'
-            =>array(0,'<para>Lorem <ulink url="ips[[um dolor|bar|fr]] sit">ips[[um dolor|bar|fr]] sit</ulink> amet, consectetuer adipiscing elit.</para>'),
-        'Lorem [[ips__um dolor|bar|fr]] sit__ amet, consectetuer adipiscing elit.'
-            =>array(1,'<para>Lorem [[ips<emphasis role="strong">um dolor|bar|fr]] sit</emphasis> amet, consectetuer adipiscing elit.</para>'),
+        'Lorem [[bar|ips**um dolor|fr]] sit** amet, consectetuer adipiscing elit.'
+            =>array(1,'<para>Lorem [[bar|ips<emphasis role="strong">um dolor|fr]] sit</emphasis> amet, consectetuer adipiscing elit.</para>'),
 
     );
 
@@ -119,8 +117,8 @@ consectetuer adipiscing elit.</para>',
         $wr = new \WikiRenderer\Renderer(new \WikiRenderer\Markup\DokuDocBook\Config());
         foreach($this->listinline2 as $source=>$result){
             $res = $wr->render($source);
-            $this->assertEquals($res,$result[1], "erreur");
-            $this->assertEquals(count($wr->errors),$result[0], "Bad number of errors (%s)");
+            $this->assertEquals($result[1], $res, "erreur for ".$source);
+            $this->assertEquals($result[0], count($wr->errors), "Bad number of errors (%s)");
         }
     }
 
