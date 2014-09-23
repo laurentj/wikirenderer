@@ -38,8 +38,12 @@ class P extends \WikiRenderer\Block
 
     public function detect($string, $inBlock = false)
     {
-        if ($string == '')
+        if (trim($string) == '')
             return false;
+        if (preg_match("/^\s*(\*\*.*)/",$string, $m)) {
+            $this->_detectMatch=array($string, $string);
+            return true;
+        }
         if (preg_match("/^\s*[\*#\-\!\| \t>;<=].*/", $string))
             return false;
         $this->_detectMatch = array($string, $string);

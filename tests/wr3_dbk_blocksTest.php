@@ -35,7 +35,7 @@ class WR3DBKTestsBlocks extends PHPUnit_Framework_TestCase {
 
             $res = $wr->render($source);
 
-            $this->assertEquals($res,$result, "error on $file");
+            $this->assertEquals($result, $res, "error on $file");
             $this->assertEquals($nberror, count($wr->errors), "Errors detected by wr");
         }
     }
@@ -63,7 +63,7 @@ class WR3DBKTestsBlocks extends PHPUnit_Framework_TestCase {
 
             $res = $wr->render($source);
 
-            $this->assertEquals($res,$result, "error on $file");
+            $this->assertEquals($result, $res, "error on $file");
             $this->assertEquals($nberror, count($wr->errors),"Errors detected by wr");
         }
     }

@@ -32,7 +32,7 @@ namespace WikiRenderer\Markup\WR3DocBook;
  */
 class Link extends \WikiRenderer\TagXhtml
 {
-    protected $name = 'ulink';
+    protected $name = 'link';
     public $beginTag = '[[';
     public $endTag = ']]';
     protected $attribute = array('$$', 'href', 'hreflang', 'title');
@@ -47,15 +47,15 @@ class Link extends \WikiRenderer\TagXhtml
             list($href, $label) = $this->config->processLink($this->wikiContentArr[0], $this->name);
 
             if (preg_match("/^\#(.+)$/", $href, $m))
-                return '<link linkterm="' . htmlspecialchars($m[1]) . '">' . htmlspecialchars($label) . '</link>';
+                return '<link linkend="' . htmlspecialchars($m[1]) . '">' . htmlspecialchars($label) . '</link>';
             else
-                return '<ulink url="' . htmlspecialchars($href) . '">' . htmlspecialchars($label) . '</ulink>';
+                return '<link xlink:href="' . htmlspecialchars($href) . '">' . htmlspecialchars($label) . '</link>';
         } else {
             list($href, $label) = $this->config->processLink($this->wikiContentArr[1], $this->name);
             if (preg_match("/^\#(.+)$/", $href, $m))
-                return '<link linkterm="' . htmlspecialchars($m[1]) . '">' . $this->contents[0] . '</link>';
+                return '<link linkend="' . htmlspecialchars($m[1]) . '">' . $this->contents[0] . '</link>';
             else
-                return '<ulink url="' . htmlspecialchars($href) . '">' . $this->contents[0] . '</ulink>';
+                return '<link xlink:href="' . htmlspecialchars($href) . '">' . $this->contents[0] . '</link>';
         }
     }
 }

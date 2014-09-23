@@ -1,19 +1,19 @@
 <para>Lorem <emphasis role="strong">ipsum dolor</emphasis> sit amet, <emphasis>consectetuer adipiscing</emphasis> elit. Ut scelerisque. Ut iaculis ultrices nulla. Cras viverra diam nec justo.</para>
 
 <itemizedlist>
-<listitem> Phasellus non eros sit amet sem tristique laoreet.
-<orderedlist><listitem> Nam mi wisi, pellentesque dictum,
+<listitem><para> Phasellus non eros sit amet sem tristique laoreet.</para>
+<orderedlist><listitem><para> Nam mi wisi, pellentesque dictum,</para>
 </listitem>
-<listitem> tristique in, tristique quis, erat.
-<orderedlist><listitem> In in erat ut urna vulputate vestibulum. Aenean justo.
+<listitem><para> tristique in, tristique quis, erat.</para>
+<orderedlist><listitem><para> In in erat ut urna vulputate vestibulum. Aenean justo.</para>
 </listitem>
-<listitem> In quis nisl.
+<listitem><para> In quis nisl.</para>
 </listitem></orderedlist>
 </listitem></orderedlist>
 </listitem>
-<listitem> Morbi justo libero, pharetra a,
+<listitem><para> Morbi justo libero, pharetra a,</para>
 </listitem>
-<listitem> malesuada eget, lacinia in, ligula.</listitem></itemizedlist>
+<listitem><para> malesuada eget, lacinia in, ligula.</para></listitem></itemizedlist>
 
 
-<para>Mauris <ulink url="http://ljouanneau.com">sit amet massa</ulink> pretium dapibus.</para>
+<para>Mauris <link xlink:href="http://ljouanneau.com">sit amet massa</link> pretium dapibus.</para>

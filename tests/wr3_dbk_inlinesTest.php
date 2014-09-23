@@ -36,17 +36,17 @@ class WR3DBKTestsInlines extends PHPUnit_Framework_TestCase {
         'Lorem ipsum dolor sit amet, ??consectetuer adipiscing|un titre?? elit.'
             =>'<para>Lorem ipsum dolor sit amet, <acronym>consectetuer adipiscing</acronym> elit.</para>',
         'Lorem [[ipsum dolor]] sit amet, consectetuer adipiscing elit.'
-            =>'<para>Lorem <ulink url="ipsum dolor">ipsum dolor</ulink> sit amet, consectetuer adipiscing elit.</para>',
+            =>'<para>Lorem <link xlink:href="ipsum dolor">ipsum dolor</link> sit amet, consectetuer adipiscing elit.</para>',
         'Lorem [[#ipsum.dolor]] sit amet, consectetuer adipiscing elit.'
-            =>'<para>Lorem <link linkterm="ipsum.dolor">#ipsum.dolor</link> sit amet, consectetuer adipiscing elit.</para>',
+            =>'<para>Lorem <link linkend="ipsum.dolor">#ipsum.dolor</link> sit amet, consectetuer adipiscing elit.</para>',
         'Lorem [[ipsum dolor|http://foo.com]] sit amet, consectetuer adipiscing elit.'
-            =>'<para>Lorem <ulink url="http://foo.com">ipsum dolor</ulink> sit amet, consectetuer adipiscing elit.</para>',
+            =>'<para>Lorem <link xlink:href="http://foo.com">ipsum dolor</link> sit amet, consectetuer adipiscing elit.</para>',
         'Lorem [[ipsum dolor|javascript:alert(window.title)]] sit amet, consectetuer adipiscing elit.'
-            =>'<para>Lorem <ulink url="javascript:alert(window.title)">ipsum dolor</ulink> sit amet, consectetuer adipiscing elit.</para>',
+            =>'<para>Lorem <link xlink:href="javascript:alert(window.title)">ipsum dolor</link> sit amet, consectetuer adipiscing elit.</para>',
         'Lorem [[ipsum dolor|bar|fr]] sit amet, consectetuer adipiscing elit.'
-            =>'<para>Lorem <ulink url="bar">ipsum dolor</ulink> sit amet, consectetuer adipiscing elit.</para>',
+            =>'<para>Lorem <link xlink:href="bar">ipsum dolor</link> sit amet, consectetuer adipiscing elit.</para>',
         'Lorem [[ipsum dolor|bar|fr|ceci est un titre]] sit amet, consectetuer adipiscing elit.'
-            =>'<para>Lorem <ulink url="bar">ipsum dolor</ulink> sit amet, consectetuer adipiscing elit.</para>',
+            =>'<para>Lorem <link xlink:href="bar">ipsum dolor</link> sit amet, consectetuer adipiscing elit.</para>',
         'Lorem ((ipsumdolorsit.png)) amet, consectetuer adipiscing elit.'
             =>'<para>Lorem <inlinemediaobject><imageobject><imagedata fileref="ipsumdolorsit.png"/></imageobject></inlinemediaobject> amet, consectetuer adipiscing elit.</para>',
         'Lorem ((ipsumdolorsit.png|alternative text)) amet, consectetuer adipiscing elit.'
@@ -82,13 +82,13 @@ class WR3DBKTestsInlines extends PHPUnit_Framework_TestCase {
         'Lorem __ipsum \'\'dolor sit__ amet__, consectetuer adipiscing elit.'
             =>array(1,'<para>Lorem __ipsum \'\'dolor sit<emphasis role="strong"> amet</emphasis>, consectetuer adipiscing elit.</para>'),
         'Lorem [[ips__um dol__or|bar|fr]] sit amet, consectetuer adipiscing elit.'
-            =>array(0,'<para>Lorem <ulink url="bar">ips<emphasis role="strong">um dol</emphasis>or</ulink> sit amet, consectetuer adipiscing elit.</para>'),
+            =>array(0,'<para>Lorem <link xlink:href="bar">ips<emphasis role="strong">um dol</emphasis>or</link> sit amet, consectetuer adipiscing elit.</para>'),
 
         'Lorem [[ips[[um dol]]or|bar|fr]] sit amet, consectetuer adipiscing elit.'
-            =>array(0,'<para>Lorem <ulink url="bar">ips<ulink url="um dol">um dol</ulink>or</ulink> sit amet, consectetuer adipiscing elit.</para>'),
+            =>array(0,'<para>Lorem <link xlink:href="bar">ips<link xlink:href="um dol">um dol</link>or</link> sit amet, consectetuer adipiscing elit.</para>'),
 
         'Lorem [[ips[[um dolor|bar|fr]] sit]] amet, consectetuer adipiscing elit.'
-            =>array(0,'<para>Lorem <ulink url="ips[[um dolor|bar|fr]] sit">ips[[um dolor|bar|fr]] sit</ulink> amet, consectetuer adipiscing elit.</para>'),
+            =>array(0,'<para>Lorem <link xlink:href="ips[[um dolor|bar|fr]] sit">ips[[um dolor|bar|fr]] sit</link> amet, consectetuer adipiscing elit.</para>'),
         'Lorem [[ips__um dolor|bar|fr]] sit__ amet, consectetuer adipiscing elit.'
             =>array(1,'<para>Lorem [[ips<emphasis role="strong">um dolor|bar|fr]] sit</emphasis> amet, consectetuer adipiscing elit.</para>'),
 

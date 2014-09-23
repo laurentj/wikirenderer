@@ -84,7 +84,7 @@ class WikiList extends \WikiRenderer\Block
             $str = ($this->_firstItem ? '<listitem>' : "</listitem>\n<listitem>");
         }
         $this->_firstItem = false;
-        return $str . $this->_renderInlineTag($this->_detectMatch[2]);
+        return $str . '<para>'.$this->_renderInlineTag($this->_detectMatch[2]).'</para>';
     }
 }
 

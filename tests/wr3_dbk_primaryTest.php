@@ -78,7 +78,7 @@ class WikiRendererTestsWr3Docbook extends PHPUnit_Framework_TestCase {
         array(
             array(array('__bar__','<strong>bar</strong>'), 'fleur', false,'fooo', false, 'baz','truc'),
             '[[__bar__fleur|fooo|baztruc]]',
-            '<ulink url="fooo"><strong>bar</strong>fleur</ulink>'),
+            '<link xlink:href="fooo"><strong>bar</strong>fleur</link>'),
     );
 
     function testTaga() {

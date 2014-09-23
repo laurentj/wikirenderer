@@ -54,14 +54,26 @@ class Title extends \WikiRenderer\Block
         if (count($conf->sectionLevel)) {
             $last = end($conf->sectionLevel);
             if ($last > $level) {
+                $first = true;
                 while ($last = end($conf->sectionLevel) && $last >= $level) {
+                    if ($this->engine->getPreviousBloc()) {
+                        if ($first && $this->engine->getPreviousBloc() instanceof Title) {
+                            $output .= '<para> </para>';
+                        }
+                    }
                     $output .= '</section>';
+                    $first = false;
                     array_pop($conf->sectionLevel);
                 }
             } else if ($last < $level) {
 
             } else {
                 array_pop($conf->sectionLevel);
+                if ($this->engine->getPreviousBloc()) {
+                    if ($this->engine->getPreviousBloc() instanceof Title) {
+                        $output .= '<para> </para>';
+                    }
+                }
                 $output .= '</section>';
             }
         }

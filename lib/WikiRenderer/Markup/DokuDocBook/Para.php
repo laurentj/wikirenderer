@@ -39,7 +39,7 @@ class Para extends \WikiRenderer\Block
             return false;
         if (preg_match("/^\s+[\*\-\=\|\^>;<=~]/", $string))
             return false;
-        if(preg_match("/^\s*(\*\*.*)/",$string, $m)) {
+        if (preg_match("/^\s*(\*\*.*)/",$string, $m)) {
             $this->_detectMatch=array($m[1],$m[1]);
             return true;
         }
