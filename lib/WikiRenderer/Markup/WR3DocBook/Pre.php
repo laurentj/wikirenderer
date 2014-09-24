@@ -35,11 +35,13 @@ class Pre extends \WikiRenderer\Block
     public $type = 'pre';
     protected $_openTag = '<literallayout>';
     protected $_closeTag = '</literallayout>';
+    protected $closeTagDetected = false;
     protected $isOpen = false;
 
     public function open()
     {
         $this->isOpen = true;
+        $this->closeTagDetected = false;
         return $this->_openTag;
     }
 
@@ -56,10 +58,14 @@ class Pre extends \WikiRenderer\Block
 
     public function detect($string, $inBlock = false)
     {
+        if ($this->closeTagDetected) {
+            return false;
+        }
         if ($this->isOpen) {
             if (preg_match('/(.*)<\/code>\s*$/', $string, $m)) {
                 $this->_detectMatch = $m[1];
                 $this->isOpen = false;
+                $this->closeTagDetected = true;
             } else {
                 $this->_detectMatch = $string;
             }
@@ -70,6 +76,7 @@ class Pre extends \WikiRenderer\Block
                 if (preg_match('/(.*)<\/code>\s*$/', $m[1], $m2)) {
                     $this->_closeNow = true;
                     $this->_detectMatch = $m2[1];
+                    $this->closeTagDetected = true;
                 } else {
                     $this->_closeNow = false;
                     $this->_detectMatch = $m[1];

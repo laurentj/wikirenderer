@@ -26,7 +26,7 @@ namespace WikiRenderer\Markup\DokuDocBook;
 
 class NoWiki extends SyntaxHighlight
 {
-    public $type = 'syntaxhighlight';
+    public $type = 'nowiki';
     protected $_openTag = '<para>';
     protected $_closeTag = '</para>';
     protected $dktag = 'nowiki';

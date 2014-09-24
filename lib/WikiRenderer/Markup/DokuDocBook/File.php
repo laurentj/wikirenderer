@@ -26,7 +26,7 @@ namespace WikiRenderer\Markup\DokuDocBook;
 
 class File extends SyntaxHighlight
 {
-    public $type = 'syntaxhighlight';
+    public $type = 'file';
     protected $_openTag = '<literallayout>';
     protected $_closeTag = '</literallayout>';
     protected $dktag = 'file';

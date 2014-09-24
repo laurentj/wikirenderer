@@ -97,7 +97,7 @@ class Renderer
                     $this->_newtext[count($this->_newtext)-1] .= $this->_currentBlock->close();
                     $found = false;
                     foreach ($this->_blockList as $block) {
-                        if ($block->type != $this->_currentBlock->type && $block->detect($ligne, true)) {
+                        if ($block->detect($ligne, true)) {
                             $found = true;
                             // we open the new block
                             if ($block->closeNow()) {

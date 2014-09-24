@@ -9,17 +9,20 @@ In hac habitasse platea dictumst. Nulla facilisi. Pellentesque sodales laoreet e
   luctus luctus. Aliquam nec lacus. Integer egestas.
 
 <code>
-  Lorem ipsum **dolor** sit amet, consectetuer adipiscing elit. Cras interdum.
+  Lorem ipsum **dolor** sit amet CODE, consectetuer adipiscing elit. Cras interdum.
   Donec dictum. Sed fringilla. Duis feugiat pharetra tortor. Nulla facilisi.
+</code>
+<code>
+  Pellentesque sodales laoreet est.
 </code>
 
 <file>
-  Lorem ipsum **dolor** sit amet, consectetuer adipiscing elit. Cras interdum.
+  Lorem ipsum **dolor** sit amet FILE, consectetuer adipiscing elit. Cras interdum.
   Donec dictum. Sed fringilla. Duis feugiat pharetra tortor. Nulla facilisi.
 </file>
 
 <nowiki>
-  Lorem ipsum **dolor** sit amet, consectetuer adipiscing elit. Cras interdum.
+  Lorem ipsum **dolor** sit amet NOWIKI, consectetuer adipiscing elit. Cras interdum.
   Donec dictum. Sed fringilla. Duis feugiat pharetra tortor. Nulla facilisi.
 </nowiki>
 

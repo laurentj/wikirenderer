@@ -29,10 +29,12 @@ class Html extends \WikiRenderer\Block
     public $type = 'html';
     protected $isOpen = false;
     protected $dktag = 'html';
+    protected $closeTagDetected = false;
 
     public function open()
     {
         $this->isOpen = true;
+        $this->closeTagDetected = false;
         return '';
     }
 
@@ -49,16 +51,24 @@ class Html extends \WikiRenderer\Block
 
     public function detect($string, $inBlock = false)
     {
+        if ($this->closeTagDetected) {
+            return false;
+        }
         if ($this->isOpen) {
-            if (preg_match('/(.*)<\/'.$this->dktag.'>\s*$/', $string, $m))
+            if (preg_match('/(.*)<\/'.$this->dktag.'>\s*$/', $string, $m)) {
                 $this->isOpen = false;
+                $this->closeTagDetected = true;
+            }
             return true;
         } else {
             if (preg_match('/^\s*<' . $this->dktag . '>(.*)/', $string, $m)) {
-                if (preg_match('/(.*)<\/' . $this->dktag . '>\s*$/', $string, $m))
+                if (preg_match('/(.*)<\/' . $this->dktag . '>\s*$/', $string, $m)) {
+                    $this->closeTagDetected = true;
                     $this->_closeNow = true;
-                else
+                }
+                else {
                     $this->_closeNow = false;
+                }
                 return true;
             } else
                 return false;

@@ -33,6 +33,8 @@ namespace WikiRenderer\Markup\WR3Text;
 class Pre extends \WikiRenderer\Block
 {
     public $type = 'pre';
+    protected $isOpen = false;
+    protected $closeTagDetected = false;
 
     public function getRenderedLine()
     {
@@ -41,10 +43,14 @@ class Pre extends \WikiRenderer\Block
 
     public function detect($string, $inBlock = false)
     {
+        if ($this->closeTagDetected) {
+            return false;
+        }
         if ($this->isOpen) {
             if (preg_match("/(.*)<\/code>\s*$/", $string, $m)) {
                 $this->_detectMatch = $m[1];
                 $this->isOpen = false;
+                $this->closeTagDetected = true;
             } else {
                 $this->_detectMatch = $string;
             }
@@ -54,6 +60,7 @@ class Pre extends \WikiRenderer\Block
                 if (preg_match('/(.*)<\/code>\s*$/', $m[1], $m2)) {
                     $this->_closeNow = true;
                     $this->_detectMatch = $m2[1];
+                    $this->closeTagDetected = true;
                 } else {
                     $this->_closeNow = false;
                     $this->_detectMatch = $m[1];

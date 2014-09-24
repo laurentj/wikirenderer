@@ -30,11 +30,13 @@ class SyntaxHighlight extends \WikiRenderer\Block
     protected $_openTag = '<pre><code>';
     protected $_closeTag = '</code></pre>';
     protected $isOpen = false;
+    protected $closeTagDetected = false;
     protected $dktag = 'code';
 
     public function open()
     {
         $this->isOpen = true;
+        $this->closeTagDetected = false;
         return $this->_openTag;
     }
 
@@ -51,10 +53,14 @@ class SyntaxHighlight extends \WikiRenderer\Block
 
     public function detect($string, $inBlock = false)
     {
+        if ($this->closeTagDetected) {
+            return false;
+        }
         if ($this->isOpen) {
             if (preg_match('/(.*)<\/' . $this->dktag . '>\s*$/', $string, $m)) {
                 $this->_detectMatch = $m[1];
                 $this->isOpen = false;
+                $this->closeTagDetected = true;
             } else {
                 $this->_detectMatch = $string;
             }
@@ -64,6 +70,7 @@ class SyntaxHighlight extends \WikiRenderer\Block
                 if (preg_match('/(.*)<\/' . $this->dktag . '>\s*$/', $m[2], $m2)) {
                     $this->_closeNow = true;
                     $this->_detectMatch = $m2[1];
+                    $this->closeTagDetected = true;
                 } else {
                     $this->_closeNow = false;
                     $this->_detectMatch = $m[2];

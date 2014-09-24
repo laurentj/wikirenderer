@@ -34,7 +34,7 @@ class Pre extends \WikiRenderer\Block
     {
         if ($string == '')
             return false;
-        if (preg_match("/^(\s{2,}[^\*\-\=\|\^>;<=~].*)/", $string)) {
+        if (preg_match("/^(\s{2,}[^\s\*\-\=\|\^>;<=~].*)/", $string)) {
             $this->_detectMatch = array($string, $string);
             return true;
         }
