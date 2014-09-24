@@ -40,6 +40,10 @@ class Renderer
     protected $_previousBloc = null;
     /** @var array      List of all possible blocks. */
     protected $_blockList = array();
+
+    /** @var WikiRendererBloc the default bloc used for unrecognized line */
+    protected $_defaultBlock = null;
+
     /** @var \WikiRenderer\InlineParser   The parser for inline content. */
     public $inlineParser = null;
     /** List of lines which contain an error. */
@@ -65,6 +69,10 @@ class Renderer
 
         foreach ($this->config->blocktags as $name) {
             $this->_blockList[] = new $name($this);
+        }
+        if ($this->config->defaultBlock) {
+            $name = $this->config->defaultBlock;
+            $this->_defaultBlock = new $name($this);
         }
     }
 
@@ -114,7 +122,16 @@ class Renderer
                         }
                     }
                     if (!$found) {
-                        $this->_newtext[] = $this->inlineParser->parse($ligne);
+                        if (trim($ligne) == '') {
+                            $this->_newtext[] = '';
+                        }
+                        else if ($this->_defaultBlock) {
+                            $this->_defaultBlock->detect($ligne);
+                            $this->_newtext[] = $this->_defaultBlock->open().$this->_defaultBlock->getRenderedLine().$this->_defaultBlock->close();
+                        }
+                        else {
+                            $this->_newtext[]= $this->inlineParser->parse($ligne);
+                        }
                         $this->_previousBloc = $this->_currentBlock;
                         $this->_currentBlock = null;
                     }
@@ -141,7 +158,16 @@ class Renderer
                     }
                 }
                 if (!$found) {
-                    $this->_newtext[] = $this->inlineParser->parse($ligne);
+                    if (trim($ligne) == '') {
+                        $this->_newtext[] = '';
+                    }
+                    else if ($this->_defaultBlock) {
+                        $this->_defaultBlock->detect($ligne);
+                        $this->_newtext[] = $this->_defaultBlock->open().$this->_defaultBlock->getRenderedLine().$this->_defaultBlock->close();
+                    }
+                    else {
+                        $this->_newtext[]= $this->inlineParser->parse($ligne);
+                    }
                 }
             }
             if ($this->inlineParser->error) {

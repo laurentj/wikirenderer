@@ -40,6 +40,10 @@ abstract class Config
     public $blocktags = array();
     /** ??? */
     public $simpletags = array();
+    /**
+     * @var string name of the class used to parse unrecognized line
+     */
+    public $defaultBlock = null;
     /** ??? */
     public $checkWikiWordFunction = null;
     /** Character used to escape wiki syntax. */
