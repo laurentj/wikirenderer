@@ -1,6 +1,6 @@
 <?php
 /**
- * wikirenderer3 (wr3) syntax to docbook 4.3
+ * wikirenderer3 (wr3) syntax to docbook 5.0
  *
  * @package WikiRenderer
  * @subpackage rules
@@ -41,7 +41,7 @@ class Definition extends \WikiRenderer\Block
     {
         $dt = $this->_renderInlineTag($this->_detectMatch[1]);
         $dd = $this->_renderInlineTag($this->_detectMatch[2]);
-        return "<varlistentry><term>$dt</term>\n<listitem>$dd</listitem></varlistentry>\n";
+        return "<varlistentry><term>$dt</term>\n<listitem><para>$dd</para></listitem></varlistentry>\n";
     }
 }
 
