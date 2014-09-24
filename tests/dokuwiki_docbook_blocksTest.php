@@ -40,6 +40,11 @@ truc3 </programlisting>',
 0
 ),
 
+4=>array(
+'   <p> lorem ipsum {bla bla}</p>',
+'<para>   &lt;p&gt; lorem ipsum {bla bla}&lt;/p&gt;</para>',
+0
+),
     );
     public function testBlocks() {
         $wr = new \WikiRenderer\Renderer(new \WikiRenderer\Markup\DokuDocBook\Config());

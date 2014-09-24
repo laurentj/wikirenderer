@@ -1,6 +1,6 @@
 <?php
 /**
- * wikirenderer3 (wr3) syntax to docbook 4.3
+ * wikirenderer3 (wr3) syntax to docbook 5.0
  *
  * @package WikiRenderer
  * @subpackage rules

@@ -1,6 +1,6 @@
 <?php
 /**
- * wikirenderer3 (wr3) syntax to docbook 4.3
+ * wikirenderer3 (wr3) syntax to docbook 5
  *
  * @package WikiRenderer
  * @subpackage rules
@@ -59,6 +59,7 @@ class Config extends \WikiRenderer\Config
         '\WikiRenderer\Markup\WR3DocBook\P'
     );
     public $simpletags = array('%%%' => '<br />');
+    public $defaultBlock = '\WikiRenderer\Markup\WR3DocBook\DefaultBlock';
     public $sectionLevel= array();
 
     /**

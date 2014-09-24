@@ -1,6 +1,6 @@
 <?php
 /**
- * dokuwiki syntax to docbook 4.3
+ * dokuwiki syntax to docbook 5.0
  *
  * @package WikiRenderer
  * @subpackage rules

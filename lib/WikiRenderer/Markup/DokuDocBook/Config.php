@@ -1,6 +1,6 @@
 <?php
 /**
- * dokuwiki syntax to docbook 4.3
+ * dokuwiki syntax to docbook 5.0
  *
  * @package WikiRenderer
  * @subpackage rules
@@ -72,6 +72,7 @@ class Config extends \WikiRenderer\Config
         '\WikiRenderer\Markup\DokuDocBook\Macro'
     );
     public $simpletags = array("\\\\" => '');
+    public $defaultBlock = '\WikiRenderer\Markup\DokuDocBook\DefaultBlock';
     public $escapeChar = '';
     public $sectionLevel = array();
 
