@@ -38,7 +38,7 @@ class Table extends \WikiRenderer\Block
     public function open()
     {
         $this->engine->getConfig()->defaultTextLineContainer = '\WikiRenderer\Markup\DokuDocBook\TableRow';
-        return $this->_openTag;
+        return $this->_openTag.'<caption></caption>';
     }
 
     public function close()

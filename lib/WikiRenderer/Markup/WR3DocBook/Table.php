@@ -41,7 +41,7 @@ class Table extends \WikiRenderer\Block
     public function open()
     {
         $this->_colcount = 0;
-        return $this->_openTag;
+        return $this->_openTag.'<caption></caption>';
     }
 
     public function getRenderedLine()
