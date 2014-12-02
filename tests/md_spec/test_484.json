@@ -1,0 +1,1 @@
+["foo <?php echo $a; ?>\n","<p>foo <?php echo $a; ?><\/p>\n"]

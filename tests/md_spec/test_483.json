@@ -1,0 +1,1 @@
+["foo <!-- not a comment -- two hyphens -->\n","<p>foo &lt;!-- not a comment -- two hyphens --&gt;<\/p>\n"]

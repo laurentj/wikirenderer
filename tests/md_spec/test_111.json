@@ -1,0 +1,1 @@
+["[foo]: \/url \"title\"\n\n[foo]\n","<p><a href=\"\/url\" title=\"title\">foo<\/a><\/p>\n"]

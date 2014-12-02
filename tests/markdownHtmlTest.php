@@ -37,5 +37,12 @@ diam nec justo.</p>';
         $this->assertEquals(0, count($wr->errors),"Errors detected by wr !");
     }
 
-
+    function testAllSeries() {
+        $wr = new \WikiRenderer\Renderer(new \WikiRenderer\Markup\MarkdownHtml\Config());
+        for($i=1; $i < 509; $i++) {
+            list($md, $html) = json_decode(file_get_contents(__DIR__.'/md_spec/test_'.$i.'.json'));
+            $result = $wr->render($md);
+            $this->assertEquals($html, $result, 'test '.$i);
+        }
+    }
 }

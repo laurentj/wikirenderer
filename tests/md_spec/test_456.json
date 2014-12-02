@@ -1,0 +1,1 @@
+["\\![foo]\n\n[foo]: \/url \"title\"\n","<p>!<a href=\"\/url\" title=\"title\">foo<\/a><\/p>\n"]
