@@ -5,10 +5,10 @@
  * @package wikirenderer
  * @subpackage tests
  * @author Laurent Jouanneau
- * @copyright 2003-2006 Laurent Jouanneau
+ * @copyright 2003-2014 Laurent Jouanneau
  */
 header('ContentType: text/plain');
-require_once('wikirenderer/WikiRenderer.lib.php');
+require_once(__DIR__.'/../vendor/autoload.php');
 include('dataSeries.php');
 
 function getMicroTime(){
@@ -16,10 +16,11 @@ function getMicroTime(){
     return $micro + $time;
 }
 
-
 $start=getMicroTime();
 
-$wr= new WikiRenderer('classicwr_to_xhtml');
+$conf = new \WikiRenderer\Markup\WRHtml\Config();
+$wr = new \WikiRenderer\Renderer($conf);
+
 foreach($list as $k=> $t){
     $res =$wr->render($t[0]);
 }

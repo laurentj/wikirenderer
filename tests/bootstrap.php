@@ -9,9 +9,8 @@
  */
 
 define('WR_DIR',realpath(__DIR__.'/../lib/').'/');
-require_once(WR_DIR.'SplClassLoader.php');
-$classLoader = new SplClassLoader('WikiRenderer', WR_DIR);
-$classLoader->register();
+require_once(__DIR__.'/../vendor/autoload.php');
+
 
 class WRConfigTest extends \WikiRenderer\Config { }
 
