@@ -32,6 +32,11 @@
     <testsuite name="Wr to Wr3">
         <file>wr_wr3Test.php</file>
     </testsuite>
+    
+    <testsuite name="markdown syntax">
+      <file>markdownHtmlTest.php</file>
+    </testsuite>
+    
 <!--
     <testsuite name="trac syntax">
       <file>trac_blocksTest.php</file>
