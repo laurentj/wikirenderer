@@ -8,7 +8,12 @@ require('header.inc.php');
 <a href="http://www.gnu.org/licenses/licenses.html#LGPL">LGPL licence</a>.</p>
 
 <dl>
-
+    <dt id="v3.1.6">Version 3.1.6, 02/02/2015</dt>
+    <dd>
+        <ul>
+            <li>Compatibility with PHP 5.4+: added a "charset" parameter in the configuration object, to be used with htmlspecialchars.</li>
+        </ul>
+    </dd>
     <dt>New hosting 12/28/2012</dt>
    <dd>
     The project is hosted on https://github.com/laurentj/wikirenderer

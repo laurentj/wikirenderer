@@ -7,6 +7,12 @@ require('header.inc.php');
 <p>WikiRenderer est distribué sous <a href="http://www.gnu.org/licenses/licenses.html#LGPL">licence LGPL</a>.</p>
 
 <dl>
+    <dt id="v3.1.6">Version 3.1.6, 02/02/2015</dt>
+    <dd>
+        <ul>
+            <li>Compatibilité avec PHP 5.4 et +: ajout d'un paramètre charset dans l'objet de configuration, pour htmlspecialchars.</li>
+        </ul>
+    </dd>
     <dt>Nouvel hebergement, 28/12/2012</dt>
    <dd>
     Hebergement du code source sur https://github.com/laurentj/wikirenderer
