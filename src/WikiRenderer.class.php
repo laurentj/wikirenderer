@@ -170,6 +170,9 @@ class WikiRenderer {
        return WIKIRENDERER_VERSION;
     }
 
+    /**
+     * @return WikiRendererConfig
+     */
     public function getConfig(){
         return $this->config;
     }

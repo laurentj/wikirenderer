@@ -44,7 +44,7 @@ consectetuer adipiscing elit.</para>',
         'Lorem [[http://foo.com|ipsum dolor]] sit amet, consectetuer adipiscing elit.'
             =>'<para>Lorem <ulink url="http://foo.com">ipsum dolor</ulink> sit amet, consectetuer adipiscing elit.</para>',
         'Lorem [[ javascript:alert(window.title) | ipsum dolor]] sit amet, consectetuer adipiscing elit.'
-            =>'<para>Lorem <ulink url="javascript:alert(window.title)"> ipsum dolor</ulink> sit amet, consectetuer adipiscing elit.</para>',
+            =>'<para>Lorem  ipsum dolor sit amet, consectetuer adipiscing elit.</para>',
         'Lorem ((ipsumdolorsit amet)), consectetuer adipiscing elit.'
             =>'<para>Lorem <footnote><para>ipsumdolorsit amet</para></footnote>, consectetuer adipiscing elit.</para>',
         'Lorem {{ipsumdolorsit.png}} amet, consectetuer adipiscing elit.'

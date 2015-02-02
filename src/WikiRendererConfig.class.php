@@ -44,6 +44,9 @@ abstract class WikiRendererConfig {
 
    public $escapeChar = '\\';
 
+   // for htmlspecialchars
+   public $charset = 'UTF-8';
+
    /**
     * Called before the wiki text parsing
     * @param string $text  the wiki text

@@ -51,13 +51,13 @@ class WikiHtmlTextLine extends WikiTag {
     public $isTextLineTag=true;
 
     protected function _doEscape($string){
-        return htmlspecialchars($string);
+        return htmlspecialchars($string, ENT_COMPAT, $this->config->charset);
     }
 }
 
 class WikiXmlTextLine extends WikiHtmlTextLine {
     protected function _doEscape($string){
-        return htmlspecialchars($string, ENT_NOQUOTES);
+        return htmlspecialchars($string, ENT_NOQUOTES, $this->config->charset);
     }
 }
 
@@ -85,27 +85,27 @@ abstract class WikiTagXhtml extends WikiTag {
             if(in_array($this->attribute[$i] , $this->ignoreAttribute))
                 continue;
             if($this->attribute[$i] != '$$')
-                $attr.=' '.$this->attribute[$i].'="'.htmlspecialchars($this->wikiContentArr[$i]).'"';
+                $attr.=' '.$this->attribute[$i].'="'.$this->_doEscape($this->wikiContentArr[$i]).'"';
             else
                 $content = $this->contents[$i];
         }
 
         foreach($this->additionnalAttributes as $name=>$value) {
-            $attr.=' '.$name.'="'.htmlspecialchars($value).'"';
+            $attr.=' '.$name.'="'.$this->_doEscape($value).'"';
         }
 
         return '<'.$this->name.$attr.'>'.$content.'</'.$this->name.'>';
    }
 
    protected function _doEscape($string){
-       return htmlspecialchars($string);
+       return htmlspecialchars($string, ENT_COMPAT, $this->config->charset);
    }
 }
 
 
 class WikiTagXml extends WikiTagXhtml {
    protected function _doEscape($string){
-       return htmlspecialchars($string, ENT_NOQUOTES);
+       return htmlspecialchars($string, ENT_NOQUOTES, $this->config->charset);
    }
 }
 
