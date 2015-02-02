@@ -50,7 +50,7 @@ abstract class TagXhtml extends Tag
             if (in_array($this->attribute[$i], $this->ignoreAttribute))
                 continue;
             if ($this->attribute[$i] != '$$')
-                $attr.= ' ' . $this->attribute[$i] . '="' . htmlspecialchars($this->wikiContentArr[$i]) . '"';
+                $attr.= ' ' . $this->attribute[$i] . '="' . htmlspecialchars($this->wikiContentArr[$i], EN_QUOTES, "UTF-8") . '"';
             else
                 $content = $this->contents[$i];
         }
@@ -69,7 +69,7 @@ abstract class TagXhtml extends Tag
      */
     protected function _doEscape($string)
     {
-        return htmlspecialchars($string);
+        return htmlspecialchars($string, EN_QUOTES, "UTF-8");
     }
 }
 

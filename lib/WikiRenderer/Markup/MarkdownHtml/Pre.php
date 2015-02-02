@@ -24,20 +24,15 @@ namespace WikiRenderer\Markup\MarkdownHtml;
 
 /**
  */
-class Para extends \WikiRenderer\Block
+class Pre extends \WikiRenderer\Block
 {
-    public $type = 'p';
-    protected $_openTag = '<p>';
-    protected $_closeTag = '</p>';
+    public $type = 'pre';
+    protected $regexp="/^\s+(.*)/u";
+    protected $_openTag = '<pre><code>';
+    protected $_closeTag = '</code></pre>';
 
-    public function detect($string, $inBlock = false)
-    {
-        if ($string == '')
-            return false;
-        if (preg_match("/^\s*[^\\w].*/u", $string))
-            return false;
-        $this->_detectMatch = array($string, $string);
-        return true;
+    public function getRenderedLine(){
+        return htmlspecialchars($this->_detectMatch[1])."\n";
     }
 }
 

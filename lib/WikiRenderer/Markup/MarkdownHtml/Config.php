@@ -40,12 +40,12 @@ class Config extends \WikiRenderer\Config
         '\WikiRenderer\Markup\MarkdownHtml\WikiList',
         '\WikiRenderer\Markup\MarkdownHtml\Blockquote',
         '\WikiRenderer\Markup\MarkdownHtml\Table',
-        '\WikiRenderer\Markup\MarkdownHtml\Pre',
         '\WikiRenderer\Markup\MarkdownHtml\SyntaxHighlight',
         '\WikiRenderer\Markup\MarkdownHtml\File',
         '\WikiRenderer\Markup\MarkdownHtml\Nowiki',
         '\WikiRenderer\Markup\MarkdownHtml\Html',
         '\WikiRenderer\Markup\MarkdownHtml\Macro',*/
+        '\WikiRenderer\Markup\MarkdownHtml\Pre',
         '\WikiRenderer\Markup\MarkdownHtml\Para'
     );
 
@@ -63,6 +63,31 @@ class Config extends \WikiRenderer\Config
     }
 
     /**
+     * called for each line before the wiki parsing of the line
+     */
+    public function preprocessLine($line) {
+        if (strpos($line,"\t") === false) {
+            return $line;
+        }
+        
+        // replace all tabs by space, and respect tab stops
+        $chunks = preg_split("/\t/", $line);
+        $length = 0;
+        $str = '';
+        $nb = count($chunks) -1;
+        foreach($chunks as $k => $chunk) {
+            $length += mb_strlen($chunk);
+            $str .= $chunk;
+            if ($k < $nb) {
+                $l = 4 - ($length + 4) %4;
+                $str .= str_repeat(" ",$l);
+                $length += $l;
+            }
+        }
+        return $str;
+    }
+
+    /**
      * called after the parsing
      */
     public function onParse($finalTexte)
@@ -71,6 +96,7 @@ class Config extends \WikiRenderer\Config
         return $finalTexte;
     }
 
+    
     public function processLink($url, $tagName='')
     {
         $label = $url;

@@ -95,6 +95,7 @@ class Renderer
 
         // we loop over all lines
         foreach ($lignes as $num => $ligne) {
+            $ligne = $this->config->preprocessLine($ligne);
             if ($this->_currentBlock) {
                 // a block is already open
                 if ($this->_currentBlock->detect($ligne, true)) {

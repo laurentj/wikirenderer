@@ -80,7 +80,7 @@ class InlineParser
                 $c->pattern .= '|(' . preg_quote($sep, '/') . ')';
             }
             $c->pattern .= $simpletagPattern . $escapePattern;
-            $c->pattern = '/' . substr($c->pattern, 1) . '/';
+            $c->pattern = '/' . mb_substr($c->pattern, 1) . '/';
 
             $this->textLineContainers[$class] = $c;
         }

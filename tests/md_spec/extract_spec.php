@@ -7,6 +7,7 @@ $content = file_get_contents('https://raw.githubusercontent.com/jgm/CommonMark/m
 preg_match_all("/^\.\n([\s\S]*?)^\.\n([\s\S]*?)^\.$/mu", $content, $m,PREG_SET_ORDER);
 
 foreach($m as $k => list($a, $md, $html)) {
+    $md = str_replace("→", "\t", $md);
     $content = array($md, $html);
     file_put_contents('test_'.($k+1).'.json', json_encode($content));
 }

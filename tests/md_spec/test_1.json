@@ -1,1 +1,1 @@
-["\u2192foo\u2192baz\u2192\u2192bim\n","<pre><code>foo baz     bim\n<\/code><\/pre>\n"]
+["\tfoo\tbaz\t\tbim\n","<pre><code>foo baz     bim\n<\/code><\/pre>\n"]

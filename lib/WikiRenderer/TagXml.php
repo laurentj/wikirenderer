@@ -37,7 +37,7 @@ class TagXml extends TagXhtml
      */
     protected function _doEscape($string)
     {
-        return htmlspecialchars($string, ENT_NOQUOTES);
+        return htmlspecialchars($string, ENT_NOQUOTES,"UTF-8");
     }
 }
 

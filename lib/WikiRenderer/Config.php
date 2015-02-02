@@ -4,7 +4,7 @@
  * @package WikiRenderer
  * @author Laurent Jouanneau
  * @contributor  Amaury Bouchard
- * @copyright 2003-2013 Laurent Jouanneau
+ * @copyright 2003-2014 Laurent Jouanneau
  * @link http://wikirenderer.jelix.org
  *
  * This library is free software; you can redistribute it and/or
@@ -63,6 +63,13 @@ abstract class Config
     }
 
     /**
+     * called for each line before the wiki parsing of the line
+     */
+    public function preprocessLine($line) {
+        return $line;
+    }
+
+    /**
      * Called after the parsing. You can add additionnal data to
      * the result of the parsing.
      */
@@ -70,7 +77,7 @@ abstract class Config
     {
         return $finalText;
     }
-
+    
     /**
      * In some wiki system, some links are specials. You should override this method
      * to transform this specific links to real URL.
