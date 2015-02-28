@@ -42,6 +42,11 @@ abstract class WikiRendererConfig {
 
    public $checkWikiWordFunction = null;
 
+   /**
+    * @var string name of the class used to parse unrecognized line
+    */
+   public $defaultBlock = null;
+
    public $escapeChar = '\\';
 
    // for htmlspecialchars

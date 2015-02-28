@@ -1,59 +1,59 @@
 <para>Lorem ipsum</para>
 
 <itemizedlist>
-<listitem>This is a list
+<listitem><para>This is a list</para>
 </listitem>
-<listitem>The second item
-<itemizedlist><listitem>You may have different levels
+<listitem><para>The second item</para>
+<itemizedlist><listitem><para>You may have different levels</para>
 </listitem></itemizedlist>
 </listitem>
-<listitem>Another item</listitem></itemizedlist>
+<listitem><para>Another item</para></listitem></itemizedlist>
 
 
 <orderedlist>
-<listitem>The same list but ordered
+<listitem><para>The same list but ordered</para>
 </listitem>
-<listitem>Another item
-<orderedlist><listitem>Just use indention for deeper levels
+<listitem><para>Another item</para>
+<orderedlist><listitem><para>Just use indention for deeper levels</para>
 </listitem></orderedlist>
 </listitem>
-<listitem>That's it</listitem></orderedlist>
+<listitem><para>That's it</para></listitem></orderedlist>
 
 
 
 <itemizedlist>
-<listitem>This is a list
+<listitem><para>This is a list</para>
 </listitem>
-<listitem>The second item
-<itemizedlist><listitem>You may have different levels
-<itemizedlist><listitem>again and again</listitem></itemizedlist>
+<listitem><para>The second item</para>
+<itemizedlist><listitem><para>You may have different levels</para>
+<itemizedlist><listitem><para>again and again</para></listitem></itemizedlist>
 </listitem></itemizedlist>
 </listitem></itemizedlist>
 
 
 
 <itemizedlist>
-<listitem>This is a list
+<listitem><para>This is a list</para>
 </listitem></itemizedlist>
 <itemizedlist>
-<listitem>The second item
-<itemizedlist><listitem>You may have different levels
-<itemizedlist><listitem>again and again</listitem></itemizedlist>
+<listitem><para>The second item</para>
+<itemizedlist><listitem><para>You may have different levels</para>
+<itemizedlist><listitem><para>again and again</para></listitem></itemizedlist>
 </listitem></itemizedlist>
 </listitem></itemizedlist>
 
 
 <itemizedlist>
-<listitem>This is a list
+<listitem><para>This is a list</para>
 </listitem>
-<listitem>This is a list2
-<itemizedlist><listitem>sub item
+<listitem><para>This is a list2</para>
+<itemizedlist><listitem><para>sub item</para>
 </listitem></itemizedlist>
 </listitem></itemizedlist>
 <itemizedlist>
-<listitem>The second item
-<itemizedlist><listitem>You may have different levels
-<itemizedlist><listitem>again and again</listitem></itemizedlist>
+<listitem><para>The second item</para>
+<itemizedlist><listitem><para>You may have different levels</para>
+<itemizedlist><listitem><para>again and again</para></listitem></itemizedlist>
 </listitem></itemizedlist>
 </listitem></itemizedlist>
 

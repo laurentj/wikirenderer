@@ -50,7 +50,7 @@ truc3 </programlisting>',
             list($source, $result, $nberror) = $test;
             $res = $wr->render($source);
             $this->assertEquals($result, $res, "error on $k th test");
-            $this->assertEquals($nberror, count($wr->errors), "Errors detected by wr");
+            $this->assertEquals($nberror, count($wr->errors), "Errors detected by wr on $k");
         }
     }
 
@@ -86,7 +86,7 @@ truc3 </programlisting>',
 
             $this->assertEquals($result, $res, "error on $file");
 
-            $this->assertEquals($nberror, count($wr->errors),"Errors detected by wr");
+            $this->assertEquals($nberror, count($wr->errors),"Errors detected by wr on $file");
         }
     }
 }

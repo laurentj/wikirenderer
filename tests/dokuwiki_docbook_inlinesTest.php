@@ -38,11 +38,11 @@ consectetuer adipiscing elit.'
             =>'<para>Lorem ipsum dolor sit amet, 
 consectetuer adipiscing elit.</para>',
         'Lorem [[ipsum dolor]] sit amet, consectetuer adipiscing elit.'
-            =>'<para>Lorem <ulink url="ipsum dolor">ipsum dolor</ulink> sit amet, consectetuer adipiscing elit.</para>',
+            =>'<para>Lorem <link xlink:href="ipsum dolor">ipsum dolor</link> sit amet, consectetuer adipiscing elit.</para>',
         'Lorem [[#ipsum.dolor]] sit amet, consectetuer adipiscing elit.'
-            =>'<para>Lorem <link linkterm="ipsum.dolor">#ipsum.dolor</link> sit amet, consectetuer adipiscing elit.</para>',
+            =>'<para>Lorem <link linkend="ipsum.dolor">#ipsum.dolor</link> sit amet, consectetuer adipiscing elit.</para>',
         'Lorem [[http://foo.com|ipsum dolor]] sit amet, consectetuer adipiscing elit.'
-            =>'<para>Lorem <ulink url="http://foo.com">ipsum dolor</ulink> sit amet, consectetuer adipiscing elit.</para>',
+            =>'<para>Lorem <link xlink:href="http://foo.com">ipsum dolor</link> sit amet, consectetuer adipiscing elit.</para>',
         'Lorem [[ javascript:alert(window.title) | ipsum dolor]] sit amet, consectetuer adipiscing elit.'
             =>'<para>Lorem  ipsum dolor sit amet, consectetuer adipiscing elit.</para>',
         'Lorem ((ipsumdolorsit amet)), consectetuer adipiscing elit.'

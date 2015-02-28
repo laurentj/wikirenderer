@@ -226,12 +226,12 @@ Nulla varius egestas risus.',
             $res = $wr->render($source);
             $this->assertEquals($result, $res, "error on $k th test");
 
-            $this->assertEquals($nberror, count($wr->errors), "Errors detected by wr");
+            $this->assertEquals($nberror, count($wr->errors), "Errors detected by wr on $k");
         }
     }
 
 
-    protected $listblocks = array( '1'=>3
+    protected $listblocks = array( '1'=>4
     );
 
     function testBlockFiles() {
@@ -246,7 +246,7 @@ Nulla varius egestas risus.',
 
             $res = $wr->render($source);
             $this->assertEquals($result, $res, "error on $file");
-            $this->assertEquals($nberror, count($wr->errors), "Errors detected by wr");
+            $this->assertEquals($nberror, count($wr->errors), "Errors detected by wr on $file");
         }
     }
 }

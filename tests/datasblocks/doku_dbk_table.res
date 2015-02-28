@@ -1,4 +1,4 @@
-<table><tr>
+<table><caption></caption><tr>
 <th> Heading 1      </th><th> Heading 2       </th><th> Heading 3          </th>
 </tr>
 
@@ -15,7 +15,7 @@
 </tr>
 </table>
 
-<table><tr>
+<table><caption></caption><tr>
 <td>              </td><th> Heading 1            </th><th> Heading 2          </th>
 </tr>
 
@@ -32,7 +32,7 @@
 </tr>
 </table>
 
-<table><tr>
+<table><caption></caption><tr>
 <th colspan="3" align="center">           Table with alignment           </th>
 </tr>
 
@@ -50,7 +50,7 @@
 </table>
 
 
-<table><tr>
+<table><caption></caption><tr>
 <td>              </td><th> Heading 1            </th><th> Heading 2          </th>
 </tr>
 
@@ -59,7 +59,7 @@
 </tr>
 
 <tr>
-<th> Heading 4    </th><td> no <ulink url="colspan this"> time again</ulink> </td><td>                    </td>
+<th> Heading 4    </th><td> no <link xlink:href="colspan this"> time again</link> </td><td>                    </td>
 </tr>
 
 <tr>
