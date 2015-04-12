@@ -76,8 +76,6 @@ file_put_contents($BUILD_TARGET_PATH.'VERSION', $VERSION);
 //... packages
 
 if($PACKAGE_TAR_GZ){
-    echo '#'.$MAIN_TARGET_PATH."#\n";
-echo 'tar czf '.$MAIN_TARGET_PATH.'/'.$PACKAGE_NAME.'.tar.gz -C '.$MAIN_TARGET_PATH.' '.$PACKAGE_NAME."\n";
     exec('tar czf '.$MAIN_TARGET_PATH.'/'.$PACKAGE_NAME.'.tar.gz -C '.$MAIN_TARGET_PATH.' '.$PACKAGE_NAME);
 }
 
