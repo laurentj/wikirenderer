@@ -44,7 +44,7 @@ $BASE_PATH = jBuildUtils::normalizeDir($BASE_PATH);
 
 Env::setFromFile('VERSION',$BASE_PATH.'/VERSION', true);
 $HG_REVISION = Mercurial::revision(dirname(__FILE__).'/');
-
+$VERSION = trim($VERSION);
 $IS_NIGHTLY = (strpos($VERSION,'SERIAL') !== false);
 
 if($IS_NIGHTLY){
@@ -76,6 +76,8 @@ file_put_contents($BUILD_TARGET_PATH.'VERSION', $VERSION);
 //... packages
 
 if($PACKAGE_TAR_GZ){
+    echo '#'.$MAIN_TARGET_PATH."#\n";
+echo 'tar czf '.$MAIN_TARGET_PATH.'/'.$PACKAGE_NAME.'.tar.gz -C '.$MAIN_TARGET_PATH.' '.$PACKAGE_NAME."\n";
     exec('tar czf '.$MAIN_TARGET_PATH.'/'.$PACKAGE_NAME.'.tar.gz -C '.$MAIN_TARGET_PATH.' '.$PACKAGE_NAME);
 }
 
