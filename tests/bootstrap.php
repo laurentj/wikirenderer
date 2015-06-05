@@ -8,11 +8,8 @@
  * @copyright 2003-2011 Laurent Jouanneau
  */
 
-define('WR_DIR',realpath(dirname(__FILE__).'/wikirenderer/').'/');
-require_once('wikirenderer/WikiRenderer.lib.php');
-
-if(!defined('WIKIRENDERER_VERSION')) define('WIKIRENDERER_VERSION','');
-
+define('WR_DIR',realpath(__DIR__.'/../src/').'/');
+require_once(__DIR__.'/../src/WikiRenderer.lib.php');
 
 class WRConfigTest extends WikiRendererConfig { }
 

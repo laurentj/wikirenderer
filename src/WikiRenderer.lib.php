@@ -3,7 +3,7 @@
  * Wikirenderer is a wiki text parser. It can transform a wiki text into xhtml or other formats
  * @package WikiRenderer
  * @author Laurent Jouanneau
- * @copyright 2003-2010 Laurent Jouanneau
+ * @copyright 2003-2015 Laurent Jouanneau
  * @link http://wikirenderer.jelix.org
  *
  * This library is free software; you can redistribute it and/or
@@ -20,22 +20,14 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
  */
-define('WIKIRENDERER_PATH', dirname(__FILE__).'/');
-#expand define('WIKIRENDERER_VERSION', '__VERSION__');
+define('WIKIRENDERER_PATH', __DIR__.'/');
+define('WIKIRENDERER_VERSION', trim(file_get_contents(__DIR__.'/VERSION')));
 
-#includephp WikiTag.class.php
-#includephp WikiInlineParser.class.php
-#includephp WikiRendererBloc.class.php
-#includephp WikiRendererConfig.class.php
-#includephp WikiRenderer.class.php
-
-#if false
 require('WikiTag.class.php');
 require('WikiInlineParser.class.php');
 require('WikiRendererBloc.class.php');
 require('WikiRendererConfig.class.php');
 require('WikiRenderer.class.php');
-#endif
 
 /**
  *

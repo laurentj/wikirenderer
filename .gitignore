@@ -1,3 +1,3 @@
 *.komodoproject
-tests/wikirenderer/
-_dist/
+vendor/
+composer.lock
