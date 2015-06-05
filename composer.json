@@ -28,7 +28,7 @@
         "phpunit/phpunit": "4.3.*"
     },
     "autoload": {
-        "class": {
+        "classmap": {
             "WikiRenderer": "src/WikiRenderer.lib.php"
         }
     },
