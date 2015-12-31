@@ -1,12 +1,13 @@
 <?php
+
 /**
- * wikirenderer3 (wr3) syntax to docbook 5.0
+ * wikirenderer3 (wr3) syntax to docbook 5.0.
  *
- * @package WikiRenderer
- * @subpackage rules
  * @author Laurent Jouanneau
  * @contributor  Amaury Bouchard
+ *
  * @copyright 2003-2013 Laurent Jouanneau
+ *
  * @link http://wikirenderer.jelix.org
  *
  * This library is free software; you can redistribute it and/or
@@ -21,14 +22,12 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
- *
  */
+
 namespace WikiRenderer\Markup\WR3DocBook;
 
 /**
  * ???
- * @package	WikiRenderer
- * @subpackage	WR3DocBook
  */
 class WikiList extends \WikiRenderer\Block
 {
@@ -44,10 +43,11 @@ class WikiList extends \WikiRenderer\Block
         $this->_firstTagLen = strlen($this->_previousTag);
         $this->_firstItem = true;
 
-        if (substr($this->_previousTag, -1, 1) == '#')
+        if (substr($this->_previousTag, -1, 1) == '#') {
             return "<orderedlist>\n";
-        else
+        } else {
             return "<itemizedlist>\n";
+        }
     }
 
     public function close()
@@ -55,9 +55,10 @@ class WikiList extends \WikiRenderer\Block
         $t = $this->_previousTag;
         $str = '';
 
-        for ($i = strlen($t); $i >= $this->_firstTagLen; $i--) {
+        for ($i = strlen($t); $i >= $this->_firstTagLen; --$i) {
             $str .= ($t[$i - 1] == '#') ? "</listitem></orderedlist>\n" : "</listitem></itemizedlist>\n";
         }
+
         return $str;
     }
 
@@ -69,22 +70,20 @@ class WikiList extends \WikiRenderer\Block
 
         if ($d > 0) { // on remonte d'un ou plusieurs cran dans la hierarchie...
             $l = strlen($this->_detectMatch[1]);
-            for ($i = strlen($t); $i > $l; $i--) {
+            for ($i = strlen($t); $i > $l; --$i) {
                 $str .= ($t[$i - 1] == '#') ? "</listitem></orderedlist>\n" : "</listitem></itemizedlist>\n";
             }
             $str .= "</listitem>\n<listitem>";
             $this->_previousTag = substr($this->_previousTag, 0, -$d); // pour etre sur...
-
         } elseif ($d < 0) { // un niveau de plus
             $c = substr($this->_detectMatch[1], -1, 1);
             $this->_previousTag .= $c;
-            $str = ($c == '#') ? "<orderedlist><listitem>":"<itemizedlist><listitem>";
-
+            $str = ($c == '#') ? '<orderedlist><listitem>' : '<itemizedlist><listitem>';
         } else {
             $str = ($this->_firstItem ? '<listitem>' : "</listitem>\n<listitem>");
         }
         $this->_firstItem = false;
-        return $str . '<para>'.$this->_renderInlineTag($this->_detectMatch[2]).'</para>';
+
+        return $str.'<para>'.$this->_renderInlineTag($this->_detectMatch[2]).'</para>';
     }
 }
-

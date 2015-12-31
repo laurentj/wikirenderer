@@ -1,12 +1,13 @@
 <?php
+
 /**
- * wikirenderer3 (wr3) syntax to docbook 5.0
+ * wikirenderer3 (wr3) syntax to docbook 5.0.
  *
- * @package WikiRenderer
- * @subpackage rules
  * @author Laurent Jouanneau
  * @contributor  Amaury Bouchard
+ *
  * @copyright 2003-2013 Laurent Jouanneau
+ *
  * @link http://wikirenderer.jelix.org
  *
  * This library is free software; you can redistribute it and/or
@@ -21,14 +22,12 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
- *
  */
+
 namespace WikiRenderer\Markup\WR3DocBook;
 
 /**
  * ???
- * @package	WikiRenderer
- * @subpackage	WR3DocBook
  */
 class Title extends \WikiRenderer\Block
 {
@@ -38,15 +37,16 @@ class Title extends \WikiRenderer\Block
     /**
      * Indique le sens dans lequel il faut interpreter le nombre de signe de titre.
      * true -> ! = titre , !! = sous titre, !!! = sous-sous-titre
-     * false-> !!! = titre , !! = sous titre, ! = sous-sous-titre
+     * false-> !!! = titre , !! = sous titre, ! = sous-sous-titre.
      */
     protected $_order = false;
 
     public function getRenderedLine()
     {
         $level = strlen($this->_detectMatch[1]);
-        if (!$this->_order)
+        if (!$this->_order) {
             $level = 4 - $level;
+        }
 
         $conf = $this->engine->getConfig();
 
@@ -57,7 +57,7 @@ class Title extends \WikiRenderer\Block
                 $first = true;
                 while ($last = end($conf->sectionLevel) && $last >= $level) {
                     if ($this->engine->getPreviousBloc()) {
-                        if ($first && $this->engine->getPreviousBloc() instanceof Title) {
+                        if ($first && $this->engine->getPreviousBloc() instanceof self) {
                             $output .= '<para> </para>';
                         }
                     }
@@ -65,12 +65,11 @@ class Title extends \WikiRenderer\Block
                     $first = false;
                     array_pop($conf->sectionLevel);
                 }
-            } else if ($last < $level) {
-
+            } elseif ($last < $level) {
             } else {
                 array_pop($conf->sectionLevel);
                 if ($this->engine->getPreviousBloc()) {
-                    if ($this->engine->getPreviousBloc() instanceof Title) {
+                    if ($this->engine->getPreviousBloc() instanceof self) {
                         $output .= '<para> </para>';
                     }
                 }
@@ -79,7 +78,7 @@ class Title extends \WikiRenderer\Block
         }
 
         $conf->sectionLevel[] = $level;
-        return $output . '<section><title>' . $this->_renderInlineTag($this->_detectMatch[2]) . '</title>';
+
+        return $output.'<section><title>'.$this->_renderInlineTag($this->_detectMatch[2]).'</title>';
     }
 }
-

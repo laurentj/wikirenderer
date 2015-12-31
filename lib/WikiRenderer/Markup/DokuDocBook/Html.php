@@ -1,11 +1,11 @@
 <?php
+
 /**
- * dokuwiki syntax to docbook 5.0
+ * dokuwiki syntax to docbook 5.0.
  *
- * @package WikiRenderer
- * @subpackage rules
  * @author Laurent Jouanneau
  * @copyright 2008 Laurent Jouanneau
+ *
  * @link http://wikirenderer.jelix.org
  *
  * This library is free software; you can redistribute it and/or
@@ -20,8 +20,8 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
- *
  */
+
 namespace WikiRenderer\Markup\DokuDocBook;
 
 class Html extends \WikiRenderer\Block
@@ -35,12 +35,14 @@ class Html extends \WikiRenderer\Block
     {
         $this->isOpen = true;
         $this->closeTagDetected = false;
+
         return '';
     }
 
     public function close()
     {
         $this->isOpen = false;
+
         return '';
     }
 
@@ -59,20 +61,21 @@ class Html extends \WikiRenderer\Block
                 $this->isOpen = false;
                 $this->closeTagDetected = true;
             }
+
             return true;
         } else {
-            if (preg_match('/^\s*<' . $this->dktag . '>(.*)/', $string, $m)) {
-                if (preg_match('/(.*)<\/' . $this->dktag . '>\s*$/', $string, $m)) {
+            if (preg_match('/^\s*<'.$this->dktag.'>(.*)/', $string, $m)) {
+                if (preg_match('/(.*)<\/'.$this->dktag.'>\s*$/', $string, $m)) {
                     $this->closeTagDetected = true;
                     $this->_closeNow = true;
-                }
-                else {
+                } else {
                     $this->_closeNow = false;
                 }
+
                 return true;
-            } else
+            } else {
                 return false;
+            }
         }
     }
 }
-

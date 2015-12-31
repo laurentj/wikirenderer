@@ -1,11 +1,11 @@
 <?php
+
 /**
- * dokuwiki syntax to xhtml
+ * dokuwiki syntax to xhtml.
  *
- * @package WikiRenderer
- * @subpackage rules
  * @author Laurent Jouanneau
  * @copyright 2008-2012 Laurent Jouanneau
+ *
  * @link http://wikirenderer.jelix.org
  *
  * This library is free software; you can redistribute it and/or
@@ -20,12 +20,12 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
- *
  */
+
 namespace WikiRenderer\Markup\DokuHtml;
 
 /**
- * traite les signes de type blockquote
+ * traite les signes de type blockquote.
  */
 class Blockquote extends \WikiRenderer\Block
 {
@@ -37,12 +37,13 @@ class Blockquote extends \WikiRenderer\Block
         $this->_previousTag = $this->_detectMatch[1];
         $this->_firstTagLen = strlen($this->_previousTag);
         $this->_firstLine = true;
-        return str_repeat('<blockquote>', $this->_firstTagLen) . '<p>';
+
+        return str_repeat('<blockquote>', $this->_firstTagLen).'<p>';
     }
 
     public function close()
     {
-        return '</p>' . str_repeat('</blockquote>', strlen($this->_previousTag));
+        return '</p>'.str_repeat('</blockquote>', strlen($this->_previousTag));
     }
 
     public function getRenderedLine()
@@ -51,16 +52,17 @@ class Blockquote extends \WikiRenderer\Block
         $str = '';
 
         if ($d > 0) { // on remonte d'un cran dans la hierarchie...
-            $str = '</p>' . str_repeat('</blockquote>', $d) . '<p>';
+            $str = '</p>'.str_repeat('</blockquote>', $d).'<p>';
             $this->_previousTag = $this->_detectMatch[1];
         } elseif ($d < 0) { // un niveau de plus
             $this->_previousTag = $this->_detectMatch[1];
-            $str = '</p>' . str_repeat('<blockquote>', -$d) . '<p>';
+            $str = '</p>'.str_repeat('<blockquote>', -$d).'<p>';
         } else {
-            if ($this->_firstLine)
+            if ($this->_firstLine) {
                 $this->_firstLine = false;
+            }
         }
+
         return $str.$this->_renderInlineTag($this->_detectMatch[2]);
     }
 }
-

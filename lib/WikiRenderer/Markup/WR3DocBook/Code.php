@@ -1,12 +1,13 @@
 <?php
+
 /**
- * wikirenderer3 (wr3) syntax to docbook 5.0
+ * wikirenderer3 (wr3) syntax to docbook 5.0.
  *
- * @package WikiRenderer
- * @subpackage rules
  * @author Laurent Jouanneau
  * @contributor  Amaury Bouchard
+ *
  * @copyright 2003-2013 Laurent Jouanneau
+ *
  * @link http://wikirenderer.jelix.org
  *
  * This library is free software; you can redistribute it and/or
@@ -21,14 +22,12 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
- *
  */
+
 namespace WikiRenderer\Markup\WR3DocBook;
 
 /**
  * ???
- * @package	WikiRenderer
- * @subpackage	WR3DocBook
  */
 class Code extends \WikiRenderer\TagXhtml
 {
@@ -39,7 +38,8 @@ class Code extends \WikiRenderer\TagXhtml
     public function getContent()
     {
         $code = $this->wikiContentArr[0];
-        return '<code>' . htmlspecialchars($code) . '</code>';
+
+        return '<code>'.htmlspecialchars($code).'</code>';
     }
 
     public function isOtherTagAllowed()
@@ -47,4 +47,3 @@ class Code extends \WikiRenderer\TagXhtml
         return false;
     }
 }
-

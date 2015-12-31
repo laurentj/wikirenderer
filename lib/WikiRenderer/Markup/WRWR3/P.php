@@ -1,11 +1,11 @@
 <?php
+
 /**
- * classic wikirenderer syntax to Wikirenderer 3 syntax
+ * classic wikirenderer syntax to Wikirenderer 3 syntax.
  *
- * @package WikiRenderer
- * @subpackage rules
  * @author Laurent Jouanneau
  * @copyright 2003-2014 Laurent Jouanneau
+ *
  * @link http://wikirenderer.jelix.org
  *
  * This library is free software; you can redistribute it and/or
@@ -20,30 +20,34 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
- *
  */
+
 namespace WikiRenderer\Markup\WRWR3;
 
-class P extends \WikiRenderer\Block {
-    public $type='p';
- 
-    public function detect($string, $inBlock = false){
-        if ($string=='')
+class P extends \WikiRenderer\Block
+{
+    public $type = 'p';
+
+    public function detect($string, $inBlock = false)
+    {
+        if ($string == '') {
             return false;
-        if (preg_match('/^={4,} *$/',$string))
+        }
+        if (preg_match('/^={4,} *$/', $string)) {
             return false;
+        }
         $c = $string[0];
 
-        if (strpos("*#-!| \t>;" ,$c) === false) {
-            $this->_detectMatch=array($string,$string);
+        if (strpos("*#-!| \t>;", $c) === false) {
+            $this->_detectMatch = array($string,$string);
+
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     }
-    public function getRenderedLine(){
-       return $this->_renderInlineTag($this->_detectMatch[1]);
+    public function getRenderedLine()
+    {
+        return $this->_renderInlineTag($this->_detectMatch[1]);
     }
-    
 }

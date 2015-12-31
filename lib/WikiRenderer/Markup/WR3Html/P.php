@@ -1,11 +1,11 @@
 <?php
+
 /**
- * wikirenderer3 (wr3) syntax to xhtml
+ * wikirenderer3 (wr3) syntax to xhtml.
  *
- * @package WikiRenderer
- * @subpackage rules
  * @author Laurent Jouanneau
  * @copyright 2003-2006 Laurent Jouanneau
+ *
  * @link http://wikirenderer.jelix.org
  *
  * This library is free software; you can redistribute it and/or
@@ -20,14 +20,12 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
- *
  */
+
 namespace WikiRenderer\Markup\WR3Html;
 
 /**
  * ???
- * @package	WikiRenderer
- * @subpackage	WR3Html
  */
 class P extends \WikiRenderer\Block
 {
@@ -37,12 +35,14 @@ class P extends \WikiRenderer\Block
 
     public function detect($string, $inBlock = false)
     {
-        if ($string == '')
+        if ($string == '') {
             return false;
-        if (preg_match("/^\s*[\*#\-\!\| \t>;<=].*/", $string))
+        }
+        if (preg_match("/^\s*[\*#\-\!\| \t>;<=].*/", $string)) {
             return false;
+        }
         $this->_detectMatch = array($string, $string);
+
         return true;
     }
 }
-

@@ -1,12 +1,13 @@
 <?php
+
 /**
- * wikirenderer3 (wr3) syntax to docbook 5.0
+ * wikirenderer3 (wr3) syntax to docbook 5.0.
  *
- * @package WikiRenderer
- * @subpackage rules
  * @author Laurent Jouanneau
  * @contributor  Amaury Bouchard
+ *
  * @copyright 2003-2013 Laurent Jouanneau
+ *
  * @link http://wikirenderer.jelix.org
  *
  * This library is free software; you can redistribute it and/or
@@ -21,14 +22,12 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
- *
  */
+
 namespace WikiRenderer\Markup\WR3DocBook;
 
 /**
  * ???
- * @package	WikiRenderer
- * @subpackage	WR3DocBook
  */
 class Link extends \WikiRenderer\TagXhtml
 {
@@ -46,17 +45,18 @@ class Link extends \WikiRenderer\TagXhtml
         if ($cnt == 1) {
             list($href, $label) = $this->config->processLink($this->wikiContentArr[0], $this->name);
 
-            if (preg_match("/^\#(.+)$/", $href, $m))
-                return '<link linkend="' . htmlspecialchars($m[1]) . '">' . htmlspecialchars($label) . '</link>';
-            else
-                return '<link xlink:href="' . htmlspecialchars($href) . '">' . htmlspecialchars($label) . '</link>';
+            if (preg_match("/^\#(.+)$/", $href, $m)) {
+                return '<link linkend="'.htmlspecialchars($m[1]).'">'.htmlspecialchars($label).'</link>';
+            } else {
+                return '<link xlink:href="'.htmlspecialchars($href).'">'.htmlspecialchars($label).'</link>';
+            }
         } else {
             list($href, $label) = $this->config->processLink($this->wikiContentArr[1], $this->name);
-            if (preg_match("/^\#(.+)$/", $href, $m))
-                return '<link linkend="' . htmlspecialchars($m[1]) . '">' . $this->contents[0] . '</link>';
-            else
-                return '<link xlink:href="' . htmlspecialchars($href) . '">' . $this->contents[0] . '</link>';
+            if (preg_match("/^\#(.+)$/", $href, $m)) {
+                return '<link linkend="'.htmlspecialchars($m[1]).'">'.$this->contents[0].'</link>';
+            } else {
+                return '<link xlink:href="'.htmlspecialchars($href).'">'.$this->contents[0].'</link>';
+            }
         }
     }
 }
-

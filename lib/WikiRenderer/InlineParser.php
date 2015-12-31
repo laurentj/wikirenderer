@@ -1,9 +1,11 @@
 <?php
+
 /**
- * Wikirenderer is a wiki text parser. It can transform a wiki text into xhtml or other formats
- * @package WikiRenderer
+ * Wikirenderer is a wiki text parser. It can transform a wiki text into xhtml or other formats.
+ *
  * @author Laurent Jouanneau
  * @copyright 2003-2008 Laurent Jouanneau
+ *
  * @link http://wikirenderer.jelix.org
  *
  * This library is free software; you can redistribute it and/or
@@ -18,13 +20,12 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
- *
  */
+
 namespace WikiRenderer;
 
 /**
  * The parser used to find all inline tag in a single line of text.
- * @package WikiRenderer
  */
 class InlineParser
 {
@@ -44,43 +45,46 @@ class InlineParser
     protected $currentTextLineContainer = null;
 
     /**
-     * constructor
-     * @param   \WikiRenderer\Config  $config A configuration object.
+     * constructor.
+     *
+     * @param \WikiRenderer\Config $config A configuration object.
      */
-    function __construct(Config $config)
+    public function __construct(Config $config)
     {
         $this->escapeChar = $config->escapeChar;
         $this->config = $config;
 
         $simpletagPattern = '';
         foreach ($config->simpletags as $tag => $html) {
-            $simpletagPattern .= '|(' . preg_quote($tag, '/') . ')';
+            $simpletagPattern .= '|('.preg_quote($tag, '/').')';
         }
-        
+
         $escapePattern = '';
-        if ($this->escapeChar != '')
-            $escapePattern = '|(' . preg_quote($this->escapeChar, '/') . ')';
+        if ($this->escapeChar != '') {
+            $escapePattern = '|('.preg_quote($this->escapeChar, '/').')';
+        }
 
         foreach ($config->textLineContainers as $class => $tags) {
             $c = new TextLineContainer();
             $c->tag = new $class($config);
             $separators = $c->tag->separators;
-            
+
             $tagList = array();
             foreach ($tags as $tag) {
                 $t = new $tag($config);
                 $c->allowedTags[$t->beginTag] = $t;
-                $c->pattern .= '|(' . preg_quote($t->beginTag, '/') . ')';
-                if ($t->beginTag != $t->endTag)
-                    $c->pattern .= '|(' . preg_quote($t->endTag, '/') . ')';
+                $c->pattern .= '|('.preg_quote($t->beginTag, '/').')';
+                if ($t->beginTag != $t->endTag) {
+                    $c->pattern .= '|('.preg_quote($t->endTag, '/').')';
+                }
                 $separators = array_merge($separators, $t->separators);
             }
             $separators = array_unique($separators);
             foreach ($separators as $sep) {
-                $c->pattern .= '|(' . preg_quote($sep, '/') . ')';
+                $c->pattern .= '|('.preg_quote($sep, '/').')';
             }
-            $c->pattern .= $simpletagPattern . $escapePattern;
-            $c->pattern = '/' . substr($c->pattern, 1) . '/';
+            $c->pattern .= $simpletagPattern.$escapePattern;
+            $c->pattern = '/'.substr($c->pattern, 1).'/';
 
             $this->textLineContainers[$class] = $c;
         }
@@ -89,8 +93,10 @@ class InlineParser
 
     /**
      * Main function which parses a line of wiki content.
-     * @param   string   $line   a string containing wiki content, but without line feeds
-     * @return  string   the line transformed to the target content 
+     *
+     * @param string $line a string containing wiki content, but without line feeds
+     *
+     * @return string the line transformed to the target content
      */
     public function parse($line)
     {
@@ -104,38 +110,43 @@ class InlineParser
         if ($this->end > 1) {
             $pos = -1;
             $this->_parse($firsttag, $pos);
+
             return $firsttag->getContent();
         } else {
             $firsttag->addContent($line);
+
             return $firsttag->getContent();
         }
     }
 
     /**
      * Parser's core function.
-     * @param   ??? $tag        ???
-     * @param   ??? $posstart   ???
-     * @return integer new position
+     *
+     * @param ??? $tag      ???
+     * @param ??? $posstart ???
+     *
+     * @return int new position
      */
     protected function _parse($tag, $posstart)
     {
         $checkNextTag = true;
 
-        // we analyse each part of the string, 
-        for ($i = $posstart + 1; $i < $this->end; $i++) {
+        // we analyse each part of the string,
+        for ($i = $posstart + 1; $i < $this->end; ++$i) {
             $t = &$this->str[$i];
 
             // is it the escape char ?
             if ($this->escapeChar != '' && $t === $this->escapeChar) {
                 if ($checkNextTag) {
                     $t = ''; // yes -> let's ignore the tag
-                    $checkNextTag=false;
+                    $checkNextTag = false;
                 } else {
                     // if we are here, this is because the previous part was the escape char
                     $tag->addContent($this->escapeChar);
-                    if ($this->config->outputEscapeChar)
+                    if ($this->config->outputEscapeChar) {
                         $tag->addContent($this->escapeChar);
-                    $checkNextTag=true;
+                    }
+                    $checkNextTag = true;
                 }
 
             // is this a separator ?
@@ -147,8 +158,7 @@ class InlineParser
                 // is there a ended tag
                 if ($tag->endTag == $t && !$tag->isTextLineTag) {
                     return $i;
-                }
-                else if (!$tag->isOtherTagAllowed()) {
+                } elseif (!$tag->isOtherTagAllowed()) {
                     $tag->addContent($t);
                 }
                 // is there a tag which begin something ?
@@ -165,32 +175,28 @@ class InlineParser
                 // is there a simple tag ?
                 elseif (isset($this->simpletags[$t])) {
                     $tag->addContent($t, $this->simpletags[$t]);
-                }
-                else {
+                } else {
                     $tag->addContent($t);
                 }
             } else {
-
                 if (!$this->config->outputEscapeChar &&
                     (isset($this->currentTextLineContainer->allowedTags[$t]) ||
                     isset($this->simpletags[$t]) ||
                     $tag->endTag == $t)) {
                     $tag->addContent($t);
-                }
-                else {
-                    $tag->addContent($this->escapeChar . $t);
+                } else {
+                    $tag->addContent($this->escapeChar.$t);
                 }
                 $checkNextTag = true;
             }
         }
         if (!$tag->isTextLineTag) {
             //we didn't find the ended tag, error
-            $this->error=true;
+            $this->error = true;
+
             return false;
-        }
-        else {
+        } else {
             return $this->end;
         }
     }
 }
-

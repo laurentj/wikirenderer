@@ -1,9 +1,11 @@
 <?php
+
 /**
- * Wikirenderer is a wiki text parser. It can transform a wiki text into xhtml or other formats
- * @package WikiRenderer
+ * Wikirenderer is a wiki text parser. It can transform a wiki text into xhtml or other formats.
+ *
  * @author Laurent Jouanneau
  * @copyright 2003-2008 Laurent Jouanneau
+ *
  * @link http://wikirenderer.jelix.org
  *
  * This library is free software; you can redistribute it and/or
@@ -18,15 +20,14 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
- *
  */
+
 namespace WikiRenderer;
 
 /**
  * Base class to generate output from inline wiki tag.
  * These objects are driven by the wiki inline parser.
- * @package WikiRenderer
- * @subpackage  core
+ *
  * @see \WikiRenderer\InlineParser
  */
 abstract class Tag
@@ -62,20 +63,24 @@ abstract class Tag
 
     /**
      * Constructor.
-     * @param \WikiRenderer\Config $config  Configuration object.
-    */
-    function __construct(Config $config)
+     *
+     * @param \WikiRenderer\Config $config Configuration object.
+     */
+    public function __construct(Config $config)
     {
         $this->config = $config;
         $this->checkWikiWordFunction = $config->checkWikiWordFunction;
-        if ($config->checkWikiWordFunction === null)
+        if ($config->checkWikiWordFunction === null) {
             $this->checkWikiWordIn = array();
-        if (count($this->separators))
+        }
+        if (count($this->separators)) {
             $this->currentSeparator = $this->separators[0];
+        }
     }
 
     /**
      * Called by the inline parser, when it found a new content.
+     *
      * @param string $wikiContent   The original content in wiki syntax if $parsedContent is given, or a simple string if not.
      * @param string $parsedContent The content already parsed (by an other wikitag object), when this wikitag contains other wikitags.
      */
@@ -83,7 +88,7 @@ abstract class Tag
     {
         if ($parsedContent === false) {
             $parsedContent = $this->_doEscape($wikiContent);
-            if (count( $this->checkWikiWordIn)
+            if (count($this->checkWikiWordIn)
                 && isset($this->attribute[$this->separatorCount])
                 && in_array($this->attribute[$this->separatorCount], $this->checkWikiWordIn)) {
                 $parsedContent = $this->_findWikiWord($parsedContent);
@@ -95,16 +100,18 @@ abstract class Tag
 
     /**
      * Called by the inline parser, when it found a separator.
-     * @param   ??? $token  ???
+     *
+     * @param ??? $token ???
      */
     public function addSeparator($token)
     {
-        $this->wikiContent.= $this->wikiContentArr[$this->separatorCount];
-        $this->separatorCount++;
-        if ($this->separatorCount > count($this->separators))
+        $this->wikiContent .= $this->wikiContentArr[$this->separatorCount];
+        ++$this->separatorCount;
+        if ($this->separatorCount > count($this->separators)) {
             $this->currentSeparator = end($this->separators);
-        else
-            $this->currentSeparator = $this->separators[$this->separatorCount-1];
+        } else {
+            $this->currentSeparator = $this->separators[$this->separatorCount - 1];
+        }
         $this->wikiContent .= $this->currentSeparator;
         $this->contents[$this->separatorCount] = '';
         $this->wikiContentArr[$this->separatorCount] = '';
@@ -112,7 +119,8 @@ abstract class Tag
 
     /**
      * Says if the given token is the current separator of the tag.
-     * The tag can support many separator
+     * The tag can support many separator.
+     *
      * @return string The separator.
      */
     public function isCurrentSeparator($token)
@@ -122,15 +130,17 @@ abstract class Tag
 
     /**
      * Returns the wiki content of the tag.
+     *
      * @return string The content.
      */
     public function getWikiContent()
     {
-        return $this->beginTag . $this->wikiContent . $this->wikiContentArr[$this->separatorCount] . $this->endTag;
+        return $this->beginTag.$this->wikiContent.$this->wikiContentArr[$this->separatorCount].$this->endTag;
     }
 
     /**
      * Returns the generated content of the tag.
+     *
      * @return string the content
      */
     public function getContent()
@@ -140,18 +150,21 @@ abstract class Tag
 
     /**
      * ???
-     * @return  ??? ???
+     *
+     * @return ??? ???
      */
     public function isOtherTagAllowed()
     {
-        if (isset($this->attribute[$this->separatorCount]))
+        if (isset($this->attribute[$this->separatorCount])) {
             return ($this->attribute[$this->separatorCount] == '$$');
-        else
+        } else {
             return false;
+        }
     }
 
     /**
      * Returns the generated content of the tag.
+     *
      * @return string the content
      */
     public function getBogusContent()
@@ -161,20 +174,24 @@ abstract class Tag
         $s = count($this->separators);
         foreach ($this->contents as $k => $v) {
             $c .= $v;
-            if ($k< $m) {
-                if ($k < $s)
+            if ($k < $m) {
+                if ($k < $s) {
                     $c .= $this->separators[$k];
-                else
+                } else {
                     $c .= end($this->separators);
+                }
             }
         }
+
         return $c;
     }
 
     /**
      * Escapes a simple string.
-     * @param   string  $string The string to escape.
-     * @return  string  The escaped string.
+     *
+     * @param string $string The string to escape.
+     *
+     * @return string The escaped string.
      */
     protected function _doEscape($string)
     {
@@ -183,8 +200,10 @@ abstract class Tag
 
     /**
      * ???
-     * @param   string $string  ???
-     * @return  ??? ???
+     *
+     * @param string $string ???
+     *
+     * @return ??? ???
      */
     protected function _findWikiWord($string)
     {
@@ -200,7 +219,7 @@ abstract class Tag
             }
             $string = str_replace($match, $result, $string);
         }
+
         return $string;
     }
 }
-

@@ -1,11 +1,11 @@
 <?php
+
 /**
- * dokuwiki syntax to xhtml
+ * dokuwiki syntax to xhtml.
  *
- * @package WikiRenderer
- * @subpackage rules
  * @author Laurent Jouanneau
  * @copyright 2008-2012 Laurent Jouanneau
+ *
  * @link http://wikirenderer.jelix.org
  *
  * This library is free software; you can redistribute it and/or
@@ -20,8 +20,8 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
- *
  */
+
 namespace WikiRenderer\Markup\DokuHtml;
 
 class SyntaxHighlight extends \WikiRenderer\Block
@@ -37,12 +37,14 @@ class SyntaxHighlight extends \WikiRenderer\Block
     {
         $this->isOpen = true;
         $this->closeTagDetected = false;
+
         return $this->_openTag;
     }
 
     public function close()
     {
-        $this->isOpen=false;
+        $this->isOpen = false;
+
         return $this->_closeTag;
     }
 
@@ -57,17 +59,18 @@ class SyntaxHighlight extends \WikiRenderer\Block
             return false;
         }
         if ($this->isOpen) {
-            if (preg_match('/(.*)<\/' . $this->dktag . '>\s*$/', $string, $m)) {
+            if (preg_match('/(.*)<\/'.$this->dktag.'>\s*$/', $string, $m)) {
                 $this->_detectMatch = $m[1];
                 $this->isOpen = false;
                 $this->closeTagDetected = true;
             } else {
                 $this->_detectMatch = $string;
             }
+
             return true;
         } else {
-            if (preg_match('/^\s*<' . $this->dktag . '( \w+)?>(.*)/', $string, $m)) {
-                if (preg_match('/(.*)<\/' . $this->dktag . '>\s*$/', $m[2], $m2)) {
+            if (preg_match('/^\s*<'.$this->dktag.'( \w+)?>(.*)/', $string, $m)) {
+                if (preg_match('/(.*)<\/'.$this->dktag.'>\s*$/', $m[2], $m2)) {
                     $this->_closeNow = true;
                     $this->_detectMatch = $m2[1];
                     $this->closeTagDetected = true;
@@ -75,14 +78,16 @@ class SyntaxHighlight extends \WikiRenderer\Block
                     $this->_closeNow = false;
                     $this->_detectMatch = $m[2];
                 }
-                if (isset($m[1]) && $m[1] != '')
-                    $this->_openTag = '<pre><code class="language-' . trim($m[1]) . '">';
-                else
+                if (isset($m[1]) && $m[1] != '') {
+                    $this->_openTag = '<pre><code class="language-'.trim($m[1]).'">';
+                } else {
                     $this->_openTag = '<pre><code>';
+                }
+
                 return true;
             }
+
             return false;
         }
     }
 }
-

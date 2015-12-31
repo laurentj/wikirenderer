@@ -1,11 +1,11 @@
 <?php
+
 /**
- * dokuwiki syntax to docbook 5.0
+ * dokuwiki syntax to docbook 5.0.
  *
- * @package WikiRenderer
- * @subpackage rules
  * @author Laurent Jouanneau
  * @copyright 2008 Laurent Jouanneau
+ *
  * @link http://wikirenderer.jelix.org
  *
  * This library is free software; you can redistribute it and/or
@@ -20,8 +20,8 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
- *
  */
+
 namespace WikiRenderer\Markup\DokuDocBook;
 
 class TableRow extends \WikiRenderer\Tag
@@ -38,12 +38,12 @@ class TableRow extends \WikiRenderer\Tag
     }
 
     /**
-     * called by the inline parser, when it found a separator
+     * called by the inline parser, when it found a separator.
      */
     public function addSeparator($token)
     {
         $this->wikiContent .= $this->wikiContentArr[$this->separatorCount];
-        $this->separatorCount++;
+        ++$this->separatorCount;
         $this->currentSeparator = $token;
         $this->wikiContent .= $token;
         $this->contents[$this->separatorCount] = '';
@@ -64,10 +64,12 @@ class TableRow extends \WikiRenderer\Tag
     public function getBogusContent()
     {
         $c = $this->beginTag;
-        $m = count($this->contents)-1;
+        $m = count($this->contents) - 1;
         $s = count($this->separators);
-        foreach ($this->contents as $k => $v)
-            $c .= $this->columns[$k] . $v;
+        foreach ($this->contents as $k => $v) {
+            $c .= $this->columns[$k].$v;
+        }
+
         return $c;
     }
 
@@ -77,54 +79,64 @@ class TableRow extends \WikiRenderer\Tag
         $col = '';
         $colnum = 0;
         $colspan = 0;
-        $last = count($this->contents) -1;
+        $last = count($this->contents) - 1;
         foreach ($this->contents as $k => $content) {
-            if ($k == 0)
-                continue; // we ignore first content (which is before the first separator
-            if ($k == $last)
-                break; // we ignore the last content (which is after the last separator
+            if ($k == 0) {
+                continue;
+            } // we ignore first content (which is before the first separator
+            if ($k == $last) {
+                break;
+            } // we ignore the last content (which is after the last separator
             if ($content == '') {
                 if ($col == '' && $k > 0) { // if bad syntax on first col
                     $c .= '<td></td>';
-                } else
+                } else {
                     $colspan++;
+                }
             } else {
-                if ($col !='')
+                if ($col != '') {
                     $c .= $this->addCol($colnum, $col, $colspan);
+                }
                 $colnum = $k;
                 $col = $content;
             }
         }
         $c .= $this->addCol($colnum, $col, $colspan);
-        return $c . "\n</tr>\n";
+
+        return $c."\n</tr>\n";
     }
 
     protected function addCol($num, $content, $colspan)
     {
-        if ($this->columns[$num] == '^')
+        if ($this->columns[$num] == '^') {
             $t = 'th';
-        else
+        } else {
             $t = 'td';
+        }
 
         $align = '';
         $l = 0;
         $r = 0;
-        if (preg_match("/^(\s+)/", $content, $m))
+        if (preg_match("/^(\s+)/", $content, $m)) {
             $l = strlen($m[1]);
-        if (preg_match("/(\s+)$/", $content, $m))
+        }
+        if (preg_match("/(\s+)$/", $content, $m)) {
             $r = strlen($m[1]);
-        if (trim($content) == '')
+        }
+        if (trim($content) == '') {
             $l = $r = 0;
-        if ($l==0 && $r > 2)
+        }
+        if ($l == 0 && $r > 2) {
             $align = ' align="left"';
-        else if ($r == 0 && $l > 2)
+        } elseif ($r == 0 && $l > 2) {
             $align = ' align="right"';
-        else if ($l > 2 && $l == $r)
+        } elseif ($l > 2 && $l == $r) {
             $align = ' align="center"';
-        if ($colspan)
-            return '<' . $t . ' colspan="' . ($colspan + 1) . '"' . $align . '>' . $content . '</' . $t . '>';
-        else
-            return '<' . $t . $align . '>' . $content . '</' . $t . '>';
+        }
+        if ($colspan) {
+            return '<'.$t.' colspan="'.($colspan + 1).'"'.$align.'>'.$content.'</'.$t.'>';
+        } else {
+            return '<'.$t.$align.'>'.$content.'</'.$t.'>';
+        }
     }
 }
-

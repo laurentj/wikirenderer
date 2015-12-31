@@ -1,10 +1,13 @@
 <?php
+
 /**
- * Wikirenderer is a wiki text parser. It can transform a wiki text into xhtml or other formats
- * @package WikiRenderer
+ * Wikirenderer is a wiki text parser. It can transform a wiki text into xhtml or other formats.
+ *
  * @author Laurent Jouanneau
  * @contributor  Amaury Bouchard
+ *
  * @copyright 2003-2013 Laurent Jouanneau
+ *
  * @link http://wikirenderer.jelix.org
  *
  * This library is free software; you can redistribute it and/or
@@ -19,14 +22,12 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
- *
  */
+
 namespace WikiRenderer;
 
 /**
  * Base class for the configuration.
- * @package WikiRenderer
- * @subpackage  core
  */
 abstract class Config
 {
@@ -54,7 +55,9 @@ abstract class Config
 
     /**
      * Called before the wiki text parsing.
-     * @param string $text  The wiki text.
+     *
+     * @param string $text The wiki text.
+     *
      * @return string The wiki text to parse.
      */
     public function onStart($text)
@@ -74,11 +77,11 @@ abstract class Config
     /**
      * In some wiki system, some links are specials. You should override this method
      * to transform this specific links to real URL.
-     * @return array  First item is the url, second item is an alternate label.
+     *
+     * @return array First item is the url, second item is an alternate label.
      */
     public function processLink($url, $tagName = '')
     {
         return array($url, $url);
     }
 }
-

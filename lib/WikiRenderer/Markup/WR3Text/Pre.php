@@ -1,12 +1,13 @@
 <?php
+
 /**
- * wikirenderer3 syntax to plain text
+ * wikirenderer3 syntax to plain text.
  *
- * @package WikiRenderer
- * @subpackage wr3_to_text
  * @author Laurent Jouanneau
  * @contributor  Amaury Bouchard
+ *
  * @copyright 2003-2013 Laurent Jouanneau
+ *
  * @link http://wikirenderer.jelix.org
  *
  * This library is free software; you can redistribute it and/or
@@ -21,14 +22,12 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
- *
  */
+
 namespace WikiRenderer\Markup\WR3Text;
 
 /**
  * ???
- * @package	WikiRenderer
- * @subpackage	WR3Text
  */
 class Pre extends \WikiRenderer\Block
 {
@@ -38,7 +37,7 @@ class Pre extends \WikiRenderer\Block
 
     public function getRenderedLine()
     {
-        return '   ' . $this->_detectMatch;
+        return '   '.$this->_detectMatch;
     }
 
     public function detect($string, $inBlock = false)
@@ -54,6 +53,7 @@ class Pre extends \WikiRenderer\Block
             } else {
                 $this->_detectMatch = $string;
             }
+
             return true;
         } else {
             if (preg_match('/^\s*<code>(.*)/', $string, $m)) {
@@ -65,6 +65,7 @@ class Pre extends \WikiRenderer\Block
                     $this->_closeNow = false;
                     $this->_detectMatch = $m[1];
                 }
+
                 return true;
             } else {
                 return false;
@@ -72,4 +73,3 @@ class Pre extends \WikiRenderer\Block
         }
     }
 }
-

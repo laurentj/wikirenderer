@@ -1,12 +1,13 @@
 <?php
+
 /**
- * wikirenderer3 syntax to plain text
+ * wikirenderer3 syntax to plain text.
  *
- * @package WikiRenderer
- * @subpackage wr3_to_text
  * @author Laurent Jouanneau
  * @contributor  Amaury Bouchard
+ *
  * @copyright 2003-2013 Laurent Jouanneau
+ *
  * @link http://wikirenderer.jelix.org
  *
  * This library is free software; you can redistribute it and/or
@@ -21,14 +22,12 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
- *
  */
+
 namespace WikiRenderer\Markup\WR3Text;
 
 /**
  * ???
- * @package	WikiRenderer
- * @subpackage	WR3Text
  */
 class Config extends \WikiRenderer\Config
 {
@@ -44,8 +43,8 @@ class Config extends \WikiRenderer\Config
             '\WikiRenderer\Markup\WR3Text\Link',
             '\WikiRenderer\Markup\WR3Text\Image',
             '\WikiRenderer\Markup\WR3Text\Anchor',
-            '\WikiRenderer\Markup\WR3Text\Footnote'
-        )
+            '\WikiRenderer\Markup\WR3Text\Footnote',
+        ),
     );
     /** Liste des balises de type bloc reconnus par WikiRenderer. */
     public $blocktags = array(
@@ -56,8 +55,7 @@ class Config extends \WikiRenderer\Config
         '\WikiRenderer\Markup\WR3Text\Blockquote',
         '\WikiRenderer\Markup\WR3Text\Definition',
         '\WikiRenderer\Markup\WR3Text\Table',
-        '\WikiRenderer\Markup\WR3Text\P'
+        '\WikiRenderer\Markup\WR3Text\P',
     );
     public $simpletags = array('%%%' => "\n");
 }
-

@@ -1,11 +1,11 @@
 <?php
+
 /**
- * wikirenderer3 (wr3) syntax to docbook 5
+ * wikirenderer3 (wr3) syntax to docbook 5.
  *
- * @package WikiRenderer
- * @subpackage rules
  * @author Laurent Jouanneau
  * @copyright 2014 Laurent Jouanneau
+ *
  * @link http://wikirenderer.jelix.org
  *
  * This library is free software; you can redistribute it and/or
@@ -20,12 +20,12 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
- *
  */
+
 namespace WikiRenderer\Markup\WR3DocBook;
 
 /**
- * 
+ *
  */
 class DefaultBlock extends \WikiRenderer\Block
 {
@@ -35,8 +35,8 @@ class DefaultBlock extends \WikiRenderer\Block
 
     public function detect($string, $inBlock = false)
     {
-        $this->_detectMatch=array($string, $string);
+        $this->_detectMatch = array($string, $string);
+
         return true;
     }
 }
-

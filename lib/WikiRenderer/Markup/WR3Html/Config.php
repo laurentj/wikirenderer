@@ -1,11 +1,11 @@
 <?php
+
 /**
- * wikirenderer3 (wr3) syntax to xhtml
+ * wikirenderer3 (wr3) syntax to xhtml.
  *
- * @package WikiRenderer
- * @subpackage rules
  * @author Laurent Jouanneau
  * @copyright 2003-2006 Laurent Jouanneau
+ *
  * @link http://wikirenderer.jelix.org
  *
  * This library is free software; you can redistribute it and/or
@@ -20,14 +20,12 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
- *
  */
+
 namespace WikiRenderer\Markup\WR3Html;
 
 /**
  * ???
- * @package	WikiRenderer
- * @subpackage	WR3Html
  */
 class Config extends \WikiRenderer\Config
 {
@@ -43,8 +41,8 @@ class Config extends \WikiRenderer\Config
             '\WikiRenderer\Markup\WR3Html\Link',
             '\WikiRenderer\Markup\WR3Html\Image',
             '\WikiRenderer\Markup\WR3Html\Anchor',
-            '\WikiRenderer\Markup\WR3Html\Footnote'
-        )
+            '\WikiRenderer\Markup\WR3Html\Footnote',
+        ),
     );
     /** Liste des balises de type bloc reconnus par WikiRenderer. */
     public $blocktags = array(
@@ -55,7 +53,7 @@ class Config extends \WikiRenderer\Config
         '\WikiRenderer\Markup\WR3Html\Blockquote',
         '\WikiRenderer\Markup\WR3Html\Definition',
         '\WikiRenderer\Markup\WR3Html\Table',
-        '\WikiRenderer\Markup\WR3Html\P'
+        '\WikiRenderer\Markup\WR3Html\P',
     );
     public $simpletags = array('%%%' => '<br />');
 
@@ -67,20 +65,24 @@ class Config extends \WikiRenderer\Config
 
     /**
      * Called before parsing.
-     * @param   string  $text   ???
-     * @return  string  ???
+     *
+     * @param string $text ???
+     *
+     * @return string ???
      */
     public function onStart($text)
     {
-        $this->footnotesId = rand(0,30000);
+        $this->footnotesId = rand(0, 30000);
         $this->footnotes = array(); // on remet é zero les footnotes
         return $text;
     }
 
     /**
      * Called after parsing.
-     * @param   string  $finalText  ???
-     * @return  string  ???
+     *
+     * @param string $finalText ???
+     *
+     * @return string ???
      */
     public function onParse($finalText)
     {
@@ -89,18 +91,21 @@ class Config extends \WikiRenderer\Config
             $footnotes = implode("\n", $this->footnotes);
             $finalText .= str_replace('%s', $footnotes, $this->footnotesTemplate);
         }
+
         return $finalText;
     }
 
     public function processLink($url, $tagName = '')
     {
         $label = $url;
-        if (strlen($label) > 40)
-            $label = substr($label, 0, 40) . '(..)';
-  
-        if (strpos($url, 'javascript:') !== false) // for security reason
+        if (strlen($label) > 40) {
+            $label = substr($label, 0, 40).'(..)';
+        }
+
+        if (strpos($url, 'javascript:') !== false) { // for security reason
             $url = '#';
+        }
+
         return array($url, $label);
     }
 }
-

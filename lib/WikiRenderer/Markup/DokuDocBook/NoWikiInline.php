@@ -1,11 +1,11 @@
 <?php
+
 /**
- * dokuwiki syntax to docbook 5.0
+ * dokuwiki syntax to docbook 5.0.
  *
- * @package WikiRenderer
- * @subpackage rules
  * @author Laurent Jouanneau
  * @copyright 2008 Laurent Jouanneau
+ *
  * @link http://wikirenderer.jelix.org
  *
  * This library is free software; you can redistribute it and/or
@@ -20,8 +20,8 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
- *
  */
+
 namespace WikiRenderer\Markup\DokuDocBook;
 
 class NoWikiInline extends \WikiRenderer\TagXml
@@ -32,7 +32,6 @@ class NoWikiInline extends \WikiRenderer\TagXml
 
     public function getContent()
     {
-        return '<phrase>' . htmlspecialchars($this->wikiContentArr[0], ENT_NOQUOTES) . '</phrase>';
+        return '<phrase>'.htmlspecialchars($this->wikiContentArr[0], ENT_NOQUOTES).'</phrase>';
     }
 }
-

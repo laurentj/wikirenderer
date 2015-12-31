@@ -1,11 +1,11 @@
 <?php
+
 /**
- * dokuwiki syntax to docbook 5.0
+ * dokuwiki syntax to docbook 5.0.
  *
- * @package WikiRenderer
- * @subpackage rules
  * @author Laurent Jouanneau
  * @copyright 2008 Laurent Jouanneau
+ *
  * @link http://wikirenderer.jelix.org
  *
  * This library is free software; you can redistribute it and/or
@@ -20,8 +20,8 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
- *
  */
+
 namespace WikiRenderer\Markup\DokuDocBook;
 
 class Config extends \WikiRenderer\Config
@@ -53,7 +53,7 @@ class Config extends \WikiRenderer\Config
             '\WikiRenderer\Markup\DokuDocBook\Footnote',
             '\WikiRenderer\Markup\DokuDocBook\Image',
             '\WikiRenderer\Markup\DokuDocBook\NoWikiInline',
-        )
+        ),
     );
 
     /** liste des balises de type bloc reconnus par WikiRenderer. */
@@ -69,28 +69,30 @@ class Config extends \WikiRenderer\Config
         '\WikiRenderer\Markup\DokuDocBook\Html',
         '\WikiRenderer\Markup\DokuDocBook\Php',
         '\WikiRenderer\Markup\DokuDocBook\Para',
-        '\WikiRenderer\Markup\DokuDocBook\Macro'
+        '\WikiRenderer\Markup\DokuDocBook\Macro',
     );
-    public $simpletags = array("\\\\" => '');
+    public $simpletags = array('\\\\' => '');
     public $defaultBlock = '\WikiRenderer\Markup\DokuDocBook\DefaultBlock';
     public $escapeChar = '';
     public $sectionLevel = array();
 
     /**
-     * called before the parsing
+     * called before the parsing.
      */
     public function onStart($text)
     {
         $this->sectionLevel = array();
+
         return $text;
     }
 
     /**
-     * called after the parsing
+     * called after the parsing.
      */
     public function onParse($finalText)
     {
         $finalText .= str_repeat('</section>', count($this->sectionLevel));
+
         return $finalText;
     }
 
@@ -102,11 +104,13 @@ class Config extends \WikiRenderer\Config
     public function processLink($url, $tagName = '')
     {
         $label = $url;
-        if (strlen($label) > 40)
-            $label = substr($label, 0, 40) . '(..)';
-        if (strpos($url, 'javascript:') !== false) // for security reason
+        if (strlen($label) > 40) {
+            $label = substr($label, 0, 40).'(..)';
+        }
+        if (strpos($url, 'javascript:') !== false) { // for security reason
             $url = '#';
+        }
+
         return array($url, $label);
     }
 }
-

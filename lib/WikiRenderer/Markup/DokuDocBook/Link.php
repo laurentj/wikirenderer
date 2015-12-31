@@ -1,11 +1,11 @@
 <?php
+
 /**
- * dokuwiki syntax to docbook 5.0
+ * dokuwiki syntax to docbook 5.0.
  *
- * @package WikiRenderer
- * @subpackage rules
  * @author Laurent Jouanneau
  * @copyright 2008 Laurent Jouanneau
+ *
  * @link http://wikirenderer.jelix.org
  *
  * This library is free software; you can redistribute it and/or
@@ -20,8 +20,8 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
- *
  */
+
 namespace WikiRenderer\Markup\DokuDocBook;
 
 class Link extends \WikiRenderer\TagXml
@@ -37,16 +37,18 @@ class Link extends \WikiRenderer\TagXml
         $cntattr = count($this->attribute);
         $cnt = (($this->separatorCount + 1) > $cntattr) ? $cntattr : ($this->separatorCount + 1);
         list($href, $label) = $this->config->processLink($this->wikiContentArr[0], $this->name);
-        if ($cnt == 1)
+        if ($cnt == 1) {
             $label = htmlspecialchars($label, ENT_NOQUOTES);
-        else
+        } else {
             $label = $this->contents[1];
-        if ($href == '#' || $href == '')
+        }
+        if ($href == '#' || $href == '') {
             return $label;
-        if (preg_match("/^\#(.+)$/", $href, $m))
-            return '<link linkend="' . htmlspecialchars(trim($m[1])) . '">' . $label . '</link>';
-        else
-            return '<link xlink:href="' . htmlspecialchars(trim($href)) . '">' . $label . '</link>';
+        }
+        if (preg_match("/^\#(.+)$/", $href, $m)) {
+            return '<link linkend="'.htmlspecialchars(trim($m[1])).'">'.$label.'</link>';
+        } else {
+            return '<link xlink:href="'.htmlspecialchars(trim($href)).'">'.$label.'</link>';
+        }
     }
 }
-

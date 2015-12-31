@@ -1,11 +1,11 @@
 <?php
+
 /**
- * dokuwiki syntax to xhtml
+ * dokuwiki syntax to xhtml.
  *
- * @package WikiRenderer
- * @subpackage rules
  * @author Laurent Jouanneau
  * @copyright 2008-2012 Laurent Jouanneau
+ *
  * @link http://wikirenderer.jelix.org
  *
  * This library is free software; you can redistribute it and/or
@@ -20,12 +20,12 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
- *
  */
+
 namespace WikiRenderer\Markup\DokuHtml;
 
 /**
- * definition list
+ * definition list.
  */
 class Definition extends \WikiRenderer\Block
 {
@@ -38,7 +38,7 @@ class Definition extends \WikiRenderer\Block
     {
         $dt = $this->_renderInlineTag($this->_detectMatch[1]);
         $dd = $this->_renderInlineTag($this->_detectMatch[2]);
+
         return "<dt>$dt</dt>\n<dd>$dd</dd>\n";
     }
 }
-

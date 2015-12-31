@@ -1,12 +1,13 @@
 <?php
+
 /**
- * wikirenderer3 (wr3) syntax to docbook 5
+ * wikirenderer3 (wr3) syntax to docbook 5.
  *
- * @package WikiRenderer
- * @subpackage rules
  * @author Laurent Jouanneau
  * @contributor  Amaury Bouchard
+ *
  * @copyright 2003-2013 Laurent Jouanneau
+ *
  * @link http://wikirenderer.jelix.org
  *
  * This library is free software; you can redistribute it and/or
@@ -21,14 +22,12 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
- *
  */
+
 namespace WikiRenderer\Markup\WR3DocBook;
 
 /**
  * ???
- * @package	WikiRenderer
- * @subpackage	WR3DocBook
  */
 class Config extends \WikiRenderer\Config
 {
@@ -44,8 +43,8 @@ class Config extends \WikiRenderer\Config
             '\WikiRenderer\Markup\WR3DocBook\Link',
             '\WikiRenderer\Markup\WR3DocBook\Image',
             '\WikiRenderer\Markup\WR3DocBook\Anchor',
-            '\WikiRenderer\Markup\WR3DocBook\Footnote'
-        )
+            '\WikiRenderer\Markup\WR3DocBook\Footnote',
+        ),
     );
     /** Liste des balises de type bloc reconnus par WikiRenderer. */
     public $blocktags = array(
@@ -56,32 +55,37 @@ class Config extends \WikiRenderer\Config
         '\WikiRenderer\Markup\WR3DocBook\Blockquote',
         '\WikiRenderer\Markup\WR3DocBook\Definition',
         '\WikiRenderer\Markup\WR3DocBook\Table',
-        '\WikiRenderer\Markup\WR3DocBook\P'
+        '\WikiRenderer\Markup\WR3DocBook\P',
     );
     public $simpletags = array('%%%' => '<br />');
     public $defaultBlock = '\WikiRenderer\Markup\WR3DocBook\DefaultBlock';
-    public $sectionLevel= array();
+    public $sectionLevel = array();
 
     /**
      * Called before the parsing.
-     * @param   string  $text   ???
-     * @return  string  ???
+     *
+     * @param string $text ???
+     *
+     * @return string ???
      */
     public function onStart($text)
     {
         $this->sectionLevel = array();
+
         return $text;
     }
 
     /**
      * Called after the parsing.
-     * @param   string  $finalText  ???
-     * @return  string  ???
+     *
+     * @param string $finalText ???
+     *
+     * @return string ???
      */
     public function onParse($finalText)
     {
         $finalText .= str_repeat('</section>', count($this->sectionLevel));
+
         return $finalText;
     }
 }
-

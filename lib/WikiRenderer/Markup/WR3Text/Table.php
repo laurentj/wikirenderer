@@ -1,12 +1,13 @@
 <?php
+
 /**
- * wikirenderer3 syntax to plain text
+ * wikirenderer3 syntax to plain text.
  *
- * @package WikiRenderer
- * @subpackage wr3_to_text
  * @author Laurent Jouanneau
  * @contributor  Amaury Bouchard
+ *
  * @copyright 2003-2013 Laurent Jouanneau
+ *
  * @link http://wikirenderer.jelix.org
  *
  * This library is free software; you can redistribute it and/or
@@ -21,26 +22,25 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
- *
  */
+
 namespace WikiRenderer\Markup\WR3Text;
 
 /**
  * ???
- * @package	WikiRenderer
- * @subpackage	WR3Text
  */
 class Table extends \WikiRenderer\Block
 {
     public $type = 'table';
     protected $regexp = "/^\s*\| ?(.*)/";
-    protected $_openTag = "--------------------------------------------";
+    protected $_openTag = '--------------------------------------------';
     protected $_closeTag = "--------------------------------------------\n";
     protected $_colcount = 0;
 
     public function open()
     {
         $this->_colcount = 0;
+
         return $this->_openTag;
     }
 
@@ -50,16 +50,16 @@ class Table extends \WikiRenderer\Block
         $str = '';
         $t = '';
 
-        if ((count($result) != $this->_colcount) && ($this->_colcount!=0))
+        if ((count($result) != $this->_colcount) && ($this->_colcount != 0)) {
             $t = "--------------------------------------------\n";
+        }
         $this->_colcount = count($result);
 
-        for ($i = 0; $i < $this->_colcount; $i++) {
-            $str .= $this->_renderInlineTag($result[$i]) . "\t| ";
+        for ($i = 0; $i < $this->_colcount; ++$i) {
+            $str .= $this->_renderInlineTag($result[$i])."\t| ";
         }
-        $str = $t . "| " . $str;
+        $str = $t.'| '.$str;
 
         return $str;
     }
 }
-

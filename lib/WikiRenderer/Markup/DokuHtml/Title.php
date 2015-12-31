@@ -1,11 +1,11 @@
 <?php
+
 /**
- * dokuwiki syntax to xhtml
+ * dokuwiki syntax to xhtml.
  *
- * @package WikiRenderer
- * @subpackage rules
  * @author Laurent Jouanneau
  * @copyright 2008-2012 Laurent Jouanneau
+ *
  * @link http://wikirenderer.jelix.org
  *
  * This library is free software; you can redistribute it and/or
@@ -20,12 +20,12 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
- *
  */
+
 namespace WikiRenderer\Markup\DokuHtml;
 
 /**
- * traite les signes de types titre
+ * traite les signes de types titre.
  */
 class Title extends \WikiRenderer\Block
 {
@@ -45,8 +45,7 @@ class Title extends \WikiRenderer\Block
                     $output .= '</div>';
                     array_pop($conf->sectionLevel);
                 }
-            } else if($last > $level) {
-
+            } elseif ($last > $level) {
             } else {
                 array_pop($conf->sectionLevel);
                 $output .= '</div>';
@@ -54,11 +53,12 @@ class Title extends \WikiRenderer\Block
         }
         $conf->sectionLevel[] = $level;
         $h = 6 - $level + $conf->startHeaderNumber;
-        if ($h > 5)
+        if ($h > 5) {
             $h = 5;
-        elseif ($h < 1)
+        } elseif ($h < 1) {
             $h = 1;
-        return $output . '<div><h' . $h . '>' . $this->_renderInlineTag(trim($this->_detectMatch[2])) . '</h' . $h . '>';
+        }
+
+        return $output.'<div><h'.$h.'>'.$this->_renderInlineTag(trim($this->_detectMatch[2])).'</h'.$h.'>';
     }
 }
-

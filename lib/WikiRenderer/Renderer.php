@@ -1,10 +1,13 @@
 <?php
+
 /**
- * Wikirenderer is a wiki text parser. It can transform a wiki text into xhtml or other formats
- * @package WikiRenderer
+ * Wikirenderer is a wiki text parser. It can transform a wiki text into xhtml or other formats.
+ *
  * @author Laurent Jouanneau
  * @contributor  Amaury Bouchard
+ *
  * @copyright 2003-2013 Laurent Jouanneau
+ *
  * @link http://wikirenderer.jelix.org
  *
  * This library is free software; you can redistribute it and/or
@@ -19,16 +22,14 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
- *
  */
+
 namespace WikiRenderer;
 
 /**
  * Main class of WikiRenderenr. You should instantiate like this:
  *      $ctr = new \WikiRenderer\Renderer();
- *      $htmlText = $ctr->render($wikiText);
- * @package WikiRenderer
- * @subpackage  core
+ *      $htmlText = $ctr->render($wikiText);.
  */
 class Renderer
 {
@@ -53,17 +54,20 @@ class Renderer
 
     /**
      * Constructor. Prepare the engine.
-     * @param \WikiRenderer\Config $config  A configuration object. If it is not present, it uses wr3_to_xhtml rules.
+     *
+     * @param \WikiRenderer\Config $config A configuration object. If it is not present, it uses wr3_to_xhtml rules.
      */
-    function __construct($config = null)
+    public function __construct($config = null)
     {
         if (isset($config)) {
-            if (is_subclass_of($config, '\WikiRenderer\Config'))
+            if (is_subclass_of($config, '\WikiRenderer\Config')) {
                 $this->config = $config;
-            else
+            } else {
                 throw new \Exception('WikiRenderer: Bad configuration.');
-        } else
+            }
+        } else {
             $this->config = new \WikiRenderer\Markup\WR3Html\Config();
+        }
 
         $this->inlineParser = new InlineParser($this->config);
 
@@ -79,14 +83,16 @@ class Renderer
     /**
      * Main method to call to convert a wiki text into an other format, according to the
      * rules given to the constructor.
-     * @param   string  $text The wiki text to convert.
-     * @return  string  The converted text.
+     *
+     * @param string $text The wiki text to convert.
+     *
+     * @return string The converted text.
      */
     public function render($text)
     {
         $text = $this->config->onStart($text);
 
-        $lignes = preg_split("/\015\012|\015|\012/",$text); // we split the text at all line feeds
+        $lignes = preg_split("/\015\012|\015|\012/", $text); // we split the text at all line feeds
 
         $this->_newtext = array();
         $this->errors = array();
@@ -99,10 +105,11 @@ class Renderer
                 // a block is already open
                 if ($this->_currentBlock->detect($ligne, true)) {
                     $s = $this->_currentBlock->getRenderedLine();
-                    if ($s !== false)
+                    if ($s !== false) {
                         $this->_newtext[] = $s;
+                    }
                 } else {
-                    $this->_newtext[count($this->_newtext)-1] .= $this->_currentBlock->close();
+                    $this->_newtext[count($this->_newtext) - 1] .= $this->_currentBlock->close();
                     $found = false;
                     foreach ($this->_blockList as $block) {
                         if ($block->detect($ligne, true)) {
@@ -110,13 +117,13 @@ class Renderer
                             // we open the new block
                             if ($block->closeNow()) {
                                 // if we have to close now the block, we close.
-                                $this->_newtext[] = $block->open() . $block->getRenderedLine() . $block->close();
+                                $this->_newtext[] = $block->open().$block->getRenderedLine().$block->close();
                                 $this->_previousBloc = $block;
                                 $this->_currentBlock = null;
                             } else {
                                 $this->_previousBloc = $this->_currentBlock;
                                 $this->_currentBlock = clone $block; // careful ! it MUST be a copy here !
-                                $this->_newtext[] = $this->_currentBlock->open() . $this->_currentBlock->getRenderedLine();
+                                $this->_newtext[] = $this->_currentBlock->open().$this->_currentBlock->getRenderedLine();
                             }
                             break;
                         }
@@ -124,13 +131,11 @@ class Renderer
                     if (!$found) {
                         if (trim($ligne) == '') {
                             $this->_newtext[] = '';
-                        }
-                        else if ($this->_defaultBlock) {
+                        } elseif ($this->_defaultBlock) {
                             $this->_defaultBlock->detect($ligne);
                             $this->_newtext[] = $this->_defaultBlock->open().$this->_defaultBlock->getRenderedLine().$this->_defaultBlock->close();
-                        }
-                        else {
-                            $this->_newtext[]= $this->inlineParser->parse($ligne);
+                        } else {
+                            $this->_newtext[] = $this->inlineParser->parse($ligne);
                         }
                         $this->_previousBloc = $this->_currentBlock;
                         $this->_currentBlock = null;
@@ -143,16 +148,15 @@ class Renderer
                     if ($block->detect($ligne)) {
                         $found = true;
                         if ($block->closeNow()) {
-                            $this->_newtext[] = $block->open() . $block->getRenderedLine() . $block->close();
+                            $this->_newtext[] = $block->open().$block->getRenderedLine().$block->close();
                             $this->_previousBloc = $block;
                         } else {
                             if ($block->mustClone()) {
                                 $this->_currentBlock = clone $block; // careful ! it MUST be a copy here !
-                            }
-                            else {
+                            } else {
                                 $this->_currentBlock = $block;
                             }
-                            $this->_newtext[] = $this->_currentBlock->open() . $this->_currentBlock->getRenderedLine();
+                            $this->_newtext[] = $this->_currentBlock->open().$this->_currentBlock->getRenderedLine();
                         }
                         break;
                     }
@@ -160,13 +164,11 @@ class Renderer
                 if (!$found) {
                     if (trim($ligne) == '') {
                         $this->_newtext[] = '';
-                    }
-                    else if ($this->_defaultBlock) {
+                    } elseif ($this->_defaultBlock) {
                         $this->_defaultBlock->detect($ligne);
                         $this->_newtext[] = $this->_defaultBlock->open().$this->_defaultBlock->getRenderedLine().$this->_defaultBlock->close();
-                    }
-                    else {
-                        $this->_newtext[]= $this->inlineParser->parse($ligne);
+                    } else {
+                        $this->_newtext[] = $this->inlineParser->parse($ligne);
                     }
                 }
             }
@@ -177,21 +179,22 @@ class Renderer
         if ($this->_currentBlock) {
             $this->_newtext[count($this->_newtext) - 1] .= $this->_currentBlock->close();
         }
-        return $this->config->onParse(implode("\n",$this->_newtext));
+
+        return $this->config->onParse(implode("\n", $this->_newtext));
     }
 
     /**
      * Returns the current configuration object.
-     * @return  \WikiRenderer\Config    The current configuration object.
+     *
+     * @return \WikiRenderer\Config The current configuration object.
      */
     public function getConfig()
     {
         return $this->config;
     }
 
-    public function getPreviousBloc() {
+    public function getPreviousBloc()
+    {
         return $this->_previousBloc;
     }
-
 }
-

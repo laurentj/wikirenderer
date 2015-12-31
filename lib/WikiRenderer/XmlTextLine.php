@@ -1,10 +1,13 @@
 <?php
+
 /**
- * Wikirenderer is a wiki text parser. It can transform a wiki text into xhtml or other formats
- * @package WikiRenderer
+ * Wikirenderer is a wiki text parser. It can transform a wiki text into xhtml or other formats.
+ *
  * @author Laurent Jouanneau
  * @contributor  Amaury Bouchard
+ *
  * @copyright 2003-2013 Laurent Jouanneau
+ *
  * @link http://wikirenderer.jelix.org
  *
  * This library is free software; you can redistribute it and/or
@@ -19,25 +22,24 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
- *
  */
+
 namespace WikiRenderer;
 
 /**
  * ???
- * @package	WikiRenderer
- * @subpackage	core
  */
 class XmlTextLine extends HtmlTextLine
 {
     /**
      * ???
-     * @param  string  $string  ???
-     * @return string  ???
+     *
+     * @param string $string ???
+     *
+     * @return string ???
      */
     protected function _doEscape($string)
     {
         return htmlspecialchars($string, ENT_NOQUOTES);
     }
 }
-

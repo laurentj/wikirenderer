@@ -1,11 +1,11 @@
 <?php
+
 /**
- * dokuwiki syntax to xhtml
+ * dokuwiki syntax to xhtml.
  *
- * @package WikiRenderer
- * @subpackage rules
  * @author Laurent Jouanneau
  * @copyright 2008-2012 Laurent Jouanneau
+ *
  * @link http://wikirenderer.jelix.org
  *
  * This library is free software; you can redistribute it and/or
@@ -20,15 +20,15 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
- *
  */
+
 namespace WikiRenderer\Markup\DokuHtml;
 
 class Tag extends \WikiRenderer\TagXhtml
 {
     protected function _findWikiWord($string)
     {
-        if (preg_match_all('/([a-z]+\:(?:\/\/)?\w+[^\s]*)/', $string, $m, PREG_SET_ORDER |PREG_OFFSET_CAPTURE)) {
+        if (preg_match_all('/([a-z]+\:(?:\/\/)?\w+[^\s]*)/', $string, $m, PREG_SET_ORDER | PREG_OFFSET_CAPTURE)) {
             $str = '';
             $begin = 0;
 
@@ -37,13 +37,15 @@ class Tag extends \WikiRenderer\TagXhtml
                 $str .= substr($string, $begin, $len);
                 $begin = $match[0][1] + strlen($match[0][0]);
                 list($href, $label) = $this->config->processLink($match[2][0], $this->name);
-                $str .= '<a href="' . htmlspecialchars($href) . '">' . htmlspecialchars($label) . '</a>';
+                $str .= '<a href="'.htmlspecialchars($href).'">'.htmlspecialchars($label).'</a>';
             }
-            if ($begin < strlen($string))
+            if ($begin < strlen($string)) {
                 $str .= substr($string, $begin);
+            }
+
             return $str;
-        } else
+        } else {
             return $string;
+        }
     }
 }
-

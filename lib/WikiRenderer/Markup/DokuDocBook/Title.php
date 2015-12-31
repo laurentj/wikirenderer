@@ -1,11 +1,11 @@
 <?php
+
 /**
- * dokuwiki syntax to docbook 5.0
+ * dokuwiki syntax to docbook 5.0.
  *
- * @package WikiRenderer
- * @subpackage rules
  * @author Laurent Jouanneau
  * @copyright 2008 Laurent Jouanneau
+ *
  * @link http://wikirenderer.jelix.org
  *
  * This library is free software; you can redistribute it and/or
@@ -20,12 +20,12 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
- *
  */
+
 namespace WikiRenderer\Markup\DokuDocBook;
 
 /**
- * traite les signes de types titre
+ * traite les signes de types titre.
  */
 class Title extends \WikiRenderer\Block
 {
@@ -44,7 +44,7 @@ class Title extends \WikiRenderer\Block
                 $first = true;
                 while ($last = end($conf->sectionLevel) && $last <= $level) {
                     if ($this->engine->getPreviousBloc()) {
-                        if ($first && $this->engine->getPreviousBloc() instanceof Title) {
+                        if ($first && $this->engine->getPreviousBloc() instanceof self) {
                             $output .= '<para> </para>';
                         }
                     }
@@ -52,12 +52,11 @@ class Title extends \WikiRenderer\Block
                     $first = false;
                     array_pop($conf->sectionLevel);
                 }
-            } else if($last > $level) {
-
+            } elseif ($last > $level) {
             } else {
                 array_pop($conf->sectionLevel);
                 if ($this->engine->getPreviousBloc()) {
-                    if ($this->engine->getPreviousBloc() instanceof Title) {
+                    if ($this->engine->getPreviousBloc() instanceof self) {
                         $output .= '<para> </para>';
                     }
                 }
@@ -67,10 +66,10 @@ class Title extends \WikiRenderer\Block
         $conf->sectionLevel[] = $level;
         $title = trim($this->_detectMatch[2]);
         $id = $conf->getSectionId($title);
-        if ($id)
-            return $output . '<section xml:id="' . $id . '"><title>' . $this->_renderInlineTag($title) . '</title>';
-        else
-            return $output . '<section><title>' . $this->_renderInlineTag($title) . '</title>';
+        if ($id) {
+            return $output.'<section xml:id="'.$id.'"><title>'.$this->_renderInlineTag($title).'</title>';
+        } else {
+            return $output.'<section><title>'.$this->_renderInlineTag($title).'</title>';
+        }
     }
 }
-
