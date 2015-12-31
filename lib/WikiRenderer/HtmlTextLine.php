@@ -31,7 +31,7 @@ namespace WikiRenderer;
  */
 class HtmlTextLine extends Tag
 {
-    /** ??? */
+
     public $isTextLineTag = true;
 
     /**

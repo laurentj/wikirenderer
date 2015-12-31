@@ -4,7 +4,7 @@
  * Wikirenderer is a wiki text parser. It can transform a wiki text into xhtml or other formats.
  *
  * @author Laurent Jouanneau
- * @copyright 2003-2008 Laurent Jouanneau
+ * @copyright 2003-2015 Laurent Jouanneau
  *
  * @link http://wikirenderer.jelix.org
  *
@@ -32,33 +32,77 @@ namespace WikiRenderer;
  */
 abstract class Tag
 {
-    /** ??? */
+    /** @var string a name for the tag. Can be used to generate the output content */
     protected $name = '';
-    /** ??? */
+
+    /**  @var string characters that defines the start of the tag */
     public $beginTag = '';
-    /** ??? */
+
+    /**  @var string characters that defines the end of the tag */
     public $endTag = '';
-    /** ??? */
+
+    /**
+     * indicates if the tag object represent an entire line or not.
+     * if true, beginTag and endTag are ignored.
+     * @var boolean
+     */
     public $isTextLineTag = false;
-    /** List of possible separators. */
+
+    /**
+     * List of possible separators
+     * @var string[]
+     */
     public $separators = array();
-    /** ??? */
+
+    /**
+     * list of names corresponding to each parts separated by the separator in the tag.
+     * Each parts of the tag string are then called "attributes".
+     * If the name is '$$', the content is not an attribute and may content
+     * nested tag. However this behavior can be changed by the isOtherTagAllowed()
+     * method in child classes.
+     * @var string[]
+     */
     protected $attribute = array('$$');
-    /** ??? */
+
+    /**
+     * list of attributes in which wiki words should be searched.
+     * @var string[]
+     */
     protected $checkWikiWordIn = array('$$');
-    /** ??? */
+
+    /**
+     * values of each parts. Values are wiki content that has
+     * been processed by _doEscape and _findWikiWord
+     * @var string[]
+     */
     protected $contents = array('');
+
     /** Wiki content of each part of the tag. */
     protected $wikiContentArr = array('');
+
     /** Wiki content of the full tag. */
     protected $wikiContent = '';
-    /** ??? */
+
+    /** number of separators found into the tag
+     * @var int
+     */
     protected $separatorCount = 0;
-    /** ??? */
+
+    /**
+     * current separator during the parsing of the tag. False means no
+     * separator found yet.
+     * @var string|false
+     */
     protected $currentSeparator = false;
-    /** ??? */
+
+    /**
+     * name of the function that must return the generated content corresponding
+     * to a wiki word.
+     * @var array|string
+     */
     protected $checkWikiWordFunction = false;
-    /** ???? */
+
+    /** @var \WikiRenderer\Config */
     protected $config = null;
 
     /**
@@ -101,7 +145,7 @@ abstract class Tag
     /**
      * Called by the inline parser, when it found a separator.
      *
-     * @param ??? $token ???
+     * @param string $token  The token found as a separator
      */
     public function addSeparator($token)
     {
@@ -149,9 +193,9 @@ abstract class Tag
     }
 
     /**
-     * ???
+     * indicates if the tag can contains other tags
      *
-     * @return ??? ???
+     * @return boolean  true if the tag can contain other tags
      */
     public function isOtherTagAllowed()
     {
@@ -199,11 +243,13 @@ abstract class Tag
     }
 
     /**
-     * ???
+     * Search for wikiword into the given string, and call the function whose
+     * name is in checkWikiWordFunction, to replace all occurence by an other
+     * string
      *
-     * @param string $string ???
+     * @param string $string the string where to replace Wiki words
      *
-     * @return ??? ???
+     * @return string the string with wiki words replaced
      */
     protected function _findWikiWord($string)
     {

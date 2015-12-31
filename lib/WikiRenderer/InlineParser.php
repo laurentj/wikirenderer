@@ -4,7 +4,7 @@
  * Wikirenderer is a wiki text parser. It can transform a wiki text into xhtml or other formats.
  *
  * @author Laurent Jouanneau
- * @copyright 2003-2008 Laurent Jouanneau
+ * @copyright 2003-2015 Laurent Jouanneau
  *
  * @link http://wikirenderer.jelix.org
  *
@@ -29,20 +29,35 @@ namespace WikiRenderer;
  */
 class InlineParser
 {
-    /** ??? */
+    /** @var boolean indicate if an error has been found during the parsing */
     public $error = false;
-    /** ??? */
+
+    /** list of simple tags (copy of ccongi */
     protected $simpletags = array();
-    /** ??? */
-    protected $resultline = '';
-    /** ??? */
+
+    /**
+    * the current parsed line, splited into chuncked and tokens
+    * @var string[]
+    */
     protected $str = array();
-    /** ??? */
+    
+    /**
+     * count of parts into the string 
+     * @var int
+     */
+    protected $end = 0;
+
+    /** @var \WikiRenderer\Config  */
     protected $config;
-    /** ??? */
+
+    /** @var  TextLineContainer[]   key is class name of the TextLine */
     protected $textLineContainers = array();
-    /** ??? */
+
+    /** @var TextLineContainer */
     protected $currentTextLineContainer = null;
+
+    /** @var string escape character */
+    protected $escapeChar = '';
 
     /**
      * constructor.
@@ -54,16 +69,22 @@ class InlineParser
         $this->escapeChar = $config->escapeChar;
         $this->config = $config;
 
+        // let's construct the regexp that will find all tokens on the line
+
+        // first all basic tags
         $simpletagPattern = '';
         foreach ($config->simpletags as $tag => $html) {
             $simpletagPattern .= '|('.preg_quote($tag, '/').')';
         }
 
+        // the pattern that matches the escape character
         $escapePattern = '';
         if ($this->escapeChar != '') {
             $escapePattern = '|('.preg_quote($this->escapeChar, '/').')';
         }
 
+        // now let's construct patterns corresponding to all different
+        // kind of lines
         foreach ($config->textLineContainers as $class => $tags) {
             $c = new TextLineContainer();
             $c->tag = new $class($config);
@@ -152,9 +173,9 @@ class InlineParser
             // is this a separator ?
             } elseif ($tag->isCurrentSeparator($t)) {
                 $tag->addSeparator($t);
-            // ???
+            // no separator, no escape char, and previous token allowed us to
+            // take care of the current token, so let's processing it
             } elseif ($checkNextTag) {
-
                 // is there a ended tag
                 if ($tag->endTag == $t && !$tag->isTextLineTag) {
                     return $i;
@@ -178,6 +199,8 @@ class InlineParser
                 } else {
                     $tag->addContent($t);
                 }
+            // previous token prevents us to process the current token, and
+            // indicated to ignore it, so let's ignore it.
             } else {
                 if (!$this->config->outputEscapeChar &&
                     (isset($this->currentTextLineContainer->allowedTags[$t]) ||
