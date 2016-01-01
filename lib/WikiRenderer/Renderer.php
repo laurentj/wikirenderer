@@ -35,20 +35,29 @@ class Renderer
 {
     /** @var   string   Contains the final content. */
     protected $_newtext;
+
     /** @var \WikiRenderer\Block The currently opened block element. */
     protected $_currentBlock = null;
+
     /** @var \WikiRenderer\Block The previous opened block element. */
     protected $_previousBloc = null;
-    /** @var array      List of all possible blocks. */
+
+    /** @var \WikiRenderer\Block[]  List of all possible blocks. */
     protected $_blockList = array();
 
-    /** @var WikiRendererBloc the default bloc used for unrecognized line */
+    /** @var \WikiRenderer\Block the default bloc used for unrecognized line */
     protected $_defaultBlock = null;
 
     /** @var \WikiRenderer\InlineParser   The parser for inline content. */
     public $inlineParser = null;
-    /** List of lines which contain an error. */
+
+    /**
+     * List of lines which contain an error. Keys are line numbers, values are line
+     * content
+     * @var string[]
+     */
     public $errors = array();
+
     /** @var \WikiRenderer\Config  Current configuration object. */
     protected $config = null;
 
@@ -104,13 +113,16 @@ class Renderer
             if ($this->_currentBlock) {
                 // a block is already open
                 if ($this->_currentBlock->detect($ligne, true)) {
+                    // the line is part of the block
                     $s = $this->_currentBlock->getRenderedLine();
                     if ($s !== false) {
                         $this->_newtext[] = $s;
                     }
                 } else {
+                    // the line is not part of the block, we close it.
                     $this->_newtext[count($this->_newtext) - 1] .= $this->_currentBlock->close();
                     $found = false;
+                    // now let's check if the line is part of an other type of block
                     foreach ($this->_blockList as $block) {
                         if ($block->detect($ligne, true)) {
                             $found = true;
