@@ -111,7 +111,7 @@ class Renderer
         // we loop over all lines
         foreach ($lignes as $num => $ligne) {
             if ($this->_currentBlock) {
-                // a block is already open
+                // a block is already opened
                 if ($this->_currentBlock->detect($ligne, true)) {
                     // the line is part of the block
                     $s = $this->_currentBlock->getRenderedLine();
@@ -121,68 +121,11 @@ class Renderer
                 } else {
                     // the line is not part of the block, we close it.
                     $this->_newtext[count($this->_newtext) - 1] .= $this->_currentBlock->close();
-                    $found = false;
-                    // now let's check if the line is part of an other type of block
-                    foreach ($this->_blockList as $block) {
-                        if ($block->detect($ligne, true)) {
-                            $found = true;
-                            // we open the new block
-                            if ($block->closeNow()) {
-                                // if we have to close now the block, we close.
-                                $this->_newtext[] = $block->open().$block->getRenderedLine().$block->close();
-                                $this->_previousBloc = $block;
-                                $this->_currentBlock = null;
-                            } else {
-                                $this->_previousBloc = $this->_currentBlock;
-                                $this->_currentBlock = clone $block; // careful ! it MUST be a copy here !
-                                $this->_newtext[] = $this->_currentBlock->open().$this->_currentBlock->getRenderedLine();
-                            }
-                            break;
-                        }
-                    }
-                    if (!$found) {
-                        if (trim($ligne) == '') {
-                            $this->_newtext[] = '';
-                        } elseif ($this->_defaultBlock) {
-                            $this->_defaultBlock->detect($ligne);
-                            $this->_newtext[] = $this->_defaultBlock->open().$this->_defaultBlock->getRenderedLine().$this->_defaultBlock->close();
-                        } else {
-                            $this->_newtext[] = $this->inlineParser->parse($ligne);
-                        }
-                        $this->_previousBloc = $this->_currentBlock;
-                        $this->_currentBlock = null;
-                    }
+                    $this->detectNewBlock($ligne);
                 }
             } else {
-                $found = false;
-                // no opened block, we saw if the line correspond to a block
-                foreach ($this->_blockList as $block) {
-                    if ($block->detect($ligne)) {
-                        $found = true;
-                        if ($block->closeNow()) {
-                            $this->_newtext[] = $block->open().$block->getRenderedLine().$block->close();
-                            $this->_previousBloc = $block;
-                        } else {
-                            if ($block->mustClone()) {
-                                $this->_currentBlock = clone $block; // careful ! it MUST be a copy here !
-                            } else {
-                                $this->_currentBlock = $block;
-                            }
-                            $this->_newtext[] = $this->_currentBlock->open().$this->_currentBlock->getRenderedLine();
-                        }
-                        break;
-                    }
-                }
-                if (!$found) {
-                    if (trim($ligne) == '') {
-                        $this->_newtext[] = '';
-                    } elseif ($this->_defaultBlock) {
-                        $this->_defaultBlock->detect($ligne);
-                        $this->_newtext[] = $this->_defaultBlock->open().$this->_defaultBlock->getRenderedLine().$this->_defaultBlock->close();
-                    } else {
-                        $this->_newtext[] = $this->inlineParser->parse($ligne);
-                    }
-                }
+                // no opened block, we see if the line correspond to a block
+                $this->detectNewBlock($ligne);
             }
             if ($this->inlineParser->error) {
                 $this->errors[$num + 1] = $ligne;
@@ -195,6 +138,51 @@ class Renderer
         return $this->config->onParse(implode("\n", $this->_newtext));
     }
 
+    /**
+     * detect the block corresponding to the given line.
+     * @var string $line
+     */
+    protected function detectNewBlock($line) {
+        $found = false;
+        // let's check if the line is part of a type of block
+        foreach ($this->_blockList as $block) {
+            if ($block->detect($line, true)) {
+                $found = true;
+                // we open the new block
+                if ($block->closeNow()) {
+                    // if we have to close now the block, we close.
+                    $this->_newtext[] = $block->open().$block->getRenderedLine().$block->close();
+                    $this->_previousBloc = $block;
+                    $this->_currentBlock = null;
+                } else {
+                    $this->_previousBloc = $this->_currentBlock;
+                    if ($block->mustClone()) {
+                        // block must be cloned so it can be change its internal values
+                        $this->_currentBlock = clone $block;
+                    } else {
+                        $this->_currentBlock = $block;
+                    }
+                    $this->_newtext[] = $this->_currentBlock->open().$this->_currentBlock->getRenderedLine();
+                }
+                break;
+            }
+        }
+        if (!$found) {
+            if (trim($line) == '') {
+                $this->_newtext[] = '';
+            } elseif ($this->_defaultBlock) {
+                $this->_defaultBlock->detect($line);
+                $this->_newtext[] = $this->_defaultBlock->open().$this->_defaultBlock->getRenderedLine().$this->_defaultBlock->close();
+            } else {
+                $this->_newtext[] = $this->inlineParser->parse($line);
+            }
+            if ($this->_currentBlock) {
+                $this->_previousBloc = $this->_currentBlock;
+            }
+            $this->_currentBlock = null;
+        }
+    }
+    
     /**
      * Returns the current configuration object.
      *
