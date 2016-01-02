@@ -44,25 +44,24 @@ class WikiList extends \WikiRenderer\Block
         $this->_firstItem = true;
 
         if (substr($this->_previousTag, -1, 1) == '#') {
-            return "<orderedlist>\n";
+            $this->_openTag = "<orderedlist>\n";
         } else {
-            return "<itemizedlist>\n";
+            $this->_openTag = "<itemizedlist>\n";
         }
     }
 
     public function close()
     {
         $t = $this->_previousTag;
-        $str = '';
-
+        $this->_closeTag = '';
         for ($i = strlen($t); $i >= $this->_firstTagLen; --$i) {
-            $str .= ($t[$i - 1] == '#') ? "</listitem></orderedlist>\n" : "</listitem></itemizedlist>\n";
+            $this->_closeTag .=($t[$i - 1] == '#') ? "</listitem></orderedlist>\n" : "</listitem></itemizedlist>\n";
         }
 
-        return $str;
+        return parent::close();
     }
 
-    public function getRenderedLine()
+    public function validateDetectedLine()
     {
         $t = $this->_previousTag;
         $d = strlen($t) - strlen($this->_detectMatch[1]);
@@ -84,6 +83,6 @@ class WikiList extends \WikiRenderer\Block
         }
         $this->_firstItem = false;
 
-        return $str.'<para>'.$this->_renderInlineTag($this->_detectMatch[2]).'</para>';
+        $this->text[] = $str.'<para>'.$this->_renderInlineTag($this->_detectMatch[2]).'</para>';
     }
 }

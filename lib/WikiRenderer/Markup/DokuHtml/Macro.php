@@ -30,8 +30,7 @@ class Macro extends \WikiRenderer\Block
     protected $regexp = "/^\s*~~[^~]*~~\s*$/";
     protected $_closeNow = true;
 
-    public function getRenderedLine()
+    public function validateDetectedLine()
     {
-        return '';
     }
 }

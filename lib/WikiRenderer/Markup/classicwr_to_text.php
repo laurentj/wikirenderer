@@ -174,7 +174,7 @@ class cwrtext_list extends WikiRendererBloc
 {
     public $type = 'list';
     protected $regexp = "/^([\*#-]+)(.*)/";
-    public function getRenderedLine()
+    public function validateDetectedLine()
     {
         return $this->_detectMatch[1].$this->_renderInlineTag($this->_detectMatch[2]);
     }
@@ -199,7 +199,7 @@ class cwrtext_table extends WikiRendererBloc
         return $this->_openTag;
     }
 
-    public function getRenderedLine()
+    public function validateDetectedLine()
     {
         $result = explode(' | ', trim($this->_detectMatch[1]));
         $str = '';
@@ -228,7 +228,7 @@ class cwrtext_hr extends WikiRendererBloc
     protected $regexp = '/^={4,} *$/';
     protected $_closeNow = true;
 
-    public function getRenderedLine()
+    public function validateDetectedLine()
     {
         return "=======================================================\n";
     }
@@ -251,7 +251,7 @@ class cwrtext_title extends WikiRendererBloc
     */
    protected $_order = false;
 
-    public function getRenderedLine()
+    public function validateDetectedLine()
     {
         if ($this->_order) {
             $repeat = 4 - strlen($this->_detectMatch[1]);
@@ -300,7 +300,7 @@ class cwrtext_pre extends WikiRendererBloc
     public $type = 'pre';
     protected $regexp = "/^(\s)(.*)/";
 
-    public function getRenderedLine()
+    public function validateDetectedLine()
     {
         return $this->_detectMatch[1].$this->_renderInlineTag($this->_detectMatch[2]);
     }
@@ -314,7 +314,7 @@ class cwrtext_blockquote extends WikiRendererBloc
     public $type = 'bq';
     protected $regexp = "/^(\>+)(.*)/";
 
-    public function getRenderedLine()
+    public function validateDetectedLine()
     {
         return $this->_detectMatch[1].$this->_renderInlineTag($this->_detectMatch[2]);
     }
@@ -328,7 +328,7 @@ class cwrtext_definition extends WikiRendererBloc
     public $type = 'dfn';
     protected $regexp = '/^;(.*) : (.*)/i';
 
-    public function getRenderedLine()
+    public function validateDetectedLine()
     {
         $dt = $this->_renderInlineTag($this->_detectMatch[1]);
         $dd = $this->_renderInlineTag($this->_detectMatch[2]);

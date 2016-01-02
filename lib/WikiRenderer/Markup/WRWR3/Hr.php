@@ -29,8 +29,8 @@ class Hr extends \WikiRenderer\Block
     public $type = 'hr';
     protected $regexp = '/^(={4,}) *$/';
     protected $_closeNow = true;
-    public function getRenderedLine()
+    public function validateDetectedLine()
     {
-        return $this->_detectMatch[1];
+        $this->text[] = $this->_detectMatch[1];
     }
 }

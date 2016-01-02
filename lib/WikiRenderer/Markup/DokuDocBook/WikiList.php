@@ -41,29 +41,28 @@ class WikiList extends \WikiRenderer\Block
         $this->_firstTagLen = strlen($this->_detectMatch[1]);
         $this->_firstItem = true;
         if ($this->_detectMatch[2] == '-') {
-            return "<orderedlist>\n";
+            $this->_openTag = "<orderedlist>\n";
         } else {
-            return "<itemizedlist>\n";
+            $this->_openTag = "<itemizedlist>\n";
         }
     }
 
     public function close()
     {
-        $str = '';
-
+        $this->_closeTag = '';
         for ($i = count($this->_stack) - 1; $i >= 0; --$i) {
             if ($this->_stack[$i][0] < $this->_firstTagLen) {
                 break;
             }
 
-            $str .= ($this->_stack[$i][1] == '-') ? "</listitem></orderedlist>\n" : "</listitem></itemizedlist>\n";
+            $this->_closeTag .= ($this->_stack[$i][1] == '-') ? "</listitem></orderedlist>\n" : "</listitem></itemizedlist>\n";
             array_pop($this->_stack);
         }
 
-        return $str;
+        return parent::close();
     }
 
-    public function getRenderedLine()
+    public function validateDetectedLine()
     {
         $t = end($this->_stack);
         $newLen = strlen($this->_detectMatch[1]);
@@ -119,6 +118,6 @@ class WikiList extends \WikiRenderer\Block
         }
         $this->_firstItem = false;
 
-        return $str.'<para>'.$this->_renderInlineTag(trim($this->_detectMatch[3])).'</para>';
+        $this->text[] = $str.'<para>'.$this->_renderInlineTag(trim($this->_detectMatch[3])).'</para>';
     }
 }

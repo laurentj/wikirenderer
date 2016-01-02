@@ -29,8 +29,8 @@ class Title extends \WikiRenderer\Block
     public $type = 'title';
     protected $regexp = "/^(\!{1,3})(.*)/";
     protected $_closeNow = true;
-    public function getRenderedLine()
+    public function validateDetectedLine()
     {
-        return $this->_detectMatch[1].$this->_renderInlineTag($this->_detectMatch[2]);
+        $this->text[] = $this->_detectMatch[1].$this->_renderInlineTag($this->_detectMatch[2]);
     }
 }

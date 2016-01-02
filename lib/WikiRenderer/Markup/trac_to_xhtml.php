@@ -355,7 +355,7 @@ class tracxhtml_list extends WikiRendererBloc
         return $str;
     }
 
-    public function getRenderedLine()
+    public function validateDetectedLine()
     {
         $t = end($this->_stack);
         $newLen = strlen($this->_detectMatch[1]);
@@ -442,7 +442,7 @@ class tracxhtml_definition extends WikiRendererBloc
         return $this->_closeTag;
     }
 
-    public function getRenderedLine()
+    public function validateDetectedLine()
     {
         return '<'.$this->currentTag.'>'.$this->_renderInlineTag($this->_detectMatch).'</'.$this->currentTag.'>';
     }
@@ -493,7 +493,7 @@ class tracxhtml_title extends WikiRendererBloc
     protected $regexp = "/^\s*(\={1,6})([^=]*)(\={1,6})\s*$/";
     protected $_closeNow = true;
 
-    public function getRenderedLine()
+    public function validateDetectedLine()
     {
         $level = strlen($this->_detectMatch[1]);
 
@@ -575,7 +575,7 @@ class tracxhtml_blockquote extends WikiRendererBloc
         return '</p>'.str_repeat('</blockquote>', strlen($this->_previousTag));
     }
 
-    public function getRenderedLine()
+    public function validateDetectedLine()
     {
         $d = strlen($this->_previousTag) - strlen($this->_detectMatch[1]);
         $str = '';
@@ -618,7 +618,7 @@ class tracxhtml_blockquote2 extends WikiRendererBloc
         return '</p>'.str_repeat('</blockquote>', $this->_previousTagLen - $this->_firstTagLen + 1);
     }
 
-    public function getRenderedLine()
+    public function validateDetectedLine()
     {
         $str = '';
         if ($this->_restart) {
@@ -781,7 +781,7 @@ class tracxhtml_table extends WikiRendererBloc
         return $this->_closeTag;
     }
 
-    public function getRenderedLine()
+    public function validateDetectedLine()
     {
         return $this->engine->inlineParser->parse($this->_detectMatch[1]);
     }
@@ -808,7 +808,7 @@ class tracxhtml_pre extends WikiRendererBloc
         return $this->_closeTag;
     }
 
-    public function getRenderedLine()
+    public function validateDetectedLine()
     {
         return htmlspecialchars($this->_detectMatch);
     }
@@ -842,7 +842,7 @@ class tracxhtml_hr extends WikiRendererBloc
     protected $regexp = '/^\s*-{3,}\s*$/';
     protected $_closeNow = true;
 
-    public function getRenderedLine()
+    public function validateDetectedLine()
     {
         return '<hr />';
     }
@@ -867,7 +867,7 @@ class tracxhtml_image extends WikiRendererBloc
     protected $regexp = "/^\s+\[\[Image\(([^\]\)]*)\)\]\]\s*$/";
     protected $_closeNow = true;
 
-    public function getRenderedLine()
+    public function validateDetectedLine()
     {
         $params = preg_split('/,/', $this->_detectMatch[1]);
         $file = trim(array_shift($params));
@@ -912,7 +912,7 @@ class tracxhtml_timestamp extends WikiRendererBloc
     protected $regexp = "/^\s+\[\[Timestamp\]\]\s*$/";
     protected $_closeNow = true;
 
-    public function getRenderedLine()
+    public function validateDetectedLine()
     {
         return time();
     }

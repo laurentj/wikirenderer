@@ -46,8 +46,9 @@ class P extends \WikiRenderer\Block
             return false;
         }
     }
-    public function getRenderedLine()
+
+    public function validateDetectedLine()
     {
-        return $this->_renderInlineTag($this->_detectMatch[1]);
+        $this->text[] = $this->_renderInlineTag($this->_detectMatch[1]);
     }
 }

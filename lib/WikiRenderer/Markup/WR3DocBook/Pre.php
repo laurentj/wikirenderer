@@ -42,19 +42,19 @@ class Pre extends \WikiRenderer\Block
         $this->isOpen = true;
         $this->closeTagDetected = false;
 
-        return $this->_openTag;
+        parent::open();
     }
 
     public function close()
     {
         $this->isOpen = false;
 
-        return $this->_closeTag;
+        return parent::close();
     }
 
-    public function getRenderedLine()
+    public function validateDetectedLine()
     {
-        return htmlspecialchars($this->_detectMatch);
+        $this->text[] = htmlspecialchars($this->_detectMatch);
     }
 
     public function detect($string, $inBlock = false)

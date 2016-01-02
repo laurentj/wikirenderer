@@ -384,7 +384,7 @@ class pwdk_list extends PwDkBloc
         return '';
     }
 
-    public function getRenderedLine()
+    public function validateDetectedLine()
     {
         $t = $this->_previousTag;
         $d = strlen($t) - strlen($this->_detectMatch[1]);
@@ -413,7 +413,7 @@ class pwdk_hr extends PwDkBloc
     public $type = 'hr';
     protected $regexp = '/^(-{4,})\s*$/';
     protected $_closeNow = true;
-    public function getRenderedLine()
+    public function validateDetectedLine()
     {
         return '';
     }
@@ -430,7 +430,7 @@ class pwdk_title extends PwDkBloc
     protected $regexp = "/^(\!{1,3})(.*)/";
     protected $_closeNow = true;
 
-    public function getRenderedLine()
+    public function validateDetectedLine()
     {
         $tag = str_repeat('=', 4 - strlen($this->_detectMatch[1]));
 
@@ -519,7 +519,7 @@ class pwdk_note extends PwDkBloc
             }
         }
     }
-    public function getRenderedLine()
+    public function validateDetectedLine()
     {
         $this->engine->getConfig()->footnotes[$this->noteid] .= $this->_detectMatch;
 
@@ -563,7 +563,7 @@ class pwdk_pre extends PwDkBloc
         return parent::close();
     }
 
-    public function getRenderedLine()
+    public function validateDetectedLine()
     {
         return $this->engine->inlineParser->parse($this->_detectMatch[1]);
     }
@@ -577,7 +577,7 @@ class pwdk_blockquote extends PwDkBloc
 {
     public $type = 'bq';
     protected $regexp = '/^;:(.*)/';
-    public function getRenderedLine()
+    public function validateDetectedLine()
     {
         return '>'.$this->_renderInlineTag($this->_detectMatch[1]);
     }
@@ -592,7 +592,7 @@ class pwdk_plugin extends PwDkBloc
     protected $_closeNow = true;
     public $type = 'plugin';
     protected $regexp = '/^<\?plugin\s+([^\?\>]+)\?\>\s*$/i';
-    public function getRenderedLine()
+    public function validateDetectedLine()
     {
         if (preg_match('/^(\w+)(\s+(.*))?$/', $this->_detectMatch[1], $m)) {
             if (isset($m[3]) && $m[3]) {
@@ -782,7 +782,7 @@ class pwdk_table extends PwDkBloc
         return '';
     }
 
-    public function getRenderedLine()
+    public function validateDetectedLine()
     {
         return $this->engine->inlineParser->parse($this->_detectMatch[1]);
     }

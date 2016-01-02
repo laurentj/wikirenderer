@@ -114,13 +114,10 @@ class Renderer
                 // a block is already opened
                 if ($this->_currentBlock->detect($ligne, true)) {
                     // the line is part of the block
-                    $s = $this->_currentBlock->getRenderedLine();
-                    if ($s !== false) {
-                        $this->_newtext[] = $s;
-                    }
+                    $this->_currentBlock->validateDetectedLine();
                 } else {
                     // the line is not part of the block, we close it.
-                    $this->_newtext[count($this->_newtext) - 1] .= $this->_currentBlock->close();
+                    $this->_newtext[] = $this->_currentBlock->close();
                     $this->detectNewBlock($ligne);
                 }
             } else {
@@ -132,7 +129,7 @@ class Renderer
             }
         }
         if ($this->_currentBlock) {
-            $this->_newtext[count($this->_newtext) - 1] .= $this->_currentBlock->close();
+            $this->_newtext[] = $this->_currentBlock->close();
         }
 
         return $this->config->onParse(implode("\n", $this->_newtext));
@@ -151,7 +148,9 @@ class Renderer
                 // we open the new block
                 if ($block->closeNow()) {
                     // if we have to close now the block, we close.
-                    $this->_newtext[] = $block->open().$block->getRenderedLine().$block->close();
+                    $block->open();
+                    $block->validateDetectedLine();
+                    $this->_newtext[] = $block->close();
                     $this->_previousBloc = $block;
                     $this->_currentBlock = null;
                 } else {
@@ -162,8 +161,9 @@ class Renderer
                     } else {
                         $this->_currentBlock = $block;
                     }
-                    $this->_newtext[] = $this->_currentBlock->open().$this->_currentBlock->getRenderedLine();
-                }
+                    $this->_currentBlock->open();
+                    $this->_currentBlock->validateDetectedLine();
+               }
                 break;
             }
         }
@@ -172,7 +172,9 @@ class Renderer
                 $this->_newtext[] = '';
             } elseif ($this->_defaultBlock) {
                 $this->_defaultBlock->detect($line);
-                $this->_newtext[] = $this->_defaultBlock->open().$this->_defaultBlock->getRenderedLine().$this->_defaultBlock->close();
+                $this->_defaultBlock->open();
+                $this->_defaultBlock->validateDetectedLine();
+                $this->_newtext[] = $this->_defaultBlock->close();
             } else {
                 $this->_newtext[] = $this->inlineParser->parse($line);
             }

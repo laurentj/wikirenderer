@@ -29,8 +29,8 @@ class WikiList extends \WikiRenderer\Block
     public $type = 'list';
     protected $regexp = "/^([\*#-]+)(.*)/";
 
-    public function getRenderedLine()
+    public function validateDetectedLine()
     {
-        return $this->_detectMatch[1].$this->_renderInlineTag($this->_detectMatch[2]);
+        $this->text[] = $this->_detectMatch[1].$this->_renderInlineTag($this->_detectMatch[2]);
     }
 }

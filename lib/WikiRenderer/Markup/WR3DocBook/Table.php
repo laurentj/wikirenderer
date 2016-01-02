@@ -33,18 +33,17 @@ class Table extends \WikiRenderer\Block
 {
     public $type = 'table';
     protected $regexp = "/^\s*\| ?(.*)/";
-    protected $_openTag = '<table border="1">';
+    protected $_openTag = '<table border="1"><caption></caption>';
     protected $_closeTag = '</table>';
     protected $_colcount = 0;
 
     public function open()
     {
         $this->_colcount = 0;
-
-        return $this->_openTag.'<caption></caption>';
+        $this->text = array();
     }
 
-    public function getRenderedLine()
+    public function validateDetectedLine()
     {
         $result = explode(' | ', trim($this->_detectMatch[1]));
         $str = '';
@@ -60,6 +59,6 @@ class Table extends \WikiRenderer\Block
         }
         $str = $t.'<tr>'.$str.'</tr>';
 
-        return $str;
+        $this->text[] = $str;
     }
 }

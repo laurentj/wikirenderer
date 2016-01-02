@@ -40,18 +40,18 @@ class Table extends \WikiRenderer\Block
     {
         $this->engine->getConfig()->defaultTextLineContainer = 'dkxhtml_table_row';
 
-        return $this->_openTag;
+        parent::open();
     }
 
     public function close()
     {
         $this->engine->getConfig()->defaultTextLineContainer = 'WikiHtmlTextLine';
 
-        return $this->_closeTag;
+        return parent::close();
     }
 
-    public function getRenderedLine()
+    public function validateDetectedLine()
     {
-        return $this->engine->inlineParser->parse($this->_detectMatch[1].$this->_detectMatch[2]);
+        $this->text[] = $this->engine->inlineParser->parse($this->_detectMatch[1].$this->_detectMatch[2]);
     }
 }

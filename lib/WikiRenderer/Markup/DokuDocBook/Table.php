@@ -31,26 +31,24 @@ class Table extends \WikiRenderer\Block
 {
     public $type = 'table';
     protected $regexp = "/^\s*(\||\^)(.*)/";
-    protected $_openTag = '<table>';
+    protected $_openTag = '<table><caption></caption>';
     protected $_closeTag = '</table>';
     protected $_colcount = 0;
 
     public function open()
     {
         $this->engine->getConfig()->defaultTextLineContainer = '\WikiRenderer\Markup\DokuDocBook\TableRow';
-
-        return $this->_openTag.'<caption></caption>';
     }
 
     public function close()
     {
         $this->engine->getConfig()->defaultTextLineContainer = '\WikiRenderer\XmlTextLine';
 
-        return $this->_closeTag;
+        return parent::close();
     }
 
-    public function getRenderedLine()
+    public function validateDetectedLine()
     {
-        return $this->engine->inlineParser->parse($this->_detectMatch[1].$this->_detectMatch[2]);
+        $this->text[] = $this->engine->inlineParser->parse($this->_detectMatch[1].$this->_detectMatch[2]);
     }
 }

@@ -40,15 +40,16 @@ class Blockquote extends \WikiRenderer\Block
         $this->_firstTagLen = strlen($this->_previousTag);
         $this->_firstLine = true;
 
-        return str_repeat('<blockquote>', $this->_firstTagLen).'<para>';
+        $this->_openTag = str_repeat('<blockquote>', $this->_firstTagLen).'<para>';
     }
 
     public function close()
     {
-        return '</para>'.str_repeat('</blockquote>', strlen($this->_previousTag));
+        $this->_closeTag = '</para>'.str_repeat('</blockquote>', strlen($this->_previousTag));
+        return parent::close();
     }
 
-    public function getRenderedLine()
+    public function validateDetectedLine()
     {
         $d = strlen($this->_previousTag) - strlen($this->_detectMatch[1]);
         $str = '';
@@ -65,6 +66,6 @@ class Blockquote extends \WikiRenderer\Block
             }
         }
 
-        return $str.$this->_renderInlineTag($this->_detectMatch[2]);
+        $this->text[] = $str.$this->_renderInlineTag($this->_detectMatch[2]);
     }
 }

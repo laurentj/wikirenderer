@@ -24,6 +24,9 @@
 
 namespace WikiRenderer\Markup\DokuHtml;
 
+/**
+ * parse html but it does not output it
+ */
 class Html extends \WikiRenderer\Block
 {
     public $type = 'html';
@@ -36,7 +39,7 @@ class Html extends \WikiRenderer\Block
         $this->isOpen = true;
         $this->closeTagDetected = false;
 
-        return '';
+        $this->text = array();
     }
 
     public function close()
@@ -46,9 +49,8 @@ class Html extends \WikiRenderer\Block
         return '';
     }
 
-    public function getRenderedLine()
+    public function validateDetectedLine()
     {
-        return '';
     }
 
     public function detect($string, $inBlock = false)

@@ -41,29 +41,28 @@ class WikiList extends \WikiRenderer\Block
         $this->_firstTagLen = strlen($this->_detectMatch[1]);
         $this->_firstItem = true;
         if ($this->_detectMatch[2] == '-') {
-            return "<ol>\n";
+            $this->_openTag = "<ol>\n";
         } else {
-            return "<ul>\n";
+            $this->_openTag = "<ul>\n";
         }
     }
 
     public function close()
     {
-        $str = '';
-
+        $this->_closeTag = '';
         for ($i = count($this->_stack) - 1; $i >= 0; --$i) {
             if ($this->_stack[$i][0] < $this->_firstTagLen) {
                 break;
             }
 
-            $str .= ($this->_stack[$i][1] == '-') ? "</li></ol>\n" : "</li></ul>\n";
+            $this->_closeTag .= ($this->_stack[$i][1] == '-') ? "</li></ol>\n" : "</li></ul>\n";
             array_pop($this->_stack);
         }
 
-        return $str;
+        return parent::close();
     }
 
-    public function getRenderedLine()
+    public function validateDetectedLine()
     {
         $t = end($this->_stack);
         $newLen = strlen($this->_detectMatch[1]);
@@ -118,6 +117,6 @@ class WikiList extends \WikiRenderer\Block
         }
         $this->_firstItem = false;
 
-        return $str.$this->_renderInlineTag(trim($this->_detectMatch[3]));
+        $this->text[] = $str.$this->_renderInlineTag(trim($this->_detectMatch[3]));
     }
 }

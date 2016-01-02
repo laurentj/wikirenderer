@@ -33,7 +33,7 @@ class Title extends \WikiRenderer\Block
     protected $regexp = "/^\s*(\={1,6})([^=]*)(\={1,6})\s*$/";
     protected $_closeNow = true;
 
-    public function getRenderedLine()
+    public function validateDetectedLine()
     {
         $level = strlen($this->_detectMatch[1]);
         $conf = $this->engine->getConfig();
@@ -67,9 +67,9 @@ class Title extends \WikiRenderer\Block
         $title = trim($this->_detectMatch[2]);
         $id = $conf->getSectionId($title);
         if ($id) {
-            return $output.'<section xml:id="'.$id.'"><title>'.$this->_renderInlineTag($title).'</title>';
+            $this->text[] = $output.'<section xml:id="'.$id.'"><title>'.$this->_renderInlineTag($title).'</title>';
         } else {
-            return $output.'<section><title>'.$this->_renderInlineTag($title).'</title>';
+            $this->text[] = $output.'<section><title>'.$this->_renderInlineTag($title).'</title>';
         }
     }
 }

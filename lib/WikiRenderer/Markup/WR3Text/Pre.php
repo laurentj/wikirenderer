@@ -35,9 +35,9 @@ class Pre extends \WikiRenderer\Block
     protected $isOpen = false;
     protected $closeTagDetected = false;
 
-    public function getRenderedLine()
+    public function validateDetectedLine()
     {
-        return '   '.$this->_detectMatch;
+        $this->text[] = '   '.$this->_detectMatch;
     }
 
     public function detect($string, $inBlock = false)
@@ -64,8 +64,8 @@ class Pre extends \WikiRenderer\Block
                 } else {
                     $this->_closeNow = false;
                     $this->_detectMatch = $m[1];
+                    $this->isOpen = true;
                 }
-
                 return true;
             } else {
                 return false;

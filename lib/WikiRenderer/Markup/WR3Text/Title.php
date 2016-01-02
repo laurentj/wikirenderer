@@ -42,7 +42,7 @@ class Title extends \WikiRenderer\Block
      */
     protected $_order = false;
 
-    public function getRenderedLine()
+    public function validateDetectedLine()
     {
         if ($this->_order) {
             $repeat = 4 - strlen($this->_detectMatch[1]);
@@ -53,6 +53,6 @@ class Title extends \WikiRenderer\Block
             $repeat = strlen($this->_detectMatch[1]);
         }
 
-        return str_repeat("\n", $repeat)."\t".$this->_renderInlineTag($this->_detectMatch[2])."\n";
+        $this->text[] = str_repeat("\n", $repeat)."\t".$this->_renderInlineTag($this->_detectMatch[2]);
     }
 }

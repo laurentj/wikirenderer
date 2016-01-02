@@ -34,11 +34,11 @@ class Definition extends \WikiRenderer\Block
     public $type = 'dfn';
     protected $regexp = "/^\s*;(.*) : (.*)/i";
 
-    public function getRenderedLine()
+    public function validateDetectedLine()
     {
         $dt = $this->_renderInlineTag($this->_detectMatch[1]);
         $dd = $this->_renderInlineTag($this->_detectMatch[2]);
 
-        return "$dt :\n\t$dd";
+        $this->text[] = "$dt :\n\t$dd";
     }
 }

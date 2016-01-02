@@ -370,7 +370,7 @@ class jwxhtml_list extends WikiRendererBloc
         return $str;
     }
 
-    public function getRenderedLine()
+    public function validateDetectedLine()
     {
         $t = end($this->_stack);
         $newLen = strlen($this->_detectMatch[1]);
@@ -440,7 +440,7 @@ class jwxhtml_title extends WikiRendererBloc
     protected $regexp = "/^\s*(\={1,6})([^=]*)(\={1,6})\s*$/";
     protected $_closeNow = true;
 
-    public function getRenderedLine()
+    public function validateDetectedLine()
     {
         $level = strlen($this->_detectMatch[1]);
 
@@ -522,7 +522,7 @@ class jwxhtml_blockquote extends WikiRendererBloc
         return '</p>'.str_repeat('</blockquote>', strlen($this->_previousTag));
     }
 
-    public function getRenderedLine()
+    public function validateDetectedLine()
     {
         $d = strlen($this->_previousTag) - strlen($this->_detectMatch[1]);
         $str = '';
@@ -695,7 +695,7 @@ class jwxhtml_table extends WikiRendererBloc
         return $this->_closeTag;
     }
 
-    public function getRenderedLine()
+    public function validateDetectedLine()
     {
         return $this->engine->inlineParser->parse($this->_detectMatch[1].$this->_detectMatch[2]);
     }
@@ -723,7 +723,7 @@ class jwxhtml_syntaxhighlight extends WikiRendererBloc
         return $this->_closeTag;
     }
 
-    public function getRenderedLine()
+    public function validateDetectedLine()
     {
         return htmlspecialchars($this->_detectMatch);
     }
@@ -779,7 +779,7 @@ class jwxhtml_macro extends WikiRendererBloc
     protected $regexp = "/^\s*~~[^~]*~~\s*$/";
     protected $_closeNow = true;
 
-    public function getRenderedLine()
+    public function validateDetectedLine()
     {
         return '';
     }
@@ -795,7 +795,7 @@ class jwxhtml_definition extends WikiRendererBloc
     protected $_openTag = '<dl>';
     protected $_closeTag = '</dl>';
 
-    public function getRenderedLine()
+    public function validateDetectedLine()
     {
         $dt = $this->_renderInlineTag($this->_detectMatch[1]);
         $dd = $this->_renderInlineTag($this->_detectMatch[2]);
@@ -810,7 +810,7 @@ class jwxhtml_hr extends WikiRendererBloc
     protected $regexp = '/^\s*-{4,} *$/';
     protected $_closeNow = true;
 
-    public function getRenderedLine()
+    public function validateDetectedLine()
     {
         return '<hr />';
     }

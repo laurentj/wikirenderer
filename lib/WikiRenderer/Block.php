@@ -52,6 +52,8 @@ abstract class Block
     /** @var bool	True if the block object must be cloned. Warning: True by default. */
     protected $_mustClone = true;
 
+    protected $text = array();
+
     /**
      * Constructor.
      *
@@ -63,35 +65,9 @@ abstract class Block
     }
 
     /**
-     * ???
-     *
-     * @return string The string to insert at the beginning of the block.
-     */
-    public function open()
-    {
-        return $this->_openTag;
-    }
-
-    /**
-     * ???
-     *
-     * @return string The string to insert at the end of the block.
-     */
-    public function close()
-    {
-        return $this->_closeTag;
-    }
-
-    /**
-     * @return bool Says if the block can exists only on one line.
-     */
-    public function closeNow()
-    {
-        return $this->_closeNow;
-    }
-
-    /**
-     * Says if the given line belongs to the block.
+     * Says if the given line belongs to the block. Called by the parser
+     * to know if the block can be used for the given line.
+     * If yes, the open() method will be called.
      *
      * @param string $string  The string to check.
      * @param bool   $inBlock (optional) True if the parser is already in the block. False by default.
@@ -104,19 +80,63 @@ abstract class Block
     }
 
     /**
-     * ???
-     *
-     * @return string A rendered line  of block.
+     * Called when the parser wants to use this block, after detecing
+     * that the block correspond to a line.
      */
-    public function getRenderedLine()
+    public function open()
     {
-        return $this->_renderInlineTag($this->_detectMatch[1]);
+        $this->text = array();
+    }
+
+    /**
+     * called by the parser when the current line has been detected, so after
+     * the call of detect(). This method should then take care of the line
+     * given tho the detect() method.
+     */
+    public function validateDetectedLine()
+    {
+        $this->text[] = $this->_renderInlineTag($this->_detectMatch[1]);
+    }
+
+    /**
+     * Called when the parser wants to close this block, after it discovers
+     * that the line it parses is not belonging to the block.
+     *
+     * this method should then return the content generated with all lines
+     *
+     * @return string the content of the block.
+     */
+    public function close()
+    {
+        $content = '';
+        if ($this->_openTag) {
+            $content .= $this->_openTag;
+        }
+        $content .= implode("\n", $this->text); 
+        if ($this->_closeTag) {
+            $content .= $this->_closeTag;
+        }
+        return $content;
+    }
+
+    /**
+     * @return bool Says if the block can exists only on one line.
+     */
+    public function closeNow()
+    {
+        return $this->_closeNow;
     }
 
     /**
      * Returns a boolean value about the need to clone this block object.
      *
-     * @return bool The value of the configuraiton attribute.
+     * The parser instancies the block at the start of the parsing to call
+     * the detect method on each line. In most of case, the block should
+     * be cloned when it is used for lines. But in particular case, depending
+     * of the markup, it may not be cloned. 
+     * 
+     * @return bool true if the block should be cloned each time
+     * it is opened.
      */
     public function mustClone()
     {
@@ -124,7 +144,8 @@ abstract class Block
     }
 
     /**
-     * ???
+     * It uses an "inline parser" to parse the given string, so to
+     * transform the markup of a line into an other syntax.
      *
      * @param string $string A line of wiki text.
      *

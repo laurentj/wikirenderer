@@ -38,15 +38,16 @@ class Blockquote extends \WikiRenderer\Block
         $this->_firstTagLen = strlen($this->_previousTag);
         $this->_firstLine = true;
 
-        return str_repeat('<blockquote>', $this->_firstTagLen).'<p>';
+        $this->_openTag = str_repeat('<blockquote>', $this->_firstTagLen).'<p>';
     }
 
     public function close()
     {
-        return '</p>'.str_repeat('</blockquote>', strlen($this->_previousTag));
+        $this->_closeTag = '</p>'.str_repeat('</blockquote>', strlen($this->_previousTag));
+        return parent::close();
     }
 
-    public function getRenderedLine()
+    public function validateDetectedLine()
     {
         $d = strlen($this->_previousTag) - strlen($this->_detectMatch[1]);
         $str = '';
@@ -63,6 +64,6 @@ class Blockquote extends \WikiRenderer\Block
             }
         }
 
-        return $str.$this->_renderInlineTag($this->_detectMatch[2]);
+        $this->text[] = $str.$this->_renderInlineTag($this->_detectMatch[2]);
     }
 }

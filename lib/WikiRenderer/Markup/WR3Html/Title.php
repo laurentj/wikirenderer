@@ -40,7 +40,7 @@ class Title extends \WikiRenderer\Block
      */
     protected $_order = false;
 
-    public function getRenderedLine()
+    public function validateDetectedLine()
     {
         if ($this->_order) {
             $hx = $this->_minlevel + strlen($this->_detectMatch[1]) - 1;
@@ -48,6 +48,6 @@ class Title extends \WikiRenderer\Block
             $hx = $this->_minlevel + 3 - strlen($this->_detectMatch[1]);
         }
 
-        return '<h'.$hx.'>'.$this->_renderInlineTag($this->_detectMatch[2]).'</h'.$hx.'>';
+        $this->text[] = '<h'.$hx.'>'.$this->_renderInlineTag($this->_detectMatch[2]).'</h'.$hx.'>';
     }
 }

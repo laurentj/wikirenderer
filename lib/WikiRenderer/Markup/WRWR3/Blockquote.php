@@ -28,8 +28,8 @@ class Blockquote extends \WikiRenderer\Block
 {
     public $type = 'bq';
     protected $regexp = "/^(\>+)(.*)/";
-    public function getRenderedLine()
+    public function validateDetectedLine()
     {
-        return $this->_detectMatch[1].$this->_renderInlineTag($this->_detectMatch[2]);
+        $this->text[] = $this->_detectMatch[1].$this->_renderInlineTag($this->_detectMatch[2]);
     }
 }

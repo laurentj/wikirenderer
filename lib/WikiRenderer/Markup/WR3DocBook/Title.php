@@ -41,7 +41,7 @@ class Title extends \WikiRenderer\Block
      */
     protected $_order = false;
 
-    public function getRenderedLine()
+    public function validateDetectedLine()
     {
         $level = strlen($this->_detectMatch[1]);
         if (!$this->_order) {
@@ -79,6 +79,6 @@ class Title extends \WikiRenderer\Block
 
         $conf->sectionLevel[] = $level;
 
-        return $output.'<section><title>'.$this->_renderInlineTag($this->_detectMatch[2]).'</title>';
+        $this->text[] = $output.'<section><title>'.$this->_renderInlineTag($this->_detectMatch[2]).'</title>';
     }
 }

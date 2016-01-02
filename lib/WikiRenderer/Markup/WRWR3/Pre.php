@@ -30,8 +30,8 @@ class Pre extends \WikiRenderer\Block
     protected $regexp = "/^(\s.*)/";
     protected $_openTag = "<code>\n";
     protected $_closeTag = "\n</code>";
-    public function getRenderedLine()
+    public function validateDetectedLine()
     {
-        return $this->_detectMatch[1];
+        $this->text[] = $this->_detectMatch[1];
     }
 }

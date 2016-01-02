@@ -34,8 +34,8 @@ class Pre extends \WikiRenderer\Block
     protected $_openTag = '<pre>';
     protected $_closeTag = '</pre>';
 
-    public function getRenderedLine()
+    public function validateDetectedLine()
     {
-        return htmlspecialchars($this->_detectMatch[1]);
+        $this->text[] = htmlspecialchars($this->_detectMatch[1]);
     }
 }

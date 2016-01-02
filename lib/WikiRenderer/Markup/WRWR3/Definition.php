@@ -28,8 +28,8 @@ class Definition extends \WikiRenderer\Block
 {
     public $type = 'dfn';
     protected $regexp = '/^;(.*) : (.*)/i';
-    public function getRenderedLine()
+    public function validateDetectedLine()
     {
-        return ';'.$this->_renderInlineTag($this->_detectMatch[1]).' : '.$this->_renderInlineTag($this->_detectMatch[2]);
+        $this->text[] = ';'.$this->_renderInlineTag($this->_detectMatch[1]).' : '.$this->_renderInlineTag($this->_detectMatch[2]);
     }
 }

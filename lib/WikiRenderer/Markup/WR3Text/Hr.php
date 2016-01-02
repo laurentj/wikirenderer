@@ -35,8 +35,8 @@ class Hr extends \WikiRenderer\Block
     protected $regexp = '/^\s*={4,} *$/';
     protected $_closeNow = true;
 
-    public function getRenderedLine()
+    public function validateDetectedLine()
     {
-        return "=======================================================\n";
+        $this->text[] = "=======================================================";
     }
 }

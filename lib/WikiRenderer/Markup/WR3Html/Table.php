@@ -39,10 +39,10 @@ class Table extends \WikiRenderer\Block
     {
         $this->_colcount = 0;
 
-        return $this->_openTag;
+        parent::open();
     }
 
-    public function getRenderedLine()
+    public function validateDetectedLine()
     {
         $result = explode(' | ', trim($this->_detectMatch[1]));
         $str = '';
@@ -58,6 +58,6 @@ class Table extends \WikiRenderer\Block
         }
         $str = $t.'<tr>'.$str.'</tr>';
 
-        return $str;
+        $this->text[] = $str;
     }
 }

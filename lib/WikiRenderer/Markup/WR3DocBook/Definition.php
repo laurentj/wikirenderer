@@ -36,11 +36,11 @@ class Definition extends \WikiRenderer\Block
     protected $_openTag = '<variablelist>';
     protected $_closeTag = '</variablelist>';
 
-    public function getRenderedLine()
+    public function validateDetectedLine()
     {
         $dt = $this->_renderInlineTag($this->_detectMatch[1]);
         $dd = $this->_renderInlineTag($this->_detectMatch[2]);
 
-        return "<varlistentry><term>$dt</term>\n<listitem><para>$dd</para></listitem></varlistentry>\n";
+        $this->text[] = "<varlistentry><term>$dt</term>\n<listitem><para>$dd</para></listitem></varlistentry>";
     }
 }

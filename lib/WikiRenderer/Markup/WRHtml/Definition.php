@@ -34,11 +34,11 @@ class Definition extends \WikiRenderer\Block
     protected $_openTag = '<dl>';
     protected $_closeTag = '</dl>';
 
-    public function getRenderedLine()
+    public function validateDetectedLine()
     {
         $dt = $this->_renderInlineTag($this->_detectMatch[1]);
         $dd = $this->_renderInlineTag($this->_detectMatch[2]);
 
-        return "<dt>$dt</dt>\n<dd>$dd</dd>\n";
+        $this->text[] = "<dt>$dt</dt>\n<dd>$dd</dd>\n";
     }
 }

@@ -42,25 +42,23 @@ class WikiList extends \WikiRenderer\Block
         $this->_firstItem = true;
 
         if (substr($this->_previousTag, -1, 1) == '#') {
-            return "<ol>\n";
+            $this->_openTag = "<ol>\n";
         } else {
-            return "<ul>\n";
+            $this->_openTag = "<ul>\n";
         }
     }
 
     public function close()
     {
         $t = $this->_previousTag;
-        $str = '';
-
+        $this->_closeTag = '';
         for ($i = strlen($t); $i >= $this->_firstTagLen; --$i) {
-            $str .= ($t[$i - 1] == '#') ? "</li></ol>\n" : "</li></ul>\n";
+            $this->_closeTag .= ($t[$i - 1] == '#') ? "</li></ol>\n" : "</li></ul>\n";
         }
-
-        return $str;
+        return parent::close();
     }
 
-    public function getRenderedLine()
+    public function validateDetectedLine()
     {
         $t = $this->_previousTag;
         $d = strlen($t) - strlen($this->_detectMatch[1]);
@@ -82,6 +80,6 @@ class WikiList extends \WikiRenderer\Block
         }
         $this->_firstItem = false;
 
-        return $str.$this->_renderInlineTag($this->_detectMatch[2]);
+        $this->text[] = $str.$this->_renderInlineTag($this->_detectMatch[2]);
     }
 }

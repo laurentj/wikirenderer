@@ -24,6 +24,9 @@
 
 namespace WikiRenderer\Markup\DokuDocBook;
 
+/**
+ * parse html blocks, but do not generate content for docbook
+ */
 class Html extends \WikiRenderer\Block
 {
     public $type = 'html';
@@ -35,20 +38,17 @@ class Html extends \WikiRenderer\Block
     {
         $this->isOpen = true;
         $this->closeTagDetected = false;
-
-        return '';
+        $this->text = array();
     }
 
     public function close()
     {
         $this->isOpen = false;
-
         return '';
     }
 
-    public function getRenderedLine()
+    public function validateDetectedLine()
     {
-        return '';
     }
 
     public function detect($string, $inBlock = false)
