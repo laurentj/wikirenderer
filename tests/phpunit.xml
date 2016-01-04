@@ -1,6 +1,10 @@
 <?xml version="1.0"?>
 <phpunit bootstrap="bootstrap.php">
   <testsuites>
+    <testsuite name="wr3">
+        <file>wr3_ngTest.php</file>
+    </testsuite>
+
     <testsuite name="Classicwr">
       <file>classicwr_inlineTagsTest.php</file>
       <file>classicwr_internalTest.php</file>

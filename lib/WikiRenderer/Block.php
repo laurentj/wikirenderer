@@ -49,7 +49,7 @@ abstract class Block
     protected $_detectMatch = null;
     /** @var string      Regular expression which can detect the block. */
     protected $regexp = '';
-    /** @var bool	True if the block object must be cloned. Warning: True by default. */
+    /** @var bool  True if the block object must be cloned. Warning: True by default. */
     protected $_mustClone = true;
 
     protected $text = array();
