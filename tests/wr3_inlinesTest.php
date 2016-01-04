@@ -67,7 +67,7 @@ class WR3TestsInlines extends PHPUnit_Framework_TestCase {
     public function listInlineComplexesProvider() {
         return array(
         // 'source' => array( nb_error, 'resultat')
-/*        array('Lorem __ipsum \'\'dolor sit\'\' amet__, consectetuer adipiscing elit.'
+        array('Lorem __ipsum \'\'dolor sit\'\' amet__, consectetuer adipiscing elit.'
             ,0,'<p>Lorem <strong>ipsum <em>dolor sit</em> amet</strong>, consectetuer adipiscing elit.</p>'),
         array('Lorem __ipsum \'\'dolor sit__ amet\'\', consectetuer adipiscing elit.'
             ,1,'<p>Lorem __ipsum \'\'dolor sit__ amet\'\', consectetuer adipiscing elit.</p>'),
@@ -81,7 +81,7 @@ class WR3TestsInlines extends PHPUnit_Framework_TestCase {
             ,0,'<p>Lorem <a href="ips[[um dolor|bar|fr]] sit">ips[[um dolor|bar|fr]] sit</a> amet, consectetuer adipiscing elit.</p>'),
         array('Lorem [[ips__um dolor|bar|fr]] sit__ amet, consectetuer adipiscing elit.'
             ,1,'<p>Lorem [[ips<strong>um dolor|bar|fr]] sit</strong> amet, consectetuer adipiscing elit.</p>'),
-*/        );
+        );
     }
 
     /**
@@ -100,7 +100,7 @@ class WR3TestsInlines extends PHPUnit_Framework_TestCase {
     /**
      * @dataProvider listInlineComplexesProvider
      */
-    /*function testBalisesInlineComplexes($source, $errors, $expected) {
+    function testBalisesInlineComplexes($source, $errors, $expected) {
         $genConfig = new \WikiRenderer\Generator\Html\Config();
         $generator = new \WikiRenderer\Generator\Html\Html($genConfig);
         $markupConfig = new \WikiRenderer\Markup\WR3\Config();
@@ -109,6 +109,6 @@ class WR3TestsInlines extends PHPUnit_Framework_TestCase {
         $res = $wr->render($source);
         $this->assertEquals($expected, $res);
         $this->assertEquals($errors, count($wr->errors));
-    }*/
+    }
 
 }

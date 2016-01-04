@@ -100,7 +100,9 @@ abstract class TagNG extends Tag
         $s = count($this->separators);
         foreach ($this->contents as $k => $v) {
             if ($this->attribute[$k] == '$$') {
-                $generator->addContent($this->generator);
+                foreach($this->generator->getChildGenerators() as $child) {
+                    $generator->addContent($child);
+                }
             }
             else {
                 $generator->addRawContent($v);
