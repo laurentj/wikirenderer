@@ -55,13 +55,13 @@ class WR3TestsInlines extends PHPUnit_Framework_TestCase {
             ,'<p>Lorem <img src="ipsumdolorsit.png" alt="alternative text" style="float:left;"/> amet, consectetuer adipiscing elit.</p>'),
         array('Lorem ((ipsumdolorsit.png|alternative text|R|longue description)) amet, consectetuer adipiscing elit.'
             ,'<p>Lorem <img src="ipsumdolorsit.png" alt="alternative text" longdesc="longue description" style="float:right;"/> amet, consectetuer adipiscing elit.</p>'),
-/*        array('Lorem ~~ipsumdolorsit~~ amet, consectetuer adipiscing elit.'
+        array('Lorem ~~ipsumdolorsit~~ amet, consectetuer adipiscing elit.'
             ,'<p>Lorem <a name="ipsumdolorsit"></a> amet, consectetuer adipiscing elit.</p>'),
         array('@@$cond->addCondition(\'property\', \'IS NOT NULL\', \'\');@@'
             ,'<p><code>$cond-&gt;addCondition(\'property\', \'IS NOT NULL\', \'\');</code></p>'),
         array('@@$cond->addCondition(\'property\', \'IS NOT NULL\');@@'
             ,'<p><code>$cond-&gt;addCondition(\'property\', \'IS NOT NULL\');</code></p>'),
-*/        );
+        );
     }
 
     public function listInlineComplexesProvider() {

@@ -40,7 +40,7 @@ class Config extends \WikiRenderer\Config
             '\WikiRenderer\Markup\WR3\Acronym',
             '\WikiRenderer\Markup\WR3\Link',
             '\WikiRenderer\Markup\WR3\Image',
-            //'\WikiRenderer\Markup\WR3\Anchor',
+            '\WikiRenderer\Markup\WR3\Anchor',
             //'\WikiRenderer\Markup\WR3\Footnote',
         ),
     );

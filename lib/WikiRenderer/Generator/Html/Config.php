@@ -40,6 +40,7 @@ class Config extends \WikiRenderer\Generator\Config
         'acronym' => '\WikiRenderer\Generator\Html\Acronym',
         'link' => '\WikiRenderer\Generator\Html\Link',
         'image' => '\WikiRenderer\Generator\Html\Image',
+        'anchor' => '\WikiRenderer\Generator\Html\Anchor',
     );
 
     public $blockGenerators = array(
