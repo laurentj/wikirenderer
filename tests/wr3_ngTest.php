@@ -1,11 +1,10 @@
 <?php
 /**
- * Tests unitaires
  *
  * @package wikirenderer
  * @subpackage tests
  * @author Laurent Jouanneau
- * @copyright 2006-2013 Laurent Jouanneau
+ * @copyright 2006-2016 Laurent Jouanneau
  */
 
 class WR3_NGTestsBlocks extends PHPUnit_Framework_TestCase {
@@ -60,6 +59,7 @@ class WR3_NGTestsBlocks extends PHPUnit_Framework_TestCase {
     var $listblocks = array(
         'b1'=>0,
         'b2'=>0,
+        'wr3_title'=>0,
 /*        'wr3_list1'=>0,
         'wr3_pre'=>0,
         'wr3_footnote'=>0,

@@ -143,6 +143,10 @@ class Renderer
         $found = false;
         // let's check if the line is part of a type of block
         foreach ($this->_blockList as $block) {
+            if ($block->mustClone()) {
+                // block must be cloned so it can be change its internal values
+                $block = clone $block;
+            }
             if ($block->detect($line, true)) {
                 $found = true;
                 // we open the new block
@@ -155,15 +159,10 @@ class Renderer
                     $this->_currentBlock = null;
                 } else {
                     $this->_previousBloc = $this->_currentBlock;
-                    if ($block->mustClone()) {
-                        // block must be cloned so it can be change its internal values
-                        $this->_currentBlock = clone $block;
-                    } else {
-                        $this->_currentBlock = $block;
-                    }
+                    $this->_currentBlock = $block;
                     $this->_currentBlock->open();
                     $this->_currentBlock->validateDetectedLine();
-               }
+                }
                 break;
             }
         }
@@ -171,10 +170,11 @@ class Renderer
             if (trim($line) == '') {
                 $this->_newtext[] = '';
             } elseif ($this->_defaultBlock) {
-                $this->_defaultBlock->detect($line);
-                $this->_defaultBlock->open();
-                $this->_defaultBlock->validateDetectedLine();
-                $this->_newtext[] = $this->_defaultBlock->close();
+                $block = clone $this->_defaultBlock;
+                $block->detect($line);
+                $block->open();
+                $block->validateDetectedLine();
+                $this->_newtext[] = $block->close();
             } else {
                 $this->_newtext[] = $this->inlineParser->parse($line);
             }
