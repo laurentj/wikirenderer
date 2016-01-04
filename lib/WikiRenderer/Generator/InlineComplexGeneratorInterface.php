@@ -29,5 +29,9 @@ interface InlineComplexGeneratorInterface extends InlineGeneratorInterface {
 
     public function addContent(InlineGeneratorInterface $content);
 
-    public function addAttribute($name, $value);
+    public function setAttribute($name, $value);
+
+    public function getChildGenerators();
+
+    public function getAttribute($name);
 }

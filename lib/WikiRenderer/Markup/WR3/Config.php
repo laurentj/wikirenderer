@@ -32,12 +32,12 @@ class Config extends \WikiRenderer\Config
     public $defaultTextLineContainer = '\WikiRenderer\Markup\WR3\TextLine';
     public $textLineContainers = array(
         '\WikiRenderer\Markup\WR3\TextLine' => array(
-            //'\WikiRenderer\Markup\WR3\Strong',
-            //'\WikiRenderer\Markup\WR3\Em',
-            //'\WikiRenderer\Markup\WR3\Code',
-            //'\WikiRenderer\Markup\WR3\Q',
-            //'\WikiRenderer\Markup\WR3\Cite',
-            //'\WikiRenderer\Markup\WR3\Acronym',
+            '\WikiRenderer\Markup\WR3\Strong',
+            '\WikiRenderer\Markup\WR3\Em',
+            '\WikiRenderer\Markup\WR3\Code',
+            '\WikiRenderer\Markup\WR3\Q',
+            '\WikiRenderer\Markup\WR3\Cite',
+            '\WikiRenderer\Markup\WR3\Acronym',
             //'\WikiRenderer\Markup\WR3\Link',
             //'\WikiRenderer\Markup\WR3\Image',
             //'\WikiRenderer\Markup\WR3\Anchor',

@@ -43,10 +43,17 @@ abstract class AbstractInlineGenerator implements \WikiRenderer\Generator\Inline
         $this->content[] = $content;
     }
 
-    public function addAttribute($name, $value) {
+    public function setAttribute($name, $value) {
         if (in_array($name, $this->supportedAttributes)) {
             $this->attributes[$name] = $value;
         }
+    }
+
+    public function getAttribute($name) {
+        if (isset($this->attributes[$name])) {
+            return $this->attributes[$name];
+        }
+        return null;
     }
 
     /**
@@ -64,5 +71,9 @@ abstract class AbstractInlineGenerator implements \WikiRenderer\Generator\Inline
         }
 
         return '<'.$this->htmlTagName.$attr.'>'.$html.'</'.$this->htmlTagName.'>';
+    }
+
+    public function getChildGenerators() {
+        return $this->content;
     }
 }

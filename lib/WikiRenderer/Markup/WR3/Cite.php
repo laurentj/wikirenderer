@@ -1,11 +1,10 @@
 <?php
 
 /**
- * Configuration for an HTML generator
+ * wikirenderer3 (wr3) syntax to xhtml.
  *
  * @author Laurent Jouanneau
- *
- * @copyright 2016 Laurent Jouanneau
+ * @copyright 2003-2006 Laurent Jouanneau
  *
  * @link http://wikirenderer.jelix.org
  *
@@ -23,24 +22,17 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-namespace WikiRenderer\Generator\Html;
+namespace WikiRenderer\Markup\WR3;
 
 /**
- * Base class for the configuration.
+ * ???
  */
-class Config extends \WikiRenderer\Generator\Config
+class Cite extends \WikiRenderer\TagNG
 {
-    public $inlineGenerators = array(
-        'textline' => '\WikiRenderer\Generator\Html\TextLine',
-        'strong' => '\WikiRenderer\Generator\Html\Strong',
-        'em' => '\WikiRenderer\Generator\Html\Em',
-        'code' => '\WikiRenderer\Generator\Html\Code',
-        'quote' => '\WikiRenderer\Generator\Html\Quote',
-        'cite' => '\WikiRenderer\Generator\Html\Cite',
-        'acronym' => '\WikiRenderer\Generator\Html\Acronym',
-    );
-
-    public $blockGenerators = array(
-        'para' => '\WikiRenderer\Generator\Html\Paragraph',
-    );
+    protected $name = 'cite';
+    protected $generatorName = 'cite';
+    public $beginTag = '{{';
+    public $endTag = '}}';
+    protected $attribute = array('$$','title');
+    public $separators = array('|');
 }

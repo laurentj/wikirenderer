@@ -1,8 +1,6 @@
 <?php
 
 /**
- * Configuration for an HTML generator
- *
  * @author Laurent Jouanneau
  *
  * @copyright 2016 Laurent Jouanneau
@@ -25,22 +23,14 @@
 
 namespace WikiRenderer\Generator\Html;
 
-/**
- * Base class for the configuration.
- */
-class Config extends \WikiRenderer\Generator\Config
-{
-    public $inlineGenerators = array(
-        'textline' => '\WikiRenderer\Generator\Html\TextLine',
-        'strong' => '\WikiRenderer\Generator\Html\Strong',
-        'em' => '\WikiRenderer\Generator\Html\Em',
-        'code' => '\WikiRenderer\Generator\Html\Code',
-        'quote' => '\WikiRenderer\Generator\Html\Quote',
-        'cite' => '\WikiRenderer\Generator\Html\Cite',
-        'acronym' => '\WikiRenderer\Generator\Html\Acronym',
-    );
+class Acronym extends AbstractInlineGenerator implements \WikiRenderer\Generator\InlineAcronymInterface {
+    
+    protected $htmlTagName = 'acronym';
 
-    public $blockGenerators = array(
-        'para' => '\WikiRenderer\Generator\Html\Paragraph',
-    );
+    protected $supportedAttributes = array();
+
+    public function setTitle($title) {
+        $this->attributes['title'] = $title;
+    }
+
 }

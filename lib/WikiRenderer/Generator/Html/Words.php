@@ -25,20 +25,12 @@
 
 namespace WikiRenderer\Generator\Html;
 
-class words implements \WikiRenderer\Generator\InlineGeneratorInterface {
+class Words implements \WikiRenderer\Generator\InlineGeneratorInterface {
 
     protected $content = '';
 
     public function addRawContent($string) {
         $this->content .= $string;
-    }
-
-    public function addContent(InlineGeneratorInterface $content) {
-        throw new \Exception("not supported");
-    }
-
-    public function addAttribute($name, $value) {
-        throw new \Exception("not supported");
     }
 
     /**

@@ -31,10 +31,13 @@ abstract class TagNG extends Tag
 
     protected $generatorName = '';
 
+    protected $globalGenerator = null;
+
     protected $generator = null;
 
     public function __construct(Config $config, \WikiRenderer\Generator\GlobalGeneratorInterface $generator) {
         parent::__construct($config);
+        $this->globalGenerator = $generator;
         $this->generator = $generator->getInlineGenerator($this->generatorName);
     }
 
@@ -59,7 +62,7 @@ abstract class TagNG extends Tag
             }
         }
         else {
-            $this->contents[$this->separatorCount] .= $parsedContent;
+            $this->contents[$this->separatorCount] .= $wikiContent;
         }
     }
 
@@ -82,6 +85,36 @@ abstract class TagNG extends Tag
         }
 
         return $this->generator;
+    }
+
+    /**
+     * Returns the generated content of the tag.
+     *
+     * @return string the content
+     */
+    public function getBogusContent()
+    {
+        $generator = $this->globalGenerator->getInlineGenerator('textline');
+        $generator->addRawContent($this->beginTag);
+        $m = count($this->contents) - 1;
+        $s = count($this->separators);
+        foreach ($this->contents as $k => $v) {
+            if ($this->attribute[$k] == '$$') {
+                $generator->addContent($this->generator);
+            }
+            else {
+                $generator->addRawContent($v);
+            }
+            if ($k < $m) {
+                if ($k < $s) {
+                    $generator->addRawContent( $this->separators[$k]);
+                } else {
+                    $generator->addRawContent(end($this->separators));
+                }
+            }
+        }
+
+        return $generator;
     }
 
     public function getAttributeValue($name) {
