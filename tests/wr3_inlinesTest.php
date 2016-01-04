@@ -37,7 +37,7 @@ class WR3TestsInlines extends PHPUnit_Framework_TestCase {
             ,'<p>Lorem ipsum dolor sit amet, <acronym>consectetuer adipiscing</acronym> elit.</p>'),
         array('Lorem ipsum dolor sit amet, ??consectetuer adipiscing|un titre?? elit.'
             ,'<p>Lorem ipsum dolor sit amet, <acronym title="un titre">consectetuer adipiscing</acronym> elit.</p>'),
-/*        array('Lorem [[ipsum dolor]] sit amet, consectetuer adipiscing elit.'
+        array('Lorem [[ipsum dolor]] sit amet, consectetuer adipiscing elit.'
             ,'<p>Lorem <a href="ipsum dolor">ipsum dolor</a> sit amet, consectetuer adipiscing elit.</p>'),
         array('Lorem [[ipsum dolor|http://foo.com]] sit amet, consectetuer adipiscing elit.'
             ,'<p>Lorem <a href="http://foo.com">ipsum dolor</a> sit amet, consectetuer adipiscing elit.</p>'),
@@ -50,12 +50,12 @@ class WR3TestsInlines extends PHPUnit_Framework_TestCase {
         array('Lorem ((ipsumdolorsit.png)) amet, consectetuer adipiscing elit.'
             ,'<p>Lorem <img src="ipsumdolorsit.png" alt=""/> amet, consectetuer adipiscing elit.</p>'),
         array('Lorem ((ipsumdolorsit.png|alternative text)) amet, consectetuer adipiscing elit.'
-            ,'<p>Lorem <img alt="alternative text" src="ipsumdolorsit.png"/> amet, consectetuer adipiscing elit.</p>'),
+            ,'<p>Lorem <img src="ipsumdolorsit.png" alt="alternative text"/> amet, consectetuer adipiscing elit.</p>'),
         array('Lorem ((ipsumdolorsit.png|alternative text|L)) amet, consectetuer adipiscing elit.'
-            ,'<p>Lorem <img style="float:left;" alt="alternative text" src="ipsumdolorsit.png"/> amet, consectetuer adipiscing elit.</p>'),
+            ,'<p>Lorem <img src="ipsumdolorsit.png" alt="alternative text" style="float:left;"/> amet, consectetuer adipiscing elit.</p>'),
         array('Lorem ((ipsumdolorsit.png|alternative text|R|longue description)) amet, consectetuer adipiscing elit.'
-            ,'<p>Lorem <img longdesc="longue description" style="float:right;" alt="alternative text" src="ipsumdolorsit.png"/> amet, consectetuer adipiscing elit.</p>'),
-        array('Lorem ~~ipsumdolorsit~~ amet, consectetuer adipiscing elit.'
+            ,'<p>Lorem <img src="ipsumdolorsit.png" alt="alternative text" longdesc="longue description" style="float:right;"/> amet, consectetuer adipiscing elit.</p>'),
+/*        array('Lorem ~~ipsumdolorsit~~ amet, consectetuer adipiscing elit.'
             ,'<p>Lorem <a name="ipsumdolorsit"></a> amet, consectetuer adipiscing elit.</p>'),
         array('@@$cond->addCondition(\'property\', \'IS NOT NULL\', \'\');@@'
             ,'<p><code>$cond-&gt;addCondition(\'property\', \'IS NOT NULL\', \'\');</code></p>'),

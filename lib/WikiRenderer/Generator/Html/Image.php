@@ -1,8 +1,6 @@
 <?php
 
 /**
- * Configuration for an HTML generator
- *
  * @author Laurent Jouanneau
  *
  * @copyright 2016 Laurent Jouanneau
@@ -25,24 +23,26 @@
 
 namespace WikiRenderer\Generator\Html;
 
-/**
- * Base class for the configuration.
- */
-class Config extends \WikiRenderer\Generator\Config
-{
-    public $inlineGenerators = array(
-        'textline' => '\WikiRenderer\Generator\Html\TextLine',
-        'strong' => '\WikiRenderer\Generator\Html\Strong',
-        'em' => '\WikiRenderer\Generator\Html\Em',
-        'code' => '\WikiRenderer\Generator\Html\Code',
-        'quote' => '\WikiRenderer\Generator\Html\Quote',
-        'cite' => '\WikiRenderer\Generator\Html\Cite',
-        'acronym' => '\WikiRenderer\Generator\Html\Acronym',
-        'link' => '\WikiRenderer\Generator\Html\Link',
-        'image' => '\WikiRenderer\Generator\Html\Image',
-    );
+class Image extends AbstractInlineGenerator {
 
-    public $blockGenerators = array(
-        'para' => '\WikiRenderer\Generator\Html\Paragraph',
-    );
+    protected $htmlTagName = 'img';
+
+    protected $supportedAttributes = array('src', 'alt', 'align', 'longdesc');
+
+    public function generate() {
+        $attr = ' src="'.htmlspecialchars($this->getAttribute('src')).'"';
+        $attr .= ' alt="'.htmlspecialchars($this->getAttribute('alt')).'"';
+
+        $desc = $this->getAttribute('longdesc');
+        if ($desc) {
+            $attr .= ' longdesc="'.htmlspecialchars($desc).'"';
+        }
+
+        $align = $this->getAttribute('align');
+        if ($align) {
+            $attr .= ' style="float:'.htmlspecialchars($align).';"';
+        }
+
+        return '<'.$this->htmlTagName.$attr.'/>';
+    }
 }
