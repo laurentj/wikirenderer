@@ -1,11 +1,9 @@
 <?php
 /**
- * Tests unitaires
- *
  * @package wikirenderer
  * @subpackage tests
  * @author Laurent Jouanneau
- * @copyright 2006-2013 Laurent Jouanneau
+ * @copyright 2006-2016 Laurent Jouanneau
  */
 
 

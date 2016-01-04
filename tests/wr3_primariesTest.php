@@ -1,36 +1,38 @@
 <?php
 /**
- * Tests unitaires
- *
  * @package wikirenderer
  * @subpackage tests
  * @author Laurent Jouanneau
- * @copyright 2006-2013 Laurent Jouanneau
+ * @copyright 2006-2016 Laurent Jouanneau
  */
 
 class WikiRendererTestsWr3Primaire extends PHPUnit_Framework_TestCase {
 
-    function _tagtest( $list, $class) {
-        $conf= new WRConfigTest();
-        foreach($list as $k=> $val){
-            $tag = new $class($conf);
-            foreach($val[0] as $wiki){
-                if($wiki === false)
-                    $tag->addSeparator('|');
-                elseif(is_string($wiki))
-                    $tag->addContent($wiki);
-                else
-                    $tag->addContent($wiki[0], $wiki[1]);
+    function _tagtest( $wikiElements, $wikiContent, $htmlContent, $class) {
+        $genConfig = new \WikiRenderer\Generator\Html\Config();
+        $generator = new \WikiRenderer\Generator\Html\Html($genConfig);
+        $markupConfig = new \WikiRenderer\Markup\WR3\Config();
+       
+        $tag = new $class($markupConfig, $generator);
+        foreach($wikiElements as $wiki){
+            if($wiki === false)
+                $tag->addSeparator('|');
+            elseif(is_string($wiki))
+                $tag->addContent($wiki);
+            else {
+                $w = new \WikiRenderer\Generator\Text\Words();
+                $w->addRawContent($wiki[1]);
+                $tag->addContent($wiki[0], $w);
             }
-
-            $this->assertEquals($val[1], $tag->getWikiContent(), "erreur wikicontent au numéro $k");
-            $this->assertEquals($val[2], $tag->getContent(), "erreur content au numéro $k");
-
         }
+
+        $this->assertEquals($wikiContent, $tag->getWikiContent());
+        $this->assertEquals($htmlContent, $tag->getContent()->generate());
     }
 
 
-    var $listlinetext = array(
+    function getListLineText() {
+        return array(
         array(
             array('foo'),
             'foo',
@@ -43,14 +45,19 @@ class WikiRendererTestsWr3Primaire extends PHPUnit_Framework_TestCase {
             array('foo', false, 'bar'),
             'foobar',
             'foo'),
-    );
+        );
+    }
 
-    function testListLineText() {
-        $this->_tagtest( $this->listlinetext, '\WikiRenderer\HtmlTextLine');
+    /**
+     * @dataProvider getListLineText
+     */
+    function testListLineText($wikiElements, $wikiContent, $htmlContent) {
+        $this->_tagtest( $wikiElements, $wikiContent, $htmlContent, '\WikiRenderer\Markup\WR3\TextLine');
     }
 
 
-    var $listtagstrong = array(
+    function getListtagstrong () {
+        return array(
         array(
             array('foo'),
             '__foo__',
@@ -63,13 +70,18 @@ class WikiRendererTestsWr3Primaire extends PHPUnit_Framework_TestCase {
             array('foo', false, 'bar'),
             '__foobar__',
             '<strong>foo</strong>'),
-    );
-
-    function testTagStrong() {
-        $this->_tagtest( $this->listtagstrong, '\WikiRenderer\Markup\WR3Html\Strong');
+        );
     }
 
-    var $listtagq = array(
+    /**
+     * @dataProvider getListtagstrong
+     */
+    function testTagStrong($wikiElements, $wikiContent, $htmlContent) {
+        $this->_tagtest($wikiElements, $wikiContent, $htmlContent, '\WikiRenderer\Markup\WR3\Strong');
+    }
+
+    function getListtagq() {
+        return array(
         array(
             array('foo'),
             '^^foo^^',
@@ -90,20 +102,29 @@ class WikiRendererTestsWr3Primaire extends PHPUnit_Framework_TestCase {
             array('foo', false, array('__bar__','<strong>bar</strong>'), 'fleur', false,'baz','truc'),
             '^^foo|__bar__fleur|baztruc^^',
             '<q lang="__bar__fleur" cite="baztruc">foo</q>'),
-    );
-
-    function testTagq() {
-        $this->_tagtest( $this->listtagq, '\WikiRenderer\Markup\WR3Html\Q');
+        );
     }
 
-    var $listtaga = array(
+    /**
+     * @dataProvider getListtagq
+     */
+    function testTagq($wikiElements, $wikiContent, $htmlContent) {
+        $this->_tagtest( $wikiElements, $wikiContent, $htmlContent, '\WikiRenderer\Markup\WR3\Q');
+    }
+
+    function getListtaga() {
+        return array(
         array(
             array(array('__bar__','<strong>bar</strong>'), 'fleur', false,'fooo', false, 'baz','truc'),
             '[[__bar__fleur|fooo|baztruc]]',
             '<a href="fooo" hreflang="baztruc"><strong>bar</strong>fleur</a>'),
-    );
+        );
+    }
 
-    function testTaga() {
-        $this->_tagtest( $this->listtaga, '\WikiRenderer\Markup\WR3Html\Link');
+    /**
+     * @dataProvider getListtaga
+     */
+    function testTaga($wikiElements, $wikiContent, $htmlContent) {
+        $this->_tagtest( $wikiElements, $wikiContent, $htmlContent, '\WikiRenderer\Markup\WR3\Link');
     }
 }
