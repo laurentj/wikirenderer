@@ -48,5 +48,6 @@ class Config extends \WikiRenderer\Generator\Config
         'list' => '\WikiRenderer\Generator\Html\HtmlList',
         'pre' => '\WikiRenderer\Generator\Html\Preformated',
         'para' => '\WikiRenderer\Generator\Html\Paragraph',
+        'hr'=> '\WikiRenderer\Generator\Html\Hr'
     );
 }
