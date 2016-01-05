@@ -147,7 +147,7 @@ class Renderer
                 // block must be cloned so it can be change its internal values
                 $block = clone $block;
             }
-            if ($block->detect($line, true)) {
+            if ($block->detect($line, false)) {
                 $found = true;
                 // we open the new block
                 if ($block->closeNow()) {

@@ -36,30 +36,63 @@ class WikiList extends \WikiRenderer\BlockNG
     protected $regexp = "/^\s*([\*#-]+)(.*)/";
 
     /**
-     * @var \SplStack
+     * @var BlockListInterface[]
      */
-    protected $generatorStack;
+    protected $generatorStack = array();
+
+    public function detect($string, $inBlock = false)
+    {
+        if(!preg_match($this->regexp, $string, $this->_detectMatch)) {
+            return false;
+        }
+        // if we are already and the first sign is not equal to the
+        // first sign of the previous line, so it is a new list.
+        // we should start an other block
+        if ($inBlock && $this->_previousTag[0] != $this->_detectMatch[1][0]) {
+            return false;
+        }
+        return true;
+    }
 
     public function open()
     {
         $this->_previousTag = $this->_detectMatch[1];
         $this->_firstTagLen = strlen($this->_previousTag);
 
-        $this->generatorStack = new \SplStack();
-        $this->generatorStack->push($this->generator);
-
-        if (substr($this->_previousTag, -1, 1) == '#') {
+        $this->generatorStack = array();
+        $this->generatorStack[] = $this->generator;
+        if (substr($this->_previousTag, 0, 1) == '#') {
             $this->generator->setListType(BlockListInterface::ORDERED_LIST);
         } else {
             $this->generator->setListType(BlockListInterface::UNORDERED_LIST);
         }
         $this->generator->createItem();
+
+        // if the block starts with more than a sign, we should create
+        // all corresponding lists
+        for($i=1; $i < $this->_firstTagLen; $i++) {
+            $generator = $this->_createList(substr($this->_previousTag, $i, 1));
+            $last = $this->generatorStack[count($this->generatorStack)-1];
+            $last->addContentToItem($generator);
+            $this->generatorStack[] = $generator;
+        }
     }
 
     public function close()
     {
-        $this->generatorStack = null;
+        $this->generatorStack = array();
         return parent::close();
+    }
+
+    protected function _createList($type) {
+        $generator = $this->globalGenerator->getBlockGenerator('list');
+        if ($type == '#') {
+            $generator->setListType(BlockListInterface::ORDERED_LIST);
+        } else {
+            $generator->setListType(BlockListInterface::UNORDERED_LIST);
+        }
+        $generator->createItem();
+        return $generator;
     }
 
     public function validateDetectedLine()
@@ -68,10 +101,31 @@ class WikiList extends \WikiRenderer\BlockNG
         $d = strlen($t) - strlen($this->_detectMatch[1]);
         $str = '';
 
-        if ($d > 0) { // we pop off the list of nested list
+        if ($d > 0) {
+            // we pop off the list of nested list
             $l = strlen($this->_detectMatch[1]);
             for ($i = strlen($t); $i > $l; --$i) {
-                $this->generatorStack->pop();
+                array_pop($this->generatorStack);
+            }
+            // we verify that other items are same
+            // type. if not, so we know that nested lists
+            // are changed
+            $newtag = $this->_detectMatch[1];
+            $change = false;
+            foreach($this->generatorStack as $k=>$generator) {
+                if ($change) {
+                    $generator = $this->_createList($newtag[$k]);
+                    $this->generatorStack[$k-1]->addContentToItem($generator);
+                    $this->generatorStack[$k] = $generator;
+                    continue;
+                }
+                if ($t[$k] == $newtag[$k]) {
+                    continue;
+                }
+                $change = true;
+                $generator = $this->_createList($newtag[$k]);
+                $this->generatorStack[$k-1]->addContentToItem($generator);
+                $this->generatorStack[$k] = $generator;
             }
             $this->_previousTag = substr($this->_previousTag, 0, -$d); // to be sure..
         } elseif ($d < 0) { // we have an other nested list
@@ -85,11 +139,12 @@ class WikiList extends \WikiRenderer\BlockNG
             else {
                 $generator->setListType(BlockListInterface::UNORDERED_LIST);
             }
-            $last = $this->generatorStack->top();
+            $last = $this->generatorStack[count($this->generatorStack)-1];
             $last->addContentToItem($generator);
-            $this->generatorStack->push($generator);
+            $this->generatorStack[] = $generator;
         }
-        $this->generatorStack->top()->createItem();
-        $this->generatorStack->top()->addContentToItem($this->_renderInlineTag($this->_detectMatch[2]));
+        $last = $this->generatorStack[count($this->generatorStack)-1];
+        $last->createItem();
+        $last->addContentToItem($this->_renderInlineTag($this->_detectMatch[2]));
     }
 }
