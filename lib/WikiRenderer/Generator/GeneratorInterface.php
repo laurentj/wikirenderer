@@ -23,6 +23,11 @@
 
 namespace WikiRenderer\Generator;
 
-interface InlineGeneratorInterface extends GeneratorInterface {
+interface GeneratorInterface {
+
+    /**
+     * @return string
+     */
+    public function generate();
 
 }

@@ -23,11 +23,6 @@
 
 namespace WikiRenderer\Generator;
 
-interface BlockGeneratorInterface {
-
-    /**
-     * @return string
-     */
-    public function generate();
+interface BlockGeneratorInterface  extends GeneratorInterface {
 
 }

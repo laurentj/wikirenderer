@@ -28,12 +28,22 @@ namespace WikiRenderer;
  */
 abstract class BlockNG extends Block
 {
+
+    /**
+     * @var \WikiRenderer\Generator\BlockGeneratorInterface
+     */
     protected $generator;
-    
+
+    /**
+     * @var \WikiRenderer\Generator\GlobalGeneratorInterface
+     */
+    protected $globalGenerator;
+
     public function __construct(Renderer $wr, \WikiRenderer\Generator\GlobalGeneratorInterface $generator)
     {
         $this->engine = $wr;
         $this->generator = $generator->getBlockGenerator($this->type);
+        $this->globalGenerator = $generator;
     }
 
     public function validateDetectedLine()
