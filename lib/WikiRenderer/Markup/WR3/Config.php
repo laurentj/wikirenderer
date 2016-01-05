@@ -55,6 +55,18 @@ class Config extends \WikiRenderer\Config
             '\WikiRenderer\Markup\WR3\Anchor',
             //'\WikiRenderer\Markup\WR3\Footnote',
         ),
+        '\WikiRenderer\Markup\WR3\TableRow' => array(
+            '\WikiRenderer\Markup\WR3\Strong',
+            '\WikiRenderer\Markup\WR3\Em',
+            '\WikiRenderer\Markup\WR3\Code',
+            '\WikiRenderer\Markup\WR3\Q',
+            '\WikiRenderer\Markup\WR3\Cite',
+            '\WikiRenderer\Markup\WR3\Acronym',
+            '\WikiRenderer\Markup\WR3\Link',
+            '\WikiRenderer\Markup\WR3\Image',
+            '\WikiRenderer\Markup\WR3\Anchor',
+            //'\WikiRenderer\Markup\WR3\Footnote',
+        ),
     );
     /** Liste des balises de type bloc reconnus par WikiRenderer. */
     public $blocktags = array(
@@ -64,7 +76,7 @@ class Config extends \WikiRenderer\Config
         '\WikiRenderer\Markup\WR3\Hr',
         '\WikiRenderer\Markup\WR3\Blockquote',
         '\WikiRenderer\Markup\WR3\Definition',
-        //'\WikiRenderer\Markup\WR3\Table',
+        '\WikiRenderer\Markup\WR3\Table',
         '\WikiRenderer\Markup\WR3\P',
     );
     public $simpletags = array('%%%' => '<br />');
