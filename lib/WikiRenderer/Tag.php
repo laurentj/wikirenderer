@@ -131,15 +131,21 @@ abstract class Tag
     public function addContent($wikiContent, $parsedContent = false)
     {
         if ($parsedContent === false) {
-            $parsedContent = $this->_doEscape($wikiContent);
-            if (count($this->checkWikiWordIn)
-                && isset($this->attribute[$this->separatorCount])
-                && in_array($this->attribute[$this->separatorCount], $this->checkWikiWordIn)) {
-                $parsedContent = $this->_findWikiWord($parsedContent);
-            }
+            // no content parsed: then no tags in $wikiContent, Only words.
+            $parsedContent = $this->checkWikiWord($this->_doEscape($wikiContent));
         }
         $this->contents[$this->separatorCount] .= $parsedContent;
         $this->wikiContentArr[$this->separatorCount] .= $wikiContent;
+    }
+
+    protected function checkWikiWord($wikiContent) {
+        if (count($this->checkWikiWordIn)
+            && isset($this->attribute[$this->separatorCount])
+            && in_array($this->attribute[$this->separatorCount], $this->checkWikiWordIn)) {
+// FIXME il faudrait découper le parsedContent en wikiword et faire des addRawContent..
+            return $this->_findWikiWord($wikiContent);
+        }
+        return $wikiContent;
     }
 
     /**

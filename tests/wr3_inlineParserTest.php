@@ -142,6 +142,8 @@ class WR3TestsInlineParser extends PHPUnit_Framework_TestCase {
             =>'Lorem <a name="ipsumdolorsit"></a> amet, consectetuer adipiscing elit.',
         'Lorem \[[ipsum dolor|bar|fr]] sit amet, \consectetuer \\\\adipiscing \%%%elit.'
             =>'Lorem [[ipsum dolor|bar|fr]] sit amet, \consectetuer \\adipiscing %%%elit.',
+        'Lorem ipsum ^^dolor [[ipsum dolor|bar|fr]] amet|fr^^, consectetuer adipiscing elit.'
+            =>'Lorem ipsum <q lang="fr">dolor <a href="bar" hreflang="fr">ipsum dolor</a> amet</q>, consectetuer adipiscing elit.',
     );
 
     function testInlineParser2() {

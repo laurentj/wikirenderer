@@ -48,13 +48,7 @@ abstract class TagNG extends Tag
         $this->wikiContentArr[$this->separatorCount] .= $wikiContent;
         if ($isMainContent) {
             if ($childGenerator === null) {
-                $parsedContent = $wikiContent;
-                if (count($this->checkWikiWordIn)
-                    && isset($this->attribute[$this->separatorCount])
-                    && in_array($this->attribute[$this->separatorCount], $this->checkWikiWordIn)) {
-    // FIXME il faudrait découper le parsedContent en wikiword et faire des addRawContent..
-                    $parsedContent = $this->_findWikiWord($parsedContent);
-                }
+                $parsedContent = $this->checkWikiWord($wikiContent);
                 $this->generator->addRawContent($parsedContent);
             }
             else {
@@ -67,9 +61,9 @@ abstract class TagNG extends Tag
     }
 
     /**
-     * ???
+     * Return generators that will generate final content
      *
-     * @return ??? ???
+     * @return \WikiRenderer\Generator\InlineGeneratorInterface
      */
     public function getContent()
     {
