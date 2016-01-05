@@ -48,7 +48,7 @@ class Config extends \WikiRenderer\Config
     public $blocktags = array(
         '\WikiRenderer\Markup\WR3\Title',
         '\WikiRenderer\Markup\WR3\WikiList',
-        //'\WikiRenderer\Markup\WR3\Pre',
+        '\WikiRenderer\Markup\WR3\Pre',
         //'\WikiRenderer\Markup\WR3\Hr',
         //'\WikiRenderer\Markup\WR3\Blockquote',
         //'\WikiRenderer\Markup\WR3\Definition',

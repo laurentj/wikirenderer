@@ -46,6 +46,7 @@ class Config extends \WikiRenderer\Generator\Config
     public $blockGenerators = array(
         'title' => '\WikiRenderer\Generator\Html\Title',
         'list' => '\WikiRenderer\Generator\Html\HtmlList',
+        'pre' => '\WikiRenderer\Generator\Html\Preformated',
         'para' => '\WikiRenderer\Generator\Html\Paragraph',
     );
 }
