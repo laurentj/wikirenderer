@@ -50,7 +50,7 @@ class Config extends \WikiRenderer\Config
         '\WikiRenderer\Markup\WR3\WikiList',
         '\WikiRenderer\Markup\WR3\Pre',
         '\WikiRenderer\Markup\WR3\Hr',
-        //'\WikiRenderer\Markup\WR3\Blockquote',
+        '\WikiRenderer\Markup\WR3\Blockquote',
         //'\WikiRenderer\Markup\WR3\Definition',
         //'\WikiRenderer\Markup\WR3\Table',
         '\WikiRenderer\Markup\WR3\P',

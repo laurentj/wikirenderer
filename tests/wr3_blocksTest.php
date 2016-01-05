@@ -16,6 +16,7 @@ class WR3TestsBlocks extends PHPUnit_Framework_TestCase {
             array('wr3_list1',0),
             array('wr3_pre',0),
             array('wr3_hr',0),
+            array('wr3_blockquote',0),
             /*array('wr3_footnote',0),
             array('wr3_bug12894',0)*/
         );
