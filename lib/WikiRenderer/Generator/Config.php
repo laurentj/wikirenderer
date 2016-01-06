@@ -31,33 +31,16 @@ namespace WikiRenderer\Generator;
  */
 abstract class Config
 {
+    /**
+     * Indicate to WikiRenderer to generate directly the header and the footer
+     * after the parsing. Set to false if you want to call yourself
+     * methods generateHeader() and generateFooter() on the document generator
+     *
+     * @var boolean
+     */
+    public $generateHeaderFooter = true;
 
     public $inlineGenerators = array();
 
     public $blockGenerators = array();
-
-
-    /** ??? */
-    public $checkWikiWordFunction = null;
-
-
-    /**
-     * Called after the parsing. You can add additionnal data to
-     * the result of the parsing.
-     */
-    public function onParse($finalText)
-    {
-        return $finalText;
-    }
-
-    /**
-     * In some wiki system, some links are specials. You should override this method
-     * to transform this specific links to real URL.
-     *
-     * @return array First item is the url, second item is an alternate label.
-     */
-    public function processLink($url, $tagName = '')
-    {
-        return array($url, $url);
-    }
 }

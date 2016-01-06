@@ -28,8 +28,15 @@ namespace WikiRenderer;
  */
 class RendererNG extends Renderer
 {
+    /**
+     * @var \WikiRenderer\Generator\GlobalGeneratorInterface
+     */
+    protected $globalGenerator;
+
     public function __construct(\WikiRenderer\Generator\GlobalGeneratorInterface $generator, Config $config = null)
     {
+        $this->globalGenerator = $generator;
+
         if (isset($config)) {
             if (is_subclass_of($config, '\WikiRenderer\Config')) {
                 $this->config = $config;
@@ -98,6 +105,13 @@ class RendererNG extends Renderer
                 $result .= $blockGenerator->generate();
             }
         }
+
+        if ($this->globalGenerator->getConfig()->generateHeaderFooter) {
+            $result = $this->globalGenerator->generateHeader()
+                     .$result
+                     .$this->globalGenerator->generateFooter();
+        }
+
         return $this->config->onParse($result);
     }
 }

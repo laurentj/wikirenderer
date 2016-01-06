@@ -26,8 +26,48 @@ namespace WikiRenderer\Generator;
 interface GlobalGeneratorInterface {
 
     public function __construct(Config $config);
- 
+
+    /**
+     * @return Config
+     */
+    public function getConfig();
+
+    /**
+     * Returns a generator corresponding to the given type
+     *
+     * @return InlineGeneratorInterface
+     */
     public function getInlineGenerator($type);
 
+    /**
+     * Returns a generator corresponding to the given type
+     * 
+     * @return BlockGeneratorInterface
+     */
     public function getBlockGenerator($type);
+
+    /**
+     * Add content to the header. May be used by a parser.
+     *
+     */
+    public function addHeader(GeneratorInterface $header);
+
+    /**
+     * Add content to the footer. May be used by a parser.
+     * example: footnotes
+     *
+     */
+    public function addFooter(GeneratorInterface $header);
+
+    /**
+     * Generate the header
+     * @return string
+     */
+    public function generateHeader();
+
+    /**
+     * Generate the footer
+     * @return string
+     */
+    public function generateFooter();
 }
