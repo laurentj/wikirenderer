@@ -35,7 +35,7 @@ class TableRow extends \WikiRenderer\TagNG
      */
     protected $row;
 
-    public function __construct(Config $config, \WikiRenderer\Generator\GlobalGeneratorInterface $generator) {
+    public function __construct(Config $config, \WikiRenderer\Generator\DocumentGeneratorInterface $generator) {
         parent::__construct($config, $generator);
         $this->row = new \WikiRenderer\Generator\InlineBagGenerator();
     }
@@ -58,7 +58,7 @@ class TableRow extends \WikiRenderer\TagNG
     public function addSeparator($token)
     {
         $this->row->addGenerator($this->generator);
-        $this->generator = $this->globalGenerator->getInlineGenerator($this->generatorName);
+        $this->generator = $this->documentGenerator->getInlineGenerator($this->generatorName);
 
         $this->wikiContent .= $this->wikiContentArr[$this->separatorCount];
         ++$this->separatorCount;

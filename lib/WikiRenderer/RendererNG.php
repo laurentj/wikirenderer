@@ -29,13 +29,13 @@ namespace WikiRenderer;
 class RendererNG extends Renderer
 {
     /**
-     * @var \WikiRenderer\Generator\GlobalGeneratorInterface
+     * @var \WikiRenderer\Generator\DocumentGeneratorInterface
      */
-    protected $globalGenerator;
+    protected $documentGenerator;
 
-    public function __construct(\WikiRenderer\Generator\GlobalGeneratorInterface $generator, Config $config = null)
+    public function __construct(\WikiRenderer\Generator\DocumentGeneratorInterface $generator, Config $config = null)
     {
-        $this->globalGenerator = $generator;
+        $this->documentGenerator = $generator;
 
         if (isset($config)) {
             if (is_subclass_of($config, '\WikiRenderer\Config')) {
@@ -106,10 +106,10 @@ class RendererNG extends Renderer
             }
         }
 
-        if ($this->globalGenerator->getConfig()->generateHeaderFooter) {
-            $result = $this->globalGenerator->generateHeader()
+        if ($this->documentGenerator->getConfig()->generateHeaderFooter) {
+            $result = $this->documentGenerator->generateHeader()
                      .$result
-                     .$this->globalGenerator->generateFooter();
+                     .$this->documentGenerator->generateFooter();
         }
 
         return $this->config->onParse($result);

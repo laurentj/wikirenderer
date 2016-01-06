@@ -10,7 +10,7 @@ class WikiRendererTestsWr3Primaire extends PHPUnit_Framework_TestCase {
 
     function _tagtest( $wikiElements, $wikiContent, $htmlContent, $class) {
         $genConfig = new \WikiRenderer\Generator\Html\Config();
-        $generator = new \WikiRenderer\Generator\Html\Html($genConfig);
+        $generator = new \WikiRenderer\Generator\Html\Document($genConfig);
         $markupConfig = new \WikiRenderer\Markup\WR3\Config();
        
         $tag = new $class($markupConfig, $generator);

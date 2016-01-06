@@ -87,7 +87,7 @@ class WR3TestsInlines extends PHPUnit_Framework_TestCase {
      */
     function testBalisesInlineSimples($source, $expected) {
         $genConfig = new \WikiRenderer\Generator\Html\Config();
-        $generator = new \WikiRenderer\Generator\Html\Html($genConfig);
+        $generator = new \WikiRenderer\Generator\Html\Document($genConfig);
         $markupConfig = new \WikiRenderer\Markup\WR3\Config();
         $wr = new \WikiRenderer\RendererNG($generator, $markupConfig);
         $res = $wr->render($source);
@@ -100,7 +100,7 @@ class WR3TestsInlines extends PHPUnit_Framework_TestCase {
      */
     function testBalisesInlineComplexes($source, $errors, $expected) {
         $genConfig = new \WikiRenderer\Generator\Html\Config();
-        $generator = new \WikiRenderer\Generator\Html\Html($genConfig);
+        $generator = new \WikiRenderer\Generator\Html\Document($genConfig);
         $markupConfig = new \WikiRenderer\Markup\WR3\Config();
         $wr = new \WikiRenderer\RendererNG($generator, $markupConfig);
 

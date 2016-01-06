@@ -46,7 +46,7 @@ class Blockquote extends \WikiRenderer\BlockNG
         $this->generatorStack->push($this->generator);
 
         for($i=0; $i < $this->_firstTagLen-1; $i++) {
-            $generator = $this->globalGenerator->getBlockGenerator('blockquote');
+            $generator = $this->documentGenerator->getBlockGenerator('blockquote');
             $last = $this->generatorStack->top();
             $last->addContent($generator);
             $this->generatorStack->push($generator);
@@ -72,7 +72,7 @@ class Blockquote extends \WikiRenderer\BlockNG
         } elseif ($d < 0) { // we have an other nested blockquote 
             $this->_previousTag = $this->_detectMatch[1];
             for ($i = 0; $i < -$d; $i++) {
-                $generator = $this->globalGenerator->getBlockGenerator('blockquote');
+                $generator = $this->documentGenerator->getBlockGenerator('blockquote');
                 $last = $this->generatorStack->top();
                 $last->addContent($generator);
                 $this->generatorStack->push($generator);

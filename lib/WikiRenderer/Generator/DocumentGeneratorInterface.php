@@ -23,7 +23,7 @@
 
 namespace WikiRenderer\Generator;
 
-interface GlobalGeneratorInterface {
+interface DocumentGeneratorInterface {
 
     public function __construct(Config $config);
 

@@ -24,7 +24,7 @@
  namespace WikiRenderer\Generator\Html;
  use \WikiRenderer\Generator\GeneratorInterface;
  
- class Html implements \WikiRenderer\Generator\GlobalGeneratorInterface {
+ class Document implements \WikiRenderer\Generator\DocumentGeneratorInterface {
 
     /**
      * @var Config

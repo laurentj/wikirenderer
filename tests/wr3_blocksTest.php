@@ -29,7 +29,7 @@ class WR3TestsBlocks extends PHPUnit_Framework_TestCase {
      */
     function testBlock($file, $nberror) {
         $genConfig = new \WikiRenderer\Generator\Html\Config();
-        $generator = new \WikiRenderer\Generator\Html\Html($genConfig);
+        $generator = new \WikiRenderer\Generator\Html\Document($genConfig);
         $markupConfig = new \WikiRenderer\Markup\WR3\Config();
         $wr = new \WikiRenderer\RendererNG($generator, $markupConfig);
 
@@ -53,7 +53,7 @@ class WR3TestsBlocks extends PHPUnit_Framework_TestCase {
     function testOther() {
 
         $genConfig = new \WikiRenderer\Generator\Html\Config();
-        $generator = new \WikiRenderer\Generator\Html\Html($genConfig);
+        $generator = new \WikiRenderer\Generator\Html\Document($genConfig);
         $markupConfig = new \WikiRenderer\Markup\WR3\Config();
         $wr = new \WikiRenderer\RendererNG($generator, $markupConfig);
 

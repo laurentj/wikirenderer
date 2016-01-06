@@ -35,15 +35,15 @@ abstract class BlockNG extends Block
     protected $generator;
 
     /**
-     * @var \WikiRenderer\Generator\GlobalGeneratorInterface
+     * @var \WikiRenderer\Generator\DocumentGeneratorInterface
      */
-    protected $globalGenerator;
+    protected $documentGenerator;
 
-    public function __construct(Renderer $wr, \WikiRenderer\Generator\GlobalGeneratorInterface $generator)
+    public function __construct(Renderer $wr, \WikiRenderer\Generator\DocumentGeneratorInterface $generator)
     {
         $this->engine = $wr;
         $this->generator = $generator->getBlockGenerator($this->type);
-        $this->globalGenerator = $generator;
+        $this->documentGenerator = $generator;
     }
 
     public function validateDetectedLine()

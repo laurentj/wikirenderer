@@ -31,13 +31,13 @@ abstract class TagNG extends Tag
 
     protected $generatorName = '';
 
-    protected $globalGenerator = null;
+    protected $documentGenerator = null;
 
     protected $generator = null;
 
-    public function __construct(Config $config, \WikiRenderer\Generator\GlobalGeneratorInterface $generator) {
+    public function __construct(Config $config, \WikiRenderer\Generator\DocumentGeneratorInterface $generator) {
         parent::__construct($config);
-        $this->globalGenerator = $generator;
+        $this->documentGenerator = $generator;
         $this->generator = $generator->getInlineGenerator($this->generatorName);
     }
 
@@ -88,7 +88,7 @@ abstract class TagNG extends Tag
      */
     public function getBogusContent()
     {
-        $generator = $this->globalGenerator->getInlineGenerator('textline');
+        $generator = $this->documentGenerator->getInlineGenerator('textline');
         $generator->addRawContent($this->beginTag);
         $m = count($this->contents) - 1;
         $s = count($this->separators);

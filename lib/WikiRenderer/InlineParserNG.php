@@ -27,7 +27,7 @@ namespace WikiRenderer;
  */
 class InlineParserNG extends InlineParser
 {
-    public function __construct(Config $config, \WikiRenderer\Generator\GlobalGeneratorInterface $generator)
+    public function __construct(Config $config, \WikiRenderer\Generator\DocumentGeneratorInterface $generator)
     {
         $this->escapeChar = $config->escapeChar;
         $this->config = $config;

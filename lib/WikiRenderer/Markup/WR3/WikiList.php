@@ -85,7 +85,7 @@ class WikiList extends \WikiRenderer\BlockNG
     }
 
     protected function _createList($type) {
-        $generator = $this->globalGenerator->getBlockGenerator('list');
+        $generator = $this->documentGenerator->getBlockGenerator('list');
         if ($type == '#') {
             $generator->setListType(BlockListInterface::ORDERED_LIST);
         } else {
@@ -132,7 +132,7 @@ class WikiList extends \WikiRenderer\BlockNG
             $c = substr($this->_detectMatch[1], -1, 1);
             $this->_previousTag .= $c;
 
-            $generator = $this->globalGenerator->getBlockGenerator('list');
+            $generator = $this->documentGenerator->getBlockGenerator('list');
             if ($c == '#') {
                 $generator->setListType(BlockListInterface::ORDERED_LIST);
             }
