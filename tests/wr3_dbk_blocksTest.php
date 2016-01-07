@@ -11,8 +11,8 @@
 class WR3DBKTestsBlocks extends PHPUnit_Framework_TestCase {
 
     var $listblocks = array(
-        'b1'=>0,
-        'b2'=>0,
+        'para1'=>0,
+        'para2'=>0,
         'wr3_list1'=>0,
         'wr3_pre'=>0,
         'wr3_footnote'=>0,

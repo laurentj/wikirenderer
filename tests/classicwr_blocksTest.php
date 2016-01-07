@@ -12,12 +12,11 @@
 class classicwr_blocksTest extends PHPUnit_Framework_TestCase {
 
     var $listblocks = array(
-        'b1'=>0,
-        'b2'=>0,
-        'demo'=>0,
-        'list1'=>0,
-        'list2'=>0,
-
+        'para1'=>0,
+        'para2'=>0,
+        'classicwr_demo'=>0,
+        'classicwr_list1'=>0,
+        'classicwr_list2'=>0,
     );
 
     function testBlock() {
