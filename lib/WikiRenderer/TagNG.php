@@ -52,7 +52,12 @@ abstract class TagNG extends Tag
         if ($isMainContent) {
             if ($childGenerator === null) {
                 $parsedContent = $this->checkWikiWord($wikiContent);
-                $this->generator->addRawContent($parsedContent);
+                if (is_string($parsedContent)) {
+                    $this->generator->addRawContent($parsedContent);
+                }
+                else {
+                    $this->generator->addContent($parsedContent);
+                }
             }
             else {
                 $this->generator->addContent($childGenerator);
@@ -130,5 +135,30 @@ abstract class TagNG extends Tag
 
     public function __clone() {
         $this->generator = clone $this->generator;
+    }
+
+    protected function _findWikiWord($string)
+    {
+        if ($this->checkWikiWordFunction === null) {
+            return $string;
+        }
+
+        $matches = preg_split(
+            "/(?:(?<=\b)|!)([A-Z]\p{Ll}+[A-Z0-9][\p{Ll}\p{Lu}0-9]*)/u",
+            $string, -1, PREG_SPLIT_DELIM_CAPTURE);
+
+        if (count($matches) == 1) {
+            return $string;
+        }
+        $words = $this->documentGenerator->getInlineGenerator('words');
+        foreach($matches as $k=>$word) {
+            if ($k % 2) {
+                $words->addGeneratedContent(call_user_func($this->checkWikiWordFunction, $word));
+            }
+            else {
+                $words->addRawContent($word);
+            }
+        }
+        return $words;
     }
 }

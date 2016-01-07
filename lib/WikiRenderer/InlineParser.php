@@ -216,7 +216,6 @@ class InlineParser
         if (!$tag->isTextLineTag) {
             //we didn't find the ended tag, error
             $this->error = true;
-
             return false;
         } else {
             return $this->end;

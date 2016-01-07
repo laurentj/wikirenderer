@@ -142,7 +142,6 @@ abstract class Tag
         if (count($this->checkWikiWordIn)
             && isset($this->attribute[$this->separatorCount])
             && in_array($this->attribute[$this->separatorCount], $this->checkWikiWordIn)) {
-// FIXME il faudrait découper le parsedContent en wikiword et faire des addRawContent..
             return $this->_findWikiWord($wikiContent);
         }
         return $wikiContent;
