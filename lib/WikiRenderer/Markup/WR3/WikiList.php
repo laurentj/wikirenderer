@@ -33,7 +33,7 @@ class WikiList extends \WikiRenderer\BlockNG
     public $type = 'list';
     protected $_previousTag;
     protected $_firstTagLen;
-    protected $regexp = "/^\s*([\*#-]+)(.*)/";
+    protected $regexp = "/^\s*([\*#-]+)\s?(.*)/";
 
     /**
      * @var BlockListInterface[]

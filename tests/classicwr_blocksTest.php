@@ -11,31 +11,33 @@
 
 class classicwr_blocksTest extends PHPUnit_Framework_TestCase {
 
-    var $listblocks = array(
-        'para1'=>0,
-        'para2'=>0,
-        'classicwr_demo'=>0,
-        'classicwr_list1'=>0,
-        'classicwr_list2'=>0,
-    );
+    function getlistblocks() {
+        return array(
+            array('para1',0),
+            array('para2',0),
+            array('classicwr_demo',0),
+            array('classicwr_list1',0),
+            array('classicwr_list2',0),
+        );
+    }
 
-    function testBlock() {
-        $wr = new \WikiRenderer\Renderer(new \WikiRenderer\Markup\WRHtml\Config());
-        foreach($this->listblocks as $file=>$nberror){
-            $sourceFile = 'datasblocks/'.$file.'.src';
-            $resultFile = 'datasblocks/'.$file.'.res';
+    /**
+     * @dataProvider getlistblocks
+     */
+    function testBlock($file, $nberror) {
+        $genConfig = new \WikiRenderer\Generator\Html\Config();
+        $generator = new \WikiRenderer\Generator\Html\Document($genConfig);
+        $markupConfig = new \WikiRenderer\Markup\ClassicWR\Config();
+        $wr = new \WikiRenderer\RendererNG($generator, $markupConfig);
 
-            $handle = fopen($sourceFile, "r");
-            $source = fread($handle, filesize($sourceFile));
-            fclose($handle);
+        $sourceFile = 'datasblocks/'.$file.'.src';
+        $resultFile = 'datasblocks/'.$file.'.res';
 
-            $handle = fopen($resultFile, "r");
-            $result = fread($handle, filesize($resultFile));
-            fclose($handle);
+        $source = file_get_contents($sourceFile);
+        $expected = file_get_contents($resultFile);
 
-            $res = $wr->render($source);
-            $this->assertEquals($result, $res);
-            $this->assertEquals($nberror, count($wr->errors), "Erreurs détéctées par wr ! (%s)");
-        }
+        $res = $wr->render($source);
+        $this->assertEquals($expected, $res);
+        $this->assertEquals($nberror, count($wr->errors));
     }
 }

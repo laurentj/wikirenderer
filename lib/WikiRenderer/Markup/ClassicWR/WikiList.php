@@ -29,5 +29,5 @@ namespace WikiRenderer\Markup\ClassicWR;
  */
 class WikiList extends \WikiRenderer\Markup\WR3\WikiList
 {
-    protected $regexp = "/^([\*#-]+)(.*)/";
+    protected $regexp = "/^([\*#-]+)\s?(.*)/";
 }

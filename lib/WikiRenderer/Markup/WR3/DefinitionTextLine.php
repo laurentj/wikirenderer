@@ -33,7 +33,7 @@ class DefinitionTextLine extends \WikiRenderer\TagNG
 {
     protected $generatorName = 'textline';
     public $isTextLineTag = true;
-    public $separators = array(':');
+    public $separators = array(' : ');
     protected $attribute = array('$$', '$$');
 
     protected $termGenerator;

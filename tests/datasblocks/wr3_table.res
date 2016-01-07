@@ -4,16 +4,16 @@ Ut scelerisque. Ut iaculis ultrices nulla.</p>
 
 <table border="1">
 <tr>
-<td>Nulla metus felis </td>
-<td> tristique <strong>non</strong></td>
+<td>Nulla metus felis</td>
+<td>tristique <strong>non</strong></td>
 </tr>
 <tr>
-<td>1 </td>
-<td> 2</td>
+<td>1</td>
+<td>2</td>
 </tr>
 <tr>
-<td>5 </td>
-<td> 7</td>
+<td>5</td>
+<td>7</td>
 </tr>
 </table>
 

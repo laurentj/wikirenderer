@@ -33,7 +33,7 @@ class TableRow extends \WikiRenderer\TagNG
     public $isTextLineTag = true;
     protected $attribute = array('$$');
     protected $checkWikiWordIn = array('$$');
-    public $separators = array('|');
+    public $separators = array(' | ');
 
     /**
      * @var \WikiRenderer\Generator\InlineBagGenerator
