@@ -40,7 +40,7 @@ class TableRow extends \WikiRenderer\TagNG
      */
     protected $row;
 
-    public function __construct(Config $config, \WikiRenderer\Generator\DocumentGeneratorInterface $generator) {
+    public function __construct(\WikiRenderer\Config $config, \WikiRenderer\Generator\DocumentGeneratorInterface $generator) {
         parent::__construct($config, $generator);
         $this->row = new \WikiRenderer\Generator\InlineBagGenerator();
     }

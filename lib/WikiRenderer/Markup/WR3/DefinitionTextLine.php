@@ -39,7 +39,7 @@ class DefinitionTextLine extends \WikiRenderer\TagNG
     protected $termGenerator;
     protected $definitionGenerator;
 
-    public function __construct(Config $config, \WikiRenderer\Generator\DocumentGeneratorInterface $generator) {
+    public function __construct(\WikiRenderer\Config $config, \WikiRenderer\Generator\DocumentGeneratorInterface $generator) {
         parent::__construct($config, $generator);
         $this->termGenerator = $this->generator;
         $this->definitionGenerator = clone $this->generator;
