@@ -49,7 +49,7 @@ class WR3TestsBlocks extends PHPUnit_Framework_TestCase {
         $this->assertEquals($result, $res, "error on $file");
         $this->assertEquals($nberror, count($wr->errors), "Errors detected by wr!");
     }
-/*
+
     function testOther() {
 
         $genConfig = new \WikiRenderer\Generator\Html\Config();
@@ -84,5 +84,5 @@ __bar__";
         $this->assertEquals($expected, $result);
         $this->assertEquals(0, count($wr->errors));
 
-    }*/
+    }
 }
