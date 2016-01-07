@@ -31,6 +31,9 @@ abstract class TagNG extends Tag
 
     protected $generatorName = '';
 
+    /**
+     * @var \WikiRenderer\Generator\DocumentGeneratorInterface
+     */
     protected $documentGenerator = null;
 
     protected $generator = null;

@@ -195,7 +195,7 @@ class InlineParser
                 }
                 // is there a simple tag ?
                 elseif (isset($this->simpletags[$t])) {
-                    $tag->addContent($t, $this->simpletags[$t]);
+                    $this->_addSimpleTag($tag, $t);
                 } else {
                     $tag->addContent($t);
                 }
@@ -221,5 +221,9 @@ class InlineParser
         } else {
             return $this->end;
         }
+    }
+
+    protected function _addSimpleTag($tag, $t) {
+        $tag->addContent($t, $this->simpletags[$t]);
     }
 }

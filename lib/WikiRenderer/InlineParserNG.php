@@ -27,10 +27,16 @@ namespace WikiRenderer;
  */
 class InlineParserNG extends InlineParser
 {
+    /**
+     * @var \WikiRenderer\Generator\DocumentGeneratorInterface
+     */
+    protected $documentGenerator = null;
+
     public function __construct(Config $config, \WikiRenderer\Generator\DocumentGeneratorInterface $generator)
     {
         $this->escapeChar = $config->escapeChar;
         $this->config = $config;
+        $this->documentGenerator = $generator;
 
         // let's construct the regexp that will find all tokens on the line
 
@@ -73,5 +79,11 @@ class InlineParserNG extends InlineParser
             $this->textLineContainers[$class] = $c;
         }
         $this->simpletags = $config->simpletags;
+    }
+
+    protected function _addSimpleTag($tag, $t) {
+        $generator = $this->documentGenerator->getInlineGenerator('words');
+        $generator->addGeneratedContent($this->simpletags[$t]);
+        $tag->addContent($t, $generator);
     }
 }
