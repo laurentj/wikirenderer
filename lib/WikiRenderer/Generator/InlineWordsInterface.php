@@ -1,7 +1,6 @@
 <?php
 
 /**
- *
  * @author Laurent Jouanneau
  *
  * @copyright 2016 Laurent Jouanneau
@@ -22,24 +21,18 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-namespace WikiRenderer\Generator\Html;
+namespace WikiRenderer\Generator;
 
-class Words implements \WikiRenderer\Generator\InlineWordsInterface {
-
-    protected $content = array();
-
-    public function addRawContent($string) {
-        $this->content[] = htmlspecialchars($string);
-    }
-
-    public function addGeneratedContent($string) {
-        $this->content[] = $string;
-    }
+interface InlineWordsInterface extends InlineGeneratorInterface {
 
     /**
-     * @return string
+     * add original content from the wiki text
+     * This content may certainly escaped or something like that
      */
-    public function generate() {
-        return implode("", $this->content);
-    }
+    function addRawContent($words);
+
+    /**
+     * Add content that is ready to output
+     */
+    function addGeneratedContent($words);
 }

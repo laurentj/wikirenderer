@@ -32,6 +32,7 @@ class Config extends \WikiRenderer\Generator\Config
 {
     public $inlineGenerators = array(
         'textline' => '\WikiRenderer\Generator\Html\TextLine',
+        'words'    => '\WikiRenderer\Generator\Html\Words',
         'strong'   => '\WikiRenderer\Generator\Html\Strong',
         'em'       => '\WikiRenderer\Generator\Html\Em',
         'code'     => '\WikiRenderer\Generator\Html\Code',
@@ -41,6 +42,7 @@ class Config extends \WikiRenderer\Generator\Config
         'link'     => '\WikiRenderer\Generator\Html\Link',
         'image'    => '\WikiRenderer\Generator\Html\Image',
         'anchor'   => '\WikiRenderer\Generator\Html\Anchor',
+        'linebreak'=> '\WikiRenderer\Generator\Html\LineBreak',
     );
 
     public $blockGenerators = array(

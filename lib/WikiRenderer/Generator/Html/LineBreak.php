@@ -24,22 +24,12 @@
 
 namespace WikiRenderer\Generator\Html;
 
-class Words implements \WikiRenderer\Generator\InlineWordsInterface {
-
-    protected $content = array();
-
-    public function addRawContent($string) {
-        $this->content[] = htmlspecialchars($string);
-    }
-
-    public function addGeneratedContent($string) {
-        $this->content[] = $string;
-    }
+class LineBreak implements \WikiRenderer\Generator\InlineGeneratorInterface {
 
     /**
      * @return string
      */
     public function generate() {
-        return implode("", $this->content);
+        return "<br />";
     }
 }
