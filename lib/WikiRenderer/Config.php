@@ -32,10 +32,10 @@ namespace WikiRenderer;
 abstract class Config
 {
     /** ??? */
-    public $defaultTextLineContainer = 'TextLine';
+    public $defaultTextLineContainer = '\WikiRenderer\TextLine';
     /** ??? */
     public $textLineContainers = array(
-        'TextLine' => array(),
+        '\WikiRenderer\TextLine' => array(),
     );
     /** List of block-type markups known by WikiRenderer. */
     public $blocktags = array();

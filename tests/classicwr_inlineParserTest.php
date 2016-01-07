@@ -15,13 +15,18 @@ class classicwr_inlineParserTest extends PHPUnit_Framework_TestCase {
     function testInlineParserConstructor() {
 
         $conf = new WRConfigTest();
-        $conf->defaultTextLineContainer= '\WikiRenderer\HtmlTextLine';
-        $conf->textLineContainers = array('\WikiRenderer\HtmlTextLine'=>array( '\WikiRenderer\Markup\WR3Html\Strong'));
+        $conf->defaultTextLineContainer= '\WikiRenderer\Markup\WR3\TextLine';
+        $conf->textLineContainers = array(
+                    '\WikiRenderer\Markup\WR3\TextLine'=>array(
+                            '\WikiRenderer\Markup\WR3\Strong'));
         $wip = new WikiInlineParserTest($conf);
         $trueResult = '/(__)|(\\\\)/';
         $this->assertEquals($trueResult, $wip->getSplitPattern(), "erreur");
 
-        $conf->textLineContainers = array('\WikiRenderer\HtmlTextLine'=>array( '\WikiRenderer\Markup\WR3Html\Strong','\WikiRenderer\Markup\WR3Html\Em'));
+        $conf->textLineContainers = array(
+                    '\WikiRenderer\Markup\WR3\TextLine'=>array(
+                            '\WikiRenderer\Markup\WR3\Strong',
+                            '\WikiRenderer\Markup\WR3\Em'));
         $conf->simpletags=array('%%%'=>'');
 
         $wip = new WikiInlineParserTest($conf );
@@ -29,14 +34,26 @@ class classicwr_inlineParserTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals($trueResult, $wip->getSplitPattern(), "erreur");
 
         $conf->simpletags=array('%%%'=>'');
-        $conf->textLineContainers = array('\WikiRenderer\HtmlTextLine'=>array( '\WikiRenderer\Markup\WR3Html\Strong','\WikiRenderer\Markup\WR3Html\Q'));
+        $conf->textLineContainers = array(
+                    '\WikiRenderer\Markup\WR3\TextLine'=>array(
+                            '\WikiRenderer\Markup\WR3\Strong',
+                            '\WikiRenderer\Markup\WR3\Q'));
         $wip = new WikiInlineParserTest( $conf);
         $trueResult = '/(__)|(\^\^)|(\\|)|(%%%)|(\\\\)/';
         $this->assertEquals($trueResult, $wip->getSplitPattern(), "erreur");
 
 
-        $conf->textLineContainers = array('\WikiRenderer\HtmlTextLine'=>array( '\WikiRenderer\Markup\WR3Html\Strong','\WikiRenderer\Markup\WR3Html\Em','\WikiRenderer\Markup\WRHtml\Code','\WikiRenderer\Markup\WR3Html\Q',
-        '\WikiRenderer\Markup\WR3Html\Cite','\WikiRenderer\Markup\WR3Html\Acronym','\WikiRenderer\Markup\WRHtml\Link', '\WikiRenderer\Markup\WR3Html\Image', '\WikiRenderer\Markup\WR3Html\Anchor'));
+        $conf->textLineContainers = array(
+                    '\WikiRenderer\Markup\WR3\TextLine'=>array(
+                            '\WikiRenderer\Markup\WR3\Strong',
+                            '\WikiRenderer\Markup\WR3\Em',
+                            '\WikiRenderer\Markup\ClassicWR\Code',
+                            '\WikiRenderer\Markup\WR3\Q',
+                            '\WikiRenderer\Markup\WR3\Cite',
+                            '\WikiRenderer\Markup\WR3\Acronym',
+                            '\WikiRenderer\Markup\ClassicWR\Link',
+                            '\WikiRenderer\Markup\WR3\Image',
+                            '\WikiRenderer\Markup\WR3\Anchor'));
         $conf->simpletags=array('%%%'=>'', ':-)'=>'');
 
         $wip = new WikiInlineParserTest($conf );
@@ -72,13 +89,17 @@ class classicwr_inlineParserTest extends PHPUnit_Framework_TestCase {
 
     function testInlineParser1() {
         $conf = new WRConfigTest();
-        $conf->defaultTextLineContainer= '\WikiRenderer\HtmlTextLine';
-        $conf->textLineContainers = array('\WikiRenderer\HtmlTextLine'=>array( '\WikiRenderer\Markup\WR3Html\Strong'));
+        $conf->defaultTextLineContainer= '\WikiRenderer\Markup\WR3\TextLine';
+        $conf->textLineContainers = array(
+                    '\WikiRenderer\Markup\WR3\TextLine'=>array(
+                            '\WikiRenderer\Markup\WR3\Strong'));
 
-        $wip = new WikiRenderer\InlineParser($conf);
+        $genConfig = new \WikiRenderer\Generator\Html\Config();
+        $generator = new \WikiRenderer\Generator\Html\Document($genConfig);
+        $wip = new WikiRenderer\InlineParserNG($conf, $generator);
         foreach($this->listinline1 as $source=>$trueResult){
             $res = $wip->parse($source);
-            $this->assertEquals($trueResult,$res, "erreur");
+            $this->assertEquals($trueResult, $res->generate(), "erreur");
         }
     }
 
@@ -121,11 +142,11 @@ class classicwr_inlineParserTest extends PHPUnit_Framework_TestCase {
         'Lorem ((ipsumdolorsit.png)) amet, consectetuer adipiscing elit.'
             =>'Lorem <img src="ipsumdolorsit.png" alt=""/> amet, consectetuer adipiscing elit.',
         'Lorem ((ipsumdolorsit.png|alternative text)) amet, consectetuer adipiscing elit.'
-            =>'Lorem <img alt="alternative text" src="ipsumdolorsit.png"/> amet, consectetuer adipiscing elit.',
+            =>'Lorem <img src="ipsumdolorsit.png" alt="alternative text"/> amet, consectetuer adipiscing elit.',
         'Lorem ((ipsumdolorsit.png|alternative text|L)) amet, consectetuer adipiscing elit.'
-            =>'Lorem <img style="float:left;" alt="alternative text" src="ipsumdolorsit.png"/> amet, consectetuer adipiscing elit.',
+            =>'Lorem <img src="ipsumdolorsit.png" alt="alternative text" style="float:left;"/> amet, consectetuer adipiscing elit.',
         'Lorem ((ipsumdolorsit.png|alternative text|R|longue description)) amet, consectetuer adipiscing elit.'
-            =>'Lorem <img longdesc="longue description" style="float:right;" alt="alternative text" src="ipsumdolorsit.png"/> amet, consectetuer adipiscing elit.',
+            =>'Lorem <img src="ipsumdolorsit.png" alt="alternative text" longdesc="longue description" style="float:right;"/> amet, consectetuer adipiscing elit.',
         'Lorem ~~ipsumdolorsit~~ amet, consectetuer adipiscing elit.'
             =>'Lorem <a name="ipsumdolorsit"></a> amet, consectetuer adipiscing elit.',
         'Lorem \[ipsum dolor|bar|fr] sit amet, \consectetuer \\\\adipiscing \%%%elit.'
@@ -133,22 +154,33 @@ class classicwr_inlineParserTest extends PHPUnit_Framework_TestCase {
     );
 
     function testInlineParser2() {
-        $conf = new \WikiRenderer\Markup\WRHtml\Config();
+        $genConfig = new \WikiRenderer\Generator\Html\Config();
+        $generator = new \WikiRenderer\Generator\Html\Document($genConfig);
 
+        $conf = new \WikiRenderer\Markup\ClassicWR\Config();
         $conf->simpletags=array('%%%'=>'');
-        $conf->defaultTextLineContainer= '\WikiRenderer\HtmlTextLine';
-        $conf->textLineContainers = array('\WikiRenderer\HtmlTextLine'=>array( '\WikiRenderer\Markup\WR3Html\Strong','\WikiRenderer\Markup\WR3Html\Em','\WikiRenderer\Markup\WRHtml\Code','\WikiRenderer\Markup\WR3Html\Q',
-            '\WikiRenderer\Markup\WR3Html\Cite','\WikiRenderer\Markup\WR3Html\Acronym','\WikiRenderer\Markup\WRHtml\Link', '\WikiRenderer\Markup\WR3Html\Image', '\WikiRenderer\Markup\WR3Html\Anchor'));
+        $conf->defaultTextLineContainer= '\WikiRenderer\Markup\WR3\TextLine';
+        $conf->textLineContainers = array(
+                    '\WikiRenderer\Markup\WR3\TextLine'=>array(
+                        '\WikiRenderer\Markup\WR3\Strong',
+                        '\WikiRenderer\Markup\WR3\Em',
+                        '\WikiRenderer\Markup\ClassicWR\Code',
+                        '\WikiRenderer\Markup\WR3\Q',
+                        '\WikiRenderer\Markup\WR3\Cite',
+                        '\WikiRenderer\Markup\WR3\Acronym',
+                        '\WikiRenderer\Markup\ClassicWR\Link',
+                        '\WikiRenderer\Markup\WR3\Image',
+                        '\WikiRenderer\Markup\WR3\Anchor'));
 
         $conf->funcCheckWikiWord = null;
 
-        $wip = new WikiRenderer\InlineParser($conf  );
+        $wip = new WikiRenderer\InlineParserNG($conf, $generator);
 
         $k=0;
         foreach($this->listinline2 as $source=>$trueResult){
             $k++;
             $res = $wip->parse($source);
-            $this->assertEquals($trueResult,$res, "erreur");
+            $this->assertEquals($trueResult,$res->generate(), "erreur");
         }
     }
 }

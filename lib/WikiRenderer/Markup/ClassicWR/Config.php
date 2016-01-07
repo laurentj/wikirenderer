@@ -65,6 +65,7 @@ class Config extends \WikiRenderer\Config
             '\WikiRenderer\Markup\WR3\Anchor'
         ),
     );
+
     /** List of block parsers. */
     public $blocktags = array(
         '\WikiRenderer\Markup\ClassicWR\Title',
@@ -76,6 +77,7 @@ class Config extends \WikiRenderer\Config
         '\WikiRenderer\Markup\ClassicWR\Table',
         '\WikiRenderer\Markup\ClassicWR\P',
     );
+
     public $simpletags = array('%%%' => '<br />', ':-)' => '<img src="laugh.png" alt=":-)" />');
 
     public function processLink($url, $tagName = '')

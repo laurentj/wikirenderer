@@ -15,8 +15,12 @@ require_once(__DIR__.'/../vendor/autoload.php');
 class WRConfigTest extends \WikiRenderer\Config { }
 
 // we use an inherited inline parser to access to some protected data, to verify them
-class WikiInlineParserTest extends \WikiRenderer\InlineParser {
-
+class WikiInlineParserTest extends \WikiRenderer\InlineParserNG {
+    function __construct(\WikiRenderer\Config $config) {
+        $genConfig = new \WikiRenderer\Generator\Html\Config();
+        $generator = new \WikiRenderer\Generator\Html\Document($genConfig);
+        parent::__construct($config, $generator);
+    }
     function getSplitPattern(){ return $this->textLineContainers[$this->config->defaultTextLineContainer]->pattern; }
     function getListTag(){ return $this->textLineContainers[$this->config->defaultTextLineContainer]->allowedTags; }
 }

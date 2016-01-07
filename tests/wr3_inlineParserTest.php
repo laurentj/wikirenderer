@@ -13,37 +13,45 @@ class WR3TestsInlineParser extends PHPUnit_Framework_TestCase {
     function testInlineParserConstructor() {
 
         $conf = new WRConfigTest();
-        $conf->defaultTextLineContainer= '\WikiRenderer\HtmlTextLine';
-        $conf->textLineContainers = array('\WikiRenderer\HtmlTextLine'=>array( '\WikiRenderer\Markup\WR3Html\Strong'));
+        $conf->defaultTextLineContainer= '\WikiRenderer\Markup\WR3\TextLine';
+        $conf->textLineContainers = array(
+                    '\WikiRenderer\Markup\WR3\TextLine'=>array(
+                            '\WikiRenderer\Markup\WR3\Strong'));
 
         $wip = new WikiInlineParserTest($conf);
         $trueResult = '/(__)|(\\\\)/';
         $this->assertEquals($trueResult, $wip->getSplitPattern());
 
-        $conf->textLineContainers = array('\WikiRenderer\HtmlTextLine'=>array( '\WikiRenderer\Markup\WR3Html\Strong','\WikiRenderer\Markup\WR3Html\Em'));
+        $conf->textLineContainers = array(
+                    '\WikiRenderer\Markup\WR3\TextLine'=>array(
+                            '\WikiRenderer\Markup\WR3\Strong',
+                            '\WikiRenderer\Markup\WR3\Em'));
         $conf->simpletags=array('%%%'=>'');
 
         $wip = new WikiInlineParserTest($conf );
         $trueResult = '/(__)|(\'\')|(%%%)|(\\\\)/';
         $this->assertEquals($trueResult, $wip->getSplitPattern());
 
-        $conf->textLineContainers = array('\WikiRenderer\HtmlTextLine'=>array( '\WikiRenderer\Markup\WR3Html\Strong','\WikiRenderer\Markup\WR3Html\Q'));
+        $conf->textLineContainers = array(
+                    '\WikiRenderer\Markup\WR3\TextLine'=>array(
+                            '\WikiRenderer\Markup\WR3\Strong',
+                            '\WikiRenderer\Markup\WR3\Q'));
         $conf->simpletags=array('%%%'=>'');
 
         $wip = new WikiInlineParserTest( $conf);
         $trueResult = '/(__)|(\^\^)|(\\|)|(%%%)|(\\\\)/';
         $this->assertEquals($trueResult, $wip->getSplitPattern());
 
-        $conf->textLineContainers = array('\WikiRenderer\HtmlTextLine'=>array(
-            '\WikiRenderer\Markup\WR3Html\Strong',
-            '\WikiRenderer\Markup\WR3Html\Em',
-            '\WikiRenderer\Markup\WR3Html\Code',
-            '\WikiRenderer\Markup\WR3Html\Q',
-            '\WikiRenderer\Markup\WR3Html\Cite',
-            '\WikiRenderer\Markup\WR3Html\Acronym',
-            '\WikiRenderer\Markup\WR3Html\Link',
-            '\WikiRenderer\Markup\WR3Html\Image',
-            '\WikiRenderer\Markup\WR3Html\Anchor'));
+        $conf->textLineContainers = array('\WikiRenderer\Markup\WR3\TextLine'=>array(
+            '\WikiRenderer\Markup\WR3\Strong',
+            '\WikiRenderer\Markup\WR3\Em',
+            '\WikiRenderer\Markup\WR3\Code',
+            '\WikiRenderer\Markup\WR3\Q',
+            '\WikiRenderer\Markup\WR3\Cite',
+            '\WikiRenderer\Markup\WR3\Acronym',
+            '\WikiRenderer\Markup\WR3\Link',
+            '\WikiRenderer\Markup\WR3\Image',
+            '\WikiRenderer\Markup\WR3\Anchor'));
         $conf->simpletags=array('%%%'=>'', ':-)'=>'');
 
         $wip = new WikiInlineParserTest($conf );
@@ -79,16 +87,18 @@ class WR3TestsInlineParser extends PHPUnit_Framework_TestCase {
 
     function testInlineParser1() {
         $conf = new WRConfigTest();
-        $conf->textLineContainers = array ('\WikiRenderer\HtmlTextLine' => array(
-            '\WikiRenderer\Markup\WR3Html\Strong',
+        $conf->textLineContainers = array ('\WikiRenderer\Markup\WR3\TextLine' => array(
+            '\WikiRenderer\Markup\WR3\Strong',
         ));
 
-        $conf->defaultTextLineContainer= '\WikiRenderer\HtmlTextLine';
+        $conf->defaultTextLineContainer= '\WikiRenderer\Markup\WR3\TextLine';
+        $genConfig = new \WikiRenderer\Generator\Html\Config();
+        $generator = new \WikiRenderer\Generator\Html\Document($genConfig);
 
-        $wip = new \WikiRenderer\InlineParser($conf);
+        $wip = new \WikiRenderer\InlineParserNG($conf, $generator);
         foreach($this->listinline1 as $source=>$trueResult){
             $res = $wip->parse($source);
-            $this->assertEquals($trueResult,$res);
+            $this->assertEquals($trueResult,$res->generate());
         }
     }
 
@@ -133,11 +143,11 @@ class WR3TestsInlineParser extends PHPUnit_Framework_TestCase {
         'Lorem ((ipsumdolorsit.png)) amet, consectetuer adipiscing elit.'
             =>'Lorem <img src="ipsumdolorsit.png" alt=""/> amet, consectetuer adipiscing elit.',
         'Lorem ((ipsumdolorsit.png|alternative text)) amet, consectetuer adipiscing elit.'
-            =>'Lorem <img alt="alternative text" src="ipsumdolorsit.png"/> amet, consectetuer adipiscing elit.',
+            =>'Lorem <img src="ipsumdolorsit.png" alt="alternative text"/> amet, consectetuer adipiscing elit.',
         'Lorem ((ipsumdolorsit.png|alternative text|L)) amet, consectetuer adipiscing elit.'
-            =>'Lorem <img style="float:left;" alt="alternative text" src="ipsumdolorsit.png"/> amet, consectetuer adipiscing elit.',
+            =>'Lorem <img src="ipsumdolorsit.png" alt="alternative text" style="float:left;"/> amet, consectetuer adipiscing elit.',
         'Lorem ((ipsumdolorsit.png|alternative text|R|longue description)) amet, consectetuer adipiscing elit.'
-            =>'Lorem <img longdesc="longue description" style="float:right;" alt="alternative text" src="ipsumdolorsit.png"/> amet, consectetuer adipiscing elit.',
+            =>'Lorem <img src="ipsumdolorsit.png" alt="alternative text" longdesc="longue description" style="float:right;"/> amet, consectetuer adipiscing elit.',
         'Lorem ~~ipsumdolorsit~~ amet, consectetuer adipiscing elit.'
             =>'Lorem <a name="ipsumdolorsit"></a> amet, consectetuer adipiscing elit.',
         'Lorem \[[ipsum dolor|bar|fr]] sit amet, \consectetuer \\\\adipiscing \%%%elit.'
@@ -147,23 +157,28 @@ class WR3TestsInlineParser extends PHPUnit_Framework_TestCase {
     );
 
     function testInlineParser2() {
-        $conf = new \WikiRenderer\Markup\WR3Html\Config();
+        $genConfig = new \WikiRenderer\Generator\Html\Config();
+        $generator = new \WikiRenderer\Generator\Html\Document($genConfig);
 
-        $wip = new \WikiRenderer\InlineParser($conf  );
+        $conf = new \WikiRenderer\Markup\WR3\Config();
+
+        $wip = new \WikiRenderer\InlineParserNG($conf, $generator);
 
         $k=0;
         foreach($this->listinline2 as $source=>$trueResult){
             $k++;
             $res = $wip->parse($source);
-            $this->assertEquals($trueResult,$res);
+            $this->assertEquals($trueResult,$res->generate());
         }
     }
 
-
+/*
     function testFootnote() {
-        $conf = new \WikiRenderer\Markup\WR3Html\Config();
+        $genConfig = new \WikiRenderer\Generator\Html\Config();
+        $generator = new \WikiRenderer\Generator\Html\Document($genConfig);
+        $conf = new \WikiRenderer\Markup\WR3\Config();
         $conf->onStart('');
-        $wip = new \WikiRenderer\InlineParser($conf);
+        $wip = new \WikiRenderer\InlineParserNG($conf, $generator);
 
         $source='Lorem ipsum dolor sit amet, $$consectetuer __adipis__cing$$ elit.';
 
@@ -173,10 +188,10 @@ class WR3TestsInlineParser extends PHPUnit_Framework_TestCase {
         $trueResult='Lorem ipsum dolor sit amet, <span class="footnote-ref">[<a href="#'.$id.'" name="rev-'.$id.'" id="rev-'.$id.'">1</a>]</span> elit.';
         $trueFootnote = '<p>[<a href="#rev-'.$id.'" name="'.$id.'" id="'.$id.'">1</a>] consectetuer <strong>adipis</strong>cing</p>';
 
-        $this->assertEquals($trueResult,$res);
+        $this->assertEquals($trueResult,$res->generate());
         $this->assertEquals(1,count($conf->footnotes));
         $this->assertEquals($trueFootnote, $conf->footnotes[0]);
     }
-
+*/
 
 }
