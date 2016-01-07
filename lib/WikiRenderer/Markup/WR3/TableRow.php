@@ -1,6 +1,8 @@
 <?php
 
 /**
+ * wikirenderer3 (wr3) syntax
+ * 
  * @author Laurent Jouanneau
  * @copyright 2016 Laurent Jouanneau
  *
@@ -22,6 +24,9 @@
 
 namespace WikiRenderer\Markup\WR3;
 
+/**
+ * Parse a line of a table
+ */
 class TableRow extends \WikiRenderer\TagNG
 {
     protected $generatorName = 'textline';

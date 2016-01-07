@@ -1,10 +1,10 @@
 <?php
 
 /**
- * wikirenderer3 (wr3) syntax to xhtml.
+ * wikirenderer3 (wr3) syntax
  *
  * @author Laurent Jouanneau
- * @copyright 2003-2006 Laurent Jouanneau
+ * @copyright 2003-2016 Laurent Jouanneau
  *
  * @link http://wikirenderer.jelix.org
  *
@@ -25,7 +25,7 @@
 namespace WikiRenderer\Markup\WR3;
 
 /**
- * ???
+ * Configuration for the WikiRenderer parser for WR3 markup
  */
 class Config extends \WikiRenderer\Config
 {
@@ -68,7 +68,7 @@ class Config extends \WikiRenderer\Config
             //'\WikiRenderer\Markup\WR3\Footnote',
         ),
     );
-    /** Liste des balises de type bloc reconnus par WikiRenderer. */
+    /** List of block parsers. */
     public $blocktags = array(
         '\WikiRenderer\Markup\WR3\Title',
         '\WikiRenderer\Markup\WR3\WikiList',
@@ -81,36 +81,48 @@ class Config extends \WikiRenderer\Config
     );
     public $simpletags = array('%%%' => '<br />');
 
-    // la syntaxe wr3 contient la possibilité de mettre des notes de bas de page
-    // celles-ci seront stockées ici, avant leur incorporation é la fin du texte.
+    /**
+     * content all foot notes
+     */
     public $footnotes = array();
+
+    /**
+     * prefix for footnotes id
+     */
     public $footnotesId = '';
+
+    /**
+     * html content for footnotes
+     * @deprecated
+     */
     public $footnotesTemplate = '<div class="footnotes"><h4>Notes</h4>%s</div>';
 
     /**
      * Called before parsing.
      *
-     * @param string $text ???
+     * It should returns the given text. It may modify the text.
      *
-     * @return string ???
+     * @param string $text the wiki text
+     * @return string the wiki text
      */
     public function onStart($text)
     {
         $this->footnotesId = rand(0, 30000);
-        $this->footnotes = array(); // on remet é zero les footnotes
+        $this->footnotes = array(); // erase footnotes
         return $text;
     }
 
     /**
      * Called after parsing.
      *
-     * @param string $finalText ???
+     * @param string $finalText the generated text in the target format (html...)
      *
-     * @return string ???
+     * @return string the final text, which may contains new modifications
+     *    (content added at the begining or at the end for example)
      */
     public function onParse($finalText)
     {
-        // on rajoute les notes de bas de pages.
+        // let's add footnotes
         if (count($this->footnotes)) {
             $footnotes = implode("\n", $this->footnotes);
             $finalText .= str_replace('%s', $footnotes, $this->footnotesTemplate);

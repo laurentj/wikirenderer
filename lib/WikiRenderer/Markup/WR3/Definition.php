@@ -1,10 +1,10 @@
 <?php
 
 /**
- * wikirenderer3 (wr3) syntax to xhtml.
+ * wikirenderer3 (wr3) syntax
  *
  * @author Laurent Jouanneau
- * @copyright 2003-2006 Laurent Jouanneau
+ * @copyright 2003-2016 Laurent Jouanneau
  *
  * @link http://wikirenderer.jelix.org
  *
@@ -25,7 +25,7 @@
 namespace WikiRenderer\Markup\WR3;
 
 /**
- * ???
+ * Parser for definitions block
  */
 class Definition extends \WikiRenderer\BlockNG
 {

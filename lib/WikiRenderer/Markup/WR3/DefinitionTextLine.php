@@ -1,6 +1,7 @@
 <?php
 
 /**
+ * wikirenderer3 (wr3) syntax
  * @author Laurent Jouanneau
  *
  * @copyright 2016 Laurent Jouanneau
@@ -24,7 +25,9 @@
 namespace WikiRenderer\Markup\WR3;
 
 /**
- * ???
+ * Parser that parse a definition line, and which discover the term and the
+ * definition text.
+ * 
  */
 class DefinitionTextLine extends \WikiRenderer\TagNG
 {
