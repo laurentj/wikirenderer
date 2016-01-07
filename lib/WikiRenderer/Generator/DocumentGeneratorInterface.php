@@ -33,14 +33,20 @@ interface DocumentGeneratorInterface {
     public function getConfig();
 
     /**
-     * Returns a generator corresponding to the given type
+     * Returns a new instance of the generator corresponding to the given type
      *
+     * supported standard types: textline, strong, em,c ode, quote, cite,
+     * acronym, link, image, anchor
+     * 
      * @return InlineGeneratorInterface
      */
     public function getInlineGenerator($type);
 
     /**
-     * Returns a generator corresponding to the given type
+     * Returns a new instance of the generator corresponding to the given type
+     *
+     * supported standard types : title, list, pre, blockquote, hr, para,
+     * definition, table
      * 
      * @return BlockGeneratorInterface
      */

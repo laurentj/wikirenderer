@@ -39,7 +39,7 @@ class Preformated implements \WikiRenderer\Generator\BlockPreformatedInterface {
             if ($k>0) {
                 $text .= "\n";
             }
-            $text .= $line;
+            $text .= htmlspecialchars($line);
         }
         $text .= '</'.$this->htmlTagName.">";
         return $text;
