@@ -44,8 +44,13 @@ abstract class AbstractInlineGenerator implements \WikiRenderer\Generator\Inline
         $this->addRawContent($string);
     }
 
+    
     public function addContent(\WikiRenderer\Generator\InlineGeneratorInterface $content) {
         $this->content[] = $content;
+    }
+
+    public function addContentAtStart(\WikiRenderer\Generator\InlineGeneratorInterface $content) {
+        array_unshift($this->content, $content);
     }
 
     public function setContent(\WikiRenderer\Generator\InlineGeneratorInterface $content) {

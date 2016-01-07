@@ -37,10 +37,13 @@ class Blockquote extends \WikiRenderer\BlockNG
      */
     protected $generatorStack;
 
+    protected $_firstLine = true;
+    
     public function open()
     {
         $this->_previousTag = $this->_detectMatch[1];
         $this->_firstTagLen = strlen($this->_previousTag);
+        $this->_firstLine = true;
 
         $this->generatorStack = new \SplStack();
         $this->generatorStack->push($this->generator);
@@ -62,7 +65,7 @@ class Blockquote extends \WikiRenderer\BlockNG
     public function validateDetectedLine()
     {
         $d = strlen($this->_previousTag) - strlen($this->_detectMatch[1]);
-        $str = '';
+        $addLineFeed = false;
 
         if ($d > 0) { // we pop off the list of nested blockquote
             for ($i = $d; $i > 0; --$i) {
@@ -77,8 +80,18 @@ class Blockquote extends \WikiRenderer\BlockNG
                 $last->addContent($generator);
                 $this->generatorStack->push($generator);
             }
+        } else {
+            if ($this->_firstLine) {
+                $this->_firstLine = false;
+            } else {
+                $addLineFeed = true;
+            }
         }
 
-        $this->generatorStack->top()->addContent($this->_renderInlineTag($this->_detectMatch[2]));
+        $inline = $this->_renderInlineTag($this->_detectMatch[2]);
+        if ($addLineFeed) {
+            $inline->addContentAtStart($this->documentGenerator->getInlineGenerator('linebreak'));
+        }
+        $this->generatorStack->top()->addContent($inline);
     }
 }
