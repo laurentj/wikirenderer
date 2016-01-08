@@ -25,11 +25,19 @@
 
 namespace WikiRenderer\Generator\Text;
 
-class Words implements \WikiRenderer\Generator\InlineGeneratorInterface {
+class Words implements \WikiRenderer\Generator\InlineWordsInterface {
 
     protected $content = '';
 
+    public function __construct($words = '') {
+        $this->content = $words;
+    }
+    
     public function addRawContent($string) {
+        $this->content .= $string;
+    }
+
+    public function addGeneratedContent($string) {
         $this->content .= $string;
     }
 
