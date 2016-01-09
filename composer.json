@@ -4,7 +4,7 @@
     "description": "WikiRenderer is a library to generate HTML or anything else from wiki content.",
     "keywords": ["wiki"],
     "homepage": "http://wikirenderer.jelix.org",
-    "license": "LGPL-2.1",
+    "license": "MIT",
     "authors": [
         {
             "name": "Laurent Jouanneau",

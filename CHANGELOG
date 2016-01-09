@@ -3,9 +3,8 @@ Changelog of WikiRenderer
 Version 4.0
 
 - classes with namespace
-
-
-
+- Licence changed from LGPL to MIT
+- new internal architecture : allow to separate syntax parsing and content generation
 
 Version 3.1.2
 - fixed bug on dokuwiki_to_xhtml rules
