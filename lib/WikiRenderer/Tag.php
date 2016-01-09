@@ -56,6 +56,7 @@ abstract class Tag
     /**
      * list of attributes in which wiki words should be searched.
      * @var string[]
+     * @deprecated
      */
     protected $checkWikiWordIn = array('$$');
 
@@ -88,6 +89,7 @@ abstract class Tag
      * name of the function that must return the generated content corresponding
      * to a wiki word.
      * @var array|string
+     * @deprecated
      */
     protected $checkWikiWordFunction = false;
 
@@ -230,6 +232,7 @@ abstract class Tag
      * @param string $string The string to escape.
      *
      * @return string The escaped string.
+     * @deprecated
      */
     protected function _doEscape($string)
     {
@@ -244,6 +247,7 @@ abstract class Tag
      * @param string $string the string where to replace Wiki words
      *
      * @return string the string with wiki words replaced
+     * @deprecated
      */
     protected function _findWikiWord($string)
     {

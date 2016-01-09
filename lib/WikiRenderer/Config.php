@@ -34,13 +34,20 @@ abstract class Config
      * @var string name of the class used to parse unrecognized line
      */
     public $defaultBlock = null;
-    /** ??? */
+    /** ???
+     * @deprecated
+     */
     public $checkWikiWordFunction = null;
     /** Character used to escape wiki syntax. */
     public $escapeChar = '\\';
 
     /** escape char is taken account to escape tags but it is kept into the output */
     public $outputEscapeChar = false;
+
+    /**
+     * @var \WikiRenderer\WordConverter\WordConverterInterface[]
+     */
+    public $wordConverters = array();
 
     /**
      * Called before the wiki text parsing.

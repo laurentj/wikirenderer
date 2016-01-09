@@ -84,7 +84,7 @@ class classicwr_inlinesCCTest extends PHPUnit_Framework_TestCase {
         $genConfig = new \WikiRenderer\Generator\Html\Config();
         $generator = new \WikiRenderer\Generator\Html\Document($genConfig);
         $markupConfig = new \WikiRenderer\Markup\ClassicWR\Config();
-        $markupConfig->checkWikiWordFunction = 'wikiword';
+        $markupConfig->wordConverters[] = new \WikiRenderer\WordConverter\WikiWord\Converter('truc/%s/');
         $wr = new \WikiRenderer\RendererNG($generator, $markupConfig);
 
         $res = $wr->render($source);
@@ -99,22 +99,11 @@ class classicwr_inlinesCCTest extends PHPUnit_Framework_TestCase {
         $genConfig = new \WikiRenderer\Generator\Html\Config();
         $generator = new \WikiRenderer\Generator\Html\Document($genConfig);
         $markupConfig = new \WikiRenderer\Markup\ClassicWR\Config();
-        $markupConfig->checkWikiWordFunction = 'wikiword';
+        $markupConfig->wordConverters[] = new \WikiRenderer\WordConverter\WikiWord\Converter('truc/%s/');
         $wr = new \WikiRenderer\RendererNG($generator, $markupConfig);
         $res = $wr->render($source);
         $this->assertEquals($result, $res);
         $this->assertEquals($errors, count($wr->errors), "Nombre d'erreurs différents (%s)");
     }
-}
-
-function wikiword($ww){
-    if (!is_array($ww)) {
-        return '<a href="truc/'.$ww.'/">'.$ww.'</a>';
-    }
-    $result=array();
-    foreach($ww as $w){
-        $result[]='<a href="truc/'.$w.'/">'.$w.'</a>';
-    }
-    return $result;
 }
 

@@ -20,6 +20,7 @@ abstract class TagNG extends Tag
 
     protected $generatorName = '';
 
+    protected $convertWordsIn = array('$$');
     /**
      * @var \WikiRenderer\Generator\DocumentGeneratorInterface
      */
@@ -40,7 +41,7 @@ abstract class TagNG extends Tag
         $this->wikiContentArr[$this->separatorCount] .= $wikiContent;
         if ($isMainContent) {
             if ($childGenerator === null) {
-                $parsedContent = $this->checkWikiWord($wikiContent);
+                $parsedContent = $this->convertWords($wikiContent);
                 if (is_string($parsedContent)) {
                     $this->generator->addRawContent($parsedContent);
                 }
@@ -126,28 +127,37 @@ abstract class TagNG extends Tag
         $this->generator = clone $this->generator;
     }
 
-    protected function _findWikiWord($string)
-    {
-        if ($this->checkWikiWordFunction === null) {
-            return $string;
-        }
+    protected function convertWords($wikiContent) {
+        if (count($this->convertWordsIn)
+            && isset($this->attribute[$this->separatorCount])
+            && in_array($this->attribute[$this->separatorCount], $this->convertWordsIn)
+            && count($this->config->wordConverters)) {
 
-        $matches = preg_split(
-            "/(?:(?<=\b)|!)([A-Z]\p{Ll}+[A-Z0-9][\p{Ll}\p{Lu}0-9]*)/u",
-            $string, -1, PREG_SPLIT_DELIM_CAPTURE);
+            $matches = preg_split( "/(\s+)/u",
+                $wikiContent, -1, PREG_SPLIT_DELIM_CAPTURE);
 
-        if (count($matches) == 1) {
-            return $string;
-        }
-        $words = $this->documentGenerator->getInlineGenerator('words');
-        foreach($matches as $k=>$word) {
-            if ($k % 2) {
-                $words->addGeneratedContent(call_user_func($this->checkWikiWordFunction, $word));
+            $text = $this->documentGenerator->getInlineGenerator('textline');
+            foreach($matches as $k=>$word) {
+                if (!($k % 2)) {
+                    $ok = false;
+                    foreach($this->config->wordConverters as $converter) {
+                        if ($converter->isMatching($word)) {
+                            $ok = true;
+                            $text->addContent($converter->getContent($this->documentGenerator, $word));
+                            break;
+                        }
+                    }
+                    if (!$ok) {
+                        $text->addRawContent($word);
+                    }
+                }
+                else {
+                    $text->addRawContent($word);
+                }
+
             }
-            else {
-                $words->addRawContent($word);
-            }
+            return $text;
         }
-        return $words;
+        return $wikiContent;
     }
 }
