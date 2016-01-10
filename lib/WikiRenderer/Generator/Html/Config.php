@@ -24,6 +24,7 @@ class Config extends \WikiRenderer\Generator\Config
         'words'    => '\WikiRenderer\Generator\Html\Words',
         'strong'   => '\WikiRenderer\Generator\Html\Strong',
         'em'       => '\WikiRenderer\Generator\Html\Em',
+        'underline'=> '\WikiRenderer\Generator\Html\Underline',
         'code'     => '\WikiRenderer\Generator\Html\Code',
         'quote'    => '\WikiRenderer\Generator\Html\Quote',
         'cite'     => '\WikiRenderer\Generator\Html\Cite',

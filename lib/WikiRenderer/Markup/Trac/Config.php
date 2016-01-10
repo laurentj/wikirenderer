@@ -21,9 +21,11 @@ class Config extends \WikiRenderer\Config
     public $defaultTextLineContainer = '\WikiRenderer\Markup\Trac\TextLine';
     public $textLineContainers = array(
         '\WikiRenderer\Markup\Trac\TextLine' => array(
+            '\WikiRenderer\Markup\Trac\StrongEm',
             '\WikiRenderer\Markup\Trac\Strong',
-            /*'\WikiRenderer\Markup\Trac\Em',
-            '\WikiRenderer\Markup\Trac\Code',
+            '\WikiRenderer\Markup\Trac\Em',
+            '\WikiRenderer\Markup\Trac\Underline',
+            /*'\WikiRenderer\Markup\Trac\Code',
             '\WikiRenderer\Markup\Trac\Q',
             '\WikiRenderer\Markup\Trac\Cite',
             '\WikiRenderer\Markup\Trac\Acronym',
@@ -65,8 +67,8 @@ class Config extends \WikiRenderer\Config
         '\WikiRenderer\Markup\Trac\Hr',
         '\WikiRenderer\Markup\Trac\Blockquote',
         '\WikiRenderer\Markup\Trac\Definition',
-        '\WikiRenderer\Markup\Trac\Table',
-        '\WikiRenderer\Markup\Trac\P',*/
+        '\WikiRenderer\Markup\Trac\Table',*/
+        '\WikiRenderer\Markup\Trac\P',
     );
     public $simpletags = array('%%%' => '<br />');
 
