@@ -2,23 +2,20 @@
 <phpunit bootstrap="bootstrap.php">
   <testsuites>
     <testsuite name="wr3">
-        <file>wr3_ngTest.php</file>
-    </testsuite>
-
-    <testsuite name="Classicwr">
-      <file>classicwr_inlineTagsTest.php</file>
-      <file>classicwr_internalTest.php</file>
-      <file>classicwr_blocksTest.php</file>
-      <file>classicwr_inlineCamelCaseTest.php</file>
-      <file>classicwr_inlineParserTest.php</file>
-      <file>classicwr_seriesTest.php</file>
-    </testsuite>
-
-    <testsuite name="wr3">
         <file>wr3_blocksTest.php</file>
         <file>wr3_inlineParserTest.php</file>
         <file>wr3_inlinesTest.php</file>
+        <file>wr3_ngTest.php</file>
         <file>wr3_primariesTest.php</file>
+    </testsuite>
+
+    <testsuite name="Classicwr">
+      <file>classicwr_blocksTest.php</file>
+      <file>classicwr_inlineCamelCaseTest.php</file>
+      <file>classicwr_inlineParserTest.php</file>
+      <file>classicwr_inlineTagsTest.php</file>
+      <file>classicwr_internalTest.php</file>
+      <file>classicwr_seriesTest.php</file>
     </testsuite>
 
     <testsuite name="wr3 to docbook">
@@ -36,12 +33,13 @@
     <testsuite name="Wr to Wr3">
         <file>wr_wr3Test.php</file>
     </testsuite>
-<!--
-    <testsuite name="trac syntax">
-      <file>trac_blocksTest.php</file>
+
+    <testsuite name="Trac syntax">
+      <!--<file>trac_blocksTest.php</file>-->
       <file>trac_inlinesTest.php</file>
     </testsuite>
 
+<!--
     <testsuite name="phpwiki syntax">
       <file>phpwiki_dokuwiki_blocksTest.php</file>
       <file>phpwiki_dokuwiki_inlinesTest.php</file>

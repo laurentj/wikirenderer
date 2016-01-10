@@ -92,23 +92,7 @@ class Config extends \WikiRenderer\Config
 
     public function __construct()
     {
-        $this->checkWikiWordFunction = array($this, 'transformWikiWord');
     }
-
-    public function transformWikiWord($ww)
-    {
-        if (!is_array($ww)) {
-            return '<a href="'.$this->wikiWordBaseUrl.$ww.'/">'.$ww.'</a>';
-        }
-
-        $result = array();
-        foreach ($ww as $w) {
-            $result[] = '<a href="'.$this->wikiWordBaseUrl.$w.'">'.$w.'</a>';
-        }
-
-        return $result;
-    }
-
 
     /**
      * Called before parsing.
@@ -139,28 +123,49 @@ class Config extends \WikiRenderer\Config
 
     public function processLink($url, $tagName = '')
     {
-        if (preg_match('/^([a-z]+):(.+)/', $href, $m)) {
+        if (!preg_match('/^([a-z]+)\:([^\s]+)|#(\d+)|{(\d+)}|\[(\d+)\]$/', $url, $m)) {
+            if (preg_match("/^([A-Z]\p{Ll}+[A-Z0-9][\p{Ll}\p{Lu}0-9]*)$/u", $url)) {
+                return array ($this->linkBaseUrl['wiki'].$url, $url);
+            }
             return array('', '');
         }
 
-        $label = $url;
-        if (strlen($label) > 40) {
-            $label = substr($label, 0, 40).'(..)';
-        }
-
-
-        if ($m[1] == 'http' || $m[1] == 'https' || $m[1] == 'ftp' || $m[1] == 'irc' || $m[1] == 'mailto') {
-            return array(trim($href),$label);
-        }
-        if (isset($this->config->linkBaseUrl[$m[1]])) {
-            if ($m[1] == 'wiki' || $m[1] == 'source') {
-                return array ($this->config->linkBaseUrl[$m[1]].$m[2], $m[2]);
-            } else {
-                return array ($this->config->linkBaseUrl[$m[1]].$m[2], $m[1].' '.$m[2]);
+        if ($m[1]) {
+            switch($m[1]) {
+                case 'http':
+                case 'https':
+                case 'ftp':
+                case 'irc':
+                case 'mailto':
+                    $label = $url;
+                    if (strlen($label) > 40) {
+                        $label = substr($label, 0, 40).'(..)';
+                    }
+                    return array(trim($url),$label);
+                case 'wiki':
+                case 'source':
+                    return array ($this->linkBaseUrl[$m[1]].$m[2], $m[2]);
+                default:
+                    if (isset($this->linkBaseUrl[$m[1]])) {
+                        return array ($this->linkBaseUrl[$m[1]].$m[2], $m[1].' '.$m[2]);
+                    }
+                    // all other protocols are forbidden for security reasons, (especially javascript:)
+                    return array('', '');
             }
         }
 
-        // all other protocols are forbidden for security reasons, (especially javascript:)
+        if ($m[3]) {
+            return array ($this->linkBaseUrl['ticket'].$m[3], $m[0]);
+        }
+
+        if ($m[4]) {
+            return array ($this->linkBaseUrl['report'].$m[4], $m[0]);
+        }
+
+        if ($m[5]) {
+            return array ($this->linkBaseUrl['changeset'].$m[5], $m[0]);
+        }
+
         return array('', '');
     }
 }
