@@ -77,7 +77,7 @@ class TracTestsInlines extends PHPUnit_Framework_TestCase {
             ,'<p>Lorem <strong><em>ipsum dolor</em></strong> sit <em>amet</em>, <strong>consectetuer</strong> adipiscing elit.</p>'),
         array('Lorem ipsum dolor __sit amet__, consectetuer adipiscing elit.'
             ,'<p>Lorem ipsum dolor <u>sit amet</u>, consectetuer adipiscing elit.</p>'),
-/*        array('Lorem ipsum dolor sit amet, {{{consectetuer}}} adipiscing `elit`.'
+        array('Lorem ipsum dolor sit amet, {{{consectetuer}}} adipiscing `elit`.'
             ,'<p>Lorem ipsum dolor sit amet, <code>consectetuer</code> adipiscing <code>elit</code>.</p>'),
         array('Lorem ipsum dolor ~~sit amet~~, consectetuer adipiscing elit.'
             ,'<p>Lorem ipsum dolor <del>sit amet</del>, consectetuer adipiscing elit.</p>'),
@@ -86,7 +86,7 @@ class TracTestsInlines extends PHPUnit_Framework_TestCase {
         array('Lorem ipsum dolor sit ,,amet, consectetuer,, adipiscing elit.'
             ,'<p>Lorem ipsum dolor sit <sub>amet, consectetuer</sub> adipiscing elit.</p>'),
 
-        array('Lorem ipsum dolor [[sit amet]], consectetuer adipiscing elit.'
+/*        array('Lorem ipsum dolor [[sit amet]], consectetuer adipiscing elit.'
             ,'<p>Lorem ipsum dolor [[sit amet]], consectetuer adipiscing elit.</p>'),
         array('Lorem ipsum dolor sit[[br]] amet, consectetuer adipiscing elit.'
             ,'<p>Lorem ipsum dolor sit<br /> amet, consectetuer adipiscing elit.</p>'),
