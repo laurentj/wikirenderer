@@ -42,6 +42,14 @@ class LinkCreole extends \WikiRenderer\TagNG
                     $href = '#'.$m[2];
                 }
             }
+            else if (strtolower($this->wikiContentArr[0]) == 'br') {
+                return $this->documentGenerator->getInlineGenerator('linebreak');
+            }
+            else {
+                $this->generator =  $this->documentGenerator->getInlineGenerator('words');
+                $this->generator->addRawContent($this->getWikiContent());
+                return $this->generator;
+            }
         }
         $this->wikiContentArr[0] = $href;
         if (!$this->separatorCount) {

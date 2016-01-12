@@ -84,7 +84,7 @@ class classicwr_inlinesCCTest extends PHPUnit_Framework_TestCase {
         $genConfig = new \WikiRenderer\Generator\Html\Config();
         $generator = new \WikiRenderer\Generator\Html\Document($genConfig);
         $markupConfig = new \WikiRenderer\Markup\ClassicWR\Config();
-        $markupConfig->wordConverters[] = new \WikiRenderer\WordConverter\WikiWord\Converter('truc/%s/');
+        $markupConfig->wordConverters[] = new \WikiRenderer\WordConverter\WikiWordConverter('truc/%s/');
         $wr = new \WikiRenderer\RendererNG($generator, $markupConfig);
 
         $res = $wr->render($source);
@@ -99,7 +99,7 @@ class classicwr_inlinesCCTest extends PHPUnit_Framework_TestCase {
         $genConfig = new \WikiRenderer\Generator\Html\Config();
         $generator = new \WikiRenderer\Generator\Html\Document($genConfig);
         $markupConfig = new \WikiRenderer\Markup\ClassicWR\Config();
-        $markupConfig->wordConverters[] = new \WikiRenderer\WordConverter\WikiWord\Converter('truc/%s/');
+        $markupConfig->wordConverters[] = new \WikiRenderer\WordConverter\WikiWordConverter('truc/%s/');
         $wr = new \WikiRenderer\RendererNG($generator, $markupConfig);
         $res = $wr->render($source);
         $this->assertEquals($result, $res);

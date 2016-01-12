@@ -16,7 +16,7 @@ namespace WikiRenderer\Markup\Trac;
 /**
  * Parser for a link
  */
-class Link extends \WikiRenderer\TagNG
+class Link extends LinkCreole
 {
     protected $name = 'a';
     protected $generatorName = 'link';
@@ -62,32 +62,6 @@ class Link extends \WikiRenderer\TagNG
         else {
             $this->generator->addContent($childGenerator);
         }
-    }
-
-    public function getContent()
-    {
-        list($href, $label) = $this->config->processLink($this->wikiContentArr[0], $this->generatorName);
-        if ($href == '') {
-            if (preg_match("/^(=?)#(\\w+)$/", $this->wikiContentArr[0], $m)) {
-                if ($m[1]) {
-                    $content = $this->generator->getChildGenerators();
-                    $this->generator =  $this->documentGenerator->getInlineGenerator('anchor');
-                    foreach($content as $child) {
-                        $this->generator->addContent($child);
-                    }
-                    $this->generator->setAttribute('anchor', $m[2]);
-                }
-                else {
-                    $href = '#'.$m[2];
-                }
-            }
-        }
-        $this->wikiContentArr[0] = $href;
-        if (!$this->separatorCount) {
-            $this->separatorCount++;
-            $this->generator->setRawContent($label);
-        }
-        return parent::getContent();
     }
 
     public function isOtherTagAllowed()

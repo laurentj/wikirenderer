@@ -85,7 +85,7 @@ class Config extends \WikiRenderer\Config
      */
     public $startHeaderNumber = 1; 
 
-    public $wikiWordBaseUrl = '/';
+    public $wikiWordBaseUrl = '/wiki/%s';
     public $linkBaseUrl = array(
         'ticket' => '/ticket/',
         'report' => '/report/',
@@ -99,6 +99,9 @@ class Config extends \WikiRenderer\Config
 
     public function __construct()
     {
+        $this->wordConverters[] = new URLConverter(array($this, 'processLink'));
+        $this->wordConverters[] = new TicketConverter(array($this, 'processLink'));
+        $this->wordConverters[] = new \WikiRenderer\WordConverter\WikiWordConverter($this->wikiWordBaseUrl);
     }
 
     /**

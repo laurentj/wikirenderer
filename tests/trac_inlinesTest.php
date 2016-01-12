@@ -105,7 +105,7 @@ class TracTestsInlines extends PHPUnit_Framework_TestCase {
         array('Lorem ipsum dolor sit[[br]] amet, consectetuer adipiscing elit.'
             ,'<p>Lorem ipsum dolor sit<br /> amet, consectetuer adipiscing elit.</p>'),
         array('Lorem ipsum dolor SitAmet, consectetuer adipiscing elit.'
-            ,'<p>Lorem ipsum dolor <a href="/SitAmet">SitAmet</a>, consectetuer adipiscing elit.</p>'),
+            ,'<p>Lorem ipsum dolor <a href="/wiki/SitAmet">SitAmet,</a> consectetuer adipiscing elit.</p>'),
         array('Lorem ipsum dolor !SitAmet, consectetuer adipiscing elit.'
             ,'<p>Lorem ipsum dolor SitAmet, consectetuer adipiscing elit.</p>'),
 
@@ -127,7 +127,7 @@ class TracTestsInlines extends PHPUnit_Framework_TestCase {
         array('Lorem [http://foo.com ipsum dolor] sit amet, consectetuer adipiscing elit.'
             ,'<p>Lorem <a href="http://foo.com">ipsum dolor</a> sit amet, consectetuer adipiscing elit.</p>'),
         array('Lorem [javascript:alert(window.title) ipsum dolor] sit amet, consectetuer adipiscing elit.'
-            ,'<p>Lorem [javascript:alert(window.title) ipsum dolor] sit amet, consectetuer adipiscing elit.</p>'),
+            ,'<p>Lorem <a href="#">ipsum dolor</a> sit amet, consectetuer adipiscing elit.</p>'),
         array('Lorem [wiki:ipsum dolor sit amet], consectetuer adipiscing elit.'
             ,'<p>Lorem <a href="/wiki/ipsum">dolor sit amet</a>, consectetuer adipiscing elit.</p>'),
         array('Lorem [wiki:IpsumDolor] sit amet, consectetuer adipiscing elit.'
@@ -146,11 +146,11 @@ class TracTestsInlines extends PHPUnit_Framework_TestCase {
             ,'<p>Lorem <a href="/milestone/1">milestone 1</a> sit amet, consectetuer adipiscing elit.</p>'),
 
         array('Lorem [[ipsum dolor]] sit amet, consectetuer adipiscing elit.'
-            ,'<p>Lorem [ipsum dolor]] sit amet, consectetuer adipiscing elit.</p>'),
+            ,'<p>Lorem [[ipsum dolor]] sit amet, consectetuer adipiscing elit.</p>'),
         array('Lorem [[http://foo.com|ipsum dolor]] sit amet, consectetuer adipiscing elit.'
             ,'<p>Lorem <a href="http://foo.com">ipsum dolor</a> sit amet, consectetuer adipiscing elit.</p>'),
-        array('Lorem [[javascript:alert(window.title) ipsum dolor]] sit amet, consectetuer adipiscing elit.'
-            ,'<p>Lorem [javascript:alert(window.title) ipsum dolor]] sit amet, consectetuer adipiscing elit.</p>'),
+        array('Lorem [[javascript:alert(window.title)|ipsum dolor]] sit amet, consectetuer adipiscing elit.'
+            ,'<p>Lorem <a href="#">ipsum dolor</a> sit amet, consectetuer adipiscing elit.</p>'),
         array('Lorem [[wiki:ipsum|dolor sit amet]], consectetuer adipiscing elit.'
             ,'<p>Lorem <a href="/wiki/ipsum">dolor sit amet</a>, consectetuer adipiscing elit.</p>'),
         array('Lorem [[wiki:IpsumDolor]] sit amet, consectetuer adipiscing elit.'
