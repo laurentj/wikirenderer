@@ -27,7 +27,7 @@ class Anchor extends \WikiRenderer\TagNG
 
     public function getContent()
     {
-        $this->generator->setAnchorName($this->wikiContentArr[0]);
+        $this->generator->setAttribute('anchor', $this->wikiContentArr[0]);
         return $this->generator;
     }
 }

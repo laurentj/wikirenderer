@@ -149,7 +149,7 @@ class WR3TestsInlineParser extends PHPUnit_Framework_TestCase {
         'Lorem ((ipsumdolorsit.png|alternative text|R|longue description)) amet, consectetuer adipiscing elit.'
             =>'Lorem <img src="ipsumdolorsit.png" alt="alternative text" longdesc="longue description" style="float:right;"/> amet, consectetuer adipiscing elit.',
         'Lorem ~~ipsumdolorsit~~ amet, consectetuer adipiscing elit.'
-            =>'Lorem <a name="ipsumdolorsit"></a> amet, consectetuer adipiscing elit.',
+            =>'Lorem <span id="ipsumdolorsit" class="wikianchor"><a href="#ipsumdolorsit" class="anchor">¶</a></span> amet, consectetuer adipiscing elit.',
         'Lorem \[[ipsum dolor|bar|fr]] sit amet, \consectetuer \\\\adipiscing \%%%elit.'
             =>'Lorem [[ipsum dolor|bar|fr]] sit amet, \consectetuer \\adipiscing %%%elit.',
         'Lorem ipsum ^^dolor [[ipsum dolor|bar|fr]] amet|fr^^, consectetuer adipiscing elit.'

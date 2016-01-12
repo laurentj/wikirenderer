@@ -43,7 +43,7 @@ class classicwr_inlinesCCTest extends PHPUnit_Framework_TestCase {
         array('Lorem ((ipsumdolorsit.png|AlteRnative text|R|longue DescriPtion)) amet, consectetuer adipiscing elit.'
             ,'<p>Lorem <img src="ipsumdolorsit.png" alt="AlteRnative text" longdesc="longue DescriPtion" style="float:right;"/> amet, consectetuer adipiscing elit.</p>'),
         array('Lorem ~~IpsumDolorsit~~ amet, consectetuer adipiscing elit.'
-            ,'<p>Lorem <a name="IpsumDolorsit"></a> amet, consectetuer adipiscing elit.</p>'),
+            ,'<p>Lorem <span id="IpsumDolorsit" class="wikianchor"><a href="#IpsumDolorsit" class="anchor">¶</a></span> amet, consectetuer adipiscing elit.</p>'),
         );
     }
 

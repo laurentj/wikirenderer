@@ -86,7 +86,21 @@ class TracTestsInlines extends PHPUnit_Framework_TestCase {
         array('Lorem ipsum dolor sit ,,amet, consectetuer,, adipiscing elit.'
             ,'<p>Lorem ipsum dolor sit <sub>amet, consectetuer</sub> adipiscing elit.</p>'),
 
-/*        array('Lorem ipsum dolor [[sit amet]], consectetuer adipiscing elit.'
+        array('Lorem ipsum dolor sit[=#point1] amet, consectetuer adipiscing elit.'
+            ,'<p>Lorem ipsum dolor sit<span id="point1" class="wikianchor"><a href="#point1" class="anchor">¶</a></span> amet, consectetuer adipiscing elit.</p>'),
+        array('Lorem ipsum dolor sit[=#point1 label] amet, consectetuer adipiscing elit.'
+            ,'<p>Lorem ipsum dolor sit<span id="point1" class="wikianchor">label<a href="#point1" class="anchor">¶</a></span> amet, consectetuer adipiscing elit.</p>'),
+        array('Lorem ipsum dolor sit[[=#point1|label]] amet, consectetuer adipiscing elit.'
+            ,'<p>Lorem ipsum dolor sit<span id="point1" class="wikianchor">label<a href="#point1" class="anchor">¶</a></span> amet, consectetuer adipiscing elit.</p>'),
+        array('Lorem ipsum dolor sit [#point2 join to the second point] amet, consectetuer adipiscing elit.'
+            ,'<p>Lorem ipsum dolor sit <a href="#point2">join to the second point</a> amet, consectetuer adipiscing elit.</p>'),
+        array('Lorem ipsum dolor sit [[#point2|join to the second point]] amet, consectetuer adipiscing elit.'
+            ,'<p>Lorem ipsum dolor sit <a href="#point2">join to the second point</a> amet, consectetuer adipiscing elit.</p>'),
+
+        array('Lorem ipsum dolor macro [[TitleIndex]], consectetuer adipiscing elit.'
+            ,'<p>Lorem ipsum dolor <span>my macro title index</span>, consectetuer adipiscing elit.</p>'),
+
+        array('Lorem ipsum dolor [[sit amet]], consectetuer adipiscing elit.'
             ,'<p>Lorem ipsum dolor [[sit amet]], consectetuer adipiscing elit.</p>'),
         array('Lorem ipsum dolor sit[[br]] amet, consectetuer adipiscing elit.'
             ,'<p>Lorem ipsum dolor sit<br /> amet, consectetuer adipiscing elit.</p>'),
@@ -114,8 +128,6 @@ class TracTestsInlines extends PHPUnit_Framework_TestCase {
             ,'<p>Lorem <a href="http://foo.com">ipsum dolor</a> sit amet, consectetuer adipiscing elit.</p>'),
         array('Lorem [javascript:alert(window.title) ipsum dolor] sit amet, consectetuer adipiscing elit.'
             ,'<p>Lorem [javascript:alert(window.title) ipsum dolor] sit amet, consectetuer adipiscing elit.</p>'),
-
-
         array('Lorem [wiki:ipsum dolor sit amet], consectetuer adipiscing elit.'
             ,'<p>Lorem <a href="/wiki/ipsum">dolor sit amet</a>, consectetuer adipiscing elit.</p>'),
         array('Lorem [wiki:IpsumDolor] sit amet, consectetuer adipiscing elit.'
@@ -132,7 +144,30 @@ class TracTestsInlines extends PHPUnit_Framework_TestCase {
             ,'<p>Lorem <a href="/changeset/1">changeset 1</a> sit amet, consectetuer adipiscing elit.</p>'),
         array('Lorem [milestone:1] sit amet, consectetuer adipiscing elit.'
             ,'<p>Lorem <a href="/milestone/1">milestone 1</a> sit amet, consectetuer adipiscing elit.</p>'),
-*/
+
+        array('Lorem [[ipsum dolor]] sit amet, consectetuer adipiscing elit.'
+            ,'<p>Lorem [ipsum dolor]] sit amet, consectetuer adipiscing elit.</p>'),
+        array('Lorem [[http://foo.com|ipsum dolor]] sit amet, consectetuer adipiscing elit.'
+            ,'<p>Lorem <a href="http://foo.com">ipsum dolor</a> sit amet, consectetuer adipiscing elit.</p>'),
+        array('Lorem [[javascript:alert(window.title) ipsum dolor]] sit amet, consectetuer adipiscing elit.'
+            ,'<p>Lorem [javascript:alert(window.title) ipsum dolor]] sit amet, consectetuer adipiscing elit.</p>'),
+        array('Lorem [[wiki:ipsum|dolor sit amet]], consectetuer adipiscing elit.'
+            ,'<p>Lorem <a href="/wiki/ipsum">dolor sit amet</a>, consectetuer adipiscing elit.</p>'),
+        array('Lorem [[wiki:IpsumDolor]] sit amet, consectetuer adipiscing elit.'
+            ,'<p>Lorem <a href="/wiki/IpsumDolor">IpsumDolor</a> sit amet, consectetuer adipiscing elit.</p>'),
+        array('Lorem [[source:ipsum|dolor]] sit amet, consectetuer adipiscing elit.'
+            ,'<p>Lorem <a href="/browser/ipsum">dolor</a> sit amet, consectetuer adipiscing elit.</p>'),
+        array('Lorem [[source:Ipsum/Dolor]] sit amet, consectetuer adipiscing elit.'
+            ,'<p>Lorem <a href="/browser/Ipsum/Dolor">Ipsum/Dolor</a> sit amet, consectetuer adipiscing elit.</p>'),
+        array('Lorem [[ticket:1]] sit amet, consectetuer adipiscing elit.'
+            ,'<p>Lorem <a href="/ticket/1">ticket 1</a> sit amet, consectetuer adipiscing elit.</p>'),
+        array('Lorem [[report:1]] sit amet, consectetuer adipiscing elit.'
+            ,'<p>Lorem <a href="/report/1">report 1</a> sit amet, consectetuer adipiscing elit.</p>'),
+        array('Lorem [[changeset:1]] sit amet, consectetuer adipiscing elit.'
+            ,'<p>Lorem <a href="/changeset/1">changeset 1</a> sit amet, consectetuer adipiscing elit.</p>'),
+        array('Lorem [[milestone:1]] sit amet, consectetuer adipiscing elit.'
+            ,'<p>Lorem <a href="/milestone/1">milestone 1</a> sit amet, consectetuer adipiscing elit.</p>'),
+
 
  /*        array('Lorem ipsum dolor sit amet, consectetuer adipiscing elit.'
             ,'<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p>'),

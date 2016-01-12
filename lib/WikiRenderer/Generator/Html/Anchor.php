@@ -12,18 +12,17 @@
 
 namespace WikiRenderer\Generator\Html;
 
-class Anchor implements \WikiRenderer\Generator\InlineAnchorInterface {
+class Anchor extends AbstractInlineGenerator {
 
-    protected $anchorName = '';
+    protected $supportedAttributes = array('anchor');
 
-    public function setAnchorName($name) {
-        $this->anchorName = $name;
-    }
-
-    /**
-     * @return string
-     */
     public function generate() {
-        return '<a name="'.htmlspecialchars($this->anchorName).'"></a>';
-    }
+        $html = '';
+        foreach($this->content as $content) {
+            $html .= $content->generate();
+        }
+        $anchor = htmlspecialchars($this->attributes['anchor']);
+        return '<span id="'.$anchor.'" class="wikianchor">'.$html.'<a href="#'.$anchor.'" class="anchor">¶</a></span>';
+    }    
+
 }

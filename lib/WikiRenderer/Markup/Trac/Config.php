@@ -30,10 +30,11 @@ class Config extends \WikiRenderer\Config
             '\WikiRenderer\Markup\Trac\Sup',
             '\WikiRenderer\Markup\Trac\Code',
             '\WikiRenderer\Markup\Trac\Code2',
+            '\WikiRenderer\Markup\Trac\LinkCreole',
+            '\WikiRenderer\Markup\Trac\Link',
             /*'\WikiRenderer\Markup\Trac\Q',
             '\WikiRenderer\Markup\Trac\Cite',
             '\WikiRenderer\Markup\Trac\Acronym',
-            '\WikiRenderer\Markup\Trac\Link',
             '\WikiRenderer\Markup\Trac\Image',
             '\WikiRenderer\Markup\Trac\Anchor',*/
             //'\WikiRenderer\Markup\Trac\Footnote',
@@ -151,11 +152,13 @@ class Config extends \WikiRenderer\Config
                 case 'wiki':
                 case 'source':
                     return array ($this->linkBaseUrl[$m[1]].$m[2], $m[2]);
+                case 'javascript':
+                    // javascript protocol is forbidden for security reasons
+                    return array('#','');
                 default:
                     if (isset($this->linkBaseUrl[$m[1]])) {
                         return array ($this->linkBaseUrl[$m[1]].$m[2], $m[1].' '.$m[2]);
                     }
-                    // all other protocols are forbidden for security reasons, (especially javascript:)
                     return array('', '');
             }
         }

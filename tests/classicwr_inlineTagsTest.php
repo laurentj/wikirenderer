@@ -56,7 +56,7 @@ class classicwr_inlineTagsTest extends PHPUnit_Framework_TestCase {
         array('Lorem ((ipsumdolorsit.png|alternative text|R|longue description)) amet, consectetuer adipiscing elit.'
             ,'<p>Lorem <img src="ipsumdolorsit.png" alt="alternative text" longdesc="longue description" style="float:right;"/> amet, consectetuer adipiscing elit.</p>'),
         array('Lorem ~~ipsumdolorsit~~ amet, consectetuer adipiscing elit.'
-            ,'<p>Lorem <a name="ipsumdolorsit"></a> amet, consectetuer adipiscing elit.</p>'),
+            ,'<p>Lorem <span id="ipsumdolorsit" class="wikianchor"><a href="#ipsumdolorsit" class="anchor">¶</a></span> amet, consectetuer adipiscing elit.</p>'),
         );
     }
 
