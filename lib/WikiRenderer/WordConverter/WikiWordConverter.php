@@ -19,6 +19,11 @@ class WikiWordConverter extends AbstractWordConverter {
     protected $regexp = "/^(\W*)([A-Z]\p{Ll}+[A-Z0-9][\p{Ll}\p{Lu}0-9]*)(\W*)$/u";
 
     /**
+     * escape char
+     */
+    protected $escapeChar = '\\';
+
+    /**
      * @var string url
      */
     protected $url;
@@ -26,11 +31,17 @@ class WikiWordConverter extends AbstractWordConverter {
     /**
      * @param string $url should contain marker %s for sprintf()
      */
-    function __construct($url) {
+    function __construct($url, $escapeChar = '\\') {
         $this->url = $url;
+        $this->escapeChar = $escapeChar;
     }
 
     public function getContent(\WikiRenderer\Generator\DocumentGeneratorInterface $documentGenerator, $word) {
+        if ($this->matches[1] == $this->escapeChar) {
+            $words = $documentGenerator->getInlineGenerator('words');
+            $words->addRawContent($this->matches[2].$this->matches[3]);
+            return $words;
+        }
         $link = $documentGenerator->getInlineGenerator('link');
         $link->addRawContent($word);
         if ($this->url) {

@@ -7,6 +7,19 @@
  * @author Laurent Jouanneau
  * @copyright 2008-2016 Laurent Jouanneau
  */
+ 
+class TracMacroExample {
+
+    function match($wiki) {
+        return $wiki == 'TitleIndex';
+    }
+
+    function getContent($documentGenerator, $wiki) {
+        $words = $documentGenerator->getInlineGenerator('em');
+        $words->addRawContent('my macro title index');
+        return $words;
+    }
+}
 
 class TracTestsInlines extends PHPUnit_Framework_TestCase {
 
@@ -98,7 +111,7 @@ class TracTestsInlines extends PHPUnit_Framework_TestCase {
             ,'<p>Lorem ipsum dolor sit <a href="#point2">join to the second point</a> amet, consectetuer adipiscing elit.</p>'),
 
         array('Lorem ipsum dolor macro [[TitleIndex]], consectetuer adipiscing elit.'
-            ,'<p>Lorem ipsum dolor <span>my macro title index</span>, consectetuer adipiscing elit.</p>'),
+            ,'<p>Lorem ipsum dolor macro <em>my macro title index</em>, consectetuer adipiscing elit.</p>'),
 
         array('Lorem ipsum dolor [[sit amet]], consectetuer adipiscing elit.'
             ,'<p>Lorem ipsum dolor [[sit amet]], consectetuer adipiscing elit.</p>'),
@@ -231,6 +244,7 @@ class TracTestsInlines extends PHPUnit_Framework_TestCase {
         $genConfig = new \WikiRenderer\Generator\Html\Config();
         $generator = new \WikiRenderer\Generator\Html\Document($genConfig);
         $markupConfig = new \WikiRenderer\Markup\Trac\Config();
+        $markupConfig->macros[] = new TracMacroExample();
         $wr = new \WikiRenderer\RendererNG($generator, $markupConfig);
         $res = $wr->render($source);
         $this->assertEquals($expected, $res);

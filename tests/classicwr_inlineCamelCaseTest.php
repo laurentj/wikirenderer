@@ -43,7 +43,7 @@ class classicwr_inlinesCCTest extends PHPUnit_Framework_TestCase {
         array('Lorem ((ipsumdolorsit.png|AlteRnative text|R|longue DescriPtion)) amet, consectetuer adipiscing elit.'
             ,'<p>Lorem <img src="ipsumdolorsit.png" alt="AlteRnative text" longdesc="longue DescriPtion" style="float:right;"/> amet, consectetuer adipiscing elit.</p>'),
         array('Lorem ~~IpsumDolorsit~~ amet, consectetuer adipiscing elit.'
-            ,'<p>Lorem <span id="IpsumDolorsit" class="wikianchor"><a href="#IpsumDolorsit" class="anchor">¶</a></span> amet, consectetuer adipiscing elit.</p>'),
+            ,'<p>Lorem <span id="IpsumDolorsit" class="wikianchor"><a href="#IpsumDolorsit" class="anchor">Â¶</a></span> amet, consectetuer adipiscing elit.</p>'),
         );
     }
 
@@ -88,8 +88,8 @@ class classicwr_inlinesCCTest extends PHPUnit_Framework_TestCase {
         $wr = new \WikiRenderer\RendererNG($generator, $markupConfig);
 
         $res = $wr->render($source);
-        $this->assertEquals($result, $res, "erreur");
-        $this->assertEquals(0, count($wr->errors), "Erreurs détéctées par wr ! (%s)");
+        $this->assertEquals($result, $res);
+        $this->assertEquals(0, count($wr->errors));
     }
 
     /**
@@ -103,7 +103,7 @@ class classicwr_inlinesCCTest extends PHPUnit_Framework_TestCase {
         $wr = new \WikiRenderer\RendererNG($generator, $markupConfig);
         $res = $wr->render($source);
         $this->assertEquals($result, $res);
-        $this->assertEquals($errors, count($wr->errors), "Nombre d'erreurs différents (%s)");
+        $this->assertEquals($errors, count($wr->errors));
     }
 }
 

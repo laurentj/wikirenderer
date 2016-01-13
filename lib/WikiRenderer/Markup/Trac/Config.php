@@ -97,11 +97,14 @@ class Config extends \WikiRenderer\Config
         'attachement' => '/attachment/',
     );
 
+    public $macros = array();
+
     public function __construct()
     {
         $this->wordConverters[] = new URLConverter(array($this, 'processLink'));
         $this->wordConverters[] = new TicketConverter(array($this, 'processLink'));
-        $this->wordConverters[] = new \WikiRenderer\WordConverter\WikiWordConverter($this->wikiWordBaseUrl);
+        $this->wordConverters[] = new ReportConverter(array($this, 'processLink'));
+        $this->wordConverters[] = new \WikiRenderer\WordConverter\WikiWordConverter($this->wikiWordBaseUrl, '!');
     }
 
     /**
