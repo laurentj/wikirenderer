@@ -32,11 +32,9 @@ class Config extends \WikiRenderer\Config
             '\WikiRenderer\Markup\Trac\Code2',
             '\WikiRenderer\Markup\Trac\LinkCreole',
             '\WikiRenderer\Markup\Trac\Link',
-            /*'\WikiRenderer\Markup\Trac\Q',
-            '\WikiRenderer\Markup\Trac\Cite',
-            '\WikiRenderer\Markup\Trac\Acronym',
+            /*
             '\WikiRenderer\Markup\Trac\Image',
-            '\WikiRenderer\Markup\Trac\Anchor',*/
+            */
             //'\WikiRenderer\Markup\Trac\Footnote',
         ),
         '\WikiRenderer\Markup\Trac\DefinitionTextLine' => array(

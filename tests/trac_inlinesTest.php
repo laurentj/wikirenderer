@@ -182,23 +182,7 @@ class TracTestsInlines extends PHPUnit_Framework_TestCase {
             ,'<p>Lorem <a href="/milestone/1">milestone 1</a> sit amet, consectetuer adipiscing elit.</p>'),
 
 
- /*        array('Lorem ipsum dolor sit amet, consectetuer adipiscing elit.'
-            ,'<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p>'),
-       array('Lorem ipsum ^^dolor sit amet^^, consectetuer adipiscing elit.'
-            ,'<p>Lorem ipsum <q>dolor sit amet</q>, consectetuer adipiscing elit.</p>'),
-        array('Lorem ipsum ^^dolor sit amet|fr^^, consectetuer adipiscing elit.'
-            ,'<p>Lorem ipsum <q lang="fr">dolor sit amet</q>, consectetuer adipiscing elit.</p>'),
-        array('Lorem ipsum ^^dolor sit amet|fr|foo bar^^, consectetuer adipiscing elit.'
-            ,'<p>Lorem ipsum <q lang="fr" cite="foo bar">dolor sit amet</q>, consectetuer adipiscing elit.</p>'),
-        array('Lorem ipsum dolor sit amet, {{consectetuer adipiscing}} elit.'
-            ,'<p>Lorem ipsum dolor sit amet, <cite>consectetuer adipiscing</cite> elit.</p>'),
-        array('Lorem ipsum dolor sit amet, {{consectetuer adipiscing|un titre}} elit.'
-            ,'<p>Lorem ipsum dolor sit amet, <cite title="un titre">consectetuer adipiscing</cite> elit.</p>'),
-        array('Lorem ipsum dolor sit amet, ??consectetuer adipiscing?? elit.'
-            ,'<p>Lorem ipsum dolor sit amet, <acronym>consectetuer adipiscing</acronym> elit.</p>'),
-        array('Lorem ipsum dolor sit amet, ??consectetuer adipiscing|un titre?? elit.'
-            ,'<p>Lorem ipsum dolor sit amet, <acronym title="un titre">consectetuer adipiscing</acronym> elit.</p>'),
-        array('Lorem ((ipsumdolorsit.png)) amet, consectetuer adipiscing elit.'
+ /*        array('Lorem ((ipsumdolorsit.png)) amet, consectetuer adipiscing elit.'
             ,'<p>Lorem <img src="ipsumdolorsit.png" alt=""/> amet, consectetuer adipiscing elit.</p>'),
         array('Lorem ((ipsumdolorsit.png|alternative text)) amet, consectetuer adipiscing elit.'
             ,'<p>Lorem <img alt="alternative text" src="ipsumdolorsit.png"/> amet, consectetuer adipiscing elit.</p>'),
@@ -206,8 +190,6 @@ class TracTestsInlines extends PHPUnit_Framework_TestCase {
             ,'<p>Lorem <img style="float:left;" alt="alternative text" src="ipsumdolorsit.png"/> amet, consectetuer adipiscing elit.</p>'),
         array('Lorem ((ipsumdolorsit.png|alternative text|R|longue description)) amet, consectetuer adipiscing elit.'
             ,'<p>Lorem <img longdesc="longue description" style="float:right;" alt="alternative text" src="ipsumdolorsit.png"/> amet, consectetuer adipiscing elit.</p>'),
-        array('Lorem ~~ipsumdolorsit~~ amet, consectetuer adipiscing elit.'
-            ,'<p>Lorem <a name="ipsumdolorsit"></a> amet, consectetuer adipiscing elit.</p>'),
 */
         );
     }
@@ -215,25 +197,22 @@ class TracTestsInlines extends PHPUnit_Framework_TestCase {
 
     public function listInlineComplexesProvider() {
         return array(
-
-/*
         array('Lorem __ipsum \'\'dolor sit\'\' amet__, consectetuer adipiscing elit.'
-            ,0,'<p>Lorem <strong>ipsum <em>dolor sit</em> amet</strong>, consectetuer adipiscing elit.</p>'),
+            ,0,'<p>Lorem <u>ipsum <em>dolor sit</em> amet</u>, consectetuer adipiscing elit.</p>'),
         array('Lorem __ipsum \'\'dolor sit__ amet\'\', consectetuer adipiscing elit.'
             ,1,'<p>Lorem __ipsum \'\'dolor sit__ amet\'\', consectetuer adipiscing elit.</p>'),
         array('Lorem __ipsum \'\'dolor sit__ amet__, consectetuer adipiscing elit.'
-            ,1,'<p>Lorem __ipsum \'\'dolor sit<strong> amet</strong>, consectetuer adipiscing elit.</p>'),
+            ,1,'<p>Lorem __ipsum \'\'dolor sit<u> amet</u>, consectetuer adipiscing elit.</p>'),
         array('Lorem [[ips__um dol__or|bar|fr]] sit amet, consectetuer adipiscing elit.'
-            ,0,'<p>Lorem <a href="bar" hreflang="fr">ips<strong>um dol</strong>or</a> sit amet, consectetuer adipiscing elit.</p>'),
+            ,0,'<p>Lorem [[ips__um dol__or|bar|fr]] sit amet, consectetuer adipiscing elit.</p>'),
 
         array('Lorem [[ips[[um dol]]or|bar|fr]] sit amet, consectetuer adipiscing elit.'
-            ,0,'<p>Lorem <a href="bar" hreflang="fr">ips<a href="um dol">um dol</a>or</a> sit amet, consectetuer adipiscing elit.</p>'),
+            ,0,'<p>Lorem [[ips[[um dol]]or|bar|fr]] sit amet, consectetuer adipiscing elit.</p>'),
 
         array('Lorem [[ips[[um dolor|bar|fr]] sit]] amet, consectetuer adipiscing elit.'
-            ,0,'<p>Lorem <a href="ips[[um dolor|bar|fr]] sit">ips[[um dolor|bar|fr]] sit</a> amet, consectetuer adipiscing elit.</p>'),
+            ,0,'<p>Lorem [[ips[[um dolor|bar|fr]] sit]] amet, consectetuer adipiscing elit.</p>'),
         array('Lorem [[ips__um dolor|bar|fr]] sit__ amet, consectetuer adipiscing elit.'
-            ,1,'<p>Lorem [[ips<strong>um dolor|bar|fr]] sit</strong> amet, consectetuer adipiscing elit.</p>'),
-*/
+            ,1,'<p>Lorem [[ips__um dolor|bar|fr]] sit__ amet, consectetuer adipiscing elit.</p>'),
         );
     }
 
@@ -254,7 +233,7 @@ class TracTestsInlines extends PHPUnit_Framework_TestCase {
     /**
      * @dataProvider listInlineComplexesProvider
      */
-/*    function testBalisesInlineComplexes($source, $errors, $expected) {
+    function testBalisesInlineComplexes($source, $errors, $expected) {
         $genConfig = new \WikiRenderer\Generator\Html\Config();
         $generator = new \WikiRenderer\Generator\Html\Document($genConfig);
         $markupConfig = new \WikiRenderer\Markup\Trac\Config();
@@ -262,5 +241,5 @@ class TracTestsInlines extends PHPUnit_Framework_TestCase {
         $res = $wr->render($source);
         $this->assertEquals($expected, $res);
         $this->assertEquals($errors, count($wr->errors));
-    }*/
+    }
 }
