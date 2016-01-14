@@ -16,11 +16,16 @@ class Image extends AbstractInlineGenerator {
 
     protected $htmlTagName = 'img';
 
-    protected $supportedAttributes = array('src', 'alt', 'align', 'longdesc');
+    protected $supportedAttributes = array('id', 'src', 'alt', 'align', 'longdesc');
 
     public function generate() {
         $attr = ' src="'.htmlspecialchars($this->getAttribute('src')).'"';
         $attr .= ' alt="'.htmlspecialchars($this->getAttribute('alt')).'"';
+
+        $id = $this->getAttribute('id');
+        if ($id) {
+            $attr .= ' id="'.htmlspecialchars($id).'"';
+        }
 
         $desc = $this->getAttribute('longdesc');
         if ($desc) {

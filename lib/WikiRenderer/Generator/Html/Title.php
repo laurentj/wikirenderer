@@ -41,6 +41,7 @@ class Title implements \WikiRenderer\Generator\BlockTitleInterface {
         else {
             $text = '<h'.$this->level.'>';
         }
+
         foreach($this->lines as $k=>$generator) {
             if ($k>0) {
                 $text .= "\n";

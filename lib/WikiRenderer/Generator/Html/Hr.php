@@ -14,7 +14,18 @@ namespace WikiRenderer\Generator\Html;
 
 class Hr implements \WikiRenderer\Generator\BlockGeneratorInterface {
 
+    protected $id = '';
+
+    public function setId($id) {
+        $this->id = $id;
+    }
+
     public function generate() {
-        return "<hr/>";
+        if ($this->id) {
+            return '<hr id="'.htmlspecialchars($this->id).'"/>';
+        }
+        else {
+            return '<hr/>';
+        }
     }
 }

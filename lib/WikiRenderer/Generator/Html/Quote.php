@@ -16,6 +16,6 @@ class Quote extends AbstractInlineGenerator {
 
     protected $htmlTagName = 'q';
 
-    protected $supportedAttributes = array('lang', 'cite');
+    protected $supportedAttributes = array('id', 'lang', 'cite');
 
 }

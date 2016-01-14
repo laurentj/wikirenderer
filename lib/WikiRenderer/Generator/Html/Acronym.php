@@ -16,7 +16,7 @@ class Acronym extends AbstractInlineGenerator implements \WikiRenderer\Generator
     
     protected $htmlTagName = 'acronym';
 
-    protected $supportedAttributes = array();
+    protected $supportedAttributes = array('id');
 
     public function setTitle($title) {
         $this->attributes['title'] = $title;

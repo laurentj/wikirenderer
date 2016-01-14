@@ -16,7 +16,7 @@ abstract class AbstractInlineGenerator implements \WikiRenderer\Generator\Inline
 
     protected $htmlTagName = '';
 
-    protected $supportedAttributes = array();
+    protected $supportedAttributes = array('id');
     
     protected $content = array();
 

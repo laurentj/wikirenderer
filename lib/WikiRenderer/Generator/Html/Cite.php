@@ -16,5 +16,5 @@ class Cite extends AbstractInlineGenerator {
 
     protected $htmlTagName = 'cite';
 
-    protected $supportedAttributes = array('title');
+    protected $supportedAttributes = array('id', 'title');
 }

@@ -16,13 +16,24 @@ class BlockQuote implements \WikiRenderer\Generator\BlockBlockQuoteInterface {
 
     protected $lines = array();
 
+    protected $id = '';
+
+    public function setId($id) {
+        $this->id = $id;
+    }
+
     public function addContent(\WikiRenderer\Generator\GeneratorInterface $content) {
         $this->lines[] = $content;
     }
 
     public function generate() {
+        if ($this->id) {
+            $text = '<blockquote id="'.htmlspecialchars($this->id).'">';
+        }
+        else {
+            $text = '<blockquote>';
+        }
 
-        $text = '<blockquote>';
         $currentPara = null;
         foreach($this->lines as $generator) {
             if ($generator instanceof \WikiRenderer\Generator\BlockGeneratorInterface) {

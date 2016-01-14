@@ -18,12 +18,24 @@ class Preformated implements \WikiRenderer\Generator\BlockPreformatedInterface {
 
     protected $lines = array();
 
+    protected $id = '';
+
+    public function setId($id) {
+        $this->id = $id;
+    }
+
     public function addLine($content) {
         $this->lines[] = $content;
     }
 
     public function generate() {
-        $text = '<'.$this->htmlTagName.'>';
+        if ($this->id) {
+            $text = '<'.$this->htmlTagName.' id="'.htmlspecialchars($this->id).'">';
+        }
+        else {
+            $text = '<'.$this->htmlTagName.'>';
+        }
+
         foreach($this->lines as $k=>$line) {
             if ($k>0) {
                 $text .= "\n";

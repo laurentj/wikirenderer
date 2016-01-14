@@ -20,7 +20,13 @@ class HtmlList implements BlockListInterface {
     protected $listType = 0;
 
     protected $currentIndex = -1;
-    
+
+    protected $id = '';
+
+    public function setId($id) {
+        $this->id = $id;
+    }
+
     public function setListType($type) {
         $this->listType = $type;
     }
@@ -46,8 +52,13 @@ class HtmlList implements BlockListInterface {
         else {
             $tag = 'ul';
         }
+        if ($this->id) {
+            $text = '<'.$tag.' id="'.htmlspecialchars($this->id).'">';
+        }
+        else {
+            $text = '<'.$tag.'>';
+        }
 
-        $text = '<'.$tag.'>';
         foreach($this->items as $k=>$generators) {
             if ($k>0) {
                 $text .= "\n";

@@ -17,13 +17,25 @@ class Definition implements BlockDefinitionInterface {
 
     protected $items = array();
 
+    protected $id = '';
+
+    public function setId($id) {
+        $this->id = $id;
+    }
+
     public function addDefinition(\WikiRenderer\Generator\InlineGeneratorInterface $term,
                                   \WikiRenderer\Generator\GeneratorInterface $definition) {
         $this->items[] = array($term, $definition);
     }
 
     public function generate() {
-        $text = "<dl>";
+        if ($this->id) {
+            $text = '<dl id="'.htmlspecialchars($this->id).'">';
+        }
+        else {
+            $text = '<dl>';
+        }
+
         foreach($this->items as $k=>$generators) {
             list($term, $definition) = $generators;
             $text .= "<dt>".$term->generate()."</dt>\n";
