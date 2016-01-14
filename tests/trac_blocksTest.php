@@ -5,47 +5,42 @@
  * @package wikirenderer
  * @subpackage tests
  * @author Laurent Jouanneau
- * @copyright 2008-2011 Laurent Jouanneau
+ * @copyright 2008-2016 Laurent Jouanneau
  */
-
-require_once(WR_DIR.'rules/trac_to_xhtml.php');
 
 class TracTestsBlocks extends PHPUnit_Framework_TestCase {
 
-/*
-TODO :
+    public function listblocks() {
+       return array(
+          array('trac_title', 0 ),
+          //array('trac_demo', 0 ),
+       );
+    }
 
-   test with {{{ }}} as inline code and block code
+    /**
+     * @dataProvider listblocks
+     */
+    function testBlock($file, $nberror) {
+        $genConfig = new \WikiRenderer\Generator\Html\Config();
+        $generator = new \WikiRenderer\Generator\Html\Document($genConfig);
+        $markupConfig = new \WikiRenderer\Markup\Trac\Config();
+        $wr = new \WikiRenderer\RendererNG($generator, $markupConfig);
 
+        $sourceFile = 'datasblocks/'.$file.'.src';
+        $resultFile = 'datasblocks/'.$file.'.res';
 
-*/
-    var $listblocks = array(
-      'trac_demo'=>0,
-    );
+        $source = file_get_contents($sourceFile);
+        $expected = file_get_contents($resultFile);
+        
+        $res = $wr->render($source);
 
-    function testBlock() {
-
-        $wr = new WikiRenderer(new trac_to_xhtml());
-        foreach($this->listblocks as $file=>$nberror){
-            $sourceFile = 'datasblocks/'.$file.'.src';
-            $resultFile = 'datasblocks/'.$file.'.res';
-
-            $handle = fopen($sourceFile, "r");
-            $source = fread($handle, filesize($sourceFile));
-            fclose($handle);
-
-            $handle = fopen($resultFile, "r");
-            $result = fread($handle, filesize($resultFile));
-            fclose($handle);
-
-            $res = $wr->render($source);
-
-            if($file=='wr3_footnote'){
-                $conf = & $wr->getConfig();
-                $res=str_replace('-'.$conf->footnotesId.'-', '-XXX-',$res);
-            }
-            $this->assertEquals($result, $res, "erreur sur $file");
-            $this->assertEquals($nberror, count($wr->errors),"Errors detected by wr");
+        if ($file == 'wr3_footnote') {
+            $conf = $wr->getConfig();
+            $res = str_replace('-'.$conf->footnotesId.'-', '-XXX-',$res);
         }
+
+        $this->assertEquals($expected, $res);
+        $this->assertEquals($nberror, count($wr->errors));
     }
 }
+

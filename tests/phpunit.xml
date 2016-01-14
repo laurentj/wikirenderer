@@ -35,8 +35,8 @@
     </testsuite>
 
     <testsuite name="Trac syntax">
-      <!--<file>trac_blocksTest.php</file>-->
-      <file>trac_inlinesTest.php</file>
+        <file>trac_blocksTest.php</file>
+        <file>trac_inlinesTest.php</file>
     </testsuite>
 
 <!--
