@@ -21,6 +21,16 @@ class InlineBagGenerator implements InlineGeneratorInterface {
 
     protected $genList = array();
 
+    protected $glue;
+
+    /**
+     * @param InlineGeneratorInterface[]
+     */
+    public function __construct($glue = '', $list=array()) {
+        $this->genList = $list;
+        $this->glue = $glue;
+    }
+    
     public function addGenerator(InlineGeneratorInterface $generator) {
         $this->genList[] = $generator;
     }
@@ -38,7 +48,10 @@ class InlineBagGenerator implements InlineGeneratorInterface {
      */
     public function generate() {
         $content = '';
-        foreach($this->genList as $generator) {
+        foreach($this->genList as $k => $generator) {
+            if ($k > 0) {
+                $content .= $this->glue;
+            }
             $content .= $generator->generate();
         }
         return $content;

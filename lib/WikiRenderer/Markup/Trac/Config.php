@@ -66,10 +66,10 @@ class Config extends \WikiRenderer\Config
     public $blocktags = array(
         '\WikiRenderer\Markup\Trac\Title',
         '\WikiRenderer\Markup\Trac\WikiList',
+        '\WikiRenderer\Markup\Trac\Definition',
         /*'\WikiRenderer\Markup\Trac\Pre',
         '\WikiRenderer\Markup\Trac\Hr',
         '\WikiRenderer\Markup\Trac\Blockquote',
-        '\WikiRenderer\Markup\Trac\Definition',
         '\WikiRenderer\Markup\Trac\Table',*/
         '\WikiRenderer\Markup\Trac\P',
     );
