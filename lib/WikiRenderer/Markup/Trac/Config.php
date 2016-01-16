@@ -65,8 +65,8 @@ class Config extends \WikiRenderer\Config
     /** List of block parsers. */
     public $blocktags = array(
         '\WikiRenderer\Markup\Trac\Title',
-        /*'\WikiRenderer\Markup\Trac\WikiList',
-        '\WikiRenderer\Markup\Trac\Pre',
+        '\WikiRenderer\Markup\Trac\WikiList',
+        /*'\WikiRenderer\Markup\Trac\Pre',
         '\WikiRenderer\Markup\Trac\Hr',
         '\WikiRenderer\Markup\Trac\Blockquote',
         '\WikiRenderer\Markup\Trac\Definition',

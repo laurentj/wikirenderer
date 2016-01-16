@@ -13,6 +13,7 @@ class TracTestsBlocks extends PHPUnit_Framework_TestCase {
     public function listblocks() {
        return array(
           array('trac_title', 0 ),
+          array('trac_list', 0 ),
           //array('trac_demo', 0 ),
        );
     }
