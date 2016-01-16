@@ -35,19 +35,6 @@ class Config extends \WikiRenderer\Config
             /*
             '\WikiRenderer\Markup\Trac\Image',
             */
-            //'\WikiRenderer\Markup\Trac\Footnote',
-        ),
-        '\WikiRenderer\Markup\Trac\DefinitionTextLine' => array(
-            /*'\WikiRenderer\Markup\Trac\Strong',
-            '\WikiRenderer\Markup\Trac\Em',
-            '\WikiRenderer\Markup\Trac\Code',
-            '\WikiRenderer\Markup\Trac\Q',
-            '\WikiRenderer\Markup\Trac\Cite',
-            '\WikiRenderer\Markup\Trac\Acronym',
-            '\WikiRenderer\Markup\Trac\Link',
-            '\WikiRenderer\Markup\Trac\Image',
-            '\WikiRenderer\Markup\Trac\Anchor',*/
-            //'\WikiRenderer\Markup\Trac\Footnote',
         ),
         '\WikiRenderer\Markup\Trac\TableRow' => array(
             /*'\WikiRenderer\Markup\Trac\Strong',
@@ -59,7 +46,6 @@ class Config extends \WikiRenderer\Config
             '\WikiRenderer\Markup\Trac\Link',
             '\WikiRenderer\Markup\Trac\Image',
             '\WikiRenderer\Markup\Trac\Anchor',*/
-            //'\WikiRenderer\Markup\Trac\Footnote',
         ),
     );
     /** List of block parsers. */
@@ -67,9 +53,9 @@ class Config extends \WikiRenderer\Config
         '\WikiRenderer\Markup\Trac\Title',
         '\WikiRenderer\Markup\Trac\WikiList',
         '\WikiRenderer\Markup\Trac\Definition',
+        '\WikiRenderer\Markup\Trac\Blockquote',
         /*'\WikiRenderer\Markup\Trac\Pre',
         '\WikiRenderer\Markup\Trac\Hr',
-        '\WikiRenderer\Markup\Trac\Blockquote',
         '\WikiRenderer\Markup\Trac\Table',*/
         '\WikiRenderer\Markup\Trac\P',
     );
