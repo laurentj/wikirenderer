@@ -32,9 +32,6 @@ class Config extends \WikiRenderer\Config
             '\WikiRenderer\Markup\Trac\Code2',
             '\WikiRenderer\Markup\Trac\LinkCreole',
             '\WikiRenderer\Markup\Trac\Link',
-            /*
-            '\WikiRenderer\Markup\Trac\Image',
-            */
         ),
         '\WikiRenderer\Markup\Trac\TableRow' => array(
             '\WikiRenderer\Markup\Trac\StrongEm',
@@ -59,8 +56,7 @@ class Config extends \WikiRenderer\Config
         '\WikiRenderer\Markup\Trac\Blockquote',
         '\WikiRenderer\Markup\Trac\Blockquote2',
         '\WikiRenderer\Markup\Trac\Table',
-        /*'\WikiRenderer\Markup\Trac\Pre',
-        */
+        '\WikiRenderer\Markup\Trac\Pre',
         '\WikiRenderer\Markup\Trac\P',
     );
     public $simpletags = array('%%%' => '<br />');

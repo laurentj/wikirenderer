@@ -18,6 +18,7 @@ class TracTestsBlocks extends PHPUnit_Framework_TestCase {
           array('trac_blockquote', 0 ),
           array('trac_table', 0 ),
           array('trac_hr', 0 ),
+          array('trac_pre', 0 ),
           //array('trac_demo', 0 ),
        );
     }
