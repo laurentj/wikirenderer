@@ -10,3 +10,22 @@ gravida varius. Vivamus fringilla, neque ac suscipit vehicula,
 	  
 libero metus laoreet libero, in gravida purus nunc quis orci.
 qdqd }}}
+
+
+
+  {{{#!comment
+gravida comment varius. Vivamus fringilla, neque ac suscipit vehicula,
+	  
+in gravida purus nunc quis orci.
+qdqd }}}
+
+libero metus laoreet libero,
+
+{{{
+#!comment
+gravida comment varius. Vivamus fringilla, neque ac suscipit vehicula,
+	  
+libero metus laoreet libero, 
+qdqd }}}
+
+in gravida purus nunc quis orci.

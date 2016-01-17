@@ -22,10 +22,13 @@ class Pre extends \WikiRenderer\BlockNG
     protected $isOpen = false;
     protected $closeTagDetected = false;
 
+    protected $checkType = false;
+
     public function open()
     {
         $this->isOpen = true;
         $this->closeTagDetected = false;
+        $this->checkType = true;
 
         parent::open();
     }
@@ -39,6 +42,19 @@ class Pre extends \WikiRenderer\BlockNG
 
     public function validateDetectedLine()
     {
+        if ($this->checkType) {
+            if (trim($this->_detectMatch) === '') {
+                return;
+            }
+            if (preg_match('/^#\!(\w+)\s*$/', $this->_detectMatch, $m)) {
+                switch($m[1]) {
+                    case 'comment':
+                        $this->generator = new \WikiRenderer\Generator\DummyBlock();
+                        return;
+                }
+            }
+            $this->checkType = false;
+        }
         $this->generator->addLine($this->_detectMatch);
     }
 
@@ -59,6 +75,7 @@ class Pre extends \WikiRenderer\BlockNG
             return true;
         } else {
             if (preg_match('/^\s*{{{(.*)/', $string, $m)) {
+                $this->checkType = false;
                 if (preg_match('/(.*)}}}\s*$/', $m[1], $m2)) {
                     $this->_closeNow = true;
                     $this->_detectMatch = $m2[1];
