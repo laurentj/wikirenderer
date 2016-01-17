@@ -20,6 +20,10 @@ class Hr implements \WikiRenderer\Generator\BlockGeneratorInterface {
         $this->id = $id;
     }
 
+    public function isEmpty() {
+        return false;
+    }
+
     public function generate() {
         if ($this->id) {
             return '<hr id="'.htmlspecialchars($this->id).'"/>';

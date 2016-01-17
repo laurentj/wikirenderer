@@ -59,6 +59,10 @@ abstract class AbstractInlineGenerator implements \WikiRenderer\Generator\Inline
         return null;
     }
 
+    public function isEmpty() {
+        return count($this->content) == 0 && count($this->attributes) == 0;
+    }
+
     /**
      * @return string
      */

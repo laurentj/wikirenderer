@@ -15,6 +15,11 @@ namespace WikiRenderer\Generator;
 interface GeneratorInterface {
 
     /**
+     * says if it has no content
+     */
+    public function isEmpty();
+
+    /**
      * @return string
      */
     public function generate();

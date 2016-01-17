@@ -35,6 +35,10 @@ class HtmlList implements BlockListInterface {
         $this->currentIndex ++;
     }
 
+    public function isEmpty() {
+        return count($this->items) == 0;
+    }
+
     public function addContentToItem(\WikiRenderer\Generator\GeneratorInterface $content, $itemIndex = -1) {
         if ($itemIndex == -1) {
             $itemIndex = $this->currentIndex;

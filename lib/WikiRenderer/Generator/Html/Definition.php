@@ -28,6 +28,10 @@ class Definition implements BlockDefinitionInterface {
         $this->items[] = array($term, $definition);
     }
 
+    public function isEmpty() {
+        return count($this->items) == 0;
+    }
+
     public function generate() {
         if ($this->id) {
             $text = '<dl id="'.htmlspecialchars($this->id).'">';

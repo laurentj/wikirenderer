@@ -29,9 +29,13 @@ class Title implements \WikiRenderer\Generator\BlockTitleInterface {
     public function setId($id) {
         $this->id = $id;
     }
-    
+
     public function addLine(\WikiRenderer\Generator\InlineGeneratorInterface $content) {
         $this->lines[] = $content;
+    }
+
+    public function isEmpty() {
+        return count($this->lines) == 0;
     }
 
     public function generate() {

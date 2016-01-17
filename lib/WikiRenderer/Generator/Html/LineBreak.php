@@ -15,6 +15,10 @@ namespace WikiRenderer\Generator\Html;
 
 class LineBreak implements \WikiRenderer\Generator\InlineGeneratorInterface {
 
+    public function isEmpty() {
+        return false;
+    }
+
     /**
      * @return string
      */

@@ -26,6 +26,10 @@ class BlockQuote implements \WikiRenderer\Generator\BlockBlockQuoteInterface {
         $this->lines[] = $content;
     }
 
+    public function isEmpty() {
+        return count($this->lines) == 0;
+    }
+
     public function generate() {
         if ($this->id) {
             $text = '<blockquote id="'.htmlspecialchars($this->id).'">';

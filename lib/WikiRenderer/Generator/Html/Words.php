@@ -37,6 +37,10 @@ class Words implements \WikiRenderer\Generator\InlineWordsInterface {
         $this->content[] = $string;
     }
 
+    public function isEmpty() {
+        return count($this->content) == 0;
+    }
+
     /**
      * @return string
      */

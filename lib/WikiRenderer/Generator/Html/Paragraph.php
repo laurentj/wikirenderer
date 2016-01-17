@@ -28,6 +28,10 @@ class Paragraph implements \WikiRenderer\Generator\BlockParagraphInterface {
         $this->lines[] = $content;
     }
 
+    public function isEmpty() {
+        return count($this->lines) == 0;
+    }
+
     public function generate() {
         if ($this->id) {
             $text = '<'.$this->htmlTagName.' id="'.htmlspecialchars($this->id).'">';

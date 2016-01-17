@@ -43,6 +43,10 @@ class InlineBagGenerator implements InlineGeneratorInterface {
         return $this->genList;
     }
 
+    public function isEmpty() {
+        return count($this->genList) == 0;
+    }
+
     /**
      * @return string
      */

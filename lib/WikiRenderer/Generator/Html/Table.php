@@ -34,6 +34,10 @@ class Table implements BlockTableInterface {
         $this->rows[$this->currentRowIndex][] = $content;
     }
 
+    public function isEmpty() {
+        return count($this->rows) == 0;
+    }
+
     public function generate() {
         if ($this->id) {
             $text = '<table border="1" id="'.htmlspecialchars($this->id).'">'."\n";
