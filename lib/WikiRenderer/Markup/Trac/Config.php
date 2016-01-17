@@ -37,15 +37,17 @@ class Config extends \WikiRenderer\Config
             */
         ),
         '\WikiRenderer\Markup\Trac\TableRow' => array(
-            /*'\WikiRenderer\Markup\Trac\Strong',
+            '\WikiRenderer\Markup\Trac\StrongEm',
+            '\WikiRenderer\Markup\Trac\Strong',
             '\WikiRenderer\Markup\Trac\Em',
+            '\WikiRenderer\Markup\Trac\Underline',
+            '\WikiRenderer\Markup\Trac\Del',
+            '\WikiRenderer\Markup\Trac\Sub',
+            '\WikiRenderer\Markup\Trac\Sup',
             '\WikiRenderer\Markup\Trac\Code',
-            '\WikiRenderer\Markup\Trac\Q',
-            '\WikiRenderer\Markup\Trac\Cite',
-            '\WikiRenderer\Markup\Trac\Acronym',
+            '\WikiRenderer\Markup\Trac\Code2',
+            '\WikiRenderer\Markup\Trac\LinkCreole',
             '\WikiRenderer\Markup\Trac\Link',
-            '\WikiRenderer\Markup\Trac\Image',
-            '\WikiRenderer\Markup\Trac\Anchor',*/
         ),
     );
     /** List of block parsers. */
@@ -55,9 +57,10 @@ class Config extends \WikiRenderer\Config
         '\WikiRenderer\Markup\Trac\Definition',
         '\WikiRenderer\Markup\Trac\Blockquote',
         '\WikiRenderer\Markup\Trac\Blockquote2',
+        '\WikiRenderer\Markup\Trac\Table',
         /*'\WikiRenderer\Markup\Trac\Pre',
         '\WikiRenderer\Markup\Trac\Hr',
-        '\WikiRenderer\Markup\Trac\Table',*/
+        */
         '\WikiRenderer\Markup\Trac\P',
     );
     public $simpletags = array('%%%' => '<br />');

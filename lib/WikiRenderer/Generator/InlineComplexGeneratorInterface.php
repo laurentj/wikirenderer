@@ -20,6 +20,9 @@ interface InlineComplexGeneratorInterface extends InlineGeneratorInterface {
 
     /**
      * append the given string to the content of the element
+     * 
+     * The string is original content from the wiki text that is not a tag.
+     * This content may certainly be escaped by the generator
      *
      * @internal the given string will be transformed as a generator
      * @param string $string
@@ -31,6 +34,9 @@ interface InlineComplexGeneratorInterface extends InlineGeneratorInterface {
      *
      * the given string will replace previous content added with
      * addRawContent() and addContent()
+     *
+     * The string is original content from the wiki text that is not a tag.
+     * This content may certainly be escaped by the generator
      * 
      * @internal the given string will be transformed as a generator
      * @param string $string

@@ -36,6 +36,7 @@ class Config extends \WikiRenderer\Generator\Config
         'image'    => '\WikiRenderer\Generator\Html\Image',
         'anchor'   => '\WikiRenderer\Generator\Html\Anchor',
         'linebreak'=> '\WikiRenderer\Generator\Html\LineBreak',
+        'tablecell'  => '\WikiRenderer\Generator\Html\TableCell',
     );
 
     public $blockGenerators = array(
@@ -46,6 +47,6 @@ class Config extends \WikiRenderer\Generator\Config
         'hr'         => '\WikiRenderer\Generator\Html\Hr',
         'para'       => '\WikiRenderer\Generator\Html\Paragraph',
         'definition' => '\WikiRenderer\Generator\Html\Definition',
-        'table'      => '\WikiRenderer\Generator\Html\Table',
+        'table'      => '\WikiRenderer\Generator\Html\Table'
     );
 }

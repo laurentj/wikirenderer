@@ -16,6 +16,6 @@ interface BlockTableInterface extends BlockGeneratorInterface {
 
     public function createRow();
 
-    public function addCell(GeneratorInterface $content);
+    public function addCell(BlockTableCellInterface $content);
 
 }

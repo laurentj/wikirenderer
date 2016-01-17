@@ -1,7 +1,7 @@
 <?php
 
 /**
- * wikirenderer3 (wr3) syntax
+ * Trac syntax
  * 
  * @author Laurent Jouanneau
  * @copyright 2016 Laurent Jouanneau
@@ -11,7 +11,7 @@
  * @licence MIT see LICENCE file
  */
 
-namespace WikiRenderer\Markup\WR3;
+namespace WikiRenderer\Markup\Trac;
 
 /**
  * Parse a line of a table
@@ -22,7 +22,7 @@ class TableRow extends \WikiRenderer\TagNG
     public $isTextLineTag = true;
     protected $attribute = array('$$');
     protected $checkWikiWordIn = array('$$');
-    public $separators = array(' | ');
+    public $separators = array('||');
 
     /**
      * @var \WikiRenderer\Generator\InlineBagGenerator
@@ -36,6 +36,9 @@ class TableRow extends \WikiRenderer\TagNG
 
     public function addContent($wikiContent, \WikiRenderer\Generator\InlineGeneratorInterface $childGenerator = null)
     {
+        if ($wikiContent === '') {
+            return;
+        }
         $this->wikiContentArr[$this->separatorCount] .= $wikiContent;
         if ($childGenerator === null) {
             $parsedContent = $this->checkWikiWord($wikiContent);
@@ -53,20 +56,28 @@ class TableRow extends \WikiRenderer\TagNG
      */
     public function addSeparator($token)
     {
-        $this->row->addGenerator($this->generator);
-        $this->generator = $this->documentGenerator->getInlineGenerator($this->generatorName);
-
         $this->wikiContent .= $this->wikiContentArr[$this->separatorCount];
-        ++$this->separatorCount;
+
+        if ($this->generator->isEmpty()) {
+            $this->generator->setColSpan($this->generator->getColSpan() + 1 );
+        }
+        else {
+            $this->row->addGenerator($this->generator);
+            $this->generator = $this->documentGenerator->getInlineGenerator($this->generatorName);
+            ++$this->separatorCount;
+            $this->contents[$this->separatorCount] = '';
+            $this->wikiContentArr[$this->separatorCount] = '';
+        }
+
         $this->currentSeparator = $token;
         $this->wikiContent .= $token;
-        $this->contents[$this->separatorCount] = '';
-        $this->wikiContentArr[$this->separatorCount] = '';
     }
 
     public function getContent()
     {
-        $this->row->addGenerator($this->generator);
+        if (!$this->generator->isEmpty()) {
+            $this->row->addGenerator($this->generator);
+        }
         return $this->row;
     }
 

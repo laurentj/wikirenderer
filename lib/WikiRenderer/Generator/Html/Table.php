@@ -15,6 +15,9 @@ use \WikiRenderer\Generator\BlockTableInterface;
 
 class Table implements BlockTableInterface {
 
+    /**
+     * @var BlockTableCellInterface[][]
+     */
     protected $rows = array();
 
     protected $currentRowIndex = -1;
@@ -30,7 +33,7 @@ class Table implements BlockTableInterface {
         $this->rows[$this->currentRowIndex] = array();
     }
 
-    public function addCell(\WikiRenderer\Generator\GeneratorInterface $content) {
+    public function addCell(\WikiRenderer\Generator\BlockTableCellInterface $content) {
         $this->rows[$this->currentRowIndex][] = $content;
     }
 
@@ -48,15 +51,8 @@ class Table implements BlockTableInterface {
 
         foreach($this->rows as $k=>$row) {
             $text .= "<tr>\n";
-            foreach($row as $generator) {
-                $text .= "<td>";
-                if ($generator instanceof \WikiRenderer\Generator\BlockGeneratorInterface) {
-                    $text .= "\n".$generator->generate()."\n";
-                }
-                else {
-                    $text .= $generator->generate();
-                }
-                $text .= "</td>\n";
+            foreach($row as $cell) {
+                $text .= $cell->generate()."\n";
             }
             $text .= "</tr>\n";
         }
