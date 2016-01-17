@@ -19,7 +19,7 @@ namespace WikiRenderer\Markup\Trac;
 class Blockquote extends \WikiRenderer\BlockNG
 {
     public $type = 'blockquote';
-    protected $regexp = "/^\s*(\>+)(.*)/";
+    protected $regexp = "/^\s*(\>+)\s*(.*)/";
 
     /**
      * @var \SplStack
@@ -31,13 +31,13 @@ class Blockquote extends \WikiRenderer\BlockNG
     public function open()
     {
         $this->_previousTag = $this->_detectMatch[1];
-        $this->_firstTagLen = strlen($this->_previousTag);
+        $firstTagLen = $this->getTagLen($this->_previousTag);
         $this->_firstLine = true;
 
         $this->generatorStack = new \SplStack();
         $this->generatorStack->push($this->generator);
 
-        for($i=0; $i < $this->_firstTagLen-1; $i++) {
+        for($i=0; $i < $firstTagLen-1; $i++) {
             $generator = $this->documentGenerator->getBlockGenerator('blockquote');
             $last = $this->generatorStack->top();
             $last->addContent($generator);
@@ -51,9 +51,13 @@ class Blockquote extends \WikiRenderer\BlockNG
         return parent::close();
     }
 
+    protected function getTagLen($tag) {
+        return strlen($tag);
+    }
+
     public function validateDetectedLine()
     {
-        $d = strlen($this->_previousTag) - strlen($this->_detectMatch[1]);
+        $d = $this->getTagLen($this->_previousTag) - $this->getTagLen($this->_detectMatch[1]);
         $addLineFeed = false;
 
         if ($d > 0) { // we pop off the list of nested blockquote

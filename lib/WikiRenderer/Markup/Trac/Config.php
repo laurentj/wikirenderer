@@ -54,6 +54,7 @@ class Config extends \WikiRenderer\Config
         '\WikiRenderer\Markup\Trac\WikiList',
         '\WikiRenderer\Markup\Trac\Definition',
         '\WikiRenderer\Markup\Trac\Blockquote',
+        '\WikiRenderer\Markup\Trac\Blockquote2',
         /*'\WikiRenderer\Markup\Trac\Pre',
         '\WikiRenderer\Markup\Trac\Hr',
         '\WikiRenderer\Markup\Trac\Table',*/
