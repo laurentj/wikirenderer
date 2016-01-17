@@ -46,3 +46,17 @@
 <td> 2-3 </td>
 </tr>
 </table>
+
+<table border="1">
+<tr>
+<td>  </td>
+<th> Cell 2 </th>
+<th> Cell <em>lorem</em> 3 </th>
+<th> Cell 4 </th>
+</tr>
+<tr>
+<th> Cell 5 </th>
+<td colspan="2">Cell 6</td>
+<td>= Cell 7</td>
+</tr>
+</table>

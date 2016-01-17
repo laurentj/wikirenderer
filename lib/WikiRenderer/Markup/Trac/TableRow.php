@@ -34,20 +34,51 @@ class TableRow extends \WikiRenderer\TagNG
         $this->row = new \WikiRenderer\Generator\InlineBagGenerator();
     }
 
+    protected $hasStartHeader = false;
+    protected $hasEndHeader = false;
+    protected $firstWord = null;
+    protected $lastWord = null;
+    protected $cell = array();
+
     public function addContent($wikiContent, \WikiRenderer\Generator\InlineGeneratorInterface $childGenerator = null)
     {
         if ($wikiContent === '') {
             return;
         }
-        $this->wikiContentArr[$this->separatorCount] .= $wikiContent;
+        $this->hasEndHeader = false;
+        $this->lastWord = null;
+
         if ($childGenerator === null) {
             $parsedContent = $this->checkWikiWord($wikiContent);
             $words = $this->documentGenerator->getInlineGenerator('words');
             $words->addRawContent($parsedContent);
-            $this->generator->addContent($words);
+            if ($this->wikiContentArr[$this->separatorCount] === ''
+                && $wikiContent[0] == '=') {
+                $this->hasStartHeader = true;
+                $this->firstWord = $this->documentGenerator->getInlineGenerator('words');
+
+                if (substr($wikiContent, -1) == '=') {
+                    $this->hasEndHeader = true;
+                    $this->firstWord->addRawContent(substr($parsedContent, 1, -1));
+                }
+                else {
+                    $this->firstWord->addRawContent(substr($parsedContent, 1));
+                }
+
+            }
+            else if ($this->wikiContentArr[$this->separatorCount] !== ''
+                     && substr($wikiContent, -1) == '=') {
+                $this->hasEndHeader = true;
+                $this->lastWord = $this->documentGenerator->getInlineGenerator('words');
+                $this->lastWord->addRawContent(substr($parsedContent, 0, -1));
+            }
+            $this->wikiContentArr[$this->separatorCount] .= $wikiContent;
+            $this->cell[] = $words;
         }
         else {
-            $this->generator->addContent($childGenerator);
+            
+            $this->wikiContentArr[$this->separatorCount] .= $wikiContent;
+            $this->cell[] = $childGenerator;
         }
     }
 
@@ -58,17 +89,29 @@ class TableRow extends \WikiRenderer\TagNG
     {
         $this->wikiContent .= $this->wikiContentArr[$this->separatorCount];
 
-        if ($this->generator->isEmpty()) {
-            $this->generator->setColSpan($this->generator->getColSpan() + 1 );
+        if (count($this->cell) === 0) {
+            $this->generator->setColSpan($this->generator->getColSpan() + 1);
         }
         else {
+            if ($this->hasStartHeader && $this->hasEndHeader) {
+                $this->cell[0] = $this->firstWord;
+                if ($this->lastWord) {
+                    $this->cell[count($this->cell)-1] = $this->lastWord;
+                }
+                $this->generator->setIsHeader(true);
+            }
+            foreach($this->cell as $gen) {
+                $this->generator->addContent($gen);
+            }
             $this->row->addGenerator($this->generator);
             $this->generator = $this->documentGenerator->getInlineGenerator($this->generatorName);
             ++$this->separatorCount;
             $this->contents[$this->separatorCount] = '';
             $this->wikiContentArr[$this->separatorCount] = '';
         }
-
+        $this->firstWord = $this->lastWord = null;
+        $this->hasStartHeader = $this->hasEndHeader = false;
+        $this->cell = array();
         $this->currentSeparator = $token;
         $this->wikiContent .= $token;
     }
