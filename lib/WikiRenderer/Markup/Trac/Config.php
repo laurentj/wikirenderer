@@ -93,6 +93,7 @@ class Config extends \WikiRenderer\Config
         $this->wordConverters[] = new TicketConverter(array($this, 'processLink'));
         $this->wordConverters[] = new ReportConverter(array($this, 'processLink'));
         $this->wordConverters[] = new \WikiRenderer\WordConverter\WikiWordConverter($this->wikiWordBaseUrl, '!');
+        $this->macros[] = new ImageMacro();
     }
 
     /**
@@ -128,6 +129,10 @@ class Config extends \WikiRenderer\Config
             if (preg_match("/^([A-Z]\p{Ll}+[A-Z0-9][\p{Ll}\p{Lu}0-9]*)$/u", $url)) {
                 return array ($this->linkBaseUrl['wiki'].$url, $url);
             }
+            if ($tagName == 'image') {
+                return array($url, '');
+            }
+
             return array('', '');
         }
 

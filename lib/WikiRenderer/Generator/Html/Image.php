@@ -16,27 +16,30 @@ class Image extends AbstractInlineGenerator {
 
     protected $htmlTagName = 'img';
 
-    protected $supportedAttributes = array('id', 'src', 'alt', 'align', 'longdesc');
+    protected $supportedAttributes = array('id', 'src', 'alt', 'align', 'longdesc',
+                                           'width', 'height', 'title', 'class');
 
     public function generate() {
-        $attr = ' src="'.htmlspecialchars($this->getAttribute('src')).'"';
-        $attr .= ' alt="'.htmlspecialchars($this->getAttribute('alt')).'"';
-
-        $id = $this->getAttribute('id');
-        if ($id) {
-            $attr .= ' id="'.htmlspecialchars($id).'"';
+        $attrs = ' src="'.htmlspecialchars($this->getAttribute('src')).'"';
+        if ($this->getAttribute('alt')) {
+            $attrs .= ' alt="'.htmlspecialchars($this->getAttribute('alt')).'"';
+        }
+        else {
+            $attrs .= ' alt=""';
         }
 
-        $desc = $this->getAttribute('longdesc');
-        if ($desc) {
-            $attr .= ' longdesc="'.htmlspecialchars($desc).'"';
+        foreach(array('id', 'longdesc', 'width', 'height', 'title', 'class') as $attr) {
+            $val = $this->getAttribute($attr);
+            if ($val) {
+                $attrs .= ' '.$attr.'="'.htmlspecialchars($val).'"';
+            }
         }
 
         $align = $this->getAttribute('align');
         if ($align) {
-            $attr .= ' style="float:'.htmlspecialchars($align).';"';
+            $attrs .= ' style="float:'.htmlspecialchars($align).';"';
         }
 
-        return '<'.$this->htmlTagName.$attr.'/>';
+        return '<'.$this->htmlTagName.$attrs.'/>';
     }
 }

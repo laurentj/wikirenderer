@@ -8,13 +8,15 @@
  * @copyright 2008-2016 Laurent Jouanneau
  */
  
-class TracMacroExample {
+class TracMacroExample implements \WikiRenderer\Markup\Trac\MacroInterface {
 
     function match($wiki) {
         return $wiki == 'TitleIndex';
     }
 
-    function getContent($documentGenerator, $wiki) {
+    function getContent(\WikiRenderer\Markup\Trac\Config $config,
+                        \WikiRenderer\Generator\DocumentGeneratorInterface $documentGenerator,
+                        $wiki) {
         $words = $documentGenerator->getInlineGenerator('em');
         $words->addRawContent('my macro title index');
         return $words;
@@ -182,15 +184,16 @@ class TracTestsInlines extends PHPUnit_Framework_TestCase {
             ,'<p>Lorem <a href="/milestone/1">milestone 1</a> sit amet, consectetuer adipiscing elit.</p>'),
 
 
- /*        array('Lorem ((ipsumdolorsit.png)) amet, consectetuer adipiscing elit.'
-            ,'<p>Lorem <img src="ipsumdolorsit.png" alt=""/> amet, consectetuer adipiscing elit.</p>'),
-        array('Lorem ((ipsumdolorsit.png|alternative text)) amet, consectetuer adipiscing elit.'
-            ,'<p>Lorem <img alt="alternative text" src="ipsumdolorsit.png"/> amet, consectetuer adipiscing elit.</p>'),
-        array('Lorem ((ipsumdolorsit.png|alternative text|L)) amet, consectetuer adipiscing elit.'
-            ,'<p>Lorem <img style="float:left;" alt="alternative text" src="ipsumdolorsit.png"/> amet, consectetuer adipiscing elit.</p>'),
-        array('Lorem ((ipsumdolorsit.png|alternative text|R|longue description)) amet, consectetuer adipiscing elit.'
-            ,'<p>Lorem <img longdesc="longue description" style="float:right;" alt="alternative text" src="ipsumdolorsit.png"/> amet, consectetuer adipiscing elit.</p>'),
-*/
+
+        array('Lorem [[Image(ipsumdolorsit.png)]] amet, consectetuer adipiscing elit.'
+            ,'<p>Lorem <a href="ipsumdolorsit.png"><img src="ipsumdolorsit.png" alt=""/></a> amet, consectetuer adipiscing elit.</p>'),
+        array('Lorem [[Image(ipsumdolorsit.png, alt=alternative text, nolink)]] amet, consectetuer adipiscing elit.'
+            ,'<p>Lorem <img src="ipsumdolorsit.png" alt="alternative text"/> amet, consectetuer adipiscing elit.</p>'),
+        array('Lorem [[Image(ipsumdolorsit.png, alt=alternative text, align=left)]] amet, consectetuer adipiscing elit.'
+            ,'<p>Lorem <a href="ipsumdolorsit.png"><img src="ipsumdolorsit.png" alt="alternative text" style="float:left;"/></a> amet, consectetuer adipiscing elit.</p>'),
+        array('Lorem [[Image(ipsumdolorsit.png, alt=alternative text, align=right, longdesc=longue description)]] amet, consectetuer adipiscing elit.'
+            ,'<p>Lorem <a href="ipsumdolorsit.png"><img src="ipsumdolorsit.png" alt="alternative text" longdesc="longue description" style="float:right;"/></a> amet, consectetuer adipiscing elit.</p>'),
+
         );
     }
 
