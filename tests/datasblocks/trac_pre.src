@@ -29,3 +29,9 @@ libero metus laoreet libero,
 qdqd }}}
 
 in gravida purus nunc quis orci.
+
+{{{
+#!python
+def hello():
+	return "world"
+}}}

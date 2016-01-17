@@ -43,6 +43,7 @@ class Config extends \WikiRenderer\Generator\Config
         'title'      => '\WikiRenderer\Generator\Html\Title',
         'list'       => '\WikiRenderer\Generator\Html\HtmlList',
         'pre'        => '\WikiRenderer\Generator\Html\Preformated',
+        'syntaxhighlight' => '\WikiRenderer\Generator\Html\SyntaxHighlighting',
         'blockquote' => '\WikiRenderer\Generator\Html\BlockQuote',
         'hr'         => '\WikiRenderer\Generator\Html\Hr',
         'para'       => '\WikiRenderer\Generator\Html\Paragraph',

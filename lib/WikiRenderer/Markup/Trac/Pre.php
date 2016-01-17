@@ -51,6 +51,23 @@ class Pre extends \WikiRenderer\BlockNG
                     case 'comment':
                         $this->generator = new \WikiRenderer\Generator\DummyBlock();
                         return;
+                    case 'div': // html section
+                    case 'span': // html section
+                    case 'html':
+                    case 'htmlcomment':
+                    case 'diff':
+                    case 'td':
+                    case 'th':
+                    case 'tr':
+                    case 'rst':
+                    case 'textile':
+                    case 'default':
+                        break;
+                    default:
+                        // syntax highlighting
+                        $this->generator = $this->documentGenerator->getBlockGenerator('syntaxhighlight');
+                        $this->generator->setSyntaxType($m[1]);
+                        return;
                 }
             }
             $this->checkType = false;
