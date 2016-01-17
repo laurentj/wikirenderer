@@ -19,7 +19,7 @@ class TracTestsBlocks extends PHPUnit_Framework_TestCase {
           array('trac_table', 0 ),
           array('trac_hr', 0 ),
           array('trac_pre', 0 ),
-          //array('trac_demo', 0 ),
+          array('trac_demo', 0 ),
        );
     }
 
@@ -39,11 +39,6 @@ class TracTestsBlocks extends PHPUnit_Framework_TestCase {
         $expected = file_get_contents($resultFile);
         
         $res = $wr->render($source);
-
-        if ($file == 'wr3_footnote') {
-            $conf = $wr->getConfig();
-            $res = str_replace('-'.$conf->footnotesId.'-', '-XXX-',$res);
-        }
 
         $this->assertEquals($expected, $res);
         $this->assertEquals($nberror, count($wr->errors));

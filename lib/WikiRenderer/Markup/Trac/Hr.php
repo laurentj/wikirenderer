@@ -19,7 +19,7 @@ namespace WikiRenderer\Markup\Trac;
 class Hr extends \WikiRenderer\BlockNG
 {
     public $type = 'hr';
-    protected $regexp = '/^\-{4,}\s*$/';
+    protected $regexp = '/^\s*\-{4,}\s*$/';
     protected $_closeNow = true;
 
     public function validateDetectedLine()
