@@ -16,7 +16,7 @@ use \WikiRenderer\Generator\DocumentGeneratorInterface;
 
 class URLConverter extends AbstractWordConverter {
 
-    protected $regexp = '/^[a-z]+\:.+$/';
+    protected $regexp = '/^[a-z]+\:\/\/.+$/';
 
     /**
      * @var callable

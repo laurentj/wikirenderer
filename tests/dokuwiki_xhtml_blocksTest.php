@@ -10,13 +10,14 @@
 
 class DokuWikiXhtmlTestsBlocks extends PHPUnit_Framework_TestCase {
 
-    protected $data = array(
+    function getListblocks() {
+        return array(
 0=>array(
 '',
 '',
 0
 ),
-
+/*
 1=>array(
 '<code> machin </code>',
 '<pre><code> machin </code></pre>',
@@ -31,62 +32,65 @@ truc </code></pre>',
 0
 ),
 
-
 3=>array(
 '<code bidule> machin
 truc3 </code>',
 '<pre><code class="language-bidule"> machin
 truc3 </code></pre>',
 0
-),
-
-    );
-    public function testBlocks() {
-        $wr = new \WikiRenderer\Renderer(new \WikiRenderer\Markup\DokuHtml\Config());
-        foreach($this->data as $k=>$test){
-            list($source, $result, $nberror) = $test;
-            $res = $wr->render($source);
-            $this->assertEquals($result, $res, "error on $k th test");
-            $this->assertEquals($nberror, count($wr->errors), "Errors detected by wr");
-        }
+),*/
+        );
     }
 
+    /**
+     * @dataProvider getListblocks
+     */
+    public function testBlocks($source, $result, $nberror) {
+        $genConfig = new \WikiRenderer\Generator\Html\Config();
+        $generator = new \WikiRenderer\Generator\Html\Document($genConfig);
+        $markupConfig = new \WikiRenderer\Markup\DokuWiki\Config();
+        $wr = new \WikiRenderer\RendererNG($generator, $markupConfig);
+        $res = $wr->render($source);
+        $this->assertEquals($result, $res);
+        $this->assertEquals($nberror, count($wr->errors));
+    }
 
-    var $listblocks = array(
-        'general'=>0,
-        //'para2'=>0,
-        //'list'=>0,
-        //'quote'=>0,
-        //'table'=>0,
-        //'section'=>0,
-        'section2'=>0,
-        //'section3'=>0,
-        //'pre'=>0,
-    );
+    function getListblockFiles() {
+        return array(
+            //array('doku_xhtml_general',0),
+            array('para2',0),
+            //array('doku_xhtml_list',0),
+            //array('doku_xhtml_quote',0),
+            //array('doku_xhtml_table',0),
+            //array('doku_xhtml_section',0),
+            //array('doku_xhtml_section2',0),
+            //array('doku_xhtml_section3',0),
+            //array('doku_xhtml_pre',0),
+        );
+    }
 
-    function testBlockFiles() {
-        $wr = new \WikiRenderer\Renderer(new \WikiRenderer\Markup\DokuHtml\Config());
-        foreach($this->listblocks as $file=>$nberror){
-            $sourceFile = 'datasblocks/doku_xhtml_'.$file.'.src';
-            $resultFile = 'datasblocks/doku_xhtml_'.$file.'.res';
+    /**
+     * @dataProvider getListblockFiles
+     */
+    function testBlockFiles($file, $nberror) {
+        $genConfig = new \WikiRenderer\Generator\Html\Config();
+        $generator = new \WikiRenderer\Generator\Html\Document($genConfig);
+        $markupConfig = new \WikiRenderer\Markup\DokuWiki\Config();
+        $wr = new \WikiRenderer\RendererNG($generator, $markupConfig);
 
-            $handle = fopen($sourceFile, "r");
-            $source = fread($handle, filesize($sourceFile));
-            fclose($handle);
+        $sourceFile = 'datasblocks/'.$file.'.src';
+        $resultFile = 'datasblocks/'.$file.'.res';
 
-            $handle = fopen($resultFile, "r");
-            $result = fread($handle, filesize($resultFile));
-            fclose($handle);
+        $source = file_get_contents($sourceFile);
+        $expected = file_get_contents($resultFile);
 
-            $res = $wr->render($source);
-            if($file=='general'){
-                $conf = & $wr->getConfig();
-                $res=str_replace('-'.$conf->footnotesId.'-', '-XXX-',$res);
-            }
-            $this->assertEquals($result, $res,"error on $file");
-
-            $this->assertEquals($nberror, count($wr->errors), "Errors detected by wr");
+        $res = $wr->render($source);
+        if($file=='general'){
+            $conf = & $wr->getConfig();
+            $res=str_replace('-'.$conf->footnotesId.'-', '-XXX-',$res);
         }
+        $this->assertEquals($expected, $res);
+        $this->assertEquals($nberror, count($wr->errors));
     }
 }
 

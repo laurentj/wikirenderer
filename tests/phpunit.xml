@@ -28,6 +28,7 @@
       <file>dokuwiki_docbook_blocksTest.php</file>
       <file>dokuwiki_docbook_inlinesTest.php</file>
       <file>dokuwiki_xhtml_blocksTest.php</file>
+      <file>dokuwiki_inlineParserTest.php</file>
     </testsuite>
 
     <testsuite name="Wr to Wr3">
