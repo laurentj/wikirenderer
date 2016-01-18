@@ -39,11 +39,5 @@
         <file>trac_inlinesTest.php</file>
     </testsuite>
 
-<!--
-    <testsuite name="phpwiki syntax">
-      <file>phpwiki_dokuwiki_blocksTest.php</file>
-      <file>phpwiki_dokuwiki_inlinesTest.php</file>
-    </testsuite>
--->
   </testsuites>
 </phpunit>

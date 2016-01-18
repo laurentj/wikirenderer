@@ -4,7 +4,7 @@ Warning: the master branch is currently unstable since we rework many things.
 Got to the 3.x branch to have a stable release. Documentation is not updated yet also.
 
 
-WikiRenderer 4.0-beta supports these following markup:
+WikiRenderer 4.0-beta1 supports these following markup:
 
 - Dokuwiki to HTML
 - Dokuwiki to Docbook
