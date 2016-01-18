@@ -32,8 +32,8 @@ class TracTestsBlocks extends PHPUnit_Framework_TestCase {
         $markupConfig = new \WikiRenderer\Markup\Trac\Config();
         $wr = new \WikiRenderer\RendererNG($generator, $markupConfig);
 
-        $sourceFile = 'datasblocks/'.$file.'.src';
-        $resultFile = 'datasblocks/'.$file.'.res';
+        $sourceFile = 'datasblocks/trac/'.$file.'.src';
+        $resultFile = 'datasblocks/trac/'.$file.'.res';
 
         $source = file_get_contents($sourceFile);
         $expected = file_get_contents($resultFile);

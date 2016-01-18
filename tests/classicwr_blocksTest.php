@@ -15,9 +15,9 @@ class classicwr_blocksTest extends PHPUnit_Framework_TestCase {
         return array(
             array('para1',0),
             array('para2',0),
-            array('classicwr_demo',0),
-            array('classicwr_list1',0),
-            array('classicwr_list2',0),
+            array('classicwr/demo',0),
+            array('classicwr/list1',0),
+            array('classicwr/list2',0),
         );
     }
 
