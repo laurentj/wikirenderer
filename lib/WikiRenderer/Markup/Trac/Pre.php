@@ -53,12 +53,13 @@ class Pre extends \WikiRenderer\BlockNG
                         return;
                     case 'div': // html section
                     case 'span': // html section
-                    case 'html':
-                    case 'htmlcomment':
-                    case 'diff':
                     case 'td':
                     case 'th':
                     case 'tr':
+                        break;
+                    case 'html':
+                    case 'htmlcomment':
+                    case 'diff':
                     case 'rst':
                     case 'textile':
                     case 'default':
