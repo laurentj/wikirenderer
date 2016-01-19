@@ -64,7 +64,7 @@ truc3 </code></pre>',
             array('dokuwiki/blockquote',0),
             //array('doku_xhtml_table',0),
             //array('doku_xhtml_section',0),
-            //array('doku_xhtml_section2',0),
+            array('dokuwiki/section2',0),
             //array('doku_xhtml_section3',0),
             //array('doku_xhtml_pre',0),
         );

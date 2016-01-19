@@ -62,7 +62,7 @@ class Config extends \WikiRenderer\Config
     );
     /** List of block parsers. */
     public $blocktags = array(
-        //'\WikiRenderer\Markup\DokuWiki\Title',
+        '\WikiRenderer\Markup\DokuWiki\Title',
         //'\WikiRenderer\Markup\DokuWiki\WikiList',
         //'\WikiRenderer\Markup\DokuWiki\Pre',
         //'\WikiRenderer\Markup\DokuWiki\Hr',
@@ -72,6 +72,11 @@ class Config extends \WikiRenderer\Config
         '\WikiRenderer\Markup\DokuWiki\P',
     );
     public $simpletags = array('\\\\' => '');
+
+    /**
+     * top level header will be h1 if you set to 1, h2 if it is 2 etc..
+     */
+    public $startHeaderNumber = 1;
 
     /**
      * content all foot notes
