@@ -12,15 +12,10 @@
 
 namespace WikiRenderer\Generator;
 
-interface BlockSyntaxHighlightingInterface extends BlockGeneratorInterface {
+interface BlockSyntaxHighlightingInterface extends BlockOfRawLinesInterface {
 
     public function setSyntaxType($type);
 
     public function getSyntaxType($type);
-
-    /**
-     * @param string $content
-     */
-    public function addLine($content);
 
 }

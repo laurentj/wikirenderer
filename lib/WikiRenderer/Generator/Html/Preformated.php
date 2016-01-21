@@ -12,7 +12,7 @@
 
 namespace WikiRenderer\Generator\Html;
 
-class Preformated implements \WikiRenderer\Generator\BlockPreformatedInterface {
+class Preformated implements \WikiRenderer\Generator\BlockOfRawLinesInterface {
     
     protected $htmlTagName = 'pre';
 

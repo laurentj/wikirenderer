@@ -12,7 +12,7 @@
 
 namespace WikiRenderer\Generator;
 
-interface BlockPreformatedInterface extends BlockGeneratorInterface {
+interface BlockOfRawLinesInterface extends BlockGeneratorInterface {
 
     /**
      * @param string $content
