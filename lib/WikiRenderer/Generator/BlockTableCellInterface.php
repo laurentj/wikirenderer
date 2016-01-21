@@ -39,6 +39,13 @@ interface BlockTableCellInterface extends BlockGeneratorInterface {
      */
     public function getRowSpan();
 
+    /**
+     * @param string
+     */
+    public function setAlign($align);
+
+    public function getAlign();
+
     public function addContent(GeneratorInterface $content);
 
 }

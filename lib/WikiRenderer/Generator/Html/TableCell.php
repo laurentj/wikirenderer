@@ -28,6 +28,8 @@ class TableCell implements \WikiRenderer\Generator\BlockTableCellInterface,
 
     protected $content = array();
 
+    protected $align = '';
+
     public function setId($id) {
         $this->id = $id;
     }
@@ -50,6 +52,17 @@ class TableCell implements \WikiRenderer\Generator\BlockTableCellInterface,
 
     public function getRowSpan() {
         return $this->_rowspan;
+    }
+
+    public function setAlign($align) {
+        if (!in_array($align, array('left','center','right'))) {
+            return;
+        }
+        $this->align = $align;
+    }
+
+    public function getAlign() {
+        return $this->align;
     }
 
     public function addContent(\WikiRenderer\Generator\GeneratorInterface $content) {
@@ -80,6 +93,10 @@ class TableCell implements \WikiRenderer\Generator\BlockTableCellInterface,
 
         if ($this->_rowspan > 1) {
             $attr .= ' rowspan="'.$this->_rowspan.'"';
+        }
+
+        if ($this->align) {
+            $attr .= ' align="'.$this->align.'"';
         }
 
         $html = '';
