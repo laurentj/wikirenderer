@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Trac syntax
+ * DokuWiki syntax
  * 
  * @author Laurent Jouanneau
  * @copyright 2016 Laurent Jouanneau
@@ -11,7 +11,7 @@
  * @licence MIT see LICENCE file
  */
 
-namespace WikiRenderer\Markup\Trac;
+namespace WikiRenderer\Markup\DokuWiki;
 
 /**
  * Parse a line of a table
@@ -22,62 +22,40 @@ class TableRow extends \WikiRenderer\TagNG
     public $isTextLineTag = true;
     protected $attribute = array('$$');
     protected $checkWikiWordIn = array('$$');
-    public $separators = array('||');
+    public $separators = array('|', '^');
 
     /**
      * @var \WikiRenderer\Generator\InlineBagGenerator
      */
     protected $row;
 
+    protected $cell = array();
+
     public function __construct(\WikiRenderer\Config $config, \WikiRenderer\Generator\DocumentGeneratorInterface $generator) {
         parent::__construct($config, $generator);
         $this->row = new \WikiRenderer\Generator\InlineBagGenerator();
     }
 
-    protected $hasStartHeader = false;
-    protected $hasEndHeader = false;
-    protected $firstWord = null;
-    protected $lastWord = null;
-    protected $cell = array();
+    public function isCurrentSeparator($token)
+    {
+        return ($token == '|' || $token == '^');
+    }
 
     public function addContent($wikiContent, \WikiRenderer\Generator\InlineGeneratorInterface $childGenerator = null)
     {
         if ($wikiContent === '') {
             return;
         }
-        $this->hasEndHeader = false;
-        $this->lastWord = null;
 
+        $this->wikiContentArr[$this->separatorCount] .= $wikiContent;
         if ($childGenerator === null) {
             $parsedContent = $this->checkWikiWord($wikiContent);
             $words = $this->documentGenerator->getInlineGenerator('words');
             $words->addRawContent($parsedContent);
-            if ($this->wikiContentArr[$this->separatorCount] === ''
-                && $wikiContent[0] == '=') {
-                $this->hasStartHeader = true;
-                $this->firstWord = $this->documentGenerator->getInlineGenerator('words');
-
-                if (substr($wikiContent, -1) == '=') {
-                    $this->hasEndHeader = true;
-                    $this->firstWord->addRawContent(substr($parsedContent, 1, -1));
-                }
-                else {
-                    $this->firstWord->addRawContent(substr($parsedContent, 1));
-                }
-
-            }
-            else if ($this->wikiContentArr[$this->separatorCount] !== ''
-                     && substr($wikiContent, -1) == '=') {
-                $this->hasEndHeader = true;
-                $this->lastWord = $this->documentGenerator->getInlineGenerator('words');
-                $this->lastWord->addRawContent(substr($parsedContent, 0, -1));
-            }
-            $this->wikiContentArr[$this->separatorCount] .= $wikiContent;
-            $this->cell[] = $words;
+            $this->generator->addContent($words);
         }
         else {
-            $this->wikiContentArr[$this->separatorCount] .= $wikiContent;
-            $this->cell[] = $childGenerator;
+            $this->generator->addContent($childGenerator);
         }
     }
 
@@ -86,31 +64,34 @@ class TableRow extends \WikiRenderer\TagNG
      */
     public function addSeparator($token)
     {
-        $this->wikiContent .= $this->wikiContentArr[$this->separatorCount];
-
-        if (count($this->cell) === 0) {
+        $cellContent = $this->wikiContentArr[$this->separatorCount];
+        if ($cellContent === '') {
             $this->generator->setColSpan($this->generator->getColSpan() + 1);
         }
         else {
-            if ($this->hasStartHeader && $this->hasEndHeader) {
-                $this->cell[0] = $this->firstWord;
-                if ($this->lastWord) {
-                    $this->cell[count($this->cell)-1] = $this->lastWord;
+            if (preg_match('/^\s\s/', $cellContent) &&
+                preg_match('/\s\s$/', $cellContent)) {
+                if (trim($cellContent) != '') {
+                    $this->generator->setAlign('center');
                 }
-                $this->generator->setIsHeader(true);
             }
-            foreach($this->cell as $gen) {
-                $this->generator->addContent($gen);
+            else if (preg_match('/^\s\s/', $cellContent)) {
+                $this->generator->setAlign('right');
+            }
+            else if (preg_match('/\s\s$/', $cellContent)) {
+                $this->generator->setAlign('left');
             }
             $this->row->addGenerator($this->generator);
+            $this->wikiContent .= $cellContent;
+
             $this->generator = $this->documentGenerator->getInlineGenerator($this->generatorName);
+            if ($token == '^') {
+                $this->generator->setIsHeader(true);
+            }
             ++$this->separatorCount;
             $this->contents[$this->separatorCount] = '';
             $this->wikiContentArr[$this->separatorCount] = '';
         }
-        $this->firstWord = $this->lastWord = null;
-        $this->hasStartHeader = $this->hasEndHeader = false;
-        $this->cell = array();
         $this->currentSeparator = $token;
         $this->wikiContent .= $token;
     }

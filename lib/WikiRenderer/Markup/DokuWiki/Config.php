@@ -33,7 +33,7 @@ class Config extends \WikiRenderer\Config
             //'\WikiRenderer\Markup\DokuWiki\Anchor',
             //'\WikiRenderer\Markup\DokuWiki\Footnote',
         ),
-        /*'\WikiRenderer\Markup\DokuWiki\DefinitionTextLine' => array(
+        '\WikiRenderer\Markup\DokuWiki\TableRow' => array(
             '\WikiRenderer\Markup\DokuWiki\Strong',
             '\WikiRenderer\Markup\DokuWiki\Em',
             '\WikiRenderer\Markup\DokuWiki\Del',
@@ -43,32 +43,23 @@ class Config extends \WikiRenderer\Config
             '\WikiRenderer\Markup\DokuWiki\Code',
             '\WikiRenderer\Markup\DokuWiki\Link',
             '\WikiRenderer\Markup\DokuWiki\Image',
-            '\WikiRenderer\Markup\DokuWiki\Anchor',
+            //'\WikiRenderer\Markup\DokuWiki\Anchor',
             //'\WikiRenderer\Markup\DokuWiki\Footnote',
-        ),*/
-        /*'\WikiRenderer\Markup\DokuWiki\TableRow' => array(
-            '\WikiRenderer\Markup\DokuWiki\Strong',
-            '\WikiRenderer\Markup\DokuWiki\Em',
-            '\WikiRenderer\Markup\DokuWiki\Del',
-            '\WikiRenderer\Markup\DokuWiki\Subscript',
-            '\WikiRenderer\Markup\DokuWiki\Superscript',
-            '\WikiRenderer\Markup\DokuWiki\Underline',
-            '\WikiRenderer\Markup\DokuWiki\Code',
-            '\WikiRenderer\Markup\DokuWiki\Link',
-            '\WikiRenderer\Markup\DokuWiki\Image',
-            '\WikiRenderer\Markup\DokuWiki\Anchor',
-            //'\WikiRenderer\Markup\DokuWiki\Footnote',
-        ),*/
+        ),
     );
     /** List of block parsers. */
     public $blocktags = array(
         '\WikiRenderer\Markup\DokuWiki\Title',
         '\WikiRenderer\Markup\DokuWiki\WikiList',
-        //'\WikiRenderer\Markup\DokuWiki\Pre',
-        //'\WikiRenderer\Markup\DokuWiki\Hr',
         '\WikiRenderer\Markup\DokuWiki\Blockquote',
-        //'\WikiRenderer\Markup\DokuWiki\Definition',
-        //'\WikiRenderer\Markup\DokuWiki\Table',
+        '\WikiRenderer\Markup\DokuWiki\Table',
+        //'\WikiRenderer\Markup\DokuWiki\Pre',
+        //'\WikiRenderer\Markup\DokuWiki\SyntaxHighlight',
+        //'\WikiRenderer\Markup\DokuWiki\File',
+        //'\WikiRenderer\Markup\DokuWiki\Nowiki',
+        //'\WikiRenderer\Markup\DokuWiki\Html',
+        //'\WikiRenderer\Markup\DokuWiki\Php',
+        //'\WikiRenderer\Markup\DokuWiki\Macro',
         '\WikiRenderer\Markup\DokuWiki\P',
     );
     public $simpletags = array('\\\\' => '');
