@@ -24,6 +24,9 @@ class Preformated implements \WikiRenderer\Generator\BlockOfRawLinesInterface {
         $this->id = $id;
     }
 
+    /**
+     * @param string $content
+     */
     public function addLine($content) {
         $this->lines[] = $content;
     }

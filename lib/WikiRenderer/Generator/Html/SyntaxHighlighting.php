@@ -26,6 +26,8 @@ class SyntaxHighlighting implements \WikiRenderer\Generator\BlockSyntaxHighlight
 
     protected $syntax = '';
 
+    protected $filename = '';
+
     public function addLine($content) {
         $this->lines[] = $content;
     }
@@ -34,8 +36,16 @@ class SyntaxHighlighting implements \WikiRenderer\Generator\BlockSyntaxHighlight
         $this->syntax = $type;
     }
 
-    public function getSyntaxType($type) {
+    public function getSyntaxType() {
         return $this->syntax;
+    }
+
+    public function setFileName($filename) {
+        $this->filename = $filename;
+    }
+
+    public function getFileName() {
+        return $this->filename;
     }
 
     public function isEmpty() {
@@ -44,15 +54,19 @@ class SyntaxHighlighting implements \WikiRenderer\Generator\BlockSyntaxHighlight
 
     public function generate() {
         if ($this->id) {
-            $text = '<pre id="'.htmlspecialchars($this->id).'"';
+            $text = '<pre id="'.htmlspecialchars($this->id).'">';
         }
         else {
-            $text = '<'.$this->htmlTagName;
+            $text = '<'.$this->htmlTagName.'>';
         }
+        if ($this->filename) {
+            $text .= '<span class="code-filename">'.htmlspecialchars($this->filename)."</span><br/>\n";
+        }
+        $text .= '<code';
         if ($this->syntax) {
             $text .= ' class="syntax-'.$this->syntax.'"';
         }
-        $text .= '><code>';
+        $text .='>';
         foreach($this->lines as $k=>$line) {
             if ($k>0) {
                 $text .= "\n";

@@ -16,6 +16,9 @@ interface BlockSyntaxHighlightingInterface extends BlockOfRawLinesInterface {
 
     public function setSyntaxType($type);
 
-    public function getSyntaxType($type);
+    public function getSyntaxType();
 
+    public function setFileName($filename);
+
+    public function getFileName();
 }

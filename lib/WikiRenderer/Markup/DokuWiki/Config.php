@@ -55,13 +55,13 @@ class Config extends \WikiRenderer\Config
         '\WikiRenderer\Markup\DokuWiki\WikiList',
         '\WikiRenderer\Markup\DokuWiki\Blockquote',
         '\WikiRenderer\Markup\DokuWiki\Table',
-        //'\WikiRenderer\Markup\DokuWiki\Pre',
-        //'\WikiRenderer\Markup\DokuWiki\SyntaxHighlight',
-        //'\WikiRenderer\Markup\DokuWiki\File',
+        '\WikiRenderer\Markup\DokuWiki\CodeBlock',
+        '\WikiRenderer\Markup\DokuWiki\File',
         '\WikiRenderer\Markup\DokuWiki\NoWiki',
         //'\WikiRenderer\Markup\DokuWiki\Html',
         //'\WikiRenderer\Markup\DokuWiki\Php',
         //'\WikiRenderer\Markup\DokuWiki\Macro',
+        '\WikiRenderer\Markup\DokuWiki\Pre',
         '\WikiRenderer\Markup\DokuWiki\P',
     );
     public $simpletags = array('\\\\' => '');

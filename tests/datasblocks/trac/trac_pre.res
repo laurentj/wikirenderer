@@ -20,6 +20,6 @@ qdqd </pre>
 
 <p>in gravida purus nunc quis orci.</p>
 
-<pre class="syntax-python"><code>def hello():
+<pre><code class="syntax-python">def hello():
 	return &quot;world&quot;
 </code></pre>
