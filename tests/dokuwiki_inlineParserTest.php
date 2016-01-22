@@ -33,6 +33,9 @@ class DokuwikiTestsInlineParser extends PHPUnit_Framework_TestCase {
 
         'Lorem ipsum dolor sit amet, \'\'consectetuer\'\' adipiscing elit.'
             =>'Lorem ipsum dolor sit amet, <code>consectetuer</code> adipiscing elit.',
+        'Lorem ipsum dolor sit %%amet, \'\'consectetuer\'\' adipiscing%% elit.'
+            =>'Lorem ipsum dolor sit <span>amet, \'\'consectetuer\'\' adipiscing</span> elit.',
+
 
         'Lorem [[ipsum dolor]] sit amet, consectetuer adipiscing elit.'
             =>'Lorem <a href="ipsum dolor">ipsum dolor</a> sit amet, consectetuer adipiscing elit.',

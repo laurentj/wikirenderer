@@ -65,7 +65,7 @@ truc3 </code></pre>',
             //array('doku_xhtml_section',0),
             array('dokuwiki/section2',0),
             //array('doku_xhtml_section3',0),
-            //array('doku_xhtml_pre',0),
+            array('dokuwiki/preformat',0),
         );
     }
 

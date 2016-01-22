@@ -37,11 +37,13 @@ class Config extends \WikiRenderer\Generator\Config
         'anchor'   => '\WikiRenderer\Generator\Html\Anchor',
         'linebreak'=> '\WikiRenderer\Generator\Html\LineBreak',
         'tablecell'  => '\WikiRenderer\Generator\Html\TableCell',
+        'noformat' => '\WikiRenderer\Generator\Html\NoFormat',
     );
 
     public $blockGenerators = array(
         'title'      => '\WikiRenderer\Generator\Html\Title',
         'list'       => '\WikiRenderer\Generator\Html\HtmlList',
+        'noformat'   => '\WikiRenderer\Generator\Html\NoFormatBlock',
         'pre'        => '\WikiRenderer\Generator\Html\Preformated',
         'syntaxhighlight' => '\WikiRenderer\Generator\Html\SyntaxHighlighting',
         'blockquote' => '\WikiRenderer\Generator\Html\BlockQuote',
