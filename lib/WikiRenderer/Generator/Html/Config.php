@@ -50,6 +50,7 @@ class Config extends \WikiRenderer\Generator\Config
         'hr'         => '\WikiRenderer\Generator\Html\Hr',
         'para'       => '\WikiRenderer\Generator\Html\Paragraph',
         'definition' => '\WikiRenderer\Generator\Html\Definition',
-        'table'      => '\WikiRenderer\Generator\Html\Table'
+        'table'      => '\WikiRenderer\Generator\Html\Table',
+        'html'      => '\WikiRenderer\Generator\Html\Html',
     );
 }

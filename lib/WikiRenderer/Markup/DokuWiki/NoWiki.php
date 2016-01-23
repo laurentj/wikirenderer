@@ -43,7 +43,7 @@ class NoWiki extends \WikiRenderer\BlockNG
         }
         if ($inBlock) {
             $this->_args = null;
-            if (preg_match('/(.*)<\/'.$this->tagName.'>\s*$/', $string, $m)) {
+            if (preg_match('/(.*)<\/'.$this->tagName.'>\s*$/i', $string, $m)) {
                 $this->_detectMatch = $m[1];
                 $this->closeTagDetected = true;
             } else {
@@ -52,9 +52,9 @@ class NoWiki extends \WikiRenderer\BlockNG
 
             return true;
         } else {
-            if (preg_match('/^\s*<'.$this->tagName.'(?:\s([^>]+))?>(.*)/', $string, $m)) {
+            if (preg_match('/^\s*<'.$this->tagName.'(?:\s([^>]+))?>(.*)/i', $string, $m)) {
                 $this->_args = $m;
-                if (preg_match('/(.*)<\/'.$this->tagName.'>\s*$/', $m[1], $m2)) {
+                if (preg_match('/(.*)<\/'.$this->tagName.'>\s*$/i', $m[1], $m2)) {
                     $this->_closeNow = true;
                     $this->_detectMatch = $m2[1];
                     $this->closeTagDetected = true;

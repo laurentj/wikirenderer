@@ -74,3 +74,11 @@ consectetuer adipiscing elit. Cras interdum.
 Donec dictum.     Sed fringilla.
 Duis feugiat //pharetra tortor//. Nulla facilisi.
 </code></pre>
+
+<div>
+This is some <span style="color:red;font-size:150%;">inline HTML</span>
+</div>
+
+<div>
+<p style="border:2px dashed red;">And this is some block HTML</p>
+</div>
