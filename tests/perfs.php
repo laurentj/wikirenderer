@@ -18,8 +18,10 @@ function getMicroTime(){
 
 $start=getMicroTime();
 
-$conf = new \WikiRenderer\Markup\WRHtml\Config();
-$wr = new \WikiRenderer\Renderer($conf);
+$genConfig = new \WikiRenderer\Generator\Html\Config();
+$generator = new \WikiRenderer\Generator\Html\Document($genConfig);
+$markupConfig = new \WikiRenderer\Markup\ClassicWR\Config();
+$wr = new \WikiRenderer\RendererNG($generator, $markupConfig);
 
 foreach($list as $k=> $t){
     $res =$wr->render($t[0]);

@@ -7,8 +7,15 @@ if(isset($_POST['texte'])){
     $texte=$_POST['texte'];
 }
 
-$conf = new \WikiRenderer\Markup\WRHtml\Config();
-$ctr = new \WikiRenderer\Renderer($conf);
+// choose a generator
+$genConfig = new \WikiRenderer\Generator\Html\Config();
+$generator = new \WikiRenderer\Generator\Html\Document($genConfig);
+
+// choose a parser
+$markupConfig = new \WikiRenderer\Markup\ClassicWR\Config();
+
+// instanciate the renderer
+$wr = new \WikiRenderer\RendererNG($generator, $markupConfig);
 ?>
 
 <!DOCTYPE html>
