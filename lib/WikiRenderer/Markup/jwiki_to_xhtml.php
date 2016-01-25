@@ -27,7 +27,7 @@ class jwiki_to_xhtml  extends WikiRendererConfig
         'jwxhtml_definition', 'jwxhtml_para',
     );
 
-    public $simpletags = array('\\\\' => '');
+    public $simpleTags = array('\\\\' => '');
 
     public $escapeChar = '';
 

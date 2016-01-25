@@ -13,7 +13,7 @@
 class classicwr_inlineParserTest extends PHPUnit_Framework_TestCase {
 
     function testInlineParserConstructor() {
-
+        $linebreak = new \WikiRenderer\Markup\WR3\LineBreak();
         $conf = new WRConfigTest();
         $conf->defaultTextLineContainer= '\WikiRenderer\Markup\WR3\TextLine';
         $conf->textLineContainers = array(
@@ -27,13 +27,13 @@ class classicwr_inlineParserTest extends PHPUnit_Framework_TestCase {
                     '\WikiRenderer\Markup\WR3\TextLine'=>array(
                             '\WikiRenderer\Markup\WR3\Strong',
                             '\WikiRenderer\Markup\WR3\Em'));
-        $conf->simpletags=array('%%%'=>'');
+        $conf->simpleTags=array('%%%'=> $linebreak);
 
         $wip = new WikiInlineParserTest($conf );
         $trueResult = '/(__)|(\'\')|(%%%)|(\\\\)/';
         $this->assertEquals($trueResult, $wip->getSplitPattern(), "erreur");
 
-        $conf->simpletags=array('%%%'=>'');
+        $conf->simpleTags=array('%%%'=>$linebreak);
         $conf->textLineContainers = array(
                     '\WikiRenderer\Markup\WR3\TextLine'=>array(
                             '\WikiRenderer\Markup\WR3\Strong',
@@ -54,7 +54,7 @@ class classicwr_inlineParserTest extends PHPUnit_Framework_TestCase {
                             '\WikiRenderer\Markup\ClassicWR\Link',
                             '\WikiRenderer\Markup\WR3\Image',
                             '\WikiRenderer\Markup\WR3\Anchor'));
-        $conf->simpletags=array('%%%'=>'', ':-)'=>'');
+        $conf->simpleTags=array('%%%'=>$linebreak, ':-)'=>new \WikiRenderer\SimpleTag\Smiley());
 
         $wip = new WikiInlineParserTest($conf );
         $trueResult = '/(__)|(\'\')|(@@)|(\\^\\^)|(\\{\\{)|(\\}\\})|(\\?\\?)|(\\[)|(\\])|(\\(\\()|(\\)\\))|(~~)|(\\|)|(%%%)|(\\:\\-\\))|(\\\\)/';
@@ -158,7 +158,7 @@ class classicwr_inlineParserTest extends PHPUnit_Framework_TestCase {
         $generator = new \WikiRenderer\Generator\Html\Document($genConfig);
 
         $conf = new \WikiRenderer\Markup\ClassicWR\Config();
-        $conf->simpletags=array('%%%'=>'');
+        $conf->simpleTags=array('%%%'=>new \WikiRenderer\Markup\WR3\LineBreak());
         $conf->defaultTextLineContainer= '\WikiRenderer\Markup\WR3\TextLine';
         $conf->textLineContainers = array(
                     '\WikiRenderer\Markup\WR3\TextLine'=>array(

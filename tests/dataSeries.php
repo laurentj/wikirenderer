@@ -1082,7 +1082,7 @@ En  tous cas merci de tes précieux conseils, je les testes, dès que possible (
 
 Nicolas',
     1 => '<p>
-D\'accord avec toi si on considère le contenu comme une liste, ce qu\'il doit être au fond. Mais on pourrait imaginer un système d\'exclusion, où l\'on dirait dans la classe fille les éléments que l\'on ne veut pas garder, mais je chipotte <img src="laugh.png" alt=":-)" />
+D\'accord avec toi si on considère le contenu comme une liste, ce qu\'il doit être au fond. Mais on pourrait imaginer un système d\'exclusion, où l\'on dirait dans la classe fille les éléments que l\'on ne veut pas garder, mais je chipotte <img src="laugh.png" alt=":-)"/>
 </p>
 <p>
 En  tous cas merci de tes précieux conseils, je les testes, dès que possible (j\'ai autre chose sur le feu) et je te tiens au courant.
@@ -1090,7 +1090,7 @@ En  tous cas merci de tes précieux conseils, je les testes, dès que possible (
 <p>
 Nicolas
 </p>',
-    2 => '<p>D\'accord avec toi si on considère le contenu comme une liste, ce qu\'il doit être au fond. Mais on pourrait imaginer un système d\'exclusion, où l\'on dirait dans la classe fille les éléments que l\'on ne veut pas garder, mais je chipotte <img src="laugh.png" alt=":-)" /></p>
+    2 => '<p>D\'accord avec toi si on considère le contenu comme une liste, ce qu\'il doit être au fond. Mais on pourrait imaginer un système d\'exclusion, où l\'on dirait dans la classe fille les éléments que l\'on ne veut pas garder, mais je chipotte <img src="laugh.png" alt=":-)"/></p>
 
 <p>En  tous cas merci de tes précieux conseils, je les testes, dès que possible (j\'ai autre chose sur le feu) et je te tiens au courant.</p>
 
@@ -1121,7 +1121,7 @@ Merci pour la publicité libre ! ! !
 <br />
 </p></blockquote>
 <p>
-De rien <img src="laugh.png" alt=":-)" />)
+De rien <img src="laugh.png" alt=":-)"/>)
 C\'est juste le nom de code pour le développement en interne ;-), je changerai de nom quand mon extension sera prête. C\'est dommage ça me plaisait bien comme nom :-(.
 </p>
 <p>
@@ -1135,7 +1135,7 @@ David
 <br />http://www.xugle.com
 <br /></p></blockquote>
 
-<p>De rien <img src="laugh.png" alt=":-)" />)
+<p>De rien <img src="laugh.png" alt=":-)"/>)
 C\'est juste le nom de code pour le développement en interne ;-), je changerai de nom quand mon extension sera prête. C\'est dommage ça me plaisait bien comme nom :-(.</p>
 
 <p>David</p>',
@@ -1798,11 +1798,11 @@ Tu met en lumière un problème. Je vais donc le résoudre :-)',
 Il n\'y a pas de mal.
 </p>
 <p>
-Tu met en lumière un problème. Je vais donc le résoudre <img src="laugh.png" alt=":-)" />
+Tu met en lumière un problème. Je vais donc le résoudre <img src="laugh.png" alt=":-)"/>
 </p>',
     2 => '<p>Il n\'y a pas de mal.</p>
 
-<p>Tu met en lumière un problème. Je vais donc le résoudre <img src="laugh.png" alt=":-)" /></p>',
+<p>Tu met en lumière un problème. Je vais donc le résoudre <img src="laugh.png" alt=":-)"/></p>',
   ),
   45 => 
   array (
@@ -2323,9 +2323,9 @@ mais bon .. c quand même pas simple</p>
 
 ',
     1 => '<p>
-On peut utiliser cette page si tu veux : <a href="http://xulfr.org/wiki/FaqDev">http://xulfr.org/wiki/FaqDev</a>. Elle est faite pour. Faut juste des volontaires pour la remplir <img src="laugh.png" alt=":-)" />
+On peut utiliser cette page si tu veux : <a href="http://xulfr.org/wiki/FaqDev">http://xulfr.org/wiki/FaqDev</a>. Elle est faite pour. Faut juste des volontaires pour la remplir <img src="laugh.png" alt=":-)"/>
 </p>',
-    2 => '<p>On peut utiliser cette page si tu veux : <a href="http://xulfr.org/wiki/FaqDev">http://xulfr.org/wiki/FaqDev</a>. Elle est faite pour. Faut juste des volontaires pour la remplir <img src="laugh.png" alt=":-)" /></p>
+    2 => '<p>On peut utiliser cette page si tu veux : <a href="http://xulfr.org/wiki/FaqDev">http://xulfr.org/wiki/FaqDev</a>. Elle est faite pour. Faut juste des volontaires pour la remplir <img src="laugh.png" alt=":-)"/></p>
 
 ',
   ),
@@ -3467,12 +3467,12 @@ David</p>',
 
 Allez voir la liste des liens en bas de [http://xulfr.org/wiki/RessourcesWeb]',
     1 => '<p>
-Pour avoir toutes la listes des styles et pseudo classes CSS de mozilla, rien ne vaut le code source <img src="laugh.png" alt=":-)" />
+Pour avoir toutes la listes des styles et pseudo classes CSS de mozilla, rien ne vaut le code source <img src="laugh.png" alt=":-)"/>
 </p>
 <p>
 Allez voir la liste des liens en bas de <a href="http://xulfr.org/wiki/RessourcesWeb">http://xulfr.org/wiki/RessourcesWeb</a>
 </p>',
-    2 => '<p>Pour avoir toutes la listes des styles et pseudo classes CSS de mozilla, rien ne vaut le code source <img src="laugh.png" alt=":-)" /></p>
+    2 => '<p>Pour avoir toutes la listes des styles et pseudo classes CSS de mozilla, rien ne vaut le code source <img src="laugh.png" alt=":-)"/></p>
 
 <p>Allez voir la liste des liens en bas de <a href="http://xulfr.org/wiki/RessourcesWeb">http://xulfr.org/wiki/RessourcesWeb</a></p>',
   ),

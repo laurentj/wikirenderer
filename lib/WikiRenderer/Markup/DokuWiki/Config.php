@@ -64,7 +64,8 @@ class Config extends \WikiRenderer\Config
         '\WikiRenderer\Markup\DokuWiki\Pre',
         '\WikiRenderer\Markup\DokuWiki\P',
     );
-    public $simpletags = array('\\\\' => '');
+
+    public $escapeChar = '';
 
     /**
      * top level header will be h1 if you set to 1, h2 if it is 2 etc..
@@ -90,6 +91,7 @@ class Config extends \WikiRenderer\Config
     public function __construct()
     {
         $this->wordConverters[] = new \WikiRenderer\WordConverter\URLConverter(array($this, 'processLink'));
+        $this->simpleTags[] = new LineBreak();
     }
     /**
      * Called before parsing.

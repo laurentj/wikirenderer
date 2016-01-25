@@ -62,7 +62,7 @@ class InlineParser
 
         // first all basic tags
         $simpletagPattern = '';
-        foreach ($config->simpletags as $tag => $html) {
+        foreach ($config->simpleTags as $tag => $html) {
             $simpletagPattern .= '|('.preg_quote($tag, '/').')';
         }
 
@@ -98,7 +98,7 @@ class InlineParser
 
             $this->textLineContainers[$class] = $c;
         }
-        $this->simpletags = $config->simpletags;
+        $this->simpletags = $config->simpleTags;
     }
 
     /**
@@ -184,7 +184,7 @@ class InlineParser
                 }
                 // is there a simple tag ?
                 elseif (isset($this->simpletags[$t])) {
-                    $this->_addSimpleTag($tag, $t);
+                    $tag->addContent($t, $this->simpletags[$t]);
                 } else {
                     $tag->addContent($t);
                 }
@@ -209,9 +209,5 @@ class InlineParser
         } else {
             return $this->end;
         }
-    }
-
-    protected function _addSimpleTag($tag, $t) {
-        $tag->addContent($t, $this->simpletags[$t]);
     }
 }

@@ -68,7 +68,6 @@ class Config extends \WikiRenderer\Config
         '\WikiRenderer\Markup\WR3\Table',
         '\WikiRenderer\Markup\WR3\P',
     );
-    public $simpletags = array('%%%' => '<br />');
 
     /**
      * content all foot notes
@@ -85,6 +84,11 @@ class Config extends \WikiRenderer\Config
      * @deprecated
      */
     public $footnotesTemplate = '<div class="footnotes"><h4>Notes</h4>%s</div>';
+
+    public function __construct()
+    {
+        $this->simpleTags[] = new LineBreak();
+    }
 
     /**
      * Called before parsing.

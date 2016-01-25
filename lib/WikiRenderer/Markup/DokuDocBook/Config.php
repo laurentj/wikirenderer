@@ -60,7 +60,7 @@ class Config extends \WikiRenderer\Config
         '\WikiRenderer\Markup\DokuDocBook\Para',
         '\WikiRenderer\Markup\DokuDocBook\Macro',
     );
-    public $simpletags = array('\\\\' => '');
+    public $simpleTags = array('\\\\' => '');
     public $defaultBlock = '\WikiRenderer\Markup\DokuDocBook\DefaultBlock';
     public $escapeChar = '';
     public $sectionLevel = array();

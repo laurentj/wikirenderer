@@ -46,5 +46,5 @@ class Config extends \WikiRenderer\Config
         '\WikiRenderer\Markup\WR3Text\Table',
         '\WikiRenderer\Markup\WR3Text\P',
     );
-    public $simpletags = array('%%%' => "\n");
+    public $simpleTags = array('%%%' => "\n");
 }

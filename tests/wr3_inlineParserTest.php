@@ -11,7 +11,7 @@
 class WR3TestsInlineParser extends PHPUnit_Framework_TestCase {
 
     function testInlineParserConstructor() {
-
+        $linebreak = new \WikiRenderer\Markup\WR3\LineBreak();
         $conf = new WRConfigTest();
         $conf->defaultTextLineContainer= '\WikiRenderer\Markup\WR3\TextLine';
         $conf->textLineContainers = array(
@@ -26,7 +26,7 @@ class WR3TestsInlineParser extends PHPUnit_Framework_TestCase {
                     '\WikiRenderer\Markup\WR3\TextLine'=>array(
                             '\WikiRenderer\Markup\WR3\Strong',
                             '\WikiRenderer\Markup\WR3\Em'));
-        $conf->simpletags=array('%%%'=>'');
+        $conf->simpleTags=array('%%%'=>$linebreak);
 
         $wip = new WikiInlineParserTest($conf );
         $trueResult = '/(__)|(\'\')|(%%%)|(\\\\)/';
@@ -36,7 +36,7 @@ class WR3TestsInlineParser extends PHPUnit_Framework_TestCase {
                     '\WikiRenderer\Markup\WR3\TextLine'=>array(
                             '\WikiRenderer\Markup\WR3\Strong',
                             '\WikiRenderer\Markup\WR3\Q'));
-        $conf->simpletags=array('%%%'=>'');
+        $conf->simpleTags=array('%%%'=>$linebreak);
 
         $wip = new WikiInlineParserTest( $conf);
         $trueResult = '/(__)|(\^\^)|(\\|)|(%%%)|(\\\\)/';
@@ -52,7 +52,7 @@ class WR3TestsInlineParser extends PHPUnit_Framework_TestCase {
             '\WikiRenderer\Markup\WR3\Link',
             '\WikiRenderer\Markup\WR3\Image',
             '\WikiRenderer\Markup\WR3\Anchor'));
-        $conf->simpletags=array('%%%'=>'', ':-)'=>'');
+        $conf->simpleTags=array('%%%'=>$linebreak, ':-)'=>new \WikiRenderer\SimpleTag\Smiley());
 
         $wip = new WikiInlineParserTest($conf );
         $trueResult = '/(__)|(\'\')|(@@)|(\\^\\^)|(\\{\\{)|(\\}\\})|(\\?\\?)|(\\[\\[)|(\\]\\])|(\\(\\()|(\\)\\))|(~~)|(\\|)|(%%%)|(\\:\\-\\))|(\\\\)/';

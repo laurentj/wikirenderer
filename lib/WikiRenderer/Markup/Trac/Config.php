@@ -59,7 +59,6 @@ class Config extends \WikiRenderer\Config
         '\WikiRenderer\Markup\Trac\Pre',
         '\WikiRenderer\Markup\Trac\P',
     );
-    public $simpletags = array('%%%' => '<br />');
 
     public $sectionLevel = array();
 
@@ -90,6 +89,7 @@ class Config extends \WikiRenderer\Config
         $this->wordConverters[] = new ReportConverter(array($this, 'processLink'));
         $this->wordConverters[] = new \WikiRenderer\WordConverter\WikiWordConverter($this->wikiWordBaseUrl, '!');
         $this->macros[] = new ImageMacro();
+        $this->simpleTags[] = new LineBreak();
     }
 
     /**

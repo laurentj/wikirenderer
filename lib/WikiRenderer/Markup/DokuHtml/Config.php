@@ -63,7 +63,7 @@ class Config extends \WikiRenderer\Config
         '\WikiRenderer\Markup\DokuHtml\Macro',
     );
 
-    public $simpletags = array('\\\\' => '');
+    public $simpleTags = array('\\\\' => '');
     public $escapeChar = '';
     public $sectionLevel = array();
     public $footnotes = array();

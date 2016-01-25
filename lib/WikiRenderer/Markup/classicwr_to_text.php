@@ -25,7 +25,7 @@ class classicwr_to_text   extends WikiRendererConfig
    public $bloctags = array('cwrtext_title', 'cwrtext_list', 'cwrtext_pre','cwrtext_hr',
                          'cwrtext_blockquote','cwrtext_definition','cwrtext_table', 'cwrtext_p', );
 
-    public $simpletags = array('%%%' => "\n");
+    public $simpleTags = array('%%%' => "\n");
 }
 
 // ===================================== déclarations des tags inlines

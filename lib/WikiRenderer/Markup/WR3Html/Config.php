@@ -44,7 +44,7 @@ class Config extends \WikiRenderer\Config
         '\WikiRenderer\Markup\WR3Html\Table',
         '\WikiRenderer\Markup\WR3Html\P',
     );
-    public $simpletags = array('%%%' => '<br />');
+    public $simpleTags = array('%%%' => '<br />');
 
     // la syntaxe wr3 contient la possibilité de mettre des notes de bas de page
     // celles-ci seront stockées ici, avant leur incorporation é la fin du texte.

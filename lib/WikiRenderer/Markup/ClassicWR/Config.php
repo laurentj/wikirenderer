@@ -67,7 +67,11 @@ class Config extends \WikiRenderer\Config
         '\WikiRenderer\Markup\ClassicWR\P',
     );
 
-    public $simpletags = array('%%%' => '<br />', ':-)' => '<img src="laugh.png" alt=":-)" />');
+    public function __construct()
+    {
+        $this->simpleTags[] = new \WikiRenderer\Markup\WR3\LineBreak();
+        $this->simpleTags[] = new \WikiRenderer\SimpleTag\Smiley();
+    }
 
     public function processLink($url, $tagName = '')
     {

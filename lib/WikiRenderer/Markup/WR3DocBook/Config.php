@@ -46,7 +46,7 @@ class Config extends \WikiRenderer\Config
         '\WikiRenderer\Markup\WR3DocBook\Table',
         '\WikiRenderer\Markup\WR3DocBook\P',
     );
-    public $simpletags = array('%%%' => '<br />');
+    public $simpleTags = array('%%%' => '<br />');
     public $defaultBlock = '\WikiRenderer\Markup\WR3DocBook\DefaultBlock';
     public $sectionLevel = array();
 

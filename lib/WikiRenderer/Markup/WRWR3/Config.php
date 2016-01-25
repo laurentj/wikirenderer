@@ -44,7 +44,7 @@ class Config extends \WikiRenderer\Config
         '\WikiRenderer\Markup\WRWR3\Table',
         '\WikiRenderer\Markup\WRWR3\P', );
 
-    public $simpletags = array('%%%' => "\n");
+    public $simpleTags = array('%%%' => "\n");
 
     public $outputEscapeChar = true;
 }

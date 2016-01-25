@@ -31,8 +31,10 @@ abstract class Config
     /** List of block-type markups known by WikiRenderer. */
     public $blocktags = array();
 
-    /** ??? */
-    public $simpletags = array();
+    /** 
+     * list of SimpleTag objects
+     */
+    public $simpleTags = array();
 
     /**
      * @var string name of the class used to parse unrecognized line
