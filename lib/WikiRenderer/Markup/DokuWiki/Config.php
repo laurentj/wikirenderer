@@ -109,6 +109,7 @@ class Config extends \WikiRenderer\Config
         $this->wordConverters[] = new \WikiRenderer\WordConverter\URLConverter(array($this, 'processLink'));
         $this->simpleTags[] = new LineBreak();
         $this->simpleTags[] = new \WikiRenderer\SimpleTag\Arrows();
+        $this->simpleTags[] = new \WikiRenderer\SimpleTag\Trademark();
     }
 
     /**

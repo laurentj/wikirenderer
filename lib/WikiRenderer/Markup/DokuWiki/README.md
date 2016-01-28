@@ -14,9 +14,6 @@ Not supported syntax (yet):
     - Flash 	swf
     
 - video_filename.jpg for posters
-- Typography:
-    this:    -> <- <-> => <= <=> >> << -- --- 640x480 (c) (tm) (r)
-    becomes: → ← ↔ ⇒ ⇐ ⇔ » « – — 640×480 © ™ ® 
 
 - TOC generation
 
