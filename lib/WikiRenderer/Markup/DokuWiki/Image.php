@@ -39,26 +39,38 @@ class Image extends \WikiRenderer\TagNG
         $align = '';
         $width = '';
         $height = '';
+        $linkonly = false;
 
         $m = array('', '', '', '', '', '', '', '');
-        if (preg_match("/^(\s*)([^\s\?]+)(\?(\d+)(x(\d+))?)?(\s*)$/", $href, $m)) {
-            if ($m[1] != '' && $m[7] != '') {
+        if (preg_match("/^(\s*)([^\s\?]+)(\?[a-zA-Z0-9]+)?(\s*)$/", $href, $m)) {
+            if ($m[1] != '' && $m[4] != '') {
                 $align = 'center';
             } elseif ($m[1] != '') {
                 $align = 'right';
-            } elseif ($m[7] != '') {
+            } elseif ($m[4] != '') {
                 $align = 'left';
             }
+            $href = $m[2];
             if ($m[3]) {
-                $width = $height = $m[4];
-                if ($m[5]) {
-                    $height = $m[6];
+                if (preg_match("/^\?(\d+)(x(\d+))?$/", $m[3], $m2)) {
+                    $width = $height = $m2[1];
+                    if (isset($m2[2])) {
+                        $height = $m2[3];
+                    }
+                }
+                else if ($m[3] == '?linkonly') {
+                    $linkonly = true;
                 }
             }
-            $href = $m[2];
         }
         list($href, $label) = $this->config->processLink($href, $this->name);
-        $this->generator->setAttribute('src', $href);       
+        if ($linkonly) {
+            $this->generator = $this->documentGenerator->getInlineGenerator('link');
+            $this->generator->setAttribute('href', $href);
+            $this->generator->setRawContent(($title?:$label));
+            return $this->generator;
+        }
+        $this->generator->setAttribute('src', $href);
         if ($width != '') {
             $this->generator->setAttribute('width', $width);
         }

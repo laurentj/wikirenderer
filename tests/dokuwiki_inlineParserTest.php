@@ -65,6 +65,8 @@ class DokuwikiTestsInlineParser extends PHPUnit_Framework_TestCase {
             =>'Lorem <img src="/wiki/ipsumdolorsit.png" alt=""/> amet, consectetuer adipiscing elit.',
         'Lorem {{ipsumdolorsit.png|alternative text}} amet, consectetuer adipiscing elit.'
             =>'Lorem <img src="/wiki/ipsumdolorsit.png" alt="alternative text"/> amet, consectetuer adipiscing elit.',
+        'Lorem {{ipsumdolorsit.png?linkonly|alternative text}} amet, consectetuer adipiscing elit.'
+            =>'Lorem <a href="/wiki/ipsumdolorsit.png">alternative text</a> amet, consectetuer adipiscing elit.',
         'Lorem {{ipsumdolorsit.png |alternative text}} amet, consectetuer adipiscing elit.'
             =>'Lorem <img src="/wiki/ipsumdolorsit.png" alt="alternative text" style="float:left;"/> amet, consectetuer adipiscing elit.',
         'Lorem {{ wiki:ipsumdolorsit.png|alternative text}} amet, consectetuer adipiscing elit.'

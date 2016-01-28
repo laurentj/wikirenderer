@@ -7,7 +7,6 @@ Not supported syntax (yet):
 - ```~~macro~~```
    -  ```~~NOTOC~~``` -> do not generate toc
 - footnotes ```((This is a footnote)) by using double parentheses```
-- linkonly ```{{wiki:dokuwiki-128.png?linkonly}}```
 - support of media : should generate <video> <audio> <object> etc...
     - Image 	gif, jpg, png
     - Video 	webm, ogv, mp4   : plusieurs fichiers du même nom == alternatives
