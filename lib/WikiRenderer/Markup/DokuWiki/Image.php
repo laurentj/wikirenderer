@@ -70,18 +70,49 @@ class Image extends \WikiRenderer\TagNG
             $this->generator->setRawContent(($title?:$label));
             return $this->generator;
         }
-        $this->generator->setAttribute('src', $href);
-        if ($width != '') {
-            $this->generator->setAttribute('width', $width);
+
+        $type = 0;
+        if (preg_match('/\.([a-zA-Z0-9]+)$/', $href, $m)) {
+            $ext = $m[1];
+            switch($ext) {
+                case 'mp4':
+                case 'webm':
+                case 'ogv':
+                    $this->generator = $this->documentGenerator->getInlineGenerator('video');
+                    $type = 1;
+                    break;
+                case 'mp3':
+                case 'ogg':
+                case 'wav':
+                    $this->generator = $this->documentGenerator->getInlineGenerator('audio');
+                    $type = 2;
+                    break;
+                case 'swf':
+                    $this->generator = $this->documentGenerator->getInlineGenerator('flash');
+                    $type = 3;
+                    break;
+            }
         }
-        if ($height != '') {
-            $this->generator->setAttribute('height', $height);
+
+        $this->generator->setAttribute('src', $href);
+        if ($type != 2) {
+            if ($width != '') {
+                $this->generator->setAttribute('width', $width);
+            }
+            if ($height != '') {
+                $this->generator->setAttribute('height', $height);
+            }
         }
         if ($align != '') {
             $this->generator->setAttribute('align', $align);
         }
         if ($title != '') {
-            $this->generator->setAttribute('alt', $title);
+            if ($type == 0) {
+                $this->generator->setAttribute('alt', $title);
+            }
+            else {
+                $this->generator->setAttribute('title', $title);
+            }
         }
 
         return $this->generator;

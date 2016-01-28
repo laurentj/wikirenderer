@@ -78,6 +78,15 @@ class DokuwikiTestsInlineParser extends PHPUnit_Framework_TestCase {
             =>'Lorem <img src="/wiki/ipsumdolorsit.png" alt="alternative text" width="456" height="456" style="float:right;"/> amet, consectetuer adipiscing elit.',
         'Lorem {{ ipsumdolorsit.png?456x789|alternative text}} amet, consectetuer adipiscing elit.'
             =>'Lorem <img src="/wiki/ipsumdolorsit.png" alt="alternative text" width="456" height="789" style="float:right;"/> amet, consectetuer adipiscing elit.',
+        'Lorem {{ wiki:ipsumdolorsit.mp4|alternative text}} amet, consectetuer adipiscing elit.'
+            =>'Lorem <video src="/wiki/wiki:ipsumdolorsit.mp4" title="alternative text" style="float:right;" controls="true"/> amet, consectetuer adipiscing elit.',
+        'Lorem {{ wiki:ipsumdolorsit.ogv?1024x720|alternative text}} amet, consectetuer adipiscing elit.'
+            =>'Lorem <video src="/wiki/wiki:ipsumdolorsit.ogv" width="1024" height="720" title="alternative text" style="float:right;" controls="true"/> amet, consectetuer adipiscing elit.',
+        'Lorem {{ wiki:ipsumdolorsit.ogg|alternative text}} amet, consectetuer adipiscing elit.'
+            =>'Lorem <audio src="/wiki/wiki:ipsumdolorsit.ogg" title="alternative text" style="float:right;" controls="true"/> amet, consectetuer adipiscing elit.',
+        'Lorem {{ wiki:ipsumdolorsit.swf|alternative text}} amet, consectetuer adipiscing elit.'
+            =>'Lorem <object data="/wiki/wiki:ipsumdolorsit.swf" title="alternative text" style="float:right;" type="application/vnd.adobe.flash-movie"><p>Flash content cannot be loaded</p></object> amet, consectetuer adipiscing elit.',
+
         /*'Lorem ~~ipsumdolorsit~~ amet, consectetuer adipiscing elit.'
             =>'Lorem <span id="ipsumdolorsit" class="wikianchor"><a href="#ipsumdolorsit" class="anchor">¶</a></span> amet, consectetuer adipiscing elit.',
         */
