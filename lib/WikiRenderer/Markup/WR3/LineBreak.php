@@ -16,7 +16,7 @@ namespace WikiRenderer\Markup\WR3;
 class LineBreak extends \WikiRenderer\SimpleTag\AbstractSimpleTag {
     protected $tag ='%%%';
 
-    public function getContent(\WikiRenderer\Generator\DocumentGeneratorInterface $documentGenerator) {
+    public function getContent(\WikiRenderer\Generator\DocumentGeneratorInterface $documentGenerator, $token) {
         return $documentGenerator->getInlineGenerator('linebreak');
     }
 }

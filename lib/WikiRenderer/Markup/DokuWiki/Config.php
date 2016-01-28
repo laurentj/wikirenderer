@@ -108,7 +108,9 @@ class Config extends \WikiRenderer\Config
         $this->wikiBaseUrl = $wikiBaseUrl ?: '/wiki/%s';
         $this->wordConverters[] = new \WikiRenderer\WordConverter\URLConverter(array($this, 'processLink'));
         $this->simpleTags[] = new LineBreak();
+        $this->simpleTags[] = new \WikiRenderer\SimpleTag\Arrows();
     }
+
     /**
      * Called before parsing.
      *

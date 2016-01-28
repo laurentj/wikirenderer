@@ -22,7 +22,7 @@ class LineBreak extends \WikiRenderer\SimpleTag\AbstractSimpleTag {
         return array("\\\\ ", "\\\\");
     }
 
-    public function getContent(\WikiRenderer\Generator\DocumentGeneratorInterface $documentGenerator) {
+    public function getContent(\WikiRenderer\Generator\DocumentGeneratorInterface $documentGenerator, $token) {
         return $documentGenerator->getInlineGenerator('linebreak');
     }
 }

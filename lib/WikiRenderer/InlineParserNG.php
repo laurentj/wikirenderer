@@ -131,7 +131,7 @@ class InlineParserNG extends InlineParser
                 }
                 // is there a simple tag ?
                 elseif (isset($this->allSimpleTags[$t])) {
-                    $tag->addContent($t, $this->allSimpleTags[$t]->getContent($this->documentGenerator));
+                    $tag->addContent($t, $this->allSimpleTags[$t]->getContent($this->documentGenerator, $t));
                 } else {
                     $tag->addContent($t);
                 }

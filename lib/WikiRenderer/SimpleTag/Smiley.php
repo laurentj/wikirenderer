@@ -1,7 +1,7 @@
 <?php
 
 /**
- * abstract class processing a simple tag
+ * class transforming smileys
  *
  * @author Laurent Jouanneau
  * @copyright 2016 Laurent Jouanneau
@@ -20,7 +20,7 @@ class Smiley extends AbstractSimpleTag {
     
     protected $url = 'laugh.png';
 
-    public function getContent(\WikiRenderer\Generator\DocumentGeneratorInterface $documentGenerator) {
+    public function getContent(\WikiRenderer\Generator\DocumentGeneratorInterface $documentGenerator, $token) {
         $img = $documentGenerator->getInlineGenerator('image');
         $img->setAttribute('src', $this->url);
         $img->setAttribute('alt', $this->tag);
