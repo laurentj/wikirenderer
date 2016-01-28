@@ -49,6 +49,9 @@ class TableRow extends \WikiRenderer\TagNG
 
         $this->wikiContentArr[$this->separatorCount] .= $wikiContent;
         if ($childGenerator === null) {
+            if (trim($wikiContent) == ':::') {
+                $this->generator->setRowSpan(-1);
+            }
             $parsedContent = $this->checkWikiWord($wikiContent);
             $words = $this->documentGenerator->getInlineGenerator('words');
             $words->addRawContent($parsedContent);
@@ -98,6 +101,7 @@ class TableRow extends \WikiRenderer\TagNG
 
     public function getContent()
     {
+        // don't add the "pseudo" cell which is after the last separator
         if (!$this->generator->isEmpty()) {
             $this->row->addGenerator($this->generator);
         }

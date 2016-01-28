@@ -60,3 +60,31 @@
 <td align="right">  Cell 7</td>
 </tr>
 </table>
+
+<table border="1">
+<tr>
+<td> Cell 1 </td>
+<td rowspan="3"> Cell 2 </td>
+<td> Cell 3 </td>
+</tr>
+<tr>
+<td> Cell 4 </td>
+<td> Cell 6 </td>
+</tr>
+<tr>
+<td> Cell 7 </td>
+<td> Cell 8 </td>
+</tr>
+</table>
+
+
+<table border="1">
+<tr>
+<td> Cell 1 </td>
+<td> Cell 2 </td>
+</tr>
+<tr>
+<td> Cell 7 </td>
+<td> Cell 8 </td>
+</tr>
+</table>

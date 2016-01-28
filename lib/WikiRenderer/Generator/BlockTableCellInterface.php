@@ -25,6 +25,7 @@ interface BlockTableCellInterface extends BlockGeneratorInterface {
     public function setColSpan($colspan);
 
     /**
+     * if -1 is given, the cell is part of the cell above it
      * @param integer $rowspan
      */
     public function setRowSpan($rowspan);

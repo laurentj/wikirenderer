@@ -117,6 +117,7 @@ class TableRow extends \WikiRenderer\TagNG
 
     public function getContent()
     {
+        // don't add the "pseudo" cell which is after the last separator
         if (!$this->generator->isEmpty()) {
             $this->row->addGenerator($this->generator);
         }

@@ -34,6 +34,19 @@ class Table implements BlockTableInterface {
     }
 
     public function addCell(\WikiRenderer\Generator\BlockTableCellInterface $content) {
+        if ($content->getRowSpan() == -1) {
+            $colIdx = count($this->rows[$this->currentRowIndex]);
+
+            for ($i = $this->currentRowIndex-1; $i>=0; --$i) {
+                if (!isset($this->rows[$i][$colIdx])) {
+                    break;
+                }
+                if (($r = $this->rows[$i][$colIdx]->getRowSpan()) > 0) {
+                    $this->rows[$i][$colIdx]->setRowSpan($r+1);
+                    break;
+                }
+            }
+        }
         $this->rows[$this->currentRowIndex][] = $content;
     }
 
@@ -52,6 +65,9 @@ class Table implements BlockTableInterface {
         foreach($this->rows as $k=>$row) {
             $text .= "<tr>\n";
             foreach($row as $cell) {
+                if ($cell->getRowSpan() < 1) {
+                    continue;
+                }
                 $text .= $cell->generate()."\n";
             }
             $text .= "</tr>\n";
