@@ -3,10 +3,6 @@ Parser for [Dokuwiki syntax](https://www.dokuwiki.org/wiki:syntax)
 
 Not supported syntax (yet):
 
-- link ```[[namespace:foo]]```
-- link ```[[namespace:foo#bar]]```
-- interwiki ```[[fn>sdqd]]```
-- ```[[this>qdqd]]```  qdqd is a file of dokuwiki, outside the wiki itself
 - table rowspan  ( ::: in lower cells)
 - ```~~macro~~```
    -  ```~~NOTOC~~``` -> do not generate toc
@@ -24,3 +20,6 @@ Not supported syntax (yet):
     becomes: → ← ↔ ⇒ ⇐ ⇔ » « – — 640×480 © ™ ® 
 
 - TOC generation
+
+- system to retrieve the status of a wiki page
+- support of raw url

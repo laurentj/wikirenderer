@@ -68,6 +68,17 @@ class Config extends \WikiRenderer\Config
     public $escapeChar = '';
 
     /**
+     * the base root url from which resources other than
+     * wiki page can be found
+     */
+    public $appBaseUrl = '/';
+
+    /**
+     * base url of wiki pages
+     */
+    public $wikiBaseUrl = '/wiki/%s';
+
+    /**
      * top level header will be h1 if you set to 1, h2 if it is 2 etc..
      */
     public $startHeaderNumber = 1;
@@ -82,14 +93,19 @@ class Config extends \WikiRenderer\Config
      */
     public $footnotesId = '';
 
+    public $interwikiLinks = array(
+        'wp' => 'http://wikipedia.org/%s'
+    );
+
     /**
      * html content for footnotes
      * @deprecated
      */
     public $footnotesTemplate = '<div class="footnotes"><h4>Notes</h4>%s</div>';
 
-    public function __construct()
+    public function __construct($wikiBaseUrl='')
     {
+        $this->wikiBaseUrl = $wikiBaseUrl ?: '/wiki/%s';
         $this->wordConverters[] = new \WikiRenderer\WordConverter\URLConverter(array($this, 'processLink'));
         $this->simpleTags[] = new LineBreak();
     }
@@ -130,12 +146,43 @@ class Config extends \WikiRenderer\Config
     public function processLink($url, $tagName = '')
     {
         $label = $url;
-        if (strlen($label) > 40) {
-            $label = substr($label, 0, 40).'(..)';
+
+        if (preg_match('/^(\w+)>(.*)$/', $url, $m)) {
+            // interwiki links
+            $anchor = '';
+            if (preg_match('/(#[\w\-_0-9]+)$/', $m[1], $m2)) {
+                $anchor = $m2[1];
+                $m[2] = substr($m[1], 0, -strlen($m2[1]));
+            }
+
+            $label = $m[2];
+            if ($m[1] == 'this') {
+                $url = $this->appBaseUrl.$m[2].$anchor;
+            }
+            else if (isset($this->interwikiLinks[$m[1]])) {
+                $url = sprintf($this->interwikiLinks[$m[1]], $m[2]).$anchor;
+            }
+            else {
+                $url = sprintf($this->wikiBaseUrl, $m[2]).$anchor;
+            }
+        }
+        else if (!preg_match('!^[a-zA-Z]+\://!', $url)) {
+            // wiki pages
+            if (strpos($url, 'javascript:') !== false) { // for security reason
+                $url = '#';
+                $label = '#';
+            }
+            else if (preg_match('/(#[\w\-_0-9]+)$/', $url, $m)) {
+                $label = $url = substr($url, 0, -strlen($m[1]));
+                $url = sprintf($this->wikiBaseUrl, $url).$m[1];
+            }
+            else {
+                $url = sprintf($this->wikiBaseUrl, $url);
+            }
         }
 
-        if (strpos($url, 'javascript:') !== false) { // for security reason
-            $url = '#';
+        if (strlen($label) > 40) {
+            $label = substr($label, 0, 40).'(..)';
         }
 
         return array($url, $label);

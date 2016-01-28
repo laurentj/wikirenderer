@@ -41,32 +41,40 @@ class DokuwikiTestsInlineParser extends PHPUnit_Framework_TestCase {
 
 
         'Lorem [[ipsum dolor]] sit amet, consectetuer adipiscing elit.'
-            =>'Lorem <a href="ipsum dolor">ipsum dolor</a> sit amet, consectetuer adipiscing elit.',
+            =>'Lorem <a href="/wiki/ipsum dolor">ipsum dolor</a> sit amet, consectetuer adipiscing elit.',
         'Lorem [[http://foo.com|ipsum dolor]] sit amet, consectetuer adipiscing elit.'
             =>'Lorem <a href="http://foo.com">ipsum dolor</a> sit amet, consectetuer adipiscing elit.',
         'Lorem [[javascript:alert(window.title)|ipsum dolor]] sit amet, consectetuer adipiscing elit.'
             =>'Lorem <a href="#">ipsum dolor</a> sit amet, consectetuer adipiscing elit.',
+            
+        'Lorem [[http://www.php.net|{{wiki:dokuwiki-128.png}}]] sit amet, consectetuer adipiscing elit.'
+            =>'Lorem <a href="http://www.php.net"><img src="/wiki/wiki:dokuwiki-128.png" alt=""/></a> sit amet, consectetuer adipiscing elit.',
+        'Lorem [[wp>ipsum dolor]] sit amet, consectetuer adipiscing elit.'
+            =>'Lorem <a href="http://wikipedia.org/ipsum dolor">ipsum dolor</a> sit amet, consectetuer adipiscing elit.',
+        'Lorem [[ipsum:dolor]] sit amet, consectetuer adipiscing elit.'
+            =>'Lorem <a href="/wiki/ipsum:dolor">ipsum:dolor</a> sit amet, consectetuer adipiscing elit.',
+        'Lorem [[ipsum:dolor#bar]] sit amet, consectetuer adipiscing elit.'
+            =>'Lorem <a href="/wiki/ipsum:dolor#bar">ipsum:dolor</a> sit amet, consectetuer adipiscing elit.',
+        'Lorem [[this>dolor#bar]] sit amet, consectetuer adipiscing elit.'
+            =>'Lorem <a href="/dolor#bar">dolor#bar</a> sit amet, consectetuer adipiscing elit.',
+
         /*'Lorem http:\\//foo.com ipsum dolor sit amet, consectetuer adipiscing elit.'
             =>'Lorem <a href="http://foo.com">http://foo.com/<a> ipsum dolor sit amet, consectetuer adipiscing elit.',*/
 
         'Lorem {{ipsumdolorsit.png}} amet, consectetuer adipiscing elit.'
-            =>'Lorem <img src="ipsumdolorsit.png" alt=""/> amet, consectetuer adipiscing elit.',
+            =>'Lorem <img src="/wiki/ipsumdolorsit.png" alt=""/> amet, consectetuer adipiscing elit.',
         'Lorem {{ipsumdolorsit.png|alternative text}} amet, consectetuer adipiscing elit.'
-            =>'Lorem <img src="ipsumdolorsit.png" alt="alternative text"/> amet, consectetuer adipiscing elit.',
+            =>'Lorem <img src="/wiki/ipsumdolorsit.png" alt="alternative text"/> amet, consectetuer adipiscing elit.',
         'Lorem {{ipsumdolorsit.png |alternative text}} amet, consectetuer adipiscing elit.'
-            =>'Lorem <img src="ipsumdolorsit.png" alt="alternative text" style="float:left;"/> amet, consectetuer adipiscing elit.',
-        'Lorem {{ ipsumdolorsit.png|alternative text}} amet, consectetuer adipiscing elit.'
-            =>'Lorem <img src="ipsumdolorsit.png" alt="alternative text" style="float:right;"/> amet, consectetuer adipiscing elit.',
+            =>'Lorem <img src="/wiki/ipsumdolorsit.png" alt="alternative text" style="float:left;"/> amet, consectetuer adipiscing elit.',
+        'Lorem {{ wiki:ipsumdolorsit.png|alternative text}} amet, consectetuer adipiscing elit.'
+            =>'Lorem <img src="/wiki/wiki:ipsumdolorsit.png" alt="alternative text" style="float:right;"/> amet, consectetuer adipiscing elit.',
         'Lorem {{ ipsumdolorsit.png?456|alternative text}} amet, consectetuer adipiscing elit.'
-            =>'Lorem <img src="ipsumdolorsit.png" alt="alternative text" width="456" height="456" style="float:right;"/> amet, consectetuer adipiscing elit.',
+            =>'Lorem <img src="/wiki/ipsumdolorsit.png" alt="alternative text" width="456" height="456" style="float:right;"/> amet, consectetuer adipiscing elit.',
         'Lorem {{ ipsumdolorsit.png?456x789|alternative text}} amet, consectetuer adipiscing elit.'
-            =>'Lorem <img src="ipsumdolorsit.png" alt="alternative text" width="456" height="789" style="float:right;"/> amet, consectetuer adipiscing elit.',
+            =>'Lorem <img src="/wiki/ipsumdolorsit.png" alt="alternative text" width="456" height="789" style="float:right;"/> amet, consectetuer adipiscing elit.',
         /*'Lorem ~~ipsumdolorsit~~ amet, consectetuer adipiscing elit.'
             =>'Lorem <span id="ipsumdolorsit" class="wikianchor"><a href="#ipsumdolorsit" class="anchor">¶</a></span> amet, consectetuer adipiscing elit.',
-        'Lorem \[[ipsum dolor|bar|fr]] sit amet, \consectetuer \\\\adipiscing \%%%elit.'
-            =>'Lorem [[ipsum dolor|bar|fr]] sit amet, \consectetuer \\adipiscing %%%elit.',
-        'Lorem ipsum ^^dolor [[ipsum dolor|bar|fr]] amet|fr^^, consectetuer adipiscing elit.'
-            =>'Lorem ipsum <q lang="fr">dolor <a href="bar" hreflang="fr">ipsum dolor</a> amet</q>, consectetuer adipiscing elit.',
         */
     );
 
