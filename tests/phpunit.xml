@@ -31,10 +31,6 @@
       <file>dokuwiki_inlineParserTest.php</file>
     </testsuite>
 
-    <testsuite name="Wr to Wr3">
-        <file>wr_wr3Test.php</file>
-    </testsuite>
-
     <testsuite name="Trac syntax">
         <file>trac_blocksTest.php</file>
         <file>trac_inlinesTest.php</file>
