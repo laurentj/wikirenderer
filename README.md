@@ -1,24 +1,21 @@
-WikiRenderer is a library to generate HTML (or anything else) from wiki content.
+WikiRenderer 4 is a library to convert wiki content to an other format like
+HTML, Docbook, or other wiki syntax.
 
 Warning: the master branch is currently unstable since we rework many things.
-Got to the 3.x branch to have a stable release. Documentation is not updated yet also.
+Go to the 3.x branch to have a stable release. Documentation and the website
+are not updated yet for WikiRenderer 4.
 
+WikiRenderer 4.0-pre supports these following markups:
 
-WikiRenderer 4.0-beta1 supports these following markup:
+- Dokuwiki syntax
+- Trac syntax
+- WR3 (a markup specific to WikiRenderer 3.0)
+- ClassicWR (a markup specific to WikiRenderer 1.0)
 
-- Dokuwiki to HTML
-- Dokuwiki to Docbook
-- WR3 (a markup specific to WikiRenderer 3.0) to HTML
-- WR3 to Text
-- WR3 to Docbook
+And it can generates HTML.
 
-In the stable release (3.x branch), it also supports:
-
-- Phpwiki to HTML
-- Trac to HTML
-
-Migration of these markup to Wr 4.0 is planned of course
-
+In the final release, support of Markdown markup, Docbook generator, Markdown generator
+and text generator are planed.
 
 Install
 -------
@@ -30,23 +27,31 @@ Quick example
 -------------
 
 ```php
+// first choose a Markup, by instancying its configuration object
+// here we want to parse DokuWiki syntax
+$markupConfig = new \WikiRenderer\Markup\DokuWiki\Config();
 
-// take a markup support, here the Dokuwiki markup for HTML
-$conf = new \WikiRenderer\Markup\DokuHtml\Config();
+// then choose a generator, e.g., the object which generates
+// the result text in the expected format. Here, HTML...
+$genConfig = new \WikiRenderer\Generator\Html\Config();
+$generator = new \WikiRenderer\Generator\Html\Document($genConfig);
 
-// Instance of WikiRenderer
-$wr = new \WikiRenderer\Renderer($conf);
+// now instancy the WikiRenderer engine
+$wr = new \WikiRenderer\RendererNG($generator, $markupConfig);
 
-// parse and generate the HTML
+// call render() method: it will parse DokuWiki syntax, and will
+// generate HTML content
 $html = $wr->render($awikitext);
 ```
 
+Note: this is a new API and it may change until the release of 4.0.
 
 Documentation and website
 -------------------------
 
-English and french documentation is on http://wikirenderer.jelix.org
+English and french documentation is on http://wikirenderer.jelix.org.
 
-The documentation is not up-to-date and talk about an old version of WikiRenderer.
+The documentation is not up-to-date and talk about WikiRenderer 3 which is
+not compatible with WikiRenderer 4.
 Help is welcome to update documentation and the website ;-)
 
