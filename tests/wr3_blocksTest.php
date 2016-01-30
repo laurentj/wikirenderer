@@ -46,8 +46,8 @@ class WR3TestsBlocks extends PHPUnit_Framework_TestCase {
             $conf = & $wr->getConfig();
             $res=str_replace('-'.$conf->footnotesId.'-', '-XXX-',$res);
         }
-        $this->assertEquals($result, $res, "error on $file");
-        $this->assertEquals($nberror, count($wr->errors), "Errors detected by wr!");
+        $this->assertEquals($result, $res);
+        $this->assertEquals($nberror, count($wr->errors));
     }
 
     function testOther() {

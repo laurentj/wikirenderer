@@ -54,7 +54,6 @@ class Blockquote extends \WikiRenderer\BlockNG
     public function validateDetectedLine()
     {
         $d = strlen($this->_previousTag) - strlen($this->_detectMatch[1]);
-        $addLineFeed = false;
 
         if ($d > 0) { // we pop off the list of nested blockquote
             for ($i = $d; $i > 0; --$i) {
@@ -72,15 +71,10 @@ class Blockquote extends \WikiRenderer\BlockNG
         } else {
             if ($this->_firstLine) {
                 $this->_firstLine = false;
-            } else {
-                $addLineFeed = true;
             }
         }
 
         $inline = $this->_renderInlineTag($this->_detectMatch[2]);
-        if ($addLineFeed) {
-            $inline->addContentAtStart($this->documentGenerator->getInlineGenerator('linebreak'));
-        }
         $this->generatorStack->top()->addContent($inline);
     }
 }

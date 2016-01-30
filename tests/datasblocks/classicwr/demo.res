@@ -42,7 +42,7 @@ In hac habitasse platea dictumst.</pre>
 
 <p>Pellentesque euismod.</p>
 <blockquote><p> Curabitur mi. Aenean vitae lectus vel turpis feugiat egestas.
-<br /> Quisque diam. Maecenas tincidunt tortor sed neque.</p></blockquote>
+ Quisque diam. Maecenas tincidunt tortor sed neque.</p></blockquote>
 
 <p>Mauris nibh. Vivamus tempus est in urna.</p>
 

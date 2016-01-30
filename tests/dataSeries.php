@@ -1115,10 +1115,10 @@ Jim a écrit:
 </p>
 <blockquote><p>
 Merci pour la publicité libre ! ! !
-<br />
-<br />
-<br />http://www.xugle.com
-<br />
+
+
+http://www.xugle.com
+
 </p></blockquote>
 <p>
 De rien <img src="laugh.png" alt=":-)"/>)
@@ -1130,10 +1130,10 @@ David
     2 => '<p>Jim a écrit:</p>
 
 <blockquote><p>Merci pour la publicité libre ! ! !
-<br />
-<br />
-<br />http://www.xugle.com
-<br /></p></blockquote>
+
+
+http://www.xugle.com
+</p></blockquote>
 
 <p>De rien <img src="laugh.png" alt=":-)"/>)
 C\'est juste le nom de code pour le développement en interne ;-), je changerai de nom quand mon extension sera prête. C\'est dommage ça me plaisait bien comme nom :-(.</p>
@@ -3043,8 +3043,8 @@ _Le site auquel je fais une requete ne repond pas. (serveur down donc il ne me r
 </p>
 <blockquote><p>
 
-<br />Mais dans ce cas, il faudrait que j\'ai accès à ce qui déclanche l\'exception 0x80040111 pour pouvoir changer ça... Et c\'est là où j\'en suis, parce qu\'il n\'y a aucune information de ce type sur le net... :( (Ou alors j\'ai pas trouvé)
-<br />
+Mais dans ce cas, il faudrait que j\'ai accès à ce qui déclanche l\'exception 0x80040111 pour pouvoir changer ça... Et c\'est là où j\'en suis, parce qu\'il n\'y a aucune information de ce type sur le net... :( (Ou alors j\'ai pas trouvé)
+
 </p></blockquote>
 <p>
 Ben là il n\'y a que la console javascript de mozilla qui va nous aider... quoique Regarde tes logs d\'apache (error et access) ils disent quoi quand tu essai de charger test.text?
@@ -3075,8 +3075,8 @@ Parce que si tu as text/xml ou text/html ca ne vas pas deranger Mozilla te t\'af
 <p>_Le site auquel je fais une requete ne repond pas. (serveur down donc il ne me renvoie meme pas un code d\'etat)</p>
 
 <blockquote><p>
-<br />Mais dans ce cas, il faudrait que j\'ai accès à ce qui déclanche l\'exception 0x80040111 pour pouvoir changer ça... Et c\'est là où j\'en suis, parce qu\'il n\'y a aucune information de ce type sur le net... :( (Ou alors j\'ai pas trouvé)
-<br /></p></blockquote>
+Mais dans ce cas, il faudrait que j\'ai accès à ce qui déclanche l\'exception 0x80040111 pour pouvoir changer ça... Et c\'est là où j\'en suis, parce qu\'il n\'y a aucune information de ce type sur le net... :( (Ou alors j\'ai pas trouvé)
+</p></blockquote>
 
 <p>Ben là il n\'y a que la console javascript de mozilla qui va nous aider... quoique Regarde tes logs d\'apache (error et access) ils disent quoi quand tu essai de charger test.text?</p>
 
