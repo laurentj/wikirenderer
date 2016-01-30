@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Configuration for an HTML generator
+ * Configuration for an TEXT generator
  *
  * @author Laurent Jouanneau
  *
