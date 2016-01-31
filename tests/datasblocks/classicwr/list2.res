@@ -2,11 +2,14 @@
 
 <ul>
 <li>Phasellus non eros sit amet sem tristique laoreet.
-<ol><li>Nam mi wisi, pellentesque dictum,</li>
+<ol>
+<li>Nam mi wisi, pellentesque dictum,</li>
 <li>tristique in, tristique quis, erat.
-<ul><li>In in erat ut urna vulputate vestibulum. Aenean justo.</li>
+<ul>
+<li>In in erat ut urna vulputate vestibulum. Aenean justo.</li>
 <li>In quis nisl.
-<ul><li>pretium dapibus</li>
+<ul>
+<li>pretium dapibus</li>
 <li>at neque</li></ul>
 </li></ul>
 </li></ol>

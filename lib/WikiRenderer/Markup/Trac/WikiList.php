@@ -82,7 +82,6 @@ class WikiList extends \WikiRenderer\BlockNG
         } else {
             $this->generator->setListType(BlockListInterface::ORDERED_LIST);
         }
-        $this->generator->createItem();
     }
 
     public function close()

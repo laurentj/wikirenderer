@@ -55,7 +55,6 @@ class WikiList extends \WikiRenderer\BlockNG
         } else {
             $this->generator->setListType(BlockListInterface::UNORDERED_LIST);
         }
-        $this->generator->createItem();
 
         // if the block starts with more than a sign, we should create
         // all corresponding lists

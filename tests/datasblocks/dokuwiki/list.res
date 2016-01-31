@@ -3,9 +3,11 @@
 
 <ul>
 <li>Phasellus non eros sit amet sem tristique laoreet.
-<ol><li>Nam mi wisi, pellentesque dictum,</li>
+<ol>
+<li>Nam mi wisi, pellentesque dictum,</li>
 <li>tristique in, tristique quis, erat.
-<ol><li>In in erat ut urna vulputate vestibulum. Aenean justo.</li>
+<ol>
+<li>In in erat ut urna vulputate vestibulum. Aenean justo.</li>
 <li>In quis nisl.</li></ol>
 </li></ol>
 </li>
@@ -18,10 +20,13 @@
 <ol>
 <li>non odio gravida varius. Vivamus fringilla, neque ac suscipit vehicula,</li>
 <li>libero metus laoreet libero,
-<ul><li>in gravida purus</li>
+<ul>
+<li>in gravida purus</li>
 <li>nunc quis</li></ul>
 
-<ol><li>orci.
-<ol><li>pellentesque  </li></ol>
+<ol>
+<li>orci.
+<ol>
+<li>pellentesque  </li></ol>
 </li></ol>
 </li></ol>

@@ -64,10 +64,7 @@ class HtmlList implements BlockListInterface {
         }
 
         foreach($this->items as $k=>$generators) {
-            if ($k>0) {
-                $text .= "\n";
-            }
-            $text .= "<li>";
+            $text .= "\n<li>";
             foreach($generators as $generator) {
                 if ($generator instanceof \WikiRenderer\Generator\BlockGeneratorInterface) {
                     $text .= "\n".$generator->generate()."\n";
