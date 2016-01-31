@@ -16,6 +16,7 @@ class dokuwiki_textTest extends PHPUnit_Framework_TestCase {
             array('general', 0),
             array('list', 0),
             array('preformat', 0),
+            array('table', 0),
         );
     }
 

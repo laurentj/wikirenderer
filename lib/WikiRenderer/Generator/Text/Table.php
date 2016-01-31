@@ -58,16 +58,20 @@ class Table implements BlockTableInterface {
         $text = '';
 
         foreach($this->rows as $k=>$row) {
+            if ($k > 0) {
+                $text .= "\n";
+            }
             $text .= $this->indentation."|";
             foreach($row as $cell) {
                 if ($cell->getRowSpan() < 1) {
                     $text.= '  | ';
                     continue;
                 }
-                $text .= $cell->generate();
+                $text .= $cell->generate().' | ';
             }
-            $text .= "\n";
         }
         return $text;
     }
+
+    public $indentation = '';
 }

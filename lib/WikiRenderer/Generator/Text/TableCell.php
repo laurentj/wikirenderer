@@ -79,10 +79,10 @@ class TableCell implements \WikiRenderer\Generator\BlockTableCellInterface,
         $text = '';
         foreach($this->content as $generator) {
             if ($generator instanceof \WikiRenderer\Generator\BlockGeneratorInterface) {
-                $text .= $generator->generate().' | ';
+                $text .= $generator->generate();
             }
             else {
-                $text .= $generator->generate().' | ';
+                $text .= $generator->generate();
             }
         }
 
