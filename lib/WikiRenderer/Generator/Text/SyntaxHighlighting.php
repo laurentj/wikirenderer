@@ -59,7 +59,7 @@ class SyntaxHighlighting implements \WikiRenderer\Generator\BlockSyntaxHighlight
             if ($k>0) {
                 $text .= "\n";
             }
-            $text .= $this->indentation.'   '.$line;
+            $text .= $this->indentation.'    '.$line;
         }
         return $text;
     }

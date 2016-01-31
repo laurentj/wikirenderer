@@ -18,6 +18,8 @@ class Preformated implements \WikiRenderer\Generator\BlockOfRawLinesInterface {
 
     protected $id = '';
 
+    protected $preformatIndent = '    ';
+
     public function setId($id) {
         $this->id = $id;
     }
@@ -40,7 +42,7 @@ class Preformated implements \WikiRenderer\Generator\BlockOfRawLinesInterface {
             if ($k>0) {
                 $text .= "\n";
             }
-            $text .= $this->indentation.'   '.$line;
+            $text .= $this->indentation.$this->preformatIndent.$line;
         }
         return $text;
     }

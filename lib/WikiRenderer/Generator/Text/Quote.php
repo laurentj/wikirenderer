@@ -16,4 +16,6 @@ class Quote extends AbstractInlineGenerator {
 
     protected $supportedAttributes = array('id', 'lang', 'cite');
 
+    protected $attributesInsideBrackets = array('cite');
+
 }

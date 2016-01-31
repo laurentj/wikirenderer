@@ -51,7 +51,6 @@ class ItemList implements BlockListInterface {
 
     public function generate() {
         $text = '';
-
         foreach($this->items as $k=>$generators) {
             if ($k>0) {
                 $text .= "\n";
@@ -59,19 +58,22 @@ class ItemList implements BlockListInterface {
             $text .= $this->indentation;
 
             if ($this->listType == $this::ORDERED_LIST) {
-                $text .= $k.'. ';
+                $text .= ($k+1).'. ';
             }
             else {
                 $text .= '- ';
             }
 
-            foreach($generators as $generator) {
+            foreach($generators as $j => $generator) {
                 if ($generator instanceof \WikiRenderer\Generator\BlockGeneratorInterface) {
                     $generator->indentation = $this->indentation.'   ';
-                    $text .= "\n".$generator->generate()."\n";
+                    $text .= "\n".$generator->generate();
                 }
                 else {
-                    $text .= $generator->generate()."\n";
+                    if ($j > 0) {
+                        $text .= "\n".$this->indentation.'  ';
+                    }
+                    $text .= $generator->generate();
                 }
             }
         }

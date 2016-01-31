@@ -15,10 +15,14 @@ namespace WikiRenderer\Generator\Text;
 abstract class AbstractInlineGenerator implements \WikiRenderer\Generator\InlineComplexGeneratorInterface {
 
     protected $supportedAttributes = array('id');
-    
+
     protected $content = array();
 
     protected $attributes = array();
+
+    protected $attributesInsideBrackets = array();
+
+    protected $attributesInsideBracketsSeparator = ', ';
 
     public function addRawContent($string) {
         $g = new Words();
@@ -68,6 +72,19 @@ abstract class AbstractInlineGenerator implements \WikiRenderer\Generator\Inline
         $text = '';
         foreach($this->content as $content) {
             $text .= $content->generate();
+        }
+        if (count($this->attributesInsideBrackets)) {
+            $parenthesis = '';
+            foreach($this->attributesInsideBrackets as $k => $attr) {
+                if ($k > 0 && trim($parenthesis)) {
+                    $parenthesis .= $this->attributesInsideBracketsSeparator;
+                }
+                $parenthesis .= $this->getAttribute($attr);
+            }
+            $parenthesis = trim($parenthesis);
+            if ($parenthesis) {
+                $text .= ' ('.$parenthesis.')';
+            }
         }
         return $text;
     }

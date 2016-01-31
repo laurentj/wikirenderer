@@ -15,4 +15,7 @@ namespace WikiRenderer\Generator\Text;
 class Cite extends AbstractInlineGenerator {
 
     protected $supportedAttributes = array('id', 'title');
+
+    protected $attributesInsideBrackets = array('title');
+
 }

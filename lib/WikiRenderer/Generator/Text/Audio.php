@@ -16,14 +16,7 @@ class Audio extends AbstractInlineGenerator {
 
     protected $supportedAttributes = array('id', 'src', 'align', 'title', 'class');
 
-    public function generate() {
-        $text = parent::generate();
-        $text .=' (';
-        if (isset($this->attributes['title'])) {
-            $text .= $this->attributes['title'].': ';
-        }
-        $text .= $this->getAttribute('src');
-        $text .=')';
-        return $text;
-    }
+    protected $attributesInsideBrackets = array('title', 'src');
+    protected $attributesInsideBracketsSeparator = ': ';
+
 }

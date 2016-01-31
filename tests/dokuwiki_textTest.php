@@ -13,6 +13,9 @@ class dokuwiki_textTest extends PHPUnit_Framework_TestCase {
         return array(
             array('para',0),
             array('blockquote',0),
+            array('general', 0),
+            array('list', 0),
+            array('preformat', 0),
         );
     }
 

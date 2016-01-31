@@ -1,0 +1,82 @@
+
+Lorem ipsum dolor **sit amet**, consectetuer adipiscing elit. Cras interdum.
+
+<nowiki>Lorem ipsum dolor **sit amet**, consectetuer adipiscing elit. Cras interdum.
+Donec dictum. Sed fringilla. Duis feugiat //pharetra tortor//. Nulla facilisi.
+
+In hac habitasse platea dictumst. Nulla facilisi. Pellentesque sodales laoreet est.
+Nulla varius egestas risus. Duis sollicitudin tempor arcu. Mauris porta leo id dui
+luctus luctus. Aliquam nec lacus. Integer egestas.
+</nowiki>
+
+
+In hac habitasse %%platea dictumst. **Nulla** facilisi.%%
+Pellentesque sodales laoreet est.
+
+    Nulla varius egestas risus. Duis
+        sollicitudin tempor arcu.
+      Mauris porta leo id dui
+    luctus luctus. Aliquam nec lacus. Integer egestas.
+
+
+<code>Lorem ipsum dolor **sit amet**,
+consectetuer adipiscing elit. Cras interdum.
+Donec dictum.     Sed fringilla.
+Duis feugiat //pharetra tortor//. Nulla facilisi.
+</code>
+
+<code java>
+/**
+ * The HelloWorldApp class implements an application that
+ * simply displays "Hello World!" to the standard output.
+ */
+class HelloWorldApp {
+    public static void main(String[] args) {
+        System.out.println("Hello **World**!"); //Display //the string.
+    }
+}
+</code>
+
+<file>Lorem ipsum dolor **sit amet**,
+consectetuer adipiscing elit. Cras interdum.
+Donec dictum.     Sed fringilla.
+Duis feugiat //pharetra tortor//. Nulla facilisi.
+</file>
+
+<file java>
+/**
+ * The HelloWorldApp class implements an application that
+ * simply displays "Hello World!" to the standard output.
+ */
+class HelloWorldApp {
+    public static void main(String[] args) {
+        System.out.println("Hello **World**!"); //Display //the string.
+    }
+}
+</file>
+
+<file java mysource.java>
+/**
+ * The HelloWorldApp class implements an application that
+ * simply displays "Hello World!" to the standard output.
+ */
+class HelloWorldApp {
+    public static void main(String[] args) {
+        System.out.println("Hello **World**!"); //Display //the string.
+    }
+}
+</file>
+
+<file - mytext.txt>
+consectetuer adipiscing elit. Cras interdum.
+Donec dictum.     Sed fringilla.
+Duis feugiat //pharetra tortor//. Nulla facilisi.
+</file>
+
+<html>
+This is some <span style="color:red;font-size:150%;">inline HTML</span>
+</html>
+
+<HTML>
+<p style="border:2px dashed red;">And this is some block HTML</p>
+</HTML>

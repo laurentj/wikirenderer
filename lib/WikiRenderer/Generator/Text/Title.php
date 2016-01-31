@@ -38,14 +38,15 @@ class Title implements \WikiRenderer\Generator\BlockTitleInterface {
         return count($this->lines) == 0;
     }
 
+    public $motif = array('=', '*', ':', '-', '.', '.');
+
     public function generate() {
-        $indent = $this->indentation.str_repeat(" ", $this->level+1);
-        $text = $this->indentation.str_repeat("#", $this->level).' ';
+        $text = $this->indentation;
 
         foreach($this->lines as $k=>$generator) {
-            $text .= $indent.$generator->generate();
+            $text .= $generator->generate();
         }
-        return $text.' '.str_repeat("#", $this->level)."\n";
+        return $text."\n".$this->indentation.str_repeat($this->motif[$this->level-1], strlen($text));
     }
 
     public $indentation = '';

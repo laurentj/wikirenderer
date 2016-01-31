@@ -19,4 +19,6 @@ class Link extends AbstractInlineGenerator {
 
     protected $supportedAttributes = array('id', 'href', 'hreflang', 'title');
 
+    protected $attributesInsideBrackets = array('href');
+
 }

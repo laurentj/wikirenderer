@@ -14,4 +14,6 @@ namespace WikiRenderer\Generator\Text;
 
 class NoFormatBlock extends Preformated {
 
+    protected $preformatIndent = '';
+
 }

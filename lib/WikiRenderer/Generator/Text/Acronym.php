@@ -18,16 +18,9 @@ class Acronym extends AbstractInlineGenerator implements \WikiRenderer\Generator
 
     protected $supportedAttributes = array('id');
 
+    protected $attributesInsideBrackets = array('title');
+
     public function setTitle($title) {
         $this->attributes['title'] = $title;
     }
-
-    public function generate() {
-        $text = parent::generate();
-        if (isset($this->attributes['title'])) {
-            $text .=' ('.$this->attributes['title'].')';
-        }
-        return $text;
-    }
-
 }
