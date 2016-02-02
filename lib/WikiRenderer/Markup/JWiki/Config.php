@@ -30,11 +30,11 @@ class Config extends \WikiRenderer\Config
             //'\WikiRenderer\Markup\JWiki\Code',
             '\WikiRenderer\Markup\DokuWiki\Image',
             '\WikiRenderer\Markup\JWiki\Link',
-            //'\WikiRenderer\Markup\DokuWiki\NoWikiInline',
+            '\WikiRenderer\Markup\WR3\Q',
             //'\WikiRenderer\Markup\JWiki\Anchor',
             //'\WikiRenderer\Markup\JWiki\Footnote',
         ),
-        /*'\WikiRenderer\Markup\JWiki\TableRow' => array(
+        '\WikiRenderer\Markup\DokuWiki\TableRow' => array(
             '\WikiRenderer\Markup\DokuWiki\Strong',
             '\WikiRenderer\Markup\DokuWiki\Em',
             '\WikiRenderer\Markup\DokuWiki\Del',
@@ -42,21 +42,39 @@ class Config extends \WikiRenderer\Config
             '\WikiRenderer\Markup\DokuWiki\Superscript',
             '\WikiRenderer\Markup\DokuWiki\Underline',
             //'\WikiRenderer\Markup\JWiki\Code',
-        ),*/
+            '\WikiRenderer\Markup\DokuWiki\Image',
+            '\WikiRenderer\Markup\JWiki\Link',
+            '\WikiRenderer\Markup\WR3\Q',
+            //'\WikiRenderer\Markup\JWiki\Anchor',
+            //'\WikiRenderer\Markup\JWiki\Footnote',
+        ),
+        '\WikiRenderer\Markup\WR3\DefinitionTextLine' => array(
+            '\WikiRenderer\Markup\DokuWiki\Strong',
+            '\WikiRenderer\Markup\DokuWiki\Em',
+            '\WikiRenderer\Markup\DokuWiki\Del',
+            '\WikiRenderer\Markup\DokuWiki\Subscript',
+            '\WikiRenderer\Markup\DokuWiki\Superscript',
+            '\WikiRenderer\Markup\DokuWiki\Underline',
+            //'\WikiRenderer\Markup\JWiki\Code',
+            '\WikiRenderer\Markup\DokuWiki\Image',
+            '\WikiRenderer\Markup\JWiki\Link',
+            '\WikiRenderer\Markup\WR3\Q',
+            //'\WikiRenderer\Markup\JWiki\Anchor',
+            //'\WikiRenderer\Markup\JWiki\Footnote',
+        ),
     );
     /** List of block parsers. */
     public $blocktags = array(
-        //'\WikiRenderer\Markup\JWiki\Title',
-        //'\WikiRenderer\Markup\JWiki\WikiList',
-        //'\WikiRenderer\Markup\JWiki\Blockquote',
-        //'\WikiRenderer\Markup\JWiki\Table',
-        //'\WikiRenderer\Markup\JWiki\CodeBlock',
-        //'\WikiRenderer\Markup\JWiki\File',
+        '\WikiRenderer\Markup\DokuWiki\Title',
+        '\WikiRenderer\Markup\JWiki\WikiList',
+        '\WikiRenderer\Markup\JWiki\Definition',
+        '\WikiRenderer\Markup\DokuWiki\Blockquote',
+        '\WikiRenderer\Markup\DokuWiki\Table',
+        '\WikiRenderer\Markup\DokuWiki\CodeBlock',
+        '\WikiRenderer\Markup\DokuWiki\File',
         '\WikiRenderer\Markup\DokuWiki\NoWiki',
-        //'\WikiRenderer\Markup\JWiki\Html',
-        //'\WikiRenderer\Markup\JWiki\Php',
+        '\WikiRenderer\Markup\Trac\Hr',
         //'\WikiRenderer\Markup\JWiki\Macro',
-        //'\WikiRenderer\Markup\JWiki\Pre',
         '\WikiRenderer\Markup\DokuWiki\P',
     );
 
@@ -98,7 +116,6 @@ class Config extends \WikiRenderer\Config
     {
         $this->wikiBaseUrl = $wikiBaseUrl ?: '/wiki/%s';
         $this->wordConverters[] = new \WikiRenderer\WordConverter\URLConverter(array($this, 'processLink'));
-        $this->simpleTags[] = new LineBreak();
         $this->simpleTags[] = new \WikiRenderer\SimpleTag\Arrows();
         $this->simpleTags[] = new \WikiRenderer\SimpleTag\Trademark();
     }
