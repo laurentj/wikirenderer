@@ -54,7 +54,7 @@ class NoWiki extends \WikiRenderer\BlockNG
         } else {
             if (preg_match('/^\s*<'.$this->tagName.'(?:\s([^>]+))?>(.*)/i', $string, $m)) {
                 $this->_args = $m;
-                if (preg_match('/(.*)<\/'.$this->tagName.'>\s*$/i', $m[1], $m2)) {
+                if (preg_match('/(.*)<\/'.$this->tagName.'>\s*$/i', $m[2], $m2)) {
                     $this->_closeNow = true;
                     $this->_detectMatch = $m2[1];
                     $this->closeTagDetected = true;

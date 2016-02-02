@@ -42,7 +42,7 @@ class Config extends \WikiRenderer\Config
             '\WikiRenderer\Markup\DokuWiki\Superscript',
             '\WikiRenderer\Markup\DokuWiki\Underline',
             '\WikiRenderer\Markup\DokuWiki\Code',
-        '\WikiRenderer\Markup\DokuWiki\Link',
+            '\WikiRenderer\Markup\DokuWiki\Link',
             '\WikiRenderer\Markup\DokuWiki\Image',
             '\WikiRenderer\Markup\DokuWiki\NoWikiInline',
             //'\WikiRenderer\Markup\DokuWiki\Anchor',
