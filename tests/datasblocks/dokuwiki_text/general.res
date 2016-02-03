@@ -9,7 +9,7 @@ gras en début de ligne
 Main title (4)
 ::::::::::::::
 
-This example use the dokuwiki syntax.
+This example use (the) dokuwiki syntax.
 
 title level 2
 -------------

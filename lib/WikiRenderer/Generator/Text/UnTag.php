@@ -12,5 +12,5 @@
 
 namespace WikiRenderer\Generator\Text;
 
-class Sup extends AbstractInlineGenerator {
+class UnTag extends AbstractInlineGenerator {
 }
