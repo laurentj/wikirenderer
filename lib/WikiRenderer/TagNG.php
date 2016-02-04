@@ -21,6 +21,7 @@ abstract class TagNG extends Tag
     protected $generatorName = '';
 
     protected $convertWordsIn = array('$$');
+
     /**
      * @var \WikiRenderer\Generator\DocumentGeneratorInterface
      */

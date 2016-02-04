@@ -1,11 +1,8 @@
-Parser for [Dokuwiki syntax](https://www.dokuwiki.org/wiki:syntax)
+Parser for [jWiki syntax](https://github.com/laurentj/gitiwiki/blob/master/docs/syntax.md)
 
 
 Not supported syntax (yet):
 
 - footnotes ```((This is a footnote)) by using double parentheses```
-- TOC generation
--  ```~~NOTOC~~``` -> do not generate toc
 - system to retrieve the status of a wiki page
 - support of raw url
-- RSS display ```{{rss>...}}```

@@ -74,7 +74,7 @@ class Config extends \WikiRenderer\Config
         '\WikiRenderer\Markup\DokuWiki\File',
         '\WikiRenderer\Markup\DokuWiki\NoWiki',
         '\WikiRenderer\Markup\Trac\Hr',
-        //'\WikiRenderer\Markup\JWiki\Macro',
+        '\WikiRenderer\Markup\DokuWiki\Macro',
         '\WikiRenderer\Markup\DokuWiki\P',
     );
 
@@ -111,6 +111,14 @@ class Config extends \WikiRenderer\Config
      * @deprecated
      */
     public $footnotesTemplate = '<div class="footnotes"><h4>Notes</h4>%s</div>';
+
+    /**
+     * list of functions implementing macros. Functions receive the macro name and
+     * a string representing the arguments. It should return a string (empty or not)
+     * to insert into the generated content. 
+     * @var callable[]  keys are macro name in lower case
+     */
+    public $macros = array();
 
     public function __construct($wikiBaseUrl='')
     {

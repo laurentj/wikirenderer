@@ -31,7 +31,6 @@ class Config extends \WikiRenderer\Config
             '\WikiRenderer\Markup\DokuWiki\Image',
             '\WikiRenderer\Markup\DokuWiki\Link',
             '\WikiRenderer\Markup\DokuWiki\NoWikiInline',
-            //'\WikiRenderer\Markup\DokuWiki\Anchor',
             //'\WikiRenderer\Markup\DokuWiki\Footnote',
         ),
         '\WikiRenderer\Markup\DokuWiki\TableRow' => array(
@@ -45,7 +44,6 @@ class Config extends \WikiRenderer\Config
             '\WikiRenderer\Markup\DokuWiki\Link',
             '\WikiRenderer\Markup\DokuWiki\Image',
             '\WikiRenderer\Markup\DokuWiki\NoWikiInline',
-            //'\WikiRenderer\Markup\DokuWiki\Anchor',
             //'\WikiRenderer\Markup\DokuWiki\Footnote',
         ),
     );
@@ -60,7 +58,7 @@ class Config extends \WikiRenderer\Config
         '\WikiRenderer\Markup\DokuWiki\NoWiki',
         '\WikiRenderer\Markup\DokuWiki\Html',
         '\WikiRenderer\Markup\DokuWiki\Php',
-        //'\WikiRenderer\Markup\DokuWiki\Macro',
+        '\WikiRenderer\Markup\DokuWiki\Macro',
         '\WikiRenderer\Markup\DokuWiki\Pre',
         '\WikiRenderer\Markup\DokuWiki\P',
     );
@@ -96,6 +94,14 @@ class Config extends \WikiRenderer\Config
     public $interwikiLinks = array(
         'wp' => 'http://wikipedia.org/%s'
     );
+
+    /**
+     * list of functions implementing macros. Functions receive the macro name and
+     * a string representing the arguments. It should return a string (empty or not)
+     * to insert into the generated content. 
+     * @var callable[]  keys are macro name in lower case
+     */
+    public $macros = array();
 
     /**
      * html content for footnotes

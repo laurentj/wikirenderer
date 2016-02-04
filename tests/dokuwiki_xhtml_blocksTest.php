@@ -57,7 +57,7 @@ truc3 </code></pre>',
 
     function getListblockFiles() {
         return array(
-            //array('doku_xhtml_general',0),
+            array('dokuwiki/general',0),
             array('para2',0),
             array('dokuwiki/list',0),
             array('dokuwiki/blockquote',0),
@@ -76,6 +76,9 @@ truc3 </code></pre>',
         $genConfig = new \WikiRenderer\Generator\Html\Config();
         $generator = new \WikiRenderer\Generator\Html\Document($genConfig);
         $markupConfig = new \WikiRenderer\Markup\DokuWiki\Config();
+        $markupConfig->macros['hello'] = function($name, $arg) {
+            return '<p>This is the '.$name.' macro with: '.$arg.'</p>';
+        };
         $wr = new \WikiRenderer\RendererNG($generator, $markupConfig);
 
         $sourceFile = 'datasblocks/'.$file.'.src';
