@@ -36,6 +36,10 @@
         <file>trac_inlinesTest.php</file>
     </testsuite>
 
+    <testsuite name="jWiki syntax">
+        <file>jwiki_blocksTest.php</file>
+    </testsuite>
+
     <testsuite name="DokuWiki to Text">
       <file>dokuwiki_textTest.php</file>
     </testsuite>

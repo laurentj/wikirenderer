@@ -16,7 +16,7 @@ namespace WikiRenderer\Markup\JWiki;
 /**
  * Parse a list block
  */
-class WikiList extends \WikiRenderer\Markup\DokuWiki
+class WikiList extends \WikiRenderer\Markup\DokuWiki\WikiList
 {
 
     public $type = 'list';

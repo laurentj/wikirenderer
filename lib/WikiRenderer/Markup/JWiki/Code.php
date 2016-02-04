@@ -11,7 +11,7 @@
  * @licence MIT see LICENCE file
  */
 
-namespace WikiRenderer\Markup\DokuWiki;
+namespace WikiRenderer\Markup\JWiki;
 
 /**
  * Parse code inline tag
