@@ -10,6 +10,7 @@ This example use the dokuwiki syntax.
 
 === title level 2 ===
 
+##myanchor##
 This is a paragraph with a **strong emphasis** and a //normal emphasis//.
 this sentence contains a [[http://jelix.org|link]] and a reference to a foot note((this is the foot note)).
 Now here is a list

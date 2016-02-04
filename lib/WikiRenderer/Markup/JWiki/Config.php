@@ -31,7 +31,7 @@ class Config extends \WikiRenderer\Config
             '\WikiRenderer\Markup\DokuWiki\Image',
             '\WikiRenderer\Markup\JWiki\Link',
             '\WikiRenderer\Markup\WR3\Q',
-            //'\WikiRenderer\Markup\JWiki\Anchor',
+            '\WikiRenderer\Markup\JWiki\Anchor',
             //'\WikiRenderer\Markup\JWiki\Footnote',
         ),
         '\WikiRenderer\Markup\DokuWiki\TableRow' => array(
@@ -45,7 +45,7 @@ class Config extends \WikiRenderer\Config
             '\WikiRenderer\Markup\DokuWiki\Image',
             '\WikiRenderer\Markup\JWiki\Link',
             '\WikiRenderer\Markup\WR3\Q',
-            //'\WikiRenderer\Markup\JWiki\Anchor',
+            '\WikiRenderer\Markup\JWiki\Anchor',
             //'\WikiRenderer\Markup\JWiki\Footnote',
         ),
         '\WikiRenderer\Markup\WR3\DefinitionTextLine' => array(
@@ -59,7 +59,7 @@ class Config extends \WikiRenderer\Config
             '\WikiRenderer\Markup\DokuWiki\Image',
             '\WikiRenderer\Markup\JWiki\Link',
             '\WikiRenderer\Markup\WR3\Q',
-            //'\WikiRenderer\Markup\JWiki\Anchor',
+            '\WikiRenderer\Markup\JWiki\Anchor',
             //'\WikiRenderer\Markup\JWiki\Footnote',
         ),
     );

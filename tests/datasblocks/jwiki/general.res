@@ -10,6 +10,7 @@
 
 <div><h4>title level 2</h4>
 
+<a name="myanchor"></a>
 <p>This is a paragraph with a <strong>strong emphasis</strong> and a <em>normal emphasis</em>.
 this sentence contains a <a href="http://jelix.org">link</a> and a reference to a foot note<span class="footnote-ref">[<a href="#footnote-XXX-1" name="rev-footnote-XXX-1" id="rev-footnote-XXX-1">1</a>]</span>.
 Now here is a list</p>
