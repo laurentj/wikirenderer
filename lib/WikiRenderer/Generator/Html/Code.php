@@ -13,6 +13,8 @@
 namespace WikiRenderer\Generator\Html;
 
 class Code extends AbstractInlineGenerator {
-    
+
+    protected $supportedAttributes = array('id', 'class');
+
     protected $htmlTagName = 'code';
 }
