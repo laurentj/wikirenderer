@@ -22,18 +22,14 @@ class RendererNG extends Renderer
      */
     protected $documentGenerator;
 
-    public function __construct(\WikiRenderer\Generator\DocumentGeneratorInterface $generator, Config $config = null)
+    public function __construct(\WikiRenderer\Generator\DocumentGeneratorInterface $generator, Config $config)
     {
         $this->documentGenerator = $generator;
 
-        if (isset($config)) {
-            if (is_subclass_of($config, '\WikiRenderer\Config')) {
-                $this->config = $config;
-            } else {
-                throw new \Exception('WikiRenderer: Bad configuration.');
-            }
+        if (is_subclass_of($config, '\WikiRenderer\Config')) {
+            $this->config = $config;
         } else {
-            $this->config = new \WikiRenderer\Markup\WR3\Config();
+            throw new \InvalidArgumentException('WikiRenderer: Bad configuration.');
         }
 
         $this->inlineParser = new InlineParserNG($this->config, $generator);

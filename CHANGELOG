@@ -5,6 +5,7 @@ Version 4.0
 - classes with namespace
 - Licence changed from LGPL to MIT
 - new internal architecture : allow to separate syntax parsing and content generation
+- new API a generator and a configuration object should be given to WikiRenderer\Renderer
 - Removed phpwiki syntax support
 - Removed phorum mod
 

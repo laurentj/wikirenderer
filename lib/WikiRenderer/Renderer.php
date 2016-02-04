@@ -55,16 +55,12 @@ class Renderer
      *
      * @param \WikiRenderer\Config $config A configuration object. If it is not present, it uses wr3_to_xhtml rules.
      */
-    public function __construct($config = null)
+    public function __construct($config)
     {
-        if (isset($config)) {
-            if (is_subclass_of($config, '\WikiRenderer\Config')) {
-                $this->config = $config;
-            } else {
-                throw new \Exception('WikiRenderer: Bad configuration.');
-            }
+        if (is_subclass_of($config, '\WikiRenderer\Config')) {
+            $this->config = $config;
         } else {
-            $this->config = new \WikiRenderer\Markup\WR3Html\Config();
+            throw new \InvalidArgumentException('WikiRenderer: Bad configuration.');
         }
 
         $this->inlineParser = new InlineParser($this->config);
