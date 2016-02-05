@@ -65,7 +65,7 @@ truc3 </programlisting>',
         return array(
             array('para',0),
             array('para2',0),
-            //array('list',0),
+            array('list',0),
             //array('quote',0),
             //array('table',0),
             //array('section',0),
@@ -80,8 +80,8 @@ truc3 </programlisting>',
      */
     function testBlockFiles($file, $nberror) {
 
-        $genConfig = new \WikiRenderer\Generator\Dockbook\Config();
-        $generator = new \WikiRenderer\Generator\Dockbook\Document($genConfig);
+        $genConfig = new \WikiRenderer\Generator\Docbook\Config();
+        $generator = new \WikiRenderer\Generator\Docbook\Document($genConfig);
         $markupConfig = new \WikiRenderer\Markup\DokuWiki\Config();
         $wr = new \WikiRenderer\RendererNG($generator, $markupConfig);
 

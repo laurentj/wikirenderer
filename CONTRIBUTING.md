@@ -14,4 +14,3 @@ When you do modifications in the source code, be sure that all tests pass:
 cd tests
 ../vendor/bin/phpunit
 ```
-
