@@ -5,11 +5,11 @@
  * @package wikirenderer
  * @subpackage tests
  * @author Laurent Jouanneau
- * @copyright 2006-2011 Laurent Jouanneau
+ * @copyright 2006-2016 Laurent Jouanneau
  */
 
 class DokuWikiDocbookTestBlocks extends PHPUnit_Framework_TestCase {
-
+/*
     protected $data = array(
 0=>array(
 '',
@@ -47,7 +47,11 @@ truc3 </programlisting>',
 ),
     );
     public function testBlocks() {
-        $wr = new \WikiRenderer\Renderer(new \WikiRenderer\Markup\DokuDocBook\Config());
+        $genConfig = new \WikiRenderer\Generator\Dockbook\Config();
+        $generator = new \WikiRenderer\Generator\Dockbook\Document($genConfig);
+        $markupConfig = new \WikiRenderer\Markup\DokuWiki\Config();
+        $wr = new \WikiRenderer\RendererNG($generator, $markupConfig);
+
         foreach($this->data as $k=>$test){
             list($source, $result, $nberror) = $test;
             $res = $wr->render($source);
@@ -55,40 +59,42 @@ truc3 </programlisting>',
             $this->assertEquals($nberror, count($wr->errors), "Errors detected by wr");
         }
     }
+*/
 
+    function getListblocks () {
+        return array(
+            array('para',0),
+            array('para2',0),
+            //array('list',0),
+            //array('quote',0),
+            //array('table',0),
+            //array('section',0),
+            //array('section2',0),
+            //array('section3',0),
+            //array('pre',0),
+        );
+    }
 
-    var $listblocks = array(
-        'para'=>0,
-        'para2'=>0,
-        'list'=>0,
-        'quote'=>0,
-        'table'=>0,
-        'section'=>0,
-        'section2'=>0,
-        'section3'=>0,
-        'pre'=>0,
-    );
+    /**
+     * @dataProvider getListblocks
+     */
+    function testBlockFiles($file, $nberror) {
 
-    function testBlockFiles() {
-        $wr = new \WikiRenderer\Renderer(new \WikiRenderer\Markup\DokuDocBook\Config());
-        foreach($this->listblocks as $file=>$nberror){
-            $sourceFile = 'datasblocks/doku_dbk_'.$file.'.src';
-            $resultFile = 'datasblocks/doku_dbk_'.$file.'.res';
+        $genConfig = new \WikiRenderer\Generator\Dockbook\Config();
+        $generator = new \WikiRenderer\Generator\Dockbook\Document($genConfig);
+        $markupConfig = new \WikiRenderer\Markup\DokuWiki\Config();
+        $wr = new \WikiRenderer\RendererNG($generator, $markupConfig);
 
-            $handle = fopen($sourceFile, "r");
-            $source = fread($handle, filesize($sourceFile));
-            fclose($handle);
+        $sourceFile = 'datasblocks/dokuwiki_docbook/doku_dbk_'.$file.'.src';
+        $resultFile = 'datasblocks/dokuwiki_docbook/doku_dbk_'.$file.'.res';
 
-            $handle = fopen($resultFile, "r");
-            $result = fread($handle, filesize($resultFile));
-            fclose($handle);
+        $source = file_get_contents($sourceFile);
+        $result = file_get_contents($resultFile);
 
-            $res = $wr->render($source);
+        $res = $wr->render($source);
 
-            $this->assertEquals($result, $res, "error on $file");
-
-            $this->assertEquals($nberror, count($wr->errors),"Errors detected by wr");
-        }
+        $this->assertEquals($result, $res);
+        $this->assertEquals($nberror, count($wr->errors));
     }
 }
 
