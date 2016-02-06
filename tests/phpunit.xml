@@ -21,7 +21,6 @@
     <testsuite name="wr3 to docbook">
         <file>wr3_dbk_blocksTest.php</file>
         <file>wr3_dbk_inlinesTest.php</file>
-        <file>wr3_dbk_primaryTest.php</file>
     </testsuite>
 
     <testsuite name="Dokuwiki syntax">
