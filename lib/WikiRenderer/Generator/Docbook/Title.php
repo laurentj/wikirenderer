@@ -14,8 +14,6 @@ namespace WikiRenderer\Generator\Docbook;
 
 class Title implements \WikiRenderer\Generator\BlockTitleInterface {
 
-    protected $dbTagName = 'h';
-
     protected $lines = array();
 
     protected $level = 1;
@@ -40,10 +38,10 @@ class Title implements \WikiRenderer\Generator\BlockTitleInterface {
 
     public function generate() {
         if ($this->id) {
-            $text = '<h'.$this->level.' xml:id="'.htmlspecialchars($this->id, ENT_XML1).'">';
+            $text = '<title xml:id="'.htmlspecialchars($this->id, ENT_XML1).'">';
         }
         else {
-            $text = '<h'.$this->level.'>';
+            $text = '<title>';
         }
 
         foreach($this->lines as $k=>$generator) {
@@ -52,7 +50,7 @@ class Title implements \WikiRenderer\Generator\BlockTitleInterface {
             }
             $text .= $generator->generate();
         }
-        $text .= '</h'.$this->level.">";
+        $text .= '</title>';
         return $text;
     }
 }
