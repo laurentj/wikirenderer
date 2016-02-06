@@ -39,7 +39,7 @@ class Html implements \WikiRenderer\Generator\BlockOfRawLinesInterface {
             if ($k>0) {
                 $text .= "\n";
             }
-            $text .= $this->indentation.'    '.$line;
+            $text .= $this->indentation.'    '.strip_tags($line);
         }
         return $text;
     }
