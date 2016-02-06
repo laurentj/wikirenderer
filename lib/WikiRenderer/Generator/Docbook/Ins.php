@@ -14,5 +14,10 @@ namespace WikiRenderer\Generator\Docbook;
 
 class Ins extends AbstractInlineGenerator {
 
-    protected $dbTagName = 'del';
+    protected $dbTagName = 'emphasis';
+    
+    public function generate() {
+        $this->attributes['role'] = 'insertion';
+        return parent::generate();
+    }
 }

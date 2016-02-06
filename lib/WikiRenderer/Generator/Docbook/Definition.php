@@ -34,18 +34,18 @@ class Definition implements BlockDefinitionInterface {
 
     public function generate() {
         if ($this->id) {
-            $text = '<dl xml:id="'.htmlspecialchars($this->id, ENT_XML1).'">';
+            $text = '<variablelist xml:id="'.htmlspecialchars($this->id, ENT_XML1).'">'."\n";
         }
         else {
-            $text = '<dl>';
+            $text = "<variablelist>\n";
         }
 
         foreach($this->items as $k=>$generators) {
             list($term, $definition) = $generators;
-            $text .= "<dt>".$term->generate()."</dt>\n";
-            $text .= "<dd>".$definition->generate()."</dd>\n";
+            $text .= "<varlistentry>\n<term>".$term->generate()."</term>\n";
+            $text .= "<listitem>".$definition->generate()."</listitem>\n</varlistentry>\n";
         }
-        $text .= '</dl>';
+        $text .= '</variablelist>';
         return $text;
     }
 }

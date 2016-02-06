@@ -14,5 +14,10 @@ namespace WikiRenderer\Generator\Docbook;
 
 class Del extends AbstractInlineGenerator {
 
-    protected $dbTagName = 'del';
+    protected $dbTagName = 'emphasis';
+    
+    public function generate() {
+        $this->attributes['role'] = 'deletion';
+        return parent::generate();
+    }
 }

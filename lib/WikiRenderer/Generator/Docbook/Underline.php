@@ -13,5 +13,10 @@
 namespace WikiRenderer\Generator\Docbook;
 
 class Underline extends AbstractInlineGenerator {
-    protected $dbTagName = 'u';
+    protected $dbTagName = 'emphasis';
+    
+    public function generate() {
+        $this->attributes['role'] = 'underline';
+        return parent::generate();
+    }
 }
