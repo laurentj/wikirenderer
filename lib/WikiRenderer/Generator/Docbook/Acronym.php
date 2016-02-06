@@ -27,7 +27,7 @@ class Acronym extends AbstractInlineGenerator implements \WikiRenderer\Generator
     public function generate() {
         $text = '';
         if ($this->alt) {
-            $text .= '<alt>'.htmlspecialchars($value, ENT_XML1).'</alt>';
+            $text .= '<alt>'.htmlspecialchars($this->alt, ENT_XML1).'</alt>';
         }
         foreach($this->content as $content) {
             $text .= $content->generate();

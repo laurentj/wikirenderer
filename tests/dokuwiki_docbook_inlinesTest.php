@@ -81,9 +81,6 @@ consectetuer adipiscing elit.</para>',
 </imageobject></inlinemediaobject> amet, consectetuer adipiscing elit.</para>',
         'Lorem ipsum dolor sit %%amet, consectetuer%% adipiscing elit.'
             =>'<para>Lorem ipsum dolor sit <phrase>amet, consectetuer</phrase> adipiscing elit.</para>',
-
-        /*'Lorem ~~ipsumdolorsit~~ amet, consectetuer adipiscing elit.'
-            =>'<para>Lorem <anchor id="ipsumdolorsit"/> amet, consectetuer adipiscing elit.</para>',*/
     );
 
     function testBalisesInlineSimples() {

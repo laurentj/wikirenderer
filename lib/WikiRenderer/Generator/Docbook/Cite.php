@@ -14,7 +14,7 @@ namespace WikiRenderer\Generator\Docbook;
 
 class Cite extends AbstractInlineGenerator {
 
-    protected $dbTagName = 'cite';
+    protected $dbTagName = 'citetitle';
 
-    protected $supportedAttributes = array('id', 'title');
+    protected $supportedAttributes = array('id');
 }

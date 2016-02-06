@@ -24,17 +24,17 @@ class WR3DBKTestsInlines extends PHPUnit_Framework_TestCase {
         'Lorem ipsum ^^dolor sit amet^^, consectetuer adipiscing elit.'
             =>'<para>Lorem ipsum <quote>dolor sit amet</quote>, consectetuer adipiscing elit.</para>',
         'Lorem ipsum ^^dolor sit amet|fr^^, consectetuer adipiscing elit.'
-            =>'<para>Lorem ipsum <quote lang="fr">dolor sit amet</quote>, consectetuer adipiscing elit.</para>',
+            =>'<para>Lorem ipsum <quote><foreignphrase xml:lang="fr">dolor sit amet</foreignphrase></quote>, consectetuer adipiscing elit.</para>',
         'Lorem ipsum ^^dolor sit amet|fr|foo bar^^, consectetuer adipiscing elit.'
-            =>'<para>Lorem ipsum <quote lang="fr">dolor sit amet</quote>, consectetuer adipiscing elit.</para>',
+            =>'<para>Lorem ipsum <quote><foreignphrase xml:lang="fr">dolor sit amet</foreignphrase></quote>, consectetuer adipiscing elit.</para>',
         'Lorem ipsum dolor sit amet, {{consectetuer adipiscing}} elit.'
-            =>'<para>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</para>',
+            =>'<para>Lorem ipsum dolor sit amet, <citetitle>consectetuer adipiscing</citetitle> elit.</para>',
         'Lorem ipsum dolor sit amet, {{consectetuer adipiscing|un titre}} elit.'
-            =>'<para>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</para>',
+            =>'<para>Lorem ipsum dolor sit amet, <citetitle>consectetuer adipiscing</citetitle> elit.</para>',
         'Lorem ipsum dolor sit amet, ??consectetuer adipiscing?? elit.'
             =>'<para>Lorem ipsum dolor sit amet, <acronym>consectetuer adipiscing</acronym> elit.</para>',
         'Lorem ipsum dolor sit amet, ??consectetuer adipiscing|un titre?? elit.'
-            =>'<para>Lorem ipsum dolor sit amet, <acronym>consectetuer adipiscing</acronym> elit.</para>',
+            =>'<para>Lorem ipsum dolor sit amet, <acronym><alt>un titre</alt>consectetuer adipiscing</acronym> elit.</para>',
         'Lorem [[ipsum dolor]] sit amet, consectetuer adipiscing elit.'
             =>'<para>Lorem <link xlink:href="ipsum dolor">ipsum dolor</link> sit amet, consectetuer adipiscing elit.</para>',
         'Lorem [[#ipsum.dolor]] sit amet, consectetuer adipiscing elit.'
@@ -42,34 +42,54 @@ class WR3DBKTestsInlines extends PHPUnit_Framework_TestCase {
         'Lorem [[ipsum dolor|http://foo.com]] sit amet, consectetuer adipiscing elit.'
             =>'<para>Lorem <link xlink:href="http://foo.com">ipsum dolor</link> sit amet, consectetuer adipiscing elit.</para>',
         'Lorem [[ipsum dolor|javascript:alert(window.title)]] sit amet, consectetuer adipiscing elit.'
-            =>'<para>Lorem <link xlink:href="javascript:alert(window.title)">ipsum dolor</link> sit amet, consectetuer adipiscing elit.</para>',
+            =>'<para>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</para>',
         'Lorem [[ipsum dolor|bar|fr]] sit amet, consectetuer adipiscing elit.'
             =>'<para>Lorem <link xlink:href="bar">ipsum dolor</link> sit amet, consectetuer adipiscing elit.</para>',
         'Lorem [[ipsum dolor|bar|fr|ceci est un titre]] sit amet, consectetuer adipiscing elit.'
             =>'<para>Lorem <link xlink:href="bar">ipsum dolor</link> sit amet, consectetuer adipiscing elit.</para>',
         'Lorem ((ipsumdolorsit.png)) amet, consectetuer adipiscing elit.'
-            =>'<para>Lorem <inlinemediaobject><imageobject><imagedata fileref="ipsumdolorsit.png"/></imageobject></inlinemediaobject> amet, consectetuer adipiscing elit.</para>',
+            =>'<para>Lorem <inlinemediaobject>
+<imageobject><imagedata fileref="ipsumdolorsit.png"/>
+</imageobject></inlinemediaobject> amet, consectetuer adipiscing elit.</para>',
         'Lorem ((ipsumdolorsit.png|alternative text)) amet, consectetuer adipiscing elit.'
-            =>'<para>Lorem <inlinemediaobject><imageobject><imagedata fileref="ipsumdolorsit.png"/></imageobject><textobject><phrase>alternative text</phrase></textobject></inlinemediaobject> amet, consectetuer adipiscing elit.</para>',
+            =>'<para>Lorem <inlinemediaobject>
+<alt>alternative text</alt>
+<imageobject><imagedata fileref="ipsumdolorsit.png"/>
+</imageobject></inlinemediaobject> amet, consectetuer adipiscing elit.</para>',
         'Lorem ((ipsumdolorsit.png|alternative text|L)) amet, consectetuer adipiscing elit.'
-            =>'<para>Lorem <inlinemediaobject><imageobject><imagedata align="left" fileref="ipsumdolorsit.png"/></imageobject><textobject><phrase>alternative text</phrase></textobject></inlinemediaobject> amet, consectetuer adipiscing elit.</para>',
+            =>'<para>Lorem <inlinemediaobject>
+<alt>alternative text</alt>
+<imageobject><imagedata fileref="ipsumdolorsit.png" align="left"/>
+</imageobject></inlinemediaobject> amet, consectetuer adipiscing elit.</para>',
         'Lorem ((ipsumdolorsit.png|alternative text|R|longue description)) amet, consectetuer adipiscing elit.'
-            =>'<para>Lorem <inlinemediaobject><imageobject><imagedata align="right" fileref="ipsumdolorsit.png"/></imageobject><textobject><phrase>alternative text</phrase></textobject></inlinemediaobject> amet, consectetuer adipiscing elit.</para>',
+            =>'<para>Lorem <inlinemediaobject>
+<info><abstract><title></title><para>longue description</para></abstract></info>
+<alt>alternative text</alt>
+<imageobject><imagedata fileref="ipsumdolorsit.png" align="right"/>
+</imageobject></inlinemediaobject> amet, consectetuer adipiscing elit.</para>',
         'Lorem ~~ipsumdolorsit~~ amet, consectetuer adipiscing elit.'
-            =>'<para>Lorem <anchor id="ipsumdolorsit"/> amet, consectetuer adipiscing elit.</para>',
-        'Lorem $$ipsumdolorsit amet$$, consectetuer adipiscing elit.'
-            =>'<para>Lorem <footnote><para>ipsumdolorsit amet</para></footnote>, consectetuer adipiscing elit.</para>',
+            =>'<para>Lorem <anchor xml:id="ipsumdolorsit"/> amet, consectetuer adipiscing elit.</para>',
+        //'Lorem $$ipsumdolorsit amet$$, consectetuer adipiscing elit.'
+        //    =>'<para>Lorem <footnote><para>ipsumdolorsit amet</para></footnote>, consectetuer adipiscing elit.</para>',
 
     );
 
 
 
     function testBalisesInlineSimples() {
-        $wr = new \WikiRenderer\Renderer(new \WikiRenderer\Markup\WR3DocBook\Config());
-        foreach($this->listinline as $source=>$result){
+        $genConfig = new \WikiRenderer\Generator\Docbook\Config();
+        $generator = new \WikiRenderer\Generator\Docbook\Document($genConfig);
+
+        $config = new \WikiRenderer\Markup\WR3\Config();
+
+        $wr = new \WikiRenderer\RendererNG($generator, $config);
+        foreach($this->listinline as $source=>$expected){
             $res = $wr->render($source);
-            $this->assertEquals($res,$result, "erreur");
-            $this->assertEquals(count($wr->errors),0, "WR returns errors ! (%s)");
+            $this->assertEquals($expected, $res, $source);
+            $this->assertEquals(0, count($wr->errors),0);
+            if ($source != 'Lorem [[#ipsum.dolor]] sit amet, consectetuer adipiscing elit.') {
+                $this->validateDocbook($res);
+            }
         }
     }
 
@@ -95,7 +115,12 @@ class WR3DBKTestsInlines extends PHPUnit_Framework_TestCase {
     );
 
     function testBalisesInlineComplexes() {
-        $wr = new \WikiRenderer\Renderer(new \WikiRenderer\Markup\WR3DocBook\Config());
+        $genConfig = new \WikiRenderer\Generator\Docbook\Config();
+        $generator = new \WikiRenderer\Generator\Docbook\Document($genConfig);
+
+        $config = new \WikiRenderer\Markup\WR3\Config();
+
+        $wr = new \WikiRenderer\RendererNG($generator, $config);
         foreach($this->listinline2 as $source=>$result){
             $res = $wr->render($source);
             $this->assertEquals($result[1], $res);
@@ -103,4 +128,27 @@ class WR3DBKTestsInlines extends PHPUnit_Framework_TestCase {
         }
     }
 
+    protected function validateDocbook($res) {
+        $docbook_rng = getenv('DOCBOOK_RNG');
+        if ($docbook_rng) {
+            $relaxng = '/usr/share/xml/docbook/schema/rng/5.0/docbook.rng';
+            if (strpos($docbook_rng, '.rng') !== false ) {
+                $relaxng = $docbook_rng;
+            }
+            $docbook = '<'."?xml version='1.0'?>\n";
+            $docbook .= '<book xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0">
+<title>My First Book</title><article><title>test</title>
+';
+            $docbook .= $res;
+            $docbook .= '</article></book>';
+
+            file_put_contents('docbook_result.xml', $docbook);
+            $output = array();
+            $returnCode = 0;
+            $cmd = "xmllint --relaxng ".escapeshellcmd($relaxng).' --noout docbook_result.xml 2>&1';
+            exec($cmd, $output, $returnCode);
+            $this->assertEquals("docbook_result.xml validates", implode("\n", $output));
+        }
+
+    }
 }

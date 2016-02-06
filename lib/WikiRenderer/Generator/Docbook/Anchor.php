@@ -17,12 +17,12 @@ class Anchor extends AbstractInlineGenerator {
     protected $supportedAttributes = array('anchor');
 
     public function generate() {
-        $html = '';
+        $text = '';
         foreach($this->content as $content) {
-            $html .= $content->generate();
+            $text .= $content->generate();
         }
         $anchor = htmlspecialchars($this->attributes['anchor'], ENT_XML1);
-        return '<span xml:id="'.$anchor.'" class="wikianchor">'.$html.'<a href="#'.$anchor.'" class="anchor">¶</a></span>';
+        return '<anchor xml:id="'.$anchor.'"/>'.$text;
     }    
 
 }

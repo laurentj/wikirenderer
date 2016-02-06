@@ -16,7 +16,7 @@ class Link extends AbstractInlineGenerator {
     
     protected $dbTagName = 'link';
 
-    protected $supportedAttributes = array('id', 'href', 'hreflang', 'title');
+    protected $supportedAttributes = array('id', 'href');
 
     public function generate() {
         $text = '';
