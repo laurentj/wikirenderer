@@ -47,7 +47,7 @@ class RendererNG extends Renderer
     {
         $text = $this->config->onStart($text);
 
-        $lignes = preg_split("/\015\012|\015|\012/", $text); // we split the text at all line feeds
+        $linesIterator = new \ArrayIterator(preg_split("/\015\012|\015|\012/", $text)); // we split the text at all line feeds
 
         $this->_newtext = array();
         $this->errors = array();
@@ -55,24 +55,26 @@ class RendererNG extends Renderer
         $this->_previousBloc = null;
 
         // we loop over all lines
-        foreach ($lignes as $num => $ligne) {
+        while ($linesIterator->valid()) {
+            $line = $linesIterator->current();
             if ($this->_currentBlock) {
                 // a block is already opened
-                if ($this->_currentBlock->detect($ligne, true)) {
+                if ($this->_currentBlock->detect($line, true)) {
                     // the line is part of the block
                     $this->_currentBlock->validateDetectedLine();
                 } else {
                     // the line is not part of the block, we close it.
                     $this->_newtext[] = $this->_currentBlock->close();
-                    $this->detectNewBlock($ligne);
+                    $this->detectNewBlock($line);
                 }
             } else {
                 // no opened block, we see if the line correspond to a block
-                $this->detectNewBlock($ligne);
+                $this->detectNewBlock($line);
             }
             if ($this->inlineParser->error) {
-                $this->errors[$num + 1] = $ligne;
+                $this->errors[$linesIterator->key() + 1] = $line;
             }
+            $linesIterator->next();
         }
         if ($this->_currentBlock) {
             $this->_newtext[] = $this->_currentBlock->close();
