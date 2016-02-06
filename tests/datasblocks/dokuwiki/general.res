@@ -25,4 +25,4 @@ Now here is a list</p>
 </li>
 <li>item 3</li></ul>
 
-<p>Of course, some other wiki 'tags' are available for this syntax.</p>
+<p>Of course, some other wiki 'tags' are available for this syntax, like some <code>codes</code>.</p>

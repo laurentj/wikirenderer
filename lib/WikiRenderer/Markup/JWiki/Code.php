@@ -55,7 +55,7 @@ class Code extends \WikiRenderer\TagNG
                     } elseif ($type == 'V') {
                         $this->generator = $this->documentGenerator->getInlineGenerator('variable');
                     } elseif (isset($this->code_types[$type])) {
-                        $this->generator->setAttribute('class', 'code-'.$this->code_types[$type]);
+                        $this->generator->setAttribute('type', $this->code_types[$type]);
                     }
                     else {
                         // unknown type, let's cancel
