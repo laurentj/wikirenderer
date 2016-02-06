@@ -95,7 +95,10 @@ truc3 </programlisting>',
 
         $this->assertEquals($result, $res);
         $this->assertEquals($nberror, count($wr->errors));
+        $this->validateDocbook($res);
+    }
 
+    protected function validateDocbook($res) {
         $docbook_rng = getenv('DOCBOOK_RNG');
         if ($docbook_rng) {
             $relaxng = '/usr/share/xml/docbook/schema/rng/5.0/docbook.rng';

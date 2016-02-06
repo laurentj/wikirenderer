@@ -60,6 +60,8 @@ class DokuwikiTestsInlineParser extends PHPUnit_Framework_TestCase {
             =>'Lorem <a href="/wiki/ipsum:dolor#bar">ipsum:dolor</a> sit amet, consectetuer adipiscing elit.',
         'Lorem [[this>dolor#bar]] sit amet, consectetuer adipiscing elit.'
             =>'Lorem <a href="/dolor#bar">dolor#bar</a> sit amet, consectetuer adipiscing elit.',
+        'Lorem [[#bar]] sit amet, consectetuer adipiscing elit.'
+            =>'Lorem <a href="#bar">#bar</a> sit amet, consectetuer adipiscing elit.',
 
         /*'Lorem http:\\//foo.com ipsum dolor sit amet, consectetuer adipiscing elit.'
             =>'Lorem <a href="http://foo.com">http://foo.com/<a> ipsum dolor sit amet, consectetuer adipiscing elit.',*/

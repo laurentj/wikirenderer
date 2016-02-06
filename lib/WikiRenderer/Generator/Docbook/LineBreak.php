@@ -23,6 +23,6 @@ class LineBreak implements \WikiRenderer\Generator\InlineGeneratorInterface {
      * @return string
      */
     public function generate() {
-        return "<br />";
+        return "";
     }
 }

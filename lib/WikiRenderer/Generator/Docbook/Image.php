@@ -20,26 +20,44 @@ class Image extends AbstractInlineGenerator {
                                            'width', 'height', 'title', 'class');
 
     public function generate() {
-        $attrs = ' src="'.htmlspecialchars($this->getAttribute('src'), ENT_XML1).'"';
+        
+        $alt = '';
+        $text = '';
+        $id = '';
+        $attrs = '';
+        $info='';
+
         if ($this->getAttribute('alt')) {
-            $attrs .= ' alt="'.htmlspecialchars($this->getAttribute('alt'), ENT_XML1).'"';
-        }
-        else {
-            $attrs .= ' alt=""';
+            $alt .= '<alt>'.htmlspecialchars($this->getAttribute('alt'), ENT_XML1)."</alt>\n";
         }
 
-        foreach(array('id', 'longdesc', 'width', 'height', 'title', 'class') as $attr) {
-            $val = $this->getAttribute($attr);
-            if ($val) {
-                $attrs .= ' '.$attr.'="'.htmlspecialchars($val, ENT_XML1).'"';
-            }
+        $desc = $this->getAttribute('longdesc');
+        $title = $this->getAttribute('title');
+        if ($desc || $title) {
+            $info = '<info><abstract><title>'.htmlspecialchars($title, ENT_XML1).'</title>';
+            $info .= '<para>'.htmlspecialchars($desc, ENT_XML1)."</para></abstract></info>\n";
         }
 
-        $align = $this->getAttribute('align');
-        if ($align) {
-            $attrs .= ' style="float:'.htmlspecialchars($align, ENT_XML1).';"';
+        $attr = $this->getAttribute('id');
+        if ($attr) {
+            $id = ' xml:id="'.htmlspecialchars($attr, ENT_XML1).'"';
         }
 
-        return '<'.$this->dbTagName.$attrs.'/>';
+        $attr = $this->getAttribute('align');
+        if ($attr) {
+            $attrs .= ' align="'.htmlspecialchars($attr, ENT_XML1).'"';
+        }
+        $width = $this->getAttribute('width');
+        if ($width) {
+            $attrs .= ' contentwidth="'.htmlspecialchars($width, ENT_XML1).'"';
+        }
+        $height = $this->getAttribute('height');
+        if ($height) {
+            $attrs .= ' contentdepth="'.htmlspecialchars($height, ENT_XML1).'"';
+        }
+
+        $imagedata = '<imagedata fileref="'.htmlspecialchars($this->getAttribute('src'), ENT_XML1).'"'.$attrs."/>\n";
+// FIXME: generates mediaobject if not in block
+        return '<inlinemediaobject'.$id.">\n".$info.$alt.'<imageobject>'.$imagedata. '</imageobject>'.$text.'</inlinemediaobject>';
     }
 }
