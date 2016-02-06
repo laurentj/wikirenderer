@@ -67,7 +67,7 @@ truc3 </programlisting>',
             array('para2',0),
             array('list',0),
             array('quote',0),
-            //array('table',0),
+            array('table',0),
             //array('section',0),
             //array('section2',0),
             //array('section3',0),
@@ -106,7 +106,7 @@ truc3 </programlisting>',
                 $relaxng = $docbook_rng;
             }
             $docbook = '<'."?xml version='1.0'?>\n";
-            $docbook .= '<book xmlns="http://docbook.org/ns/docbook" version="5.0">
+            $docbook .= '<book xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0">
 <title>My First Book</title><article><title>test</title>
 ';
             $docbook .= $res;

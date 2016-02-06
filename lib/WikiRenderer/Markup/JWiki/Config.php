@@ -44,7 +44,6 @@ class Config extends \WikiRenderer\Config
             '\WikiRenderer\Markup\JWiki\Code',
             '\WikiRenderer\Markup\DokuWiki\Image',
             '\WikiRenderer\Markup\JWiki\Link',
-            '\WikiRenderer\Markup\WR3\Q',
             '\WikiRenderer\Markup\JWiki\Anchor',
             //'\WikiRenderer\Markup\JWiki\Footnote',
         ),

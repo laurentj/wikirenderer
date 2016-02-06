@@ -25,11 +25,6 @@ class Hr implements \WikiRenderer\Generator\BlockGeneratorInterface {
     }
 
     public function generate() {
-        if ($this->id) {
-            return '<hr xml:id="'.htmlspecialchars($this->id, ENT_XML1).'"/>';
-        }
-        else {
-            return '<hr/>';
-        }
+        return '';
     }
 }

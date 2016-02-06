@@ -62,6 +62,7 @@ class TableRow extends \WikiRenderer\TagNG
         }
     }
 
+    protected $previousGenerator = null;
     /**
      * called by the inline parser, when it found a separator.
      */
@@ -69,7 +70,10 @@ class TableRow extends \WikiRenderer\TagNG
     {
         $cellContent = $this->wikiContentArr[$this->separatorCount];
         if ($cellContent === '') {
-            $this->generator->setColSpan($this->generator->getColSpan() + 1);
+            if ($this->previousGenerator) {
+                $this->previousGenerator->setColSpan($this->previousGenerator->getColSpan() + 1);
+            }
+            
         }
         else {
             if (preg_match('/^\s\s/', $cellContent) &&
@@ -81,12 +85,12 @@ class TableRow extends \WikiRenderer\TagNG
             else if (preg_match('/^\s\s/', $cellContent)) {
                 $this->generator->setAlign('right');
             }
-            else if (preg_match('/\s\s$/', $cellContent)) {
+            else if (preg_match('/\s\s$/', $cellContent) && preg_match('/^\S/', $cellContent)) {
                 $this->generator->setAlign('left');
             }
             $this->row->addGenerator($this->generator);
             $this->wikiContent .= $cellContent;
-
+            $this->previousGenerator = $this->generator;
             $this->generator = $this->documentGenerator->getInlineGenerator($this->generatorName);
             if ($token == '^') {
                 $this->generator->setIsHeader(true);

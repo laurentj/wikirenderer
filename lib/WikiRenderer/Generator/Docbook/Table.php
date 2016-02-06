@@ -56,10 +56,10 @@ class Table implements BlockTableInterface {
 
     public function generate() {
         if ($this->id) {
-            $text = '<table border="1" xml:id="'.htmlspecialchars($this->id, ENT_XML1).'">'."\n";
+            $text = '<table xml:id="'.htmlspecialchars($this->id, ENT_XML1).'"><caption></caption>'."\n";
         }
         else {
-            $text = '<table border="1">'."\n";
+            $text = '<table><caption></caption>'."\n";
         }
 
         foreach($this->rows as $k=>$row) {

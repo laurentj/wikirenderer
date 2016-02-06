@@ -43,7 +43,7 @@
 </tr>
 <tr>
 <td> 1 </td>
-<td> 2-3 </td>
+<td colspan="2"> 2-3 </td>
 </tr>
 </table>
 
@@ -55,8 +55,8 @@
 <th align="center">  Cell 4  </th>
 </tr>
 <tr>
-<th> Cell 5 </th>
-<td colspan="2" align="left">Cell 6  </td>
+<th colspan="2"> Cell 5 </th>
+<td align="left">Cell 6  </td>
 <td align="right">  Cell 7</td>
 </tr>
 </table>
@@ -86,5 +86,27 @@
 <tr>
 <td> Cell 7 </td>
 <td> Cell 8 </td>
+</tr>
+</table>
+
+
+<table border="1">
+<tr>
+<th colspan="3" align="center">           Table with alignment           </th>
+</tr>
+<tr>
+<td align="right">         right</td>
+<td align="center">    center    </td>
+<td align="left">left          </td>
+</tr>
+<tr>
+<td align="left">left          </td>
+<td align="right">         right</td>
+<td align="center">    center    </td>
+</tr>
+<tr>
+<td> xxxxxxxxxxxx </td>
+<td> xxxxxxxxxxxx </td>
+<td> xxxxxxxxxxxx </td>
 </tr>
 </table>
