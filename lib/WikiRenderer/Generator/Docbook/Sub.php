@@ -13,5 +13,5 @@
 namespace WikiRenderer\Generator\Docbook;
 
 class Sub extends AbstractInlineGenerator {
-    protected $dbTagName = 'sub';
+    protected $dbTagName = 'subscript';
 }

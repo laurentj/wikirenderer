@@ -19,7 +19,7 @@ namespace WikiRenderer\Markup\DokuWiki;
 class Subscript extends \WikiRenderer\TagNG
 {
     protected $name = 'sub';
-    protected $generatorName = 'sub';
+    protected $generatorName = 'subscript';
     public $beginTag = "<sub>";
     public $endTag = "</sub>";
 }

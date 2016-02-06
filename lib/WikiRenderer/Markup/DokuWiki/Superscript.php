@@ -19,7 +19,7 @@ namespace WikiRenderer\Markup\DokuWiki;
 class Superscript extends \WikiRenderer\TagNG
 {
     protected $name = 'sup';
-    protected $generatorName = 'sup';
+    protected $generatorName = 'superscript';
     public $beginTag = "<sup>";
     public $endTag = "</sup>";
 }

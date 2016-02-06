@@ -159,7 +159,7 @@ class Config extends \WikiRenderer\Config
         if (preg_match('/^(\w+)>(.*)$/', $url, $m)) {
             // interwiki links
             $anchor = '';
-            if (preg_match('/(#[\w\-_0-9]+)$/', $m[1], $m2)) {
+            if (preg_match('/(#[\w\-_\.0-9]+)$/', $m[1], $m2)) {
                 $anchor = $m2[1];
                 $m[2] = substr($m[1], 0, -strlen($m2[1]));
             }
@@ -181,9 +181,14 @@ class Config extends \WikiRenderer\Config
                 $url = '#';
                 $label = '#';
             }
-            else if (preg_match('/(#[\w\-_0-9]+)$/', $url, $m)) {
-                $label = $url = substr($url, 0, -strlen($m[1]));
-                $url = sprintf($this->wikiBaseUrl, $url).$m[1];
+            else if (preg_match('/(#[\w\-_\.0-9]+)$/', $url, $m)) {
+                if ($url[0] == '#') {
+                    $label = $url;
+                }
+                else {
+                    $label = $url = substr($url, 0, -strlen($m[1]));
+                    $url = sprintf($this->wikiBaseUrl, $url).$m[1];
+                }
             }
             else {
                 $url = sprintf($this->wikiBaseUrl, $url);

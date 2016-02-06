@@ -19,7 +19,7 @@ namespace WikiRenderer\Markup\Trac;
 class Sup extends \WikiRenderer\TagNG
 {
     protected $name = 'sup';
-    protected $generatorName = 'sup';
+    protected $generatorName = 'superscript';
     public $beginTag = "^";
     public $endTag = "^";
 }

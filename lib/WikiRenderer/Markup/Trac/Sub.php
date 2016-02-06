@@ -19,7 +19,7 @@ namespace WikiRenderer\Markup\Trac;
 class Sub extends \WikiRenderer\TagNG
 {
     protected $name = 'sub';
-    protected $generatorName = 'sub';
+    protected $generatorName = 'subscript';
     public $beginTag = ",,";
     public $endTag = ",,";
 }

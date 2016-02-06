@@ -14,5 +14,5 @@ namespace WikiRenderer\Generator\Docbook;
 
 class Sup extends AbstractInlineGenerator {
 
-    protected $dbTagName = 'sup';
+    protected $dbTagName = 'superscript';
 }
