@@ -36,6 +36,6 @@ class NoFormat implements \WikiRenderer\Generator\InlineRawWordsInterface {
      * @return string
      */
     public function generate() {
-        return "<span>".implode("", $this->content)."</span>";
+        return "<phrase>".implode("", $this->content)."</phrase>";
     }
 }

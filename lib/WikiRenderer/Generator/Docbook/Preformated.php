@@ -14,7 +14,7 @@ namespace WikiRenderer\Generator\Docbook;
 
 class Preformated implements \WikiRenderer\Generator\BlockOfRawLinesInterface {
     
-    protected $dbTagName = 'pre';
+    protected $dbTagName = 'literallayout';
 
     protected $lines = array();
 

@@ -13,8 +13,6 @@
 namespace WikiRenderer\Generator\Docbook;
 
 class Html implements \WikiRenderer\Generator\BlockOfRawLinesInterface {
-    
-    protected $dbTagName = 'div';
 
     protected $lines = array();
 
@@ -37,19 +35,19 @@ class Html implements \WikiRenderer\Generator\BlockOfRawLinesInterface {
 
     public function generate() {
         if ($this->id) {
-            $text = '<'.$this->dbTagName.' xml:id="'.htmlspecialchars($this->id, ENT_XML1).'">';
+            $text = '<para xml:id="'.htmlspecialchars($this->id, ENT_XML1).'">';
         }
         else {
-            $text = '<'.$this->dbTagName.'>';
+            $text = '<para>';
         }
 
         foreach($this->lines as $k=>$line) {
             if ($k>0) {
                 $text .= "\n";
             }
-            $text .= $line;
+            $text .= strip_tags($line);
         }
-        $text .= '</'.$this->dbTagName.">";
+        $text .= '</para>';
         return $text;
     }
 }

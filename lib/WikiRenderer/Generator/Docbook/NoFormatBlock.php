@@ -14,6 +14,6 @@ namespace WikiRenderer\Generator\Docbook;
 
 class NoFormatBlock extends Preformated {
     
-    protected $dbTagName = 'div';
+    protected $dbTagName = 'para';
 
 }

@@ -13,8 +13,6 @@
 namespace WikiRenderer\Generator\Docbook;
 
 class SyntaxHighlighting implements \WikiRenderer\Generator\BlockSyntaxHighlightingInterface {
-    
-    protected $dbTagName = 'pre';
 
     protected $lines = array();
 
@@ -54,26 +52,26 @@ class SyntaxHighlighting implements \WikiRenderer\Generator\BlockSyntaxHighlight
 
     public function generate() {
         if ($this->id) {
-            $text = '<pre xml:id="'.htmlspecialchars($this->id, ENT_XML1).'">';
+            $text = '<programlisting xml:id="'.htmlspecialchars($this->id, ENT_XML1).'"';
         }
         else {
-            $text = '<'.$this->dbTagName.'>';
+            $text = '<programlisting';
         }
-        if ($this->filename) {
-            $text .= '<span class="code-filename">'.htmlspecialchars($this->filename, ENT_XML1)."</span><br/>\n";
-        }
-        $text .= '<code';
+
         if ($this->syntax) {
-            $text .= ' class="syntax-'.$this->syntax.'"';
+            $text .= ' language="'.$this->syntax.'"';
         }
-        $text .='>';
+        $text .= '>';
+        if ($this->filename) {
+            $text .= '<filename>'.htmlspecialchars($this->filename, ENT_XML1)."</filename>\n";
+        }
         foreach($this->lines as $k=>$line) {
             if ($k>0) {
                 $text .= "\n";
             }
             $text .= htmlspecialchars($line, ENT_XML1);
         }
-        $text .= '</code></pre>';
+        $text .= '</programlisting>';
         return $text;
     }
 }

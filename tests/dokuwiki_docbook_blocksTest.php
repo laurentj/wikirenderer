@@ -71,7 +71,7 @@ truc3 </programlisting>',
             //array('section',0),
             //array('section2',0),
             //array('section3',0),
-            //array('pre',0),
+            array('pre',0),
         );
     }
 
