@@ -14,5 +14,5 @@ namespace WikiRenderer\Generator\Docbook;
 
 class Em extends AbstractInlineGenerator {
     
-    protected $dbTagName = 'em';
+    protected $dbTagName = 'emphasis';
 }
