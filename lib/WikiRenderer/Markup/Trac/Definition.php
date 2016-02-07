@@ -16,7 +16,7 @@ namespace WikiRenderer\Markup\Trac;
 /**
  * Parser for definitions block
  */
-class Definition extends \WikiRenderer\BlockNG
+class Definition extends \WikiRenderer\Block
 {
     public $type = 'definition';
 

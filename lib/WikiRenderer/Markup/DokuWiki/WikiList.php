@@ -17,7 +17,7 @@ use WikiRenderer\Generator\BlockListInterface;
 /**
  * Parse a list block
  */
-class WikiList extends \WikiRenderer\BlockNG
+class WikiList extends \WikiRenderer\Block
 {
 
     public $type = 'list';

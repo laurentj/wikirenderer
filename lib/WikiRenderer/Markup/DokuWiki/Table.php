@@ -16,7 +16,7 @@ namespace WikiRenderer\Markup\DokuWiki;
 /**
  * Parse a table block
  */
-class Table extends \WikiRenderer\BlockNG
+class Table extends \WikiRenderer\Block
 {
     public $type = 'table';
     protected $regexp = "/^\s*(\||\^)(.*)/";

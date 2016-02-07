@@ -16,7 +16,7 @@ namespace WikiRenderer\Markup\DokuWiki;
 /**
  * Parser for nowiki content
  */
-class NoWiki extends \WikiRenderer\BlockNG
+class NoWiki extends \WikiRenderer\Block
 {
     public $type = 'noformat';
     protected $tagName = 'nowiki';

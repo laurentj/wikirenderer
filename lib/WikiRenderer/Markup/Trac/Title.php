@@ -17,7 +17,7 @@ namespace WikiRenderer\Markup\Trac;
  * Parse a title block
  * @FIXME support nested sections
  */
-class Title extends \WikiRenderer\BlockNG
+class Title extends \WikiRenderer\Block
 {
     public $type = 'title';
     protected $regexp = "/^\s*(\={1,6})\s*([^=]+)\s*(\={1,6})?(.*)$/";

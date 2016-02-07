@@ -16,7 +16,7 @@ namespace WikiRenderer\Markup\DokuWiki;
 /**
  * Parse a title block
  */
-class Title extends \WikiRenderer\BlockNG
+class Title extends \WikiRenderer\Block
 {
     public $type = 'title';
     protected $regexp = "/^\s*(\=+)\s*([^=]+)\s*(\=+)\s*$/";

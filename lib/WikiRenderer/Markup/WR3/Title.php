@@ -16,7 +16,7 @@ namespace WikiRenderer\Markup\WR3;
 /**
  * Parse a title block
  */
-class Title extends \WikiRenderer\BlockNG
+class Title extends \WikiRenderer\Block
 {
     public $type = 'title';
     protected $regexp = "/^\s*(\!{1,3})(.*)/";

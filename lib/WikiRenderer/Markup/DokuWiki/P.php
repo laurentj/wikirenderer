@@ -16,7 +16,7 @@ namespace WikiRenderer\Markup\DokuWiki;
 /**
  * Parser for a paragraph block
  */
-class P extends \WikiRenderer\BlockNG
+class P extends \WikiRenderer\Block
 {
     public $type = 'para';
 

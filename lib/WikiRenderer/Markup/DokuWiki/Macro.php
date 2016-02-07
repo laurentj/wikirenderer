@@ -16,7 +16,7 @@ namespace WikiRenderer\Markup\DokuWiki;
 /**
  * Parse a title block
  */
-class Macro extends \WikiRenderer\BlockNG
+class Macro extends \WikiRenderer\Block
 {
     public $type = 'macro';
     protected $regexp = "/^\s*~~([^~]*)~~\s*$/";

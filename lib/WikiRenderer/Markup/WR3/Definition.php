@@ -16,7 +16,7 @@ namespace WikiRenderer\Markup\WR3;
 /**
  * Parser for definitions block
  */
-class Definition extends \WikiRenderer\BlockNG
+class Definition extends \WikiRenderer\Block
 {
     public $type = 'definition';
     protected $regexp = "/^\s*;(.*) : (.*)/i";

@@ -6,7 +6,7 @@
  * @author Laurent Jouanneau
  * @contributor  Amaury Bouchard
  *
- * @copyright 2003-2013 Laurent Jouanneau
+ * @copyright 2003-2016 Laurent Jouanneau
  *
  * @link http://wikirenderer.jelix.org
  *
@@ -24,33 +24,44 @@ abstract class Block
 {
     /** @var string  Type of the block. */
     public $type = '';
-    /** @var string  The string inserted at the beginning of the block. */
-    protected $_openTag = '';
-    /** @var string  The string inserted at the end of the block. */
-    protected $_closeTag = '';
+
     /**
      * @var bool Says if the block is only on one line.
      */
     protected $_closeNow = false;
+
     /** @var \WikiRenderer\Renderer      Reference to the main parser. */
     protected $engine = null;
+
     /** @var   array      List of elements found by the regular expression. */
     protected $_detectMatch = null;
+
     /** @var string      Regular expression which can detect the block. */
     protected $regexp = '';
+
     /** @var bool  True if the block object must be cloned. Warning: True by default. */
     protected $_mustClone = true;
 
-    protected $text = array();
+    /**
+     * @var \WikiRenderer\Generator\BlockGeneratorInterface
+     */
+    protected $generator;
+
+    /**
+     * @var \WikiRenderer\Generator\DocumentGeneratorInterface
+     */
+    protected $documentGenerator;
 
     /**
      * Constructor.
      *
      * @param \WikiRenderer\Renderer $wr Main parser object.
      */
-    public function __construct(Renderer $wr)
+    public function __construct(Renderer $wr, \WikiRenderer\Generator\DocumentGeneratorInterface $generator)
     {
         $this->engine = $wr;
+        $this->generator = $generator->getBlockGenerator($this->type);
+        $this->documentGenerator = $generator;
     }
 
     /**
@@ -74,7 +85,6 @@ abstract class Block
      */
     public function open()
     {
-        $this->text = array();
     }
 
     /**
@@ -84,7 +94,7 @@ abstract class Block
      */
     public function validateDetectedLine()
     {
-        $this->text[] = $this->_renderInlineTag($this->_detectMatch[1]);
+        $this->generator->addContent($this->_renderInlineTag($this->_detectMatch[1]));
     }
 
     /**
@@ -97,15 +107,7 @@ abstract class Block
      */
     public function close()
     {
-        $content = '';
-        if ($this->_openTag) {
-            $content .= $this->_openTag;
-        }
-        $content .= implode("\n", $this->text); 
-        if ($this->_closeTag) {
-            $content .= $this->_closeTag;
-        }
-        return $content;
+        return $this->generator;
     }
 
     /**
@@ -145,5 +147,9 @@ abstract class Block
     protected function _renderInlineTag($string)
     {
         return $this->engine->inlineParser->parse($string);
+    }
+
+    public function __clone() {
+        $this->generator = clone $this->generator;
     }
 }

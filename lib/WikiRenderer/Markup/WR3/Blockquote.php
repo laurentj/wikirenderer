@@ -16,7 +16,7 @@ namespace WikiRenderer\Markup\WR3;
 /**
  * Parse blockquote block
  */
-class Blockquote extends \WikiRenderer\BlockNG
+class Blockquote extends \WikiRenderer\Block
 {
     public $type = 'blockquote';
     protected $regexp = "/^\s*(\>+)(.*)/";

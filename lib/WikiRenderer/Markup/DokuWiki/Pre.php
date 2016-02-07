@@ -16,7 +16,7 @@ namespace WikiRenderer\Markup\DokuWiki;
 /**
  * Parser for preformated content
  */
-class Pre extends \WikiRenderer\BlockNG
+class Pre extends \WikiRenderer\Block
 {
     public $type = 'pre';
     protected $regexp = "/^(\s{2,})(.*)/";

@@ -16,7 +16,7 @@ namespace WikiRenderer\Markup\ClassicWR;
 /**
  * Parser for a text separator
  */
-class Hr extends \WikiRenderer\BlockNG
+class Hr extends \WikiRenderer\Block
 {
     public $type = 'hr';
     protected $regexp = '/^={4,} *$/';
