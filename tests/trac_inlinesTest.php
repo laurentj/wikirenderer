@@ -227,7 +227,7 @@ class TracTestsInlines extends PHPUnit_Framework_TestCase {
         $generator = new \WikiRenderer\Generator\Html\Document($genConfig);
         $markupConfig = new \WikiRenderer\Markup\Trac\Config();
         $markupConfig->macros[] = new TracMacroExample();
-        $wr = new \WikiRenderer\RendererNG($generator, $markupConfig);
+        $wr = new \WikiRenderer\Renderer($generator, $markupConfig);
         $res = $wr->render($source);
         $this->assertEquals($expected, $res);
         $this->assertEquals(0, count($wr->errors));
@@ -240,7 +240,7 @@ class TracTestsInlines extends PHPUnit_Framework_TestCase {
         $genConfig = new \WikiRenderer\Generator\Html\Config();
         $generator = new \WikiRenderer\Generator\Html\Document($genConfig);
         $markupConfig = new \WikiRenderer\Markup\Trac\Config();
-        $wr = new \WikiRenderer\RendererNG($generator, $markupConfig);
+        $wr = new \WikiRenderer\Renderer($generator, $markupConfig);
         $res = $wr->render($source);
         $this->assertEquals($expected, $res);
         $this->assertEquals($errors, count($wr->errors));

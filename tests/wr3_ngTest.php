@@ -43,7 +43,7 @@ class WR3_NGTestsBlocks extends PHPUnit_Framework_TestCase {
         $genConfig = new \WikiRenderer\Generator\Html\Config();
         $generator = new \WikiRenderer\Generator\Html\Document($genConfig);
         $markupConfig = new \WikiRenderer\Markup\WR3\Config();
-        $wr = new \WikiRenderer\RendererNG($generator, $markupConfig);
+        $wr = new \WikiRenderer\Renderer($generator, $markupConfig);
 
         $block = new \WikiRenderer\Markup\WR3\P($wr, $generator);
 

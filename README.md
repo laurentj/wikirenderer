@@ -12,10 +12,9 @@ WikiRenderer 4.0-pre supports these following markups:
 - WR3 (a markup specific to WikiRenderer 3.0)
 - ClassicWR (a markup specific to WikiRenderer 1.0)
 
-And it can generates HTML.
+And it can generates HTML, Docbook, or cleaned text.
 
-In the final release, support of Markdown markup, Docbook generator, Markdown generator
-and text generator are planed.
+In the final release, support of Markdown markup and Markdown generator are planed.
 
 Install
 -------
@@ -37,7 +36,7 @@ $genConfig = new \WikiRenderer\Generator\Html\Config();
 $generator = new \WikiRenderer\Generator\Html\Document($genConfig);
 
 // now instancy the WikiRenderer engine
-$wr = new \WikiRenderer\RendererNG($generator, $markupConfig);
+$wr = new \WikiRenderer\Renderer($generator, $markupConfig);
 
 // call render() method: it will parse DokuWiki syntax, and will
 // generate HTML content

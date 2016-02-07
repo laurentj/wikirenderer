@@ -89,7 +89,7 @@ consectetuer adipiscing elit.</para>',
 
         $config = new \WikiRenderer\Markup\Dokuwiki\Config();
 
-        $wr = new \WikiRenderer\RendererNG($generator, $config);
+        $wr = new \WikiRenderer\Renderer($generator, $config);
         $k=0;
         foreach($this->listinline as $source=>$result){
             $res = $wr->render($source);
@@ -126,7 +126,7 @@ consectetuer adipiscing elit.</para>',
 
         $config = new \WikiRenderer\Markup\Dokuwiki\Config();
 
-        $wr = new \WikiRenderer\RendererNG($generator, $config);
+        $wr = new \WikiRenderer\Renderer($generator, $config);
         foreach($this->listinline2 as $source=>$result){
             $res = $wr->render($source);
             $this->assertEquals($result[1], $res, "erreur for ".$source);

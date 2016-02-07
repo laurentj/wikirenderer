@@ -82,7 +82,7 @@ class WR3DBKTestsInlines extends PHPUnit_Framework_TestCase {
 
         $config = new \WikiRenderer\Markup\WR3\Config();
 
-        $wr = new \WikiRenderer\RendererNG($generator, $config);
+        $wr = new \WikiRenderer\Renderer($generator, $config);
         foreach($this->listinline as $source=>$expected){
             $res = $wr->render($source);
             $this->assertEquals($expected, $res, $source);
@@ -120,7 +120,7 @@ class WR3DBKTestsInlines extends PHPUnit_Framework_TestCase {
 
         $config = new \WikiRenderer\Markup\WR3\Config();
 
-        $wr = new \WikiRenderer\RendererNG($generator, $config);
+        $wr = new \WikiRenderer\Renderer($generator, $config);
         foreach($this->listinline2 as $source=>$result){
             $res = $wr->render($source);
             $this->assertEquals($result[1], $res);

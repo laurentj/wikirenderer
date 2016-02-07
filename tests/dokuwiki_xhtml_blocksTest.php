@@ -49,7 +49,7 @@ truc3 </code></pre>',
         $genConfig = new \WikiRenderer\Generator\Html\Config();
         $generator = new \WikiRenderer\Generator\Html\Document($genConfig);
         $markupConfig = new \WikiRenderer\Markup\DokuWiki\Config();
-        $wr = new \WikiRenderer\RendererNG($generator, $markupConfig);
+        $wr = new \WikiRenderer\Renderer($generator, $markupConfig);
         $res = $wr->render($source);
         $this->assertEquals($result, $res);
         $this->assertEquals($nberror, count($wr->errors));
@@ -79,7 +79,7 @@ truc3 </code></pre>',
         $markupConfig->macros['hello'] = function($name, $arg) {
             return '<p>This is the '.$name.' macro with: '.$arg.'</p>';
         };
-        $wr = new \WikiRenderer\RendererNG($generator, $markupConfig);
+        $wr = new \WikiRenderer\Renderer($generator, $markupConfig);
 
         $sourceFile = 'datasblocks/'.$file.'.src';
         $resultFile = 'datasblocks/'.$file.'.res';

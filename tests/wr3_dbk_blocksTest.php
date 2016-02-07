@@ -30,7 +30,7 @@ class WR3DBKTestsBlocks extends PHPUnit_Framework_TestCase {
 
         $config = new \WikiRenderer\Markup\WR3\Config();
 
-        $wr = new \WikiRenderer\RendererNG($generator, $config);
+        $wr = new \WikiRenderer\Renderer($generator, $config);
         $sourceFile = 'datasblocks/wr3_docbook/'.$file.'.src';
         $resultFile = 'datasblocks/wr3_docbook/'.$file.'.res';
 
@@ -62,7 +62,7 @@ class WR3DBKTestsBlocks extends PHPUnit_Framework_TestCase {
 
         $config = new \WikiRenderer\Markup\WR3\Config();
 
-        $wr = new \WikiRenderer\RendererNG($generator, $config);
+        $wr = new \WikiRenderer\Renderer($generator, $config);
         $sourceFile = 'datasblocks/wr3_docbook/'.$file.'.src';
         $resultFile = 'datasblocks/wr3_docbook/'.$file.'.res';
 

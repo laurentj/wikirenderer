@@ -50,7 +50,7 @@ truc3 </programlisting>',
         $genConfig = new \WikiRenderer\Generator\Dockbook\Config();
         $generator = new \WikiRenderer\Generator\Dockbook\Document($genConfig);
         $markupConfig = new \WikiRenderer\Markup\DokuWiki\Config();
-        $wr = new \WikiRenderer\RendererNG($generator, $markupConfig);
+        $wr = new \WikiRenderer\Renderer($generator, $markupConfig);
 
         foreach($this->data as $k=>$test){
             list($source, $result, $nberror) = $test;
@@ -83,7 +83,7 @@ truc3 </programlisting>',
         $genConfig = new \WikiRenderer\Generator\Docbook\Config();
         $generator = new \WikiRenderer\Generator\Docbook\Document($genConfig);
         $markupConfig = new \WikiRenderer\Markup\DokuWiki\Config();
-        $wr = new \WikiRenderer\RendererNG($generator, $markupConfig);
+        $wr = new \WikiRenderer\Renderer($generator, $markupConfig);
 
         $sourceFile = 'datasblocks/dokuwiki_docbook/doku_dbk_'.$file.'.src';
         $resultFile = 'datasblocks/dokuwiki_docbook/doku_dbk_'.$file.'.res';

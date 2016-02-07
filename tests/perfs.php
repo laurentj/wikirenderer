@@ -21,7 +21,7 @@ $start=getMicroTime();
 $genConfig = new \WikiRenderer\Generator\Html\Config();
 $generator = new \WikiRenderer\Generator\Html\Document($genConfig);
 $markupConfig = new \WikiRenderer\Markup\ClassicWR\Config();
-$wr = new \WikiRenderer\RendererNG($generator, $markupConfig);
+$wr = new \WikiRenderer\Renderer($generator, $markupConfig);
 
 foreach($list as $k=> $t){
     $res =$wr->render($t[0]);

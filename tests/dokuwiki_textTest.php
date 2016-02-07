@@ -27,7 +27,7 @@ class dokuwiki_textTest extends PHPUnit_Framework_TestCase {
         $genConfig = new \WikiRenderer\Generator\Text\Config();
         $generator = new \WikiRenderer\Generator\Text\Document($genConfig);
         $markupConfig = new \WikiRenderer\Markup\DokuWiki\Config();
-        $wr = new \WikiRenderer\RendererNG($generator, $markupConfig);
+        $wr = new \WikiRenderer\Renderer($generator, $markupConfig);
 
         $sourceFile = 'datasblocks/dokuwiki_text/'.$file.'.src';
         $resultFile = 'datasblocks/dokuwiki_text/'.$file.'.res';

@@ -15,7 +15,7 @@ $generator = new \WikiRenderer\Generator\Html\Document($genConfig);
 $markupConfig = new \WikiRenderer\Markup\ClassicWR\Config();
 
 // instanciate the renderer
-$wr = new \WikiRenderer\RendererNG($generator, $markupConfig);
+$wr = new \WikiRenderer\Renderer($generator, $markupConfig);
 ?>
 
 <!DOCTYPE html>
