@@ -32,7 +32,7 @@ class RendererNG extends Renderer
             throw new \InvalidArgumentException('WikiRenderer: Bad configuration.');
         }
 
-        $this->inlineParser = new InlineParserNG($this->config, $generator);
+        $this->inlineParser = new InlineParser($this->config, $generator);
 
         foreach ($this->config->blocktags as $name) {
             $this->_blockList[] = new $name($this, $generator);

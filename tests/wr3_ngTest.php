@@ -13,7 +13,7 @@ class WR3_NGTestsBlocks extends PHPUnit_Framework_TestCase {
         $genConfig = new \WikiRenderer\Generator\Html\Config();
         $generator = new \WikiRenderer\Generator\Html\Document($genConfig);
         $markupConfig = new \WikiRenderer\Markup\WR3\Config();
-        $parser = new \WikiRenderer\InlineParserNG($markupConfig, $generator);
+        $parser = new \WikiRenderer\InlineParser($markupConfig, $generator);
         $textline = $parser->parse('lorem ipsum');
 
         $this->assertEquals('WikiRenderer\Generator\Html\TextLine', get_class($textline));
@@ -26,7 +26,7 @@ class WR3_NGTestsBlocks extends PHPUnit_Framework_TestCase {
         $genConfig = new \WikiRenderer\Generator\Html\Config();
         $generator = new \WikiRenderer\Generator\Html\Document($genConfig);
         $markupConfig = new \WikiRenderer\Markup\WR3\Config();
-        $parser = new \WikiRenderer\InlineParserNG($markupConfig, $generator);
+        $parser = new \WikiRenderer\InlineParser($markupConfig, $generator);
         $textline = $parser->parse('Lorem ^^ipsum|foo|bar^^ ');
 
         $this->assertEquals('WikiRenderer\Generator\Html\TextLine', get_class($textline));

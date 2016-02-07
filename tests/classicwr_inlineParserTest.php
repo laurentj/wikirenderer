@@ -96,7 +96,7 @@ class classicwr_inlineParserTest extends PHPUnit_Framework_TestCase {
 
         $genConfig = new \WikiRenderer\Generator\Html\Config();
         $generator = new \WikiRenderer\Generator\Html\Document($genConfig);
-        $wip = new WikiRenderer\InlineParserNG($conf, $generator);
+        $wip = new WikiRenderer\InlineParser($conf, $generator);
         foreach($this->listinline1 as $source=>$trueResult){
             $res = $wip->parse($source);
             $this->assertEquals($trueResult, $res->generate(), "erreur");
@@ -174,7 +174,7 @@ class classicwr_inlineParserTest extends PHPUnit_Framework_TestCase {
 
         $conf->funcCheckWikiWord = null;
 
-        $wip = new WikiRenderer\InlineParserNG($conf, $generator);
+        $wip = new WikiRenderer\InlineParser($conf, $generator);
 
         $k=0;
         foreach($this->listinline2 as $source=>$trueResult){

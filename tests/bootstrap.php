@@ -15,7 +15,7 @@ require_once(__DIR__.'/../vendor/autoload.php');
 class WRConfigTest extends \WikiRenderer\Config { }
 
 // we use an inherited inline parser to access to some protected data, to verify them
-class WikiInlineParserTest extends \WikiRenderer\InlineParserNG {
+class WikiInlineParserTest extends \WikiRenderer\InlineParser {
     function __construct(\WikiRenderer\Config $config) {
         $genConfig = new \WikiRenderer\Generator\Html\Config();
         $generator = new \WikiRenderer\Generator\Html\Document($genConfig);

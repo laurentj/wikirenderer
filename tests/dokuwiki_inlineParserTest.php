@@ -100,7 +100,7 @@ class DokuwikiTestsInlineParser extends PHPUnit_Framework_TestCase {
 
         $conf = new \WikiRenderer\Markup\Dokuwiki\Config();
 
-        $wip = new \WikiRenderer\InlineParserNG($conf, $generator);
+        $wip = new \WikiRenderer\InlineParser($conf, $generator);
 
         $k=0;
         foreach($this->listinline2 as $source=>$trueResult){

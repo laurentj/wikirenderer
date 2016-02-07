@@ -95,7 +95,7 @@ class WR3TestsInlineParser extends PHPUnit_Framework_TestCase {
         $genConfig = new \WikiRenderer\Generator\Html\Config();
         $generator = new \WikiRenderer\Generator\Html\Document($genConfig);
 
-        $wip = new \WikiRenderer\InlineParserNG($conf, $generator);
+        $wip = new \WikiRenderer\InlineParser($conf, $generator);
         foreach($this->listinline1 as $source=>$trueResult){
             $res = $wip->parse($source);
             $this->assertEquals($trueResult,$res->generate());
@@ -162,7 +162,7 @@ class WR3TestsInlineParser extends PHPUnit_Framework_TestCase {
 
         $conf = new \WikiRenderer\Markup\WR3\Config();
 
-        $wip = new \WikiRenderer\InlineParserNG($conf, $generator);
+        $wip = new \WikiRenderer\InlineParser($conf, $generator);
 
         $k=0;
         foreach($this->listinline2 as $source=>$trueResult){
@@ -178,7 +178,7 @@ class WR3TestsInlineParser extends PHPUnit_Framework_TestCase {
         $generator = new \WikiRenderer\Generator\Html\Document($genConfig);
         $conf = new \WikiRenderer\Markup\WR3\Config();
         $conf->onStart('');
-        $wip = new \WikiRenderer\InlineParserNG($conf, $generator);
+        $wip = new \WikiRenderer\InlineParser($conf, $generator);
 
         $source='Lorem ipsum dolor sit amet, $$consectetuer __adipis__cing$$ elit.';
 

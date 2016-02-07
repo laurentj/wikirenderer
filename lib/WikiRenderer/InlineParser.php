@@ -48,22 +48,31 @@ class InlineParser
     /** @var string escape character */
     protected $escapeChar = '';
 
+
+    protected $allSimpleTags = array();
+
     /**
-     * constructor.
-     *
-     * @param \WikiRenderer\Config $config A configuration object.
+     * @var \WikiRenderer\Generator\DocumentGeneratorInterface
      */
-    public function __construct(Config $config)
+    protected $documentGenerator = null;
+
+    public function __construct(Config $config, \WikiRenderer\Generator\DocumentGeneratorInterface $generator)
     {
         $this->escapeChar = $config->escapeChar;
         $this->config = $config;
+        $this->documentGenerator = $generator;
 
         // let's construct the regexp that will find all tokens on the line
 
         // first all basic tags
         $simpletagPattern = '';
-        foreach ($config->simpleTags as $tag => $html) {
-            $simpletagPattern .= '|('.preg_quote($tag, '/').')';
+        foreach ($config->simpleTags as $tagParser) {
+            $simpletagPattern .= '|('.$tagParser->getRegexpSubPattern().')';
+            $ar = $tagParser->getPossibleTags();
+            $this->allSimpleTags = array_merge(
+                        $this->allSimpleTags,
+                        array_combine($ar,
+                                      array_fill(0, count($ar), $tagParser)));
         }
 
         // the pattern that matches the escape character
@@ -76,12 +85,12 @@ class InlineParser
         // kind of lines
         foreach ($config->textLineContainers as $class => $tags) {
             $c = new TextLineContainer();
-            $c->tag = new $class($config);
+            $c->tag = new $class($config, $generator);
             $separators = $c->tag->separators;
 
             $tagList = array();
             foreach ($tags as $tag) {
-                $t = new $tag($config);
+                $t = new $tag($config, $generator);
                 $c->allowedTags[$t->beginTag] = $t;
                 $c->pattern .= '|('.preg_quote($t->beginTag, '/').')';
                 if ($t->beginTag != $t->endTag) {
@@ -98,7 +107,6 @@ class InlineParser
 
             $this->textLineContainers[$class] = $c;
         }
-        $this->simpletags = $config->simpleTags;
     }
 
     /**
@@ -183,8 +191,8 @@ class InlineParser
                     }
                 }
                 // is there a simple tag ?
-                elseif (isset($this->simpletags[$t])) {
-                    $tag->addContent($t, $this->simpletags[$t]);
+                elseif (isset($this->allSimpleTags[$t])) {
+                    $tag->addContent($t, $this->allSimpleTags[$t]->getContent($this->documentGenerator, $t));
                 } else {
                     $tag->addContent($t);
                 }
@@ -193,7 +201,7 @@ class InlineParser
             } else {
                 if (!$this->config->outputEscapeChar &&
                     (isset($this->currentTextLineContainer->allowedTags[$t]) ||
-                    isset($this->simpletags[$t]) ||
+                    isset($this->allSimpleTags[$t]) ||
                     $tag->endTag == $t)) {
                     $tag->addContent($t);
                 } else {
