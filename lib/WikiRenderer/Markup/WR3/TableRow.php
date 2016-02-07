@@ -16,12 +16,11 @@ namespace WikiRenderer\Markup\WR3;
 /**
  * Parse a line of a table
  */
-class TableRow extends \WikiRenderer\TagNG
+class TableRow extends \WikiRenderer\Tag
 {
     protected $generatorName = 'tablecell';
     public $isTextLineTag = true;
     protected $attribute = array('$$');
-    protected $checkWikiWordIn = array('$$');
     public $separators = array(' | ');
 
     /**
@@ -38,10 +37,8 @@ class TableRow extends \WikiRenderer\TagNG
     {
         $this->wikiContentArr[$this->separatorCount] .= $wikiContent;
         if ($childGenerator === null) {
-            $parsedContent = $this->checkWikiWord($wikiContent);
-            $words = $this->documentGenerator->getInlineGenerator('words');
-            $words->addRawContent($parsedContent);
-            $this->generator->addContent($words);
+            $parsedContent = $this->convertWords($wikiContent);
+            $this->generator->addContent($parsedContent);
         }
         else {
             $this->generator->addContent($childGenerator);

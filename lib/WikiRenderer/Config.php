@@ -41,11 +41,6 @@ abstract class Config
      */
     public $defaultBlock = null;
 
-    /** ???
-     * @deprecated
-     */
-    public $checkWikiWordFunction = null;
-
     /** Character used to escape wiki syntax. */
     public $escapeChar = '\\';
 

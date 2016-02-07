@@ -16,7 +16,7 @@ namespace WikiRenderer\Markup\DokuWiki;
 /**
  * Parse code inline tag
  */
-class NoWikiInline extends \WikiRenderer\TagNG
+class NoWikiInline extends \WikiRenderer\Tag
 {
     protected $name = 'nowiki';
     protected $generatorName = 'noformat';

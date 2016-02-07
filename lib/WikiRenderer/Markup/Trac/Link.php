@@ -52,12 +52,7 @@ class Link extends LinkCreole
 
         if ($childGenerator === null) {
             $parsedContent = $this->convertWords($wikiContent);
-            if (is_string($parsedContent)) {
-                $this->generator->addRawContent($parsedContent);
-            }
-            else {
-                $this->generator->addContent($parsedContent);
-            }
+            $this->generator->addContent($parsedContent);
         }
         else {
             $this->generator->addContent($childGenerator);

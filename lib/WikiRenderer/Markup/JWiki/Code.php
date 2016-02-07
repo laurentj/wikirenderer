@@ -16,7 +16,7 @@ namespace WikiRenderer\Markup\JWiki;
 /**
  * Parse code inline tag
  */
-class Code extends \WikiRenderer\TagNG
+class Code extends \WikiRenderer\Tag
 {
     protected $name = 'code';
     protected $generatorName = 'code';

@@ -16,12 +16,11 @@ namespace WikiRenderer\Markup\Trac;
 /**
  * Parse a line of a table
  */
-class TableRow extends \WikiRenderer\TagNG
+class TableRow extends \WikiRenderer\Tag
 {
     protected $generatorName = 'tablecell';
     public $isTextLineTag = true;
     protected $attribute = array('$$');
-    protected $checkWikiWordIn = array('$$');
     public $separators = array('||');
 
     /**
@@ -36,8 +35,6 @@ class TableRow extends \WikiRenderer\TagNG
 
     protected $hasStartHeader = false;
     protected $hasEndHeader = false;
-    protected $firstWord = null;
-    protected $lastWord = null;
     protected $cell = array();
 
     public function addContent($wikiContent, \WikiRenderer\Generator\InlineGeneratorInterface $childGenerator = null)
@@ -49,31 +46,29 @@ class TableRow extends \WikiRenderer\TagNG
         $this->lastWord = null;
 
         if ($childGenerator === null) {
-            $parsedContent = $this->checkWikiWord($wikiContent);
-            $words = $this->documentGenerator->getInlineGenerator('words');
-            $words->addRawContent($parsedContent);
+
+            $filteredWikiContent = $wikiContent;
             if ($this->wikiContentArr[$this->separatorCount] === ''
                 && $wikiContent[0] == '=') {
                 $this->hasStartHeader = true;
-                $this->firstWord = $this->documentGenerator->getInlineGenerator('words');
 
                 if (substr($wikiContent, -1) == '=') {
                     $this->hasEndHeader = true;
-                    $this->firstWord->addRawContent(substr($parsedContent, 1, -1));
+                    $filteredWikiContent = substr($wikiContent, 1, -1);
                 }
                 else {
-                    $this->firstWord->addRawContent(substr($parsedContent, 1));
+                    $filteredWikiContent = substr($wikiContent, 1);
                 }
 
             }
             else if ($this->wikiContentArr[$this->separatorCount] !== ''
                      && substr($wikiContent, -1) == '=') {
                 $this->hasEndHeader = true;
-                $this->lastWord = $this->documentGenerator->getInlineGenerator('words');
-                $this->lastWord->addRawContent(substr($parsedContent, 0, -1));
+                $filteredWikiContent = substr($wikiContent, 0, -1);
             }
+
             $this->wikiContentArr[$this->separatorCount] .= $wikiContent;
-            $this->cell[] = $words;
+            $this->cell[] = $this->convertWords($filteredWikiContent);
         }
         else {
             $this->wikiContentArr[$this->separatorCount] .= $wikiContent;
@@ -93,12 +88,21 @@ class TableRow extends \WikiRenderer\TagNG
         }
         else {
             if ($this->hasStartHeader && $this->hasEndHeader) {
-                $this->cell[0] = $this->firstWord;
-                if ($this->lastWord) {
-                    $this->cell[count($this->cell)-1] = $this->lastWord;
-                }
                 $this->generator->setIsHeader(true);
             }
+            else if ($this->hasStartHeader) {
+                // no header, we revert the '=' removal
+                $words = $this->documentGenerator->getInlineGenerator('words');
+                $words->addRawContent('=');
+                array_unshift($this->cell, $words);
+            }
+            else if ($this->hasEndHeader) {
+                // no header, we revert the '=' removal
+                $words = $this->documentGenerator->getInlineGenerator('words');
+                $words->addRawContent('=');
+                array_push($this->cell, $words);
+            }
+
             foreach($this->cell as $gen) {
                 $this->generator->addContent($gen);
             }
@@ -108,7 +112,6 @@ class TableRow extends \WikiRenderer\TagNG
             $this->contents[$this->separatorCount] = '';
             $this->wikiContentArr[$this->separatorCount] = '';
         }
-        $this->firstWord = $this->lastWord = null;
         $this->hasStartHeader = $this->hasEndHeader = false;
         $this->cell = array();
         $this->currentSeparator = $token;

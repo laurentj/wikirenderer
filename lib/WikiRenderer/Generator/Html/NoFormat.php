@@ -28,6 +28,10 @@ class NoFormat implements \WikiRenderer\Generator\InlineRawWordsInterface {
         $this->content[] = htmlspecialchars($string);
     }
 
+    function addContent(\WikiRenderer\Generator\InlineWordsInterface $words) {
+        $this->content[] = $words->generate();
+    }
+
     public function isEmpty() {
         return count($this->content) == 0;
     }

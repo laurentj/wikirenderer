@@ -16,7 +16,7 @@ namespace WikiRenderer\Markup\Trac;
 /**
  * Parser for a strong and normal emphasys inline tag
  */
-class StrongEm extends \WikiRenderer\TagNG
+class StrongEm extends \WikiRenderer\Tag
 {
     protected $name = 'strongem';
     protected $generatorName = 'em';

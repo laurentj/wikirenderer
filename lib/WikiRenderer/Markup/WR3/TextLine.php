@@ -17,7 +17,7 @@ namespace WikiRenderer\Markup\WR3;
 /**
  * Parse a line of text
  */
-class TextLine extends \WikiRenderer\TagNG
+class TextLine extends \WikiRenderer\Tag
 {
     protected $generatorName = 'textline';
     public $isTextLineTag = true;

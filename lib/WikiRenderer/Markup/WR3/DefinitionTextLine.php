@@ -18,7 +18,7 @@ namespace WikiRenderer\Markup\WR3;
  * definition text.
  * 
  */
-class DefinitionTextLine extends \WikiRenderer\TagNG
+class DefinitionTextLine extends \WikiRenderer\Tag
 {
     protected $generatorName = 'textline';
     public $isTextLineTag = true;
@@ -38,8 +38,8 @@ class DefinitionTextLine extends \WikiRenderer\TagNG
     {
         $this->wikiContentArr[$this->separatorCount] .= $wikiContent;
         if ($childGenerator === null) {
-            $parsedContent = $this->checkWikiWord($wikiContent);
-            $this->generator->addRawContent($parsedContent);
+            $parsedContent = $this->convertWords($wikiContent);
+            $this->generator->addContent($parsedContent);
         }
         else {
             $this->generator->addContent($childGenerator);

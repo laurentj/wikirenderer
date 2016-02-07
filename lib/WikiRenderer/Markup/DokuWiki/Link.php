@@ -16,7 +16,7 @@ namespace WikiRenderer\Markup\DokuWiki;
 /**
  * Parser for a link
  */
-class Link extends \WikiRenderer\TagNG
+class Link extends \WikiRenderer\Tag
 {
     protected $name = 'a';
     protected $generatorName = 'link';

@@ -16,7 +16,7 @@ namespace WikiRenderer\Markup\WR3;
 /**
  * Parser for a strong emphasys inline tag
  */
-class Strong extends \WikiRenderer\TagNG
+class Strong extends \WikiRenderer\Tag
 {
     protected $name = 'strong';
     protected $generatorName = 'strong';

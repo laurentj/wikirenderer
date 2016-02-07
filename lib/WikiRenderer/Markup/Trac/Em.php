@@ -16,7 +16,7 @@ namespace WikiRenderer\Markup\Trac;
 /**
  * Parser for emphasys inline tag
  */
-class Em extends \WikiRenderer\TagNG
+class Em extends \WikiRenderer\Tag
 {
     protected $name = 'em';
     protected $generatorName = 'em';

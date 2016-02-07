@@ -24,11 +24,13 @@ interface InlineWordsInterface extends InlineGeneratorInterface {
     /**
      * add original content from the wiki text
      * This content may certainly escaped or something like that
+     * @param string $words
      */
     function addRawContent($words);
 
     /**
      * Add content that is ready to output
+     * @param string $words
      */
     function addGeneratedContent($words);
 }

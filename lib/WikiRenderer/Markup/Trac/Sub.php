@@ -16,7 +16,7 @@ namespace WikiRenderer\Markup\Trac;
 /**
  * Parser for sub inline tag
  */
-class Sub extends \WikiRenderer\TagNG
+class Sub extends \WikiRenderer\Tag
 {
     protected $name = 'sub';
     protected $generatorName = 'subscript';

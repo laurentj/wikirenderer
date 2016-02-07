@@ -24,4 +24,9 @@ interface InlineRawWordsInterface extends InlineGeneratorInterface {
      * This content may certainly escaped or something like that
      */
     function addRawContent($words);
+
+    /**
+     *
+     */
+    function addContent(InlineWordsInterface $words);
 }

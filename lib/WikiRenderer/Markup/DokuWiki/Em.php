@@ -16,7 +16,7 @@ namespace WikiRenderer\Markup\DokuWiki;
 /**
  * Parser for emphasys inline tag
  */
-class Em extends \WikiRenderer\TagNG
+class Em extends \WikiRenderer\Tag
 {
     protected $name = 'em';
     protected $generatorName = 'em';
