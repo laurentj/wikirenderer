@@ -32,9 +32,6 @@ class Renderer
     /** @var \WikiRenderer\Block[]  List of all possible blocks. */
     protected $_blockList = array();
 
-    /** @var \WikiRenderer\Block the default bloc used for unrecognized line */
-    protected $_defaultBlock = null;
-
     /** @var \WikiRenderer\InlineParser   The parser for inline content. */
     public $inlineParser = null;
 
@@ -72,10 +69,6 @@ class Renderer
 
         foreach ($this->config->blocktags as $name) {
             $this->_blockList[] = new $name($this, $generator);
-        }
-        if ($this->config->defaultBlock) {
-            $name = $this->config->defaultBlock;
-            $this->_defaultBlock = new $name($this);
         }
     }
 
@@ -180,12 +173,11 @@ class Renderer
         if (!$found) {
             if (trim($line) == '') {
                 $this->_newtext[] = '';
-            } elseif ($this->_defaultBlock) {
-                $block = clone $this->_defaultBlock;
-                $block->detect($line);
-                $block->open();
-                $block->validateDetectedLine();
-                $this->_newtext[] = $block->close();
+            } elseif ($defaultBlock = $this->documentGenerator->getDefaultBlock()) {
+                $defaultBlock->detect($line);
+                $defaultBlock->open();
+                $defaultBlock->validateDetectedLine();
+                $this->_newtext[] = $defaultBlock->close();
             } else {
                 $this->_newtext[] = $this->inlineParser->parse($line);
             }

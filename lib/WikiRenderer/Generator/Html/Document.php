@@ -45,6 +45,10 @@
         throw new \Exception('unknown block generator '.$type);
     }
 
+    public function getDefaultBlock() {
+        return null;
+    }
+
     /**
      * @var GeneratorInterface[]
      */

@@ -42,6 +42,13 @@ interface DocumentGeneratorInterface {
     public function getBlockGenerator($type);
 
     /**
+     * return the default block. It is used when the parser don't find
+     * a block corresponding to the line that it parses. May return null
+     * @return BlockGeneratorInterface
+     */
+    public function getDefaultBlock();
+
+    /**
      * Add content to the header. May be used by a parser.
      *
      */

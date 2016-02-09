@@ -5,4 +5,9 @@ Donec dictum. Sed fringilla. Duis feugiat pharetra tortor. Nulla facilisi.</para
 Nulla varius egestas risus. Duis sollicitudin tempor arcu. Mauris porta leo id dui
 luctus luctus. Aliquam nec lacus. Integer egestas.</para>
 
+<para><inlinemediaobject>
+<alt>alternative text</alt>
+<imageobject><imagedata fileref="/wiki/ipsumdolorsit.png" contentwidth="200" contentdepth="50"/>
+</imageobject></inlinemediaobject></para>
+
 <para><emphasis role="strong">Duis sollicitudin</emphasis> tempor arcu</para>
