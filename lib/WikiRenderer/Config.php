@@ -48,6 +48,15 @@ abstract class Config
     public $wordConverters = array();
 
     /**
+     * @var \WikiRenderer\LinkProcessor\LinkProcessorInterface
+     */
+    protected $linkProcessor = null;
+
+    public function __construct() {
+        $this->linkProcessor = new \WikiRenderer\LinkProcessor\SimpleLinkProcessor();
+    }
+
+    /**
      * Called before the wiki text parsing.
      *
      * @param string $text The wiki text.
@@ -69,17 +78,10 @@ abstract class Config
     }
 
     /**
-     * In some wiki system, some links are specials. You should override this method
-     * to transform this specific links to real URL.
-     *
-     * @param string $tagName  can be
-     *      'link': for a tag that generates a link
-     *      'image': for a tag that generates an image
-     *      'inlineurl': for url found into text, outside a tag
-     * @return array First item is the url, second item is an alternate label.
+     * @return \WikiRenderer\LinkProcessor\LinkProcessorInterface
      */
-    public function processLink($url, $tagName = '')
+    public function getLinkProcessor()
     {
-        return array($url, $url);
+        return $this->linkProcessor;
     }
 }

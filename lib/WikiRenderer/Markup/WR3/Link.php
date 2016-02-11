@@ -30,12 +30,12 @@ class Link extends \WikiRenderer\Tag
         $cntattr = count($this->attribute);
         $cnt = ($this->separatorCount + 1 > $cntattr) ? $cntattr : ($this->separatorCount + 1);
         if ($cnt == 1) {
-            list($href, $label) = $this->config->processLink($this->wikiContentArr[0], $this->generatorName);
+            list($href, $label) = $this->config->getLinkProcessor()->processLink($this->wikiContentArr[0], $this->generatorName);
             $this->wikiContentArr[1] = $href;
             $this->separatorCount++;
             $this->generator->setRawContent($label);
         } else {
-            list($href, $label) = $this->config->processLink($this->wikiContentArr[1], $this->generatorName);
+            list($href, $label) = $this->config->getLinkProcessor()->processLink($this->wikiContentArr[1], $this->generatorName);
             $this->wikiContentArr[1] = $href;
         }
         return parent::getContent();

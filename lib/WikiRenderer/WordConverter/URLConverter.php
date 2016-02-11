@@ -19,19 +19,19 @@ class URLConverter extends AbstractWordConverter {
     protected $regexp = '/^[a-z]+\:\/\/.+$/';
 
     /**
-     * @var callable
+     * @var \WikiRenderer\LinkProcessor\LinkProcessorInterface
      */
     protected $urlProcessor;
 
     /**
-     * @param callable $urlProcessor process url
+     * @param \WikiRenderer\LinkProcessor\LinkProcessorInterface $urlProcessor process url
      */
-    function __construct($urlProcessor) {
+    function __construct(\WikiRenderer\LinkProcessor\LinkProcessorInterface $urlProcessor) {
         $this->urlProcessor = $urlProcessor;
     }
 
     public function getContent(\WikiRenderer\Generator\DocumentGeneratorInterface $documentGenerator, $word) {
-        list($href, $label) = call_user_func($this->urlProcessor, $word, 'inlineurl');
+        list($href, $label) = $this->urlProcessor->processLink($word, 'inlineurl');
         $link = $documentGenerator->getInlineGenerator('link');
         $link->addRawContent($label);
         $link->setAttribute('href', $href);

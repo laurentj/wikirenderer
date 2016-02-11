@@ -63,7 +63,7 @@ class Image extends \WikiRenderer\Tag
                 }
             }
         }
-        list($href, $label) = $this->config->processLink($href, $this->name);
+        list($href, $label) = $this->config->getLinkProcessor()->processLink($href, $this->name);
         if ($linkonly) {
             $this->generator = $this->documentGenerator->getInlineGenerator('link');
             $this->generator->setAttribute('href', $href);

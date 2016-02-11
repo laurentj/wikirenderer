@@ -12,35 +12,9 @@
  */
 
 namespace WikiRenderer\Markup\Trac;
-use \WikiRenderer\WordConverter\AbstractWordConverter;
-use \WikiRenderer\Generator\DocumentGeneratorInterface;
 
-class TicketConverter extends AbstractWordConverter {
+class TicketConverter extends URLConverter {
 
     protected $regexp = '/^#[0-9]+$/';
 
-    /**
-     * @var callable
-     */
-    protected $urlProcessor;
-
-    /**
-     * @param callable $urlProcessor process url
-     */
-    function __construct($urlProcessor) {
-        $this->urlProcessor = $urlProcessor;
-    }
-
-    public function getContent(\WikiRenderer\Generator\DocumentGeneratorInterface $documentGenerator, $word) {
-        list($href, $label) = call_user_func($this->urlProcessor, $word, 'inlineurl');
-        if ($href == '') {
-            $words = $documentGenerator->getInlineGenerator('words');
-            $words->addRawContent($word);
-            return $words;
-        }
-        $link = $documentGenerator->getInlineGenerator('link');
-        $link->addRawContent($label);
-        $link->setAttribute('href', $href);
-        return $link;
-    }
 }

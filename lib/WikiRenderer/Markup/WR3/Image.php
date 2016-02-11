@@ -44,7 +44,7 @@ class Image extends \WikiRenderer\Tag
             }
         }
 
-        list($href, $label) = $this->config->processLink($contents[0], $this->generatorName);
+        list($href, $label) = $this->config->getLinkProcessor()->processLink($contents[0], $this->generatorName);
         $this->wikiContentArr[0] = $href;
         if ($cnt == 1 && $href != $label) {
             $this->wikiContentArr[1] = $label;

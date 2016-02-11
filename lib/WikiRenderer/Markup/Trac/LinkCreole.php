@@ -32,7 +32,7 @@ class LinkCreole extends \WikiRenderer\Tag
                 return $macro->getContent($this->config, $this->documentGenerator, $this->wikiContentArr[0]);
             }
         }
-        list($href, $label) = $this->config->processLink($this->wikiContentArr[0], $this->generatorName);
+        list($href, $label) = $this->config->getLinkProcessor()->processLink($this->wikiContentArr[0], $this->generatorName);
         if ($href == '') {
             if (preg_match("/^(=?)#(\\w+)$/", $this->wikiContentArr[0], $m)) {
                 if ($m[1]) {

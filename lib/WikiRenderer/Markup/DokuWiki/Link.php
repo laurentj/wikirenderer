@@ -29,7 +29,7 @@ class Link extends \WikiRenderer\Tag
     {
         $cntattr = count($this->attribute);
         $cnt = ($this->separatorCount + 1 > $cntattr) ? $cntattr : ($this->separatorCount + 1);
-        list($href, $label) = $this->config->processLink($this->wikiContentArr[0], $this->generatorName);
+        list($href, $label) = $this->config->getLinkProcessor()->processLink($this->wikiContentArr[0], $this->generatorName);
         $this->wikiContentArr[0] = $href;
 
         if ($cnt == 1) {

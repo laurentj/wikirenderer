@@ -72,7 +72,7 @@ class TracTestsInlines extends PHPUnit_Framework_TestCase {
      */
     public function testUrlProcessing($tagName, $url, $expectedHref, $expectedLabel) {
         $markupConfig = new \WikiRenderer\Markup\Trac\Config();
-        list($href, $label) = $markupConfig->processLink($url, $tagName = '');
+        list($href, $label) = $markupConfig->getLinkProcessor()->processLink($url, $tagName = '');
         $this->assertEquals($expectedHref, $href);
         $this->assertEquals($expectedLabel, $label);
     }

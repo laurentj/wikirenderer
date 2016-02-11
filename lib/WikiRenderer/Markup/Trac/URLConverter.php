@@ -25,14 +25,14 @@ class URLConverter extends AbstractWordConverter {
     protected $urlProcessor;
 
     /**
-     * @param callable $urlProcessor process url
+     * @param \WikiRenderer\LinkProcessor\LinkProcessorInterface $urlProcessor process url
      */
-    function __construct($urlProcessor) {
+    function __construct(\WikiRenderer\LinkProcessor\LinkProcessorInterface $urlProcessor) {
         $this->urlProcessor = $urlProcessor;
     }
 
     public function getContent(\WikiRenderer\Generator\DocumentGeneratorInterface $documentGenerator, $word) {
-        list($href, $label) = call_user_func($this->urlProcessor, $word, 'inlineurl');
+        list($href, $label) = $this->urlProcessor->processLink($word, 'inlineurl');
         if ($href == '') {
             $words = $documentGenerator->getInlineGenerator('words');
             $words->addRawContent($word);

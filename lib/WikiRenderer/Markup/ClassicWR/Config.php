@@ -69,21 +69,8 @@ class Config extends \WikiRenderer\Config
 
     public function __construct()
     {
+        parent::__construct();
         $this->simpleTags[] = new \WikiRenderer\Markup\WR3\LineBreak();
         $this->simpleTags[] = new \WikiRenderer\SimpleTag\Smiley();
-    }
-
-    public function processLink($url, $tagName = '')
-    {
-        $label = $url;
-        if (strlen($label) > 40) {
-            $label = substr($label, 0, 40).'(..)';
-        }
-
-        if (strpos($url, 'javascript:') !== false) { // for security reason
-            $url = '#';
-        }
-
-        return array($url, $label);
     }
 }

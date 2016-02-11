@@ -37,7 +37,7 @@ class ImageMacro implements MacroInterface {
         $image = $documentGenerator->getInlineGenerator('image');
 
         $params = preg_split('/\s*,\s*/', $attributes[1]);
-        $file = $config->processLink(trim(array_shift($params)), 'image');
+        $file = $config->getLinkProcessor()->processLink(trim(array_shift($params)), 'image');
         $image->setAttribute('src', $file[0]);
 
         $width = null;
