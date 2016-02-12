@@ -12,7 +12,7 @@
 
 namespace WikiRenderer\Generator;
 
-interface DocumentGeneratorInterface {
+interface DocumentGeneratorInterface extends BlocksContainerInterface {
 
     public function __construct(Config $config);
 
@@ -72,4 +72,9 @@ interface DocumentGeneratorInterface {
      * @return string
      */
     public function generateFooter();
+
+    /**
+     * reset all the content of the document
+     */
+    public function clear();
 }
