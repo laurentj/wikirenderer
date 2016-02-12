@@ -23,8 +23,12 @@ class Definition extends \WikiRenderer\Block
     protected $isOpen = false;
     protected $indent = 0;
 
+    /** @var \WikiRenderer\Generator\InlineGeneratorInterface */
     protected $currentTerm = null;
+
+    /** @var \WikiRenderer\Generator\InlineGeneratorInterface */
     protected $currentDefinition = array();
+
     protected $detectedTerm = null;
     protected $detectedDef = null;
 

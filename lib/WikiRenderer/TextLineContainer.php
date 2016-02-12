@@ -18,8 +18,9 @@ namespace WikiRenderer;
  */
 class TextLineContainer
 {
-    /** ??? */
+    /** @var WikiRenderer\Tag */
     public $tag = null;
+
     /** ??? */
     public $allowedTags = array();
     /** ??? */

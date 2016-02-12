@@ -140,7 +140,7 @@ abstract class Block
      *
      * @param string $string A line of wiki text.
      *
-     * @return string The transformed line.
+     * @return \WikiRenderer\Generator\InlineGeneratorInterface The transformed line.
      *
      * @see \WikiRenderer\InlineParser
      */

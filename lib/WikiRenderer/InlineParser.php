@@ -114,7 +114,7 @@ class InlineParser
      *
      * @param string $line a string containing wiki content, but without line feeds
      *
-     * @return string the line transformed to the target content
+     * @return \WikiRenderer\Generator\InlineGeneratorInterface the line transformed to the target content
      */
     public function parse($line)
     {
@@ -140,12 +140,12 @@ class InlineParser
     /**
      * Parser's core function.
      *
-     * @param ??? $tag      ???
-     * @param ??? $posstart ???
+     * @param \WikiRenderer\Tag $tag      ???
+     * @param integer $posstart ???
      *
      * @return int new position
      */
-    protected function _parse($tag, $posstart)
+    protected function _parse(\WikiRenderer\Tag $tag, $posstart)
     {
         $checkNextTag = true;
 
