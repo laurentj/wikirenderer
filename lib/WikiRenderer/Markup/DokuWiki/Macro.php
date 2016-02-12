@@ -46,7 +46,9 @@ class Macro extends \WikiRenderer\Block
 
     public function close()
     {
-        return $this->content;
+        $block = new \WikiRenderer\Generator\SingleLineBlock();
+        $block->setLineAsString($this->content);
+        return $block;
     }
 
     public function __clone() {

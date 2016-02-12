@@ -20,9 +20,6 @@ namespace WikiRenderer;
  */
 class Renderer
 {
-    /** @var   string   Contains the final content. */
-    protected $_newtext;
-
     /** @var \WikiRenderer\Block The currently opened block element. */
     protected $_currentBlock = null;
 
@@ -59,12 +56,7 @@ class Renderer
     {
         $this->documentGenerator = $generator;
 
-        if (is_subclass_of($config, '\WikiRenderer\Config')) {
-            $this->config = $config;
-        } else {
-            throw new \InvalidArgumentException('WikiRenderer: Bad configuration.');
-        }
-
+        $this->config = $config;
         $this->inlineParser = new InlineParser($this->config, $generator);
 
         foreach ($this->config->blocktags as $name) {
@@ -85,8 +77,7 @@ class Renderer
         $text = $this->config->onStart($text);
 
         $linesIterator = new \ArrayIterator(preg_split("/\015\012|\015|\012/", $text)); // we split the text at all line feeds
-
-        $this->_newtext = array();
+        $this->documentGenerator->clear();
         $this->errors = array();
         $this->_currentBlock = null;
         $this->_previousBloc = null;
@@ -101,7 +92,7 @@ class Renderer
                     $this->_currentBlock->validateDetectedLine();
                 } else {
                     // the line is not part of the block, we close it.
-                    $this->_newtext[] = $this->_currentBlock->close();
+                    $this->documentGenerator->addBlock($this->_currentBlock->close());
                     $this->detectNewBlock($line);
                 }
             } else {
@@ -113,22 +104,12 @@ class Renderer
             }
             $linesIterator->next();
         }
+
         if ($this->_currentBlock) {
-            $this->_newtext[] = $this->_currentBlock->close();
+            $this->documentGenerator->addBlock($this->_currentBlock->close());
         }
 
-        $result = '';
-        foreach($this->_newtext as $k => $blockGenerator) {
-            if ($k > 0) {
-                $result .= "\n";
-            }
-            if (is_string($blockGenerator)) {
-                $result .= $blockGenerator;
-            }
-            else {
-                $result .= $blockGenerator->generate();
-            }
-        }
+        $result = $this->documentGenerator->generate();
 
         if ($this->documentGenerator->getConfig()->generateHeaderFooter) {
             $result = $this->documentGenerator->generateHeader()
@@ -158,7 +139,7 @@ class Renderer
                     // if we have to close now the block, we close.
                     $block->open();
                     $block->validateDetectedLine();
-                    $this->_newtext[] = $block->close();
+                    $this->documentGenerator->addBlock($block->close());
                     $this->_previousBloc = $block;
                     $this->_currentBlock = null;
                 } else {
@@ -172,14 +153,15 @@ class Renderer
         }
         if (!$found) {
             if (trim($line) == '') {
-                $this->_newtext[] = '';
+                $this->documentGenerator->addBlock(new Generator\SingleLineBlock());
             } elseif ($defaultBlock = $this->documentGenerator->getDefaultBlock()) {
                 $defaultBlock->detect($line);
                 $defaultBlock->open();
                 $defaultBlock->validateDetectedLine();
-                $this->_newtext[] = $defaultBlock->close();
+                $this->documentGenerator->addBlock($defaultBlock->close());
             } else {
-                $this->_newtext[] = $this->inlineParser->parse($line);
+                $blockLine = new Generator\SingleLineBlock($this->inlineParser->parse($line));
+                $this->documentGenerator->addBlock($blockLine);
             }
             if ($this->_currentBlock) {
                 $this->_previousBloc = $this->_currentBlock;
@@ -187,7 +169,7 @@ class Renderer
             $this->_currentBlock = null;
         }
     }
-    
+
     /**
      * Returns the current configuration object.
      *
@@ -198,7 +180,7 @@ class Renderer
         return $this->config;
     }
 
-    public function getPreviousBloc()
+    public function getPreviousBlocParser()
     {
         return $this->_previousBloc;
     }
