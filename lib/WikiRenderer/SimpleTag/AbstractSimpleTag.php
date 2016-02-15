@@ -1,7 +1,7 @@
 <?php
 
 /**
- * abstract class processing a simple tag
+ * abstract class processing a simple tag.
  *
  * @author Laurent Jouanneau
  * @copyright 2016 Laurent Jouanneau
@@ -10,14 +10,13 @@
  *
  * @licence MIT see LICENCE file
  */
-
 namespace WikiRenderer\SimpleTag;
 
-
-abstract class AbstractSimpleTag {
-
+abstract class AbstractSimpleTag
+{
     /**
      * the string to replace by a content.
+     *
      * @var string
      */
     protected $tag = null;
@@ -26,6 +25,7 @@ abstract class AbstractSimpleTag {
      * A sub pattern for a regexp, that match the string to replace by a content.
      *
      * @optional
+     *
      * @var string
      */
     protected $regexpSubPattern = null;
@@ -37,20 +37,22 @@ abstract class AbstractSimpleTag {
      * 
      * @return string a sub pattern for a regexp
      */
-    public function getRegexpSubPattern() {
+    public function getRegexpSubPattern()
+    {
         if ($this->regexpSubPattern) {
             return $this->regexpSubPattern;
-        }
-        else {
-            return preg_quote($this->tag, "/");
+        } else {
+            return preg_quote($this->tag, '/');
         }
     }
 
     /**
-     * return all possible simple tags that the class support
+     * return all possible simple tags that the class support.
+     *
      * @return string[]
      */
-    function getPossibleTags() {
+    public function getPossibleTags()
+    {
         return array($this->tag);
     }
 
@@ -58,5 +60,4 @@ abstract class AbstractSimpleTag {
      * @return \WikiRenderer\Generator\InlineGeneratorInterface
      */
     abstract public function getContent(\WikiRenderer\Generator\DocumentGeneratorInterface $documentGenerator, $token);
-
 }

@@ -1,8 +1,6 @@
 <?php
 
 /**
- * 
- *
  * @author Laurent Jouanneau
  * @copyright 2016 Laurent Jouanneau
  *
@@ -10,12 +8,10 @@
  *
  * @licence MIT see LICENCE file
  */
-
 namespace WikiRenderer\LinkProcessor;
 
-
-class SimpleLinkProcessor implements LinkProcessorInterface {
-
+class SimpleLinkProcessor implements LinkProcessorInterface
+{
     public function processLink($url, $tagName = '')
     {
         $label = $url;

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * word converter interface
+ * word converter interface.
  *
  * @author Laurent Jouanneau
  * @copyright 2016 Laurent Jouanneau
@@ -10,24 +10,23 @@
  *
  * @licence MIT see LICENCE file
  */
-
 namespace WikiRenderer\WordConverter;
 
-
-interface WordConverterInterface {
-
+interface WordConverterInterface
+{
     /**
-     * @param string  $word the word
-     * @return boolean  true if the word can be converted by this word converter
+     * @param string $word the word
+     *
+     * @return bool true if the word can be converted by this word converter
      */
     public function isMatching($word);
 
     /**
-     * @param  \WikiRenderer\Generator\DocumentGeneratorInterface $documentGenerator
-     * @param string $word the word to convert
+     * @param \WikiRenderer\Generator\DocumentGeneratorInterface $documentGenerator
+     * @param string                                             $word              the word to convert
+     *
      * @return \WikiRenderer\Generator\InlineGeneratorInterface
      */
     public function getContent(\WikiRenderer\Generator\DocumentGeneratorInterface $documentGenerator,
                                $word);
-
 }

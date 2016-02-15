@@ -1,8 +1,6 @@
 <?php
 
 /**
- * 
- *
  * @author Laurent Jouanneau
  * @copyright 2016 Laurent Jouanneau
  *
@@ -10,21 +8,21 @@
  *
  * @licence MIT see LICENCE file
  */
-
 namespace WikiRenderer\LinkProcessor;
 
 /**
- * link processor that supports link on wiki word
+ * link processor that supports link on wiki word.
  */
-class WikiLinkProcessor implements LinkProcessorInterface {
-
+class WikiLinkProcessor implements LinkProcessorInterface
+{
     protected $wikiBaseUrl = '';
 
     /**
-     * @param string $wikiBaseUrl  base url with %s that will be replaced by
-     * wiki word
+     * @param string $wikiBaseUrl base url with %s that will be replaced by
+     *                            wiki word
      */
-    public function __construct($wikiBaseUrl) {
+    public function __construct($wikiBaseUrl)
+    {
         $this->wikiBaseUrl = $wikiBaseUrl;
     }
 
@@ -34,16 +32,13 @@ class WikiLinkProcessor implements LinkProcessorInterface {
 
         if (!preg_match('!^[a-zA-Z]+\://!', $url)
             && $url[0] != '/') {
-
             if (strpos($url, 'javascript:') !== false) { // for security reason
                 $url = '#';
                 $label = '#';
-            }
-            else if (preg_match('/(#[\w\-_0-9]+)$/', $url, $m)) {
+            } elseif (preg_match('/(#[\w\-_0-9]+)$/', $url, $m)) {
                 $label = $url = substr($url, 0, -strlen($m[1]));
                 $url = sprintf($this->wikiBaseUrl, $url).$m[1];
-            }
-            else {
+            } else {
                 $url = sprintf($this->wikiBaseUrl, $url);
             }
         }
