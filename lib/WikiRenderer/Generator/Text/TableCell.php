@@ -2,20 +2,17 @@
 
 /**
  * @author Laurent Jouanneau
- *
  * @copyright 2016 Laurent Jouanneau
  *
  * @link http://wikirenderer.jelix.org
  *
  * @licence MIT see LICENCE file
  */
-
 namespace WikiRenderer\Generator\Text;
 
 class TableCell implements \WikiRenderer\Generator\BlockTableCellInterface,
                            \WikiRenderer\Generator\InlineGeneratorInterface
 {
-
     protected $id = '';
 
     protected $_colspan = 1;
@@ -28,60 +25,70 @@ class TableCell implements \WikiRenderer\Generator\BlockTableCellInterface,
 
     protected $align = '';
 
-    public function setId($id) {
+    public function setId($id)
+    {
         $this->id = $id;
     }
 
-    public function setIsHeader($isHeader) {
-        $this->_isHeader = !! $isHeader;
+    public function setIsHeader($isHeader)
+    {
+        $this->_isHeader = !!$isHeader;
     }
 
-    public function setColSpan($colspan) {
+    public function setColSpan($colspan)
+    {
         $this->_colspan = intval($colspan);
     }
 
-    public function getColSpan() {
+    public function getColSpan()
+    {
         return $this->_colspan;
     }
 
-    public function setRowSpan($rowspan) {
+    public function setRowSpan($rowspan)
+    {
         $this->_rowspan = intval($rowspan);
     }
 
-    public function getRowSpan() {
+    public function getRowSpan()
+    {
         return $this->_rowspan;
     }
 
-    public function setAlign($align) {
-        if (!in_array($align, array('left','center','right'))) {
+    public function setAlign($align)
+    {
+        if (!in_array($align, array('left', 'center', 'right'))) {
             return;
         }
         $this->align = $align;
     }
 
-    public function getAlign() {
+    public function getAlign()
+    {
         return $this->align;
     }
 
-    public function addContent(\WikiRenderer\Generator\GeneratorInterface $content) {
+    public function addContent(\WikiRenderer\Generator\GeneratorInterface $content)
+    {
         $this->content[] = $content;
     }
 
-    public function isEmpty() {
+    public function isEmpty()
+    {
         return count($this->content) == 0;
     }
 
     /**
      * @return string
      */
-    public function generate() {
+    public function generate()
+    {
         // FIXME: cells of a same column should have same size
         $text = '';
-        foreach($this->content as $generator) {
+        foreach ($this->content as $generator) {
             if ($generator instanceof \WikiRenderer\Generator\BlockGeneratorInterface) {
                 $text .= $generator->generate();
-            }
-            else {
+            } else {
                 $text .= $generator->generate();
             }
         }

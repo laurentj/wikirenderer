@@ -2,19 +2,18 @@
 
 /**
  * @author Laurent Jouanneau
- *
  * @copyright 2016 Laurent Jouanneau
  *
  * @link http://wikirenderer.jelix.org
  *
  * @licence MIT see LICENCE file
  */
-
 namespace WikiRenderer\Generator\Html;
-use \WikiRenderer\Generator\BlockTableInterface;
 
-class Table implements BlockTableInterface {
+use WikiRenderer\Generator\BlockTableInterface;
 
+class Table implements BlockTableInterface
+{
     /**
      * @var BlockTableCellInterface[][]
      */
@@ -24,25 +23,28 @@ class Table implements BlockTableInterface {
 
     protected $id = '';
 
-    public function setId($id) {
+    public function setId($id)
+    {
         $this->id = $id;
     }
 
-    public function createRow() {
-        $this->currentRowIndex ++;
+    public function createRow()
+    {
+        ++$this->currentRowIndex;
         $this->rows[$this->currentRowIndex] = array();
     }
 
-    public function addCell(\WikiRenderer\Generator\BlockTableCellInterface $content) {
+    public function addCell(\WikiRenderer\Generator\BlockTableCellInterface $content)
+    {
         if ($content->getRowSpan() == -1) {
             $colIdx = count($this->rows[$this->currentRowIndex]);
 
-            for ($i = $this->currentRowIndex-1; $i>=0; --$i) {
+            for ($i = $this->currentRowIndex - 1; $i >= 0; --$i) {
                 if (!isset($this->rows[$i][$colIdx])) {
                     break;
                 }
                 if (($r = $this->rows[$i][$colIdx]->getRowSpan()) > 0) {
-                    $this->rows[$i][$colIdx]->setRowSpan($r+1);
+                    $this->rows[$i][$colIdx]->setRowSpan($r + 1);
                     break;
                 }
             }
@@ -50,21 +52,22 @@ class Table implements BlockTableInterface {
         $this->rows[$this->currentRowIndex][] = $content;
     }
 
-    public function isEmpty() {
+    public function isEmpty()
+    {
         return count($this->rows) == 0;
     }
 
-    public function generate() {
+    public function generate()
+    {
         if ($this->id) {
             $text = '<table border="1" id="'.htmlspecialchars($this->id).'">'."\n";
-        }
-        else {
+        } else {
             $text = '<table border="1">'."\n";
         }
 
-        foreach($this->rows as $k=>$row) {
+        foreach ($this->rows as $k => $row) {
             $text .= "<tr>\n";
-            foreach($row as $cell) {
+            foreach ($row as $cell) {
                 if ($cell->getRowSpan() < 1) {
                     continue;
                 }
@@ -73,6 +76,7 @@ class Table implements BlockTableInterface {
             $text .= "</tr>\n";
         }
         $text .= '</table>';
+
         return $text;
     }
 }

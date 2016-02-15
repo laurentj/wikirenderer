@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Configuration for a generator
+ * Configuration for a generator.
  *
  * @author Laurent Jouanneau
  * @contributor  Amaury Bouchard
@@ -12,7 +12,6 @@
  *
  * @licence MIT see LICENCE file
  */
-
 namespace WikiRenderer\Generator;
 
 /**
@@ -23,9 +22,9 @@ abstract class Config
     /**
      * Indicate to WikiRenderer to generate directly the header and the footer
      * after the parsing. Set to false if you want to call yourself
-     * methods generateHeader() and generateFooter() on the document generator
+     * methods generateHeader() and generateFooter() on the document generator.
      *
-     * @var boolean
+     * @var bool
      */
     public $generateHeaderFooter = true;
 

@@ -2,18 +2,15 @@
 
 /**
  * @author Laurent Jouanneau
- *
  * @copyright 2016 Laurent Jouanneau
  *
  * @link http://wikirenderer.jelix.org
  *
  * @licence MIT see LICENCE file
  */
-
 namespace WikiRenderer\Generator;
 
-interface BlockParagraphInterface extends BlockGeneratorInterface {
-
+interface BlockParagraphInterface extends BlockGeneratorInterface
+{
     public function addLine(InlineGeneratorInterface $content);
-
 }

@@ -2,19 +2,18 @@
 
 /**
  * @author Laurent Jouanneau
- *
  * @copyright 2016 Laurent Jouanneau
  *
  * @link http://wikirenderer.jelix.org
  *
  * @licence MIT see LICENCE file
  */
-
 namespace WikiRenderer\Generator\Docbook;
-use \WikiRenderer\Generator\BlockListInterface;
 
-class DocbookList implements BlockListInterface {
+use WikiRenderer\Generator\BlockListInterface;
 
+class DocbookList implements BlockListInterface
+{
     protected $items = array();
 
     protected $listType = 0;
@@ -23,23 +22,28 @@ class DocbookList implements BlockListInterface {
 
     protected $id = '';
 
-    public function setId($id) {
+    public function setId($id)
+    {
         $this->id = $id;
     }
 
-    public function setListType($type) {
+    public function setListType($type)
+    {
         $this->listType = $type;
     }
 
-    public function createItem() {
-        $this->currentIndex ++;
+    public function createItem()
+    {
+        ++$this->currentIndex;
     }
 
-    public function isEmpty() {
+    public function isEmpty()
+    {
         return count($this->items) == 0;
     }
 
-    public function addContentToItem(\WikiRenderer\Generator\GeneratorInterface $content, $itemIndex = -1) {
+    public function addContentToItem(\WikiRenderer\Generator\GeneratorInterface $content, $itemIndex = -1)
+    {
         if ($itemIndex == -1) {
             $itemIndex = $this->currentIndex;
         }
@@ -49,34 +53,32 @@ class DocbookList implements BlockListInterface {
         $this->items[$itemIndex][] = $content;
     }
 
-    public function generate() {
+    public function generate()
+    {
         if ($this->listType == $this::ORDERED_LIST) {
             $tag = 'orderedlist';
-        }
-        else {
+        } else {
             $tag = 'itemizedlist';
         }
         if ($this->id) {
             $text = '<'.$tag.' xml:id="'.htmlspecialchars($this->id, ENT_XML1).'">';
-        }
-        else {
+        } else {
             $text = '<'.$tag.'>';
         }
 
-        foreach($this->items as $k=>$generators) {
+        foreach ($this->items as $k => $generators) {
             $text .= "\n<listitem>";
             $para = false;
-            foreach($generators as $generator) {
+            foreach ($generators as $generator) {
                 if ($generator instanceof \WikiRenderer\Generator\BlockGeneratorInterface) {
                     if ($para) {
                         $text .= '</para>';
                         $para = false;
                     }
                     $text .= "\n".$generator->generate()."\n";
-                }
-                else {
+                } else {
                     if (!$para) {
-                        $text.='<para>';
+                        $text .= '<para>';
                         $para = true;
                     }
                     $text .= $generator->generate();
@@ -85,9 +87,10 @@ class DocbookList implements BlockListInterface {
             if ($para) {
                 $text .= '</para>';
             }
-            $text .= "</listitem>";
+            $text .= '</listitem>';
         }
-        $text .= '</'.$tag.">";
+        $text .= '</'.$tag.'>';
+
         return $text;
     }
 }

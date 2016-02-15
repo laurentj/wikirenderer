@@ -2,41 +2,40 @@
 
 /**
  * @author Laurent Jouanneau
- *
  * @copyright 2016 Laurent Jouanneau
  *
  * @link http://wikirenderer.jelix.org
  *
  * @licence MIT see LICENCE file
  */
-
 namespace WikiRenderer\Generator;
 
-interface BlockTableCellInterface extends BlockGeneratorInterface {
-
+interface BlockTableCellInterface extends BlockGeneratorInterface
+{
     /**
-     * @param boolean true if the cell is a cell header
+     * @param bool true if the cell is a cell header
      */
     public function setIsHeader($isHeader);
 
     /**
-     * @param integer $colspan
+     * @param int $colspan
      */
     public function setColSpan($colspan);
 
     /**
-     * if -1 is given, the cell is part of the cell above it
-     * @param integer $rowspan
+     * if -1 is given, the cell is part of the cell above it.
+     *
+     * @param int $rowspan
      */
     public function setRowSpan($rowspan);
 
     /**
-     * @return integer $colspan
+     * @return int $colspan
      */
     public function getColSpan();
 
     /**
-     * @return integer $rowspan
+     * @return int $rowspan
      */
     public function getRowSpan();
 
@@ -48,5 +47,4 @@ interface BlockTableCellInterface extends BlockGeneratorInterface {
     public function getAlign();
 
     public function addContent(GeneratorInterface $content);
-
 }

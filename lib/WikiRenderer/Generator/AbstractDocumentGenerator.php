@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * @author Laurent Jouanneau
  * @copyright 2016 Laurent Jouanneau
  *
@@ -8,48 +7,54 @@
  *
  * @licence MIT see LICENCE file
  */
+namespace WikiRenderer\Generator;
 
- namespace WikiRenderer\Generator;
- use \WikiRenderer\Generator\GeneratorInterface;
- 
- abstract class AbstractDocumentGenerator implements \WikiRenderer\Generator\DocumentGeneratorInterface {
+abstract class AbstractDocumentGenerator implements \WikiRenderer\Generator\DocumentGeneratorInterface
+{
     use BlocksContainerTrait;
 
     /**
      * @var Config
      */
     protected $config;
- 
+
     public function __construct(\WikiRenderer\Generator\Config $config)
     {
         $this->config = $config;
     }
 
-    public function getConfig() {
+    public function getConfig()
+    {
         return $this->config;
     }
 
-    public function getInlineGenerator($type) {
+    public function getInlineGenerator($type)
+    {
         if (isset($this->config->inlineGenerators[$type])) {
             $class = $this->config->inlineGenerators[$type];
+
             return new $class();
         }
         throw new \Exception('unknown inline generator '.$type);
     }
 
-    public function getBlockGenerator($type) {
+    public function getBlockGenerator($type)
+    {
         if (isset($this->config->blockGenerators[$type])) {
             $class = $this->config->blockGenerators[$type];
+
             return new $class();
         }
         throw new \Exception('unknown block generator '.$type);
     }
 
-    public function getDefaultBlock() {
-        return null;
+    public function getDefaultBlock()
+    {
+        return;
     }
 
-    function clear() {
+    public function clear()
+    {
         $this->headers = array();
         $this->footers = array();
         $this->blocksList = array();
@@ -62,9 +67,9 @@
 
     /**
      * Add content to the header. May be used by a parser.
-     *
      */
-    public function addHeader(GeneratorInterface $header) {
+    public function addHeader(GeneratorInterface $header)
+    {
         $this->headers[] = $header;
     }
 
@@ -75,33 +80,37 @@
 
     /**
      * Add content to the footer. May be used by a parser.
-     * example: footnotes
-     *
+     * example: footnotes.
      */
-    public function addFooter(GeneratorInterface $header) {
+    public function addFooter(GeneratorInterface $header)
+    {
         $this->footers[] = $footer;
     }
 
     /**
-     * Generate the header
+     * Generate the header.
+     *
      * @return string
      */
-    public function generateHeader() {
+    public function generateHeader()
+    {
         return $this->generateBlocks($this->headers);
     }
 
     /**
-     * Generate the footer
+     * Generate the footer.
+     *
      * @return string
      */
-    public function generateFooter() {
+    public function generateFooter()
+    {
         return $this->generateBlocks($this->footers);
     }
 
-    protected function generateBlocks($list) {
-        return implode("", array_map(function($generator) {
+    protected function generateBlocks($list)
+    {
+        return implode('', array_map(function ($generator) {
             return $generator->generate();
         }, $list));
     }
- }
- 
+}

@@ -2,18 +2,16 @@
 
 /**
  * @author Laurent Jouanneau
- *
  * @copyright 2016 Laurent Jouanneau
  *
  * @link http://wikirenderer.jelix.org
  *
  * @licence MIT see LICENCE file
  */
-
 namespace WikiRenderer\Generator\Text;
 
-class Title implements \WikiRenderer\Generator\BlockTitleInterface {
-
+class Title implements \WikiRenderer\Generator\BlockTitleInterface
+{
     protected $htmlTagName = 'h';
 
     protected $lines = array();
@@ -22,31 +20,37 @@ class Title implements \WikiRenderer\Generator\BlockTitleInterface {
 
     protected $id = '';
 
-    public function setLevel($level) {
+    public function setLevel($level)
+    {
         $this->level = $level;
     }
 
-    public function setId($id) {
+    public function setId($id)
+    {
         $this->id = $id;
     }
 
-    public function addLine(\WikiRenderer\Generator\InlineGeneratorInterface $content) {
+    public function addLine(\WikiRenderer\Generator\InlineGeneratorInterface $content)
+    {
         $this->lines[] = $content;
     }
 
-    public function isEmpty() {
+    public function isEmpty()
+    {
         return count($this->lines) == 0;
     }
 
     public $motif = array('=', '*', ':', '-', '.', '.');
 
-    public function generate() {
+    public function generate()
+    {
         $text = $this->indentation;
 
-        foreach($this->lines as $k=>$generator) {
+        foreach ($this->lines as $k => $generator) {
             $text .= $generator->generate();
         }
-        return $text."\n".$this->indentation.str_repeat($this->motif[$this->level-1], strlen($text));
+
+        return $text."\n".$this->indentation.str_repeat($this->motif[$this->level - 1], strlen($text));
     }
 
     public $indentation = '';

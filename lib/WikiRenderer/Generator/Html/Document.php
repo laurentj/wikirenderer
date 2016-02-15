@@ -9,10 +9,8 @@
  *
  * @licence MIT see LICENCE file
  */
-
 namespace WikiRenderer\Generator\Html;
 
-class Document extends \WikiRenderer\Generator\AbstractDocumentGenerator {
-
+class Document extends \WikiRenderer\Generator\AbstractDocumentGenerator
+{
 }
- 

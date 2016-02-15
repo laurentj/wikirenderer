@@ -2,25 +2,24 @@
 
 /**
  * @author Laurent Jouanneau
- *
  * @copyright 2016 Laurent Jouanneau
  *
  * @link http://wikirenderer.jelix.org
  *
  * @licence MIT see LICENCE file
  */
-
 namespace WikiRenderer\Generator\Docbook;
 
-class Quote extends AbstractInlineGenerator {
-
+class Quote extends AbstractInlineGenerator
+{
     protected $dbTagName = 'quote';
 
     protected $supportedAttributes = array('id', 'lang', 'cite');
 
-    public function generate() {
+    public function generate()
+    {
         $text = '';
-        foreach($this->content as $content) {
+        foreach ($this->content as $content) {
             $text .= $content->generate();
         }
 

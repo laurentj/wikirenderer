@@ -2,19 +2,18 @@
 
 /**
  * @author Laurent Jouanneau
- *
  * @copyright 2016 Laurent Jouanneau
  *
  * @link http://wikirenderer.jelix.org
  *
  * @licence MIT see LICENCE file
  */
-
 namespace WikiRenderer\Generator\Html;
-use \WikiRenderer\Generator\BlockListInterface;
 
-class HtmlList implements BlockListInterface {
+use WikiRenderer\Generator\BlockListInterface;
 
+class HtmlList implements BlockListInterface
+{
     protected $items = array();
 
     protected $listType = 0;
@@ -23,23 +22,28 @@ class HtmlList implements BlockListInterface {
 
     protected $id = '';
 
-    public function setId($id) {
+    public function setId($id)
+    {
         $this->id = $id;
     }
 
-    public function setListType($type) {
+    public function setListType($type)
+    {
         $this->listType = $type;
     }
 
-    public function createItem() {
-        $this->currentIndex ++;
+    public function createItem()
+    {
+        ++$this->currentIndex;
     }
 
-    public function isEmpty() {
+    public function isEmpty()
+    {
         return count($this->items) == 0;
     }
 
-    public function addContentToItem(\WikiRenderer\Generator\GeneratorInterface $content, $itemIndex = -1) {
+    public function addContentToItem(\WikiRenderer\Generator\GeneratorInterface $content, $itemIndex = -1)
+    {
         if ($itemIndex == -1) {
             $itemIndex = $this->currentIndex;
         }
@@ -49,33 +53,32 @@ class HtmlList implements BlockListInterface {
         $this->items[$itemIndex][] = $content;
     }
 
-    public function generate() {
+    public function generate()
+    {
         if ($this->listType == $this::ORDERED_LIST) {
             $tag = 'ol';
-        }
-        else {
+        } else {
             $tag = 'ul';
         }
         if ($this->id) {
             $text = '<'.$tag.' id="'.htmlspecialchars($this->id).'">';
-        }
-        else {
+        } else {
             $text = '<'.$tag.'>';
         }
 
-        foreach($this->items as $k=>$generators) {
+        foreach ($this->items as $k => $generators) {
             $text .= "\n<li>";
-            foreach($generators as $generator) {
+            foreach ($generators as $generator) {
                 if ($generator instanceof \WikiRenderer\Generator\BlockGeneratorInterface) {
                     $text .= "\n".$generator->generate()."\n";
-                }
-                else {
+                } else {
                     $text .= $generator->generate();
                 }
             }
-            $text .= "</li>";
+            $text .= '</li>';
         }
-        $text .= '</'.$tag.">";
+        $text .= '</'.$tag.'>';
+
         return $text;
     }
 }

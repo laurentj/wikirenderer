@@ -2,26 +2,25 @@
 
 /**
  * @author Laurent Jouanneau
- *
  * @copyright 2016 Laurent Jouanneau
  *
  * @link http://wikirenderer.jelix.org
  *
  * @licence MIT see LICENCE file
  */
-
 namespace WikiRenderer\Generator\Html;
 
-class Flash extends AbstractInlineGenerator {
-
+class Flash extends AbstractInlineGenerator
+{
     protected $htmlTagName = 'object';
 
     protected $supportedAttributes = array('id', 'src', 'width', 'height', 'align', 'title', 'class');
 
-    public function generate() {
+    public function generate()
+    {
         $attrs = ' data="'.htmlspecialchars($this->getAttribute('src')).'"';
 
-        foreach(array('id', 'title', 'class', 'width', 'height') as $attr) {
+        foreach (array('id', 'title', 'class', 'width', 'height') as $attr) {
             $val = $this->getAttribute($attr);
             if ($val) {
                 $attrs .= ' '.$attr.'="'.htmlspecialchars($val).'"';
