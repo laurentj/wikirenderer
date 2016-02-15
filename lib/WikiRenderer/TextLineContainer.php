@@ -10,7 +10,6 @@
  *
  * @licence MIT see LICENCE file
  */
-
 namespace WikiRenderer;
 
 /**

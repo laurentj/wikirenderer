@@ -12,7 +12,6 @@
  *
  * @licence MIT see LICENCE file
  */
-
 namespace WikiRenderer;
 
 /**
@@ -127,7 +126,7 @@ abstract class Block
      * of the markup, it may not be cloned. 
      * 
      * @return bool true if the block should be cloned each time
-     * it is opened.
+     *              it is opened.
      */
     public function mustClone()
     {
@@ -149,7 +148,8 @@ abstract class Block
         return $this->engine->inlineParser->parse($string);
     }
 
-    public function __clone() {
+    public function __clone()
+    {
         $this->generator = clone $this->generator;
     }
 }

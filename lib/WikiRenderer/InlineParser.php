@@ -10,7 +10,6 @@
  *
  * @licence MIT see LICENCE file
  */
-
 namespace WikiRenderer;
 
 /**
@@ -18,20 +17,22 @@ namespace WikiRenderer;
  */
 class InlineParser
 {
-    /** @var boolean indicate if an error has been found during the parsing */
+    /** @var bool indicate if an error has been found during the parsing */
     public $error = false;
 
     /** list of simple tags (copy of ccongi */
     protected $simpletags = array();
 
     /**
-    * the current parsed line, splited into chuncked and tokens
-    * @var string[]
-    */
+     * the current parsed line, splited into chuncked and tokens.
+     *
+     * @var string[]
+     */
     protected $str = array();
-    
+
     /**
-     * count of parts into the string 
+     * count of parts into the string.
+     *
      * @var int
      */
     protected $end = 0;
@@ -47,7 +48,6 @@ class InlineParser
 
     /** @var string escape character */
     protected $escapeChar = '';
-
 
     protected $allSimpleTags = array();
 
@@ -141,7 +141,7 @@ class InlineParser
      * Parser's core function.
      *
      * @param \WikiRenderer\Tag $tag      ???
-     * @param integer $posstart ???
+     * @param int               $posstart ???
      *
      * @return int new position
      */
@@ -213,6 +213,7 @@ class InlineParser
         if (!$tag->isTextLineTag) {
             //we didn't find the ended tag, error
             $this->error = true;
+
             return false;
         } else {
             return $this->end;

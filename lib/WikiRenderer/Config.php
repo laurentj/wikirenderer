@@ -12,7 +12,6 @@
  *
  * @licence MIT see LICENCE file
  */
-
 namespace WikiRenderer;
 
 /**
@@ -32,7 +31,7 @@ abstract class Config
     public $blocktags = array();
 
     /** 
-     * list of SimpleTag objects
+     * list of SimpleTag objects.
      */
     public $simpleTags = array();
 
@@ -52,7 +51,8 @@ abstract class Config
      */
     protected $linkProcessor = null;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->linkProcessor = new \WikiRenderer\LinkProcessor\SimpleLinkProcessor();
     }
 

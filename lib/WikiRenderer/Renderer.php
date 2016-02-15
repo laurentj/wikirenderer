@@ -12,7 +12,6 @@
  *
  * @licence MIT see LICENCE file
  */
-
 namespace WikiRenderer;
 
 /**
@@ -34,7 +33,8 @@ class Renderer
 
     /**
      * List of lines which contain an error. Keys are line numbers, values are line
-     * content
+     * content.
+     *
      * @var string[]
      */
     public $errors = array();
@@ -122,9 +122,11 @@ class Renderer
 
     /**
      * detect the block corresponding to the given line.
-     * @var string $line
+     *
+     * @var string
      */
-    protected function detectNewBlock($line) {
+    protected function detectNewBlock($line)
+    {
         $found = false;
         // let's check if the line is part of a type of block
         foreach ($this->_blockList as $block) {
