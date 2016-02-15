@@ -1,7 +1,7 @@
 <?php
 
 /**
- * DokuWiki syntax
+ * DokuWiki syntax.
  *
  * @author Laurent Jouanneau
  * @copyright 2008-2016 Laurent Jouanneau
@@ -10,11 +10,10 @@
  *
  * @licence MIT see LICENCE file
  */
-
 namespace WikiRenderer\Markup\DokuWiki;
 
 /**
- * Parser for a link
+ * Parser for a link.
  */
 class Link extends \WikiRenderer\Tag
 {
@@ -33,10 +32,11 @@ class Link extends \WikiRenderer\Tag
         $this->wikiContentArr[0] = $href;
 
         if ($cnt == 1) {
-            $this->separatorCount++;
+            ++$this->separatorCount;
             $this->wikiContentArr[1] = '';
             $this->generator->setRawContent($label);
         }
+
         return parent::getContent();
     }
 }

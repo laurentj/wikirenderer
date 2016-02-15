@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Trac syntax
+ * Trac syntax.
  *
  * @author Laurent Jouanneau
  * @copyright 2006-2016 Laurent Jouanneau
@@ -10,11 +10,10 @@
  *
  * @licence MIT see LICENCE file
  */
-
 namespace WikiRenderer\Markup\Trac;
 
 /**
- * Configuration for the WikiRenderer parser for Trac markup
+ * Configuration for the WikiRenderer parser for Trac markup.
  */
 class Config extends \WikiRenderer\Config
 {
@@ -64,9 +63,10 @@ class Config extends \WikiRenderer\Config
 
     /**
      * top level header will be <h1> if you set to 1, <h2> if it is 2 etc..
-     * @var integer
+     *
+     * @var int
      */
-    public $startHeaderNumber = 1; 
+    public $startHeaderNumber = 1;
 
     public $wikiWordBaseUrl = '/wiki/%s';
 
@@ -89,11 +89,13 @@ class Config extends \WikiRenderer\Config
      * It should returns the given text. It may modify the text.
      *
      * @param string $text the wiki text
+     *
      * @return string the wiki text
      */
     public function onStart($text)
     {
         $this->sectionLevel = array();
+
         return $text;
     }
 
@@ -103,7 +105,7 @@ class Config extends \WikiRenderer\Config
      * @param string $finalText the generated text in the target format (html...)
      *
      * @return string the final text, which may contains new modifications
-     *    (content added at the begining or at the end for example)
+     *                (content added at the begining or at the end for example)
      */
     public function onParse($finalText)
     {

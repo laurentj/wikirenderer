@@ -1,7 +1,7 @@
 <?php
 
 /**
- * DokuWiki syntax
+ * DokuWiki syntax.
  *
  * @author Laurent Jouanneau
  * @copyright 2008-2016 Laurent Jouanneau
@@ -10,11 +10,10 @@
  *
  * @licence MIT see LICENCE file
  */
-
 namespace WikiRenderer\Markup\DokuWiki;
 
 /**
- * Parse a title block
+ * Parse a title block.
  */
 class Macro extends \WikiRenderer\Block
 {
@@ -34,10 +33,11 @@ class Macro extends \WikiRenderer\Block
     {
         if (preg_match('/^\s*(\w+)(?:\:?\s*(.+))?\s*$/', $this->_detectMatch[1], $m)) {
             $macroName = strtolower($m[1]);
-            $macroArg = isset($m[2]) ? $m[2]:'';
+            $macroArg = isset($m[2]) ? $m[2] : '';
             $macros = $this->engine->getConfig()->macros;
             if (isset($macros[$macroName]) && is_callable($macros[$macroName])) {
                 $this->content = call_user_func($macros[$macroName], $macroName, $macroArg);
+
                 return;
             }
         }
@@ -48,9 +48,11 @@ class Macro extends \WikiRenderer\Block
     {
         $block = new \WikiRenderer\Generator\SingleLineBlock();
         $block->setLineAsString($this->content);
+
         return $block;
     }
 
-    public function __clone() {
+    public function __clone()
+    {
     }
 }

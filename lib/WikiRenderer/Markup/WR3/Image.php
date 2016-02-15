@@ -1,7 +1,7 @@
 <?php
 
 /**
- * wikirenderer3 (wr3) syntax
+ * wikirenderer3 (wr3) syntax.
  *
  * @author Laurent Jouanneau
  * @copyright 2003-2016 Laurent Jouanneau
@@ -10,11 +10,10 @@
  *
  * @licence MIT see LICENCE file
  */
-
 namespace WikiRenderer\Markup\WR3;
 
 /**
- * Parser for an image inline tag
+ * Parser for an image inline tag.
  */
 class Image extends \WikiRenderer\Tag
 {
@@ -38,8 +37,7 @@ class Image extends \WikiRenderer\Tag
                 $this->wikiContentArr[2] = 'left';
             } elseif ($contents[2] == 'r' || $contents[2] == 'R' || $contents[2] == 'd' || $contents[2] == 'D') {
                 $this->wikiContentArr[2] = 'right';
-            }
-            else {
+            } else {
                 $this->wikiContentArr[2] = '';
             }
         }
@@ -48,7 +46,7 @@ class Image extends \WikiRenderer\Tag
         $this->wikiContentArr[0] = $href;
         if ($cnt == 1 && $href != $label) {
             $this->wikiContentArr[1] = $label;
-            $this->separatorCount++;
+            ++$this->separatorCount;
         }
 
         return parent::getContent();

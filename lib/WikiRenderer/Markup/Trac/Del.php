@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Trac syntax
+ * Trac syntax.
  *
  * @author Laurent Jouanneau
  * @copyright 2016 Laurent Jouanneau
@@ -10,16 +10,15 @@
  *
  * @licence MIT see LICENCE file
  */
-
 namespace WikiRenderer\Markup\Trac;
 
 /**
- * Parser for emphasys inline tag
+ * Parser for emphasys inline tag.
  */
 class Del extends \WikiRenderer\Tag
 {
     protected $name = 'del';
     protected $generatorName = 'del';
-    public $beginTag = "~~";
-    public $endTag = "~~";
+    public $beginTag = '~~';
+    public $endTag = '~~';
 }

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * DokuWiki syntax
+ * DokuWiki syntax.
  *
  * @author Laurent Jouanneau
  * @copyright 2008-2016 Laurent Jouanneau
@@ -10,16 +10,15 @@
  *
  * @licence MIT see LICENCE file
  */
-
 namespace WikiRenderer\Markup\DokuWiki;
 
 /**
- * Parser for emphasys inline tag
+ * Parser for emphasys inline tag.
  */
 class Del extends \WikiRenderer\Tag
 {
     protected $name = 'del';
     protected $generatorName = 'del';
-    public $beginTag = "<del>";
-    public $endTag = "</del>";
+    public $beginTag = '<del>';
+    public $endTag = '</del>';
 }

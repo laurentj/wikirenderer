@@ -1,7 +1,7 @@
 <?php
 
 /**
- * jWiki syntax
+ * jWiki syntax.
  *
  * @author Laurent Jouanneau
  * @copyright 2008-2016 Laurent Jouanneau
@@ -10,11 +10,10 @@
  *
  * @licence MIT see LICENCE file
  */
-
 namespace WikiRenderer\Markup\JWiki;
 
 /**
- * Configuration for the WikiRenderer parser for JWiki markup
+ * Configuration for the WikiRenderer parser for JWiki markup.
  */
 class Config extends \WikiRenderer\Config
 {
@@ -85,17 +84,18 @@ class Config extends \WikiRenderer\Config
     public $startHeaderNumber = 1;
 
     /**
-     * content all foot notes
+     * content all foot notes.
      */
     public $footnotes = array();
 
     /**
-     * prefix for footnotes id
+     * prefix for footnotes id.
      */
     public $footnotesId = '';
 
     /**
-     * html content for footnotes
+     * html content for footnotes.
+     *
      * @deprecated
      */
     public $footnotesTemplate = '<div class="footnotes"><h4>Notes</h4>%s</div>';
@@ -104,11 +104,12 @@ class Config extends \WikiRenderer\Config
      * list of functions implementing macros. Functions receive the macro name and
      * a string representing the arguments. It should return a string (empty or not)
      * to insert into the generated content. 
-     * @var callable[]  keys are macro name in lower case
+     *
+     * @var callable[] keys are macro name in lower case
      */
     public $macros = array();
 
-    public function __construct($wikiBaseUrl='')
+    public function __construct($wikiBaseUrl = '')
     {
         $wikiBaseUrl = $wikiBaseUrl ?: '/wiki/%s';
         $this->linkProcessor = new \WikiRenderer\LinkProcessor\WikiLinkProcessor($wikiBaseUrl);
@@ -123,6 +124,7 @@ class Config extends \WikiRenderer\Config
      * It should returns the given text. It may modify the text.
      *
      * @param string $text the wiki text
+     *
      * @return string the wiki text
      */
     public function onStart($text)
@@ -138,7 +140,7 @@ class Config extends \WikiRenderer\Config
      * @param string $finalText the generated text in the target format (html...)
      *
      * @return string the final text, which may contains new modifications
-     *    (content added at the begining or at the end for example)
+     *                (content added at the begining or at the end for example)
      */
     public function onParse($finalText)
     {

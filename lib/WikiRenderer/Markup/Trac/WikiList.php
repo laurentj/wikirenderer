@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Trac syntax
+ * Trac syntax.
  *
  * @author Laurent Jouanneau
  * @copyright 2006-2016 Laurent Jouanneau
@@ -10,12 +10,12 @@
  *
  * @licence MIT see LICENCE file
  */
-
 namespace WikiRenderer\Markup\Trac;
+
 use WikiRenderer\Generator\BlockListInterface;
 
 /**
- * Parse a list block
+ * Parse a list block.
  */
 class WikiList extends \WikiRenderer\Block
 {
@@ -28,24 +28,25 @@ class WikiList extends \WikiRenderer\Block
     protected $generatorStack = array();
 
     /**
-     * @var array  of array(indent len, 'o' or 'u');
+     * @var array of array(indent len, 'o' or 'u');
      */
     protected $indentStack = array();
 
     public function detect($string, $inBlock = false)
     {
         $this->sameItem = false;
-        if(!preg_match($this->regexp, $string, $this->_detectMatch)) {
+        if (!preg_match($this->regexp, $string, $this->_detectMatch)) {
             if (!count($this->indentStack)) {
                 return false;
             }
-            if(!preg_match("/^(\s*)([\*#\-\!\| \t>;<=].*)$/", $string, $this->_detectMatch)) {
+            if (!preg_match("/^(\s*)([\*#\-\!\| \t>;<=].*)$/", $string, $this->_detectMatch)) {
                 return false;
             }
             if (strlen($this->_detectMatch[1]) < end($this->indentStack)[0]) {
                 return false;
             }
             $this->sameItem = true;
+
             return true;
         }
 
@@ -64,13 +65,15 @@ class WikiList extends \WikiRenderer\Block
             $this->indentStack[0][1] != $type) {
             return false;
         }
+
         return true;
     }
 
-    protected function getItemType($type) {
-        return ($type == '*' || $type == '-') ? 'u':'o';
+    protected function getItemType($type)
+    {
+        return ($type == '*' || $type == '-') ? 'u' : 'o';
     }
-    
+
     public function open()
     {
         $type = $this->getItemType($this->_detectMatch[2]);
@@ -88,10 +91,12 @@ class WikiList extends \WikiRenderer\Block
     {
         $this->generatorStack = array();
         $this->indentStack = array();
+
         return parent::close();
     }
 
-    protected function _createList($type) {
+    protected function _createList($type)
+    {
         $generator = $this->documentGenerator->getBlockGenerator('list');
         if ($type == 'u') {
             $generator->setListType(BlockListInterface::UNORDERED_LIST);
@@ -99,14 +104,16 @@ class WikiList extends \WikiRenderer\Block
             $generator->setListType(BlockListInterface::ORDERED_LIST);
         }
         $generator->createItem();
+
         return $generator;
     }
 
     public function validateDetectedLine()
     {
         if ($this->sameItem) {
-            $last = $this->generatorStack[count($this->generatorStack)-1];
+            $last = $this->generatorStack[count($this->generatorStack) - 1];
             $last->addContentToItem($this->_renderInlineTag($this->_detectMatch[2]));
+
             return;
         }
 
@@ -134,24 +141,24 @@ class WikiList extends \WikiRenderer\Block
                 $this->indentStack[] = array($t[0],$type);
                 $generator = $this->_createList($type);
                 $generator->addContentToItem($this->_renderInlineTag($this->_detectMatch[3]));
-                $last = $this->generatorStack[count($this->generatorStack)-1];
+                $last = $this->generatorStack[count($this->generatorStack) - 1];
                 $last->addContentToItem($generator);
                 $this->generatorStack[] = $generator;
+
                 return;
             }
-
         } elseif ($d < 0) { // we have a new nested list
 
             $generator = $this->_createList($type);
             $generator->addContentToItem($this->_renderInlineTag($this->_detectMatch[3]));
 
-            $last = $this->generatorStack[count($this->generatorStack)-1];
+            $last = $this->generatorStack[count($this->generatorStack) - 1];
             $last->addContentToItem($generator);
             $this->generatorStack[] = $generator;
             $this->indentStack[] = array(strlen($this->_detectMatch[1]), $type);
+
             return;
-        }
-        else {
+        } else {
             // the new item is not of the same type
             // we should close the current sub list and create a new one
             if ($t[1] != $type) {
@@ -160,14 +167,15 @@ class WikiList extends \WikiRenderer\Block
                 $this->indentStack[] = array($t[0], $type);
                 $generator = $this->_createList($type);
                 $generator->addContentToItem($this->_renderInlineTag($this->_detectMatch[3]));
-                $last = $this->generatorStack[count($this->generatorStack)-1];
+                $last = $this->generatorStack[count($this->generatorStack) - 1];
                 $last->addContentToItem($generator);
                 $this->generatorStack[] = $generator;
+
                 return;
             }
         }
 
-        $last = $this->generatorStack[count($this->generatorStack)-1];
+        $last = $this->generatorStack[count($this->generatorStack) - 1];
         $last->createItem();
         $last->addContentToItem($this->_renderInlineTag($this->_detectMatch[3]));
     }

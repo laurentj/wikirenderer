@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Original wikirenderer (wr) syntax
+ * Original wikirenderer (wr) syntax.
  *
  * @author Laurent Jouanneau
  * @copyright 2003-2016 Laurent Jouanneau
@@ -10,11 +10,10 @@
  *
  * @licence MIT see LICENCE file
  */
-
 namespace WikiRenderer\Markup\ClassicWR;
 
 /**
- * Parser for a paragraph block
+ * Parser for a paragraph block.
  */
 class P extends \WikiRenderer\Block
 {
@@ -33,6 +32,7 @@ class P extends \WikiRenderer\Block
 
         if (strpos("*#-!| \t>;", $c) === false) {
             $this->_detectMatch = array($string, $string);
+
             return true;
         }
 

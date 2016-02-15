@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Original wikirenderer (wr) syntax
+ * Original wikirenderer (wr) syntax.
  *
  * @author Laurent Jouanneau
  * @copyright 2003-2016 Laurent Jouanneau
@@ -10,11 +10,10 @@
  *
  * @licence MIT see LICENCE file
  */
-
 namespace WikiRenderer\Markup\ClassicWR;
 
 /**
- * Parser for preformated content
+ * Parser for preformated content.
  */
 class Pre extends \WikiRenderer\Block
 {

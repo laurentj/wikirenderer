@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Trac syntax
+ * Trac syntax.
  * 
  * @author Laurent Jouanneau
  * @copyright 2016 Laurent Jouanneau
@@ -10,11 +10,10 @@
  *
  * @licence MIT see LICENCE file
  */
-
 namespace WikiRenderer\Markup\Trac;
 
 /**
- * Parse a line of a table
+ * Parse a line of a table.
  */
 class TableRow extends \WikiRenderer\Tag
 {
@@ -28,7 +27,8 @@ class TableRow extends \WikiRenderer\Tag
      */
     protected $row;
 
-    public function __construct(\WikiRenderer\Config $config, \WikiRenderer\Generator\DocumentGeneratorInterface $generator) {
+    public function __construct(\WikiRenderer\Config $config, \WikiRenderer\Generator\DocumentGeneratorInterface $generator)
+    {
         parent::__construct($config, $generator);
         $this->row = new \WikiRenderer\Generator\InlineBagGenerator();
     }
@@ -46,7 +46,6 @@ class TableRow extends \WikiRenderer\Tag
         $this->lastWord = null;
 
         if ($childGenerator === null) {
-
             $filteredWikiContent = $wikiContent;
             if ($this->wikiContentArr[$this->separatorCount] === ''
                 && $wikiContent[0] == '=') {
@@ -55,13 +54,10 @@ class TableRow extends \WikiRenderer\Tag
                 if (substr($wikiContent, -1) == '=') {
                     $this->hasEndHeader = true;
                     $filteredWikiContent = substr($wikiContent, 1, -1);
-                }
-                else {
+                } else {
                     $filteredWikiContent = substr($wikiContent, 1);
                 }
-
-            }
-            else if ($this->wikiContentArr[$this->separatorCount] !== ''
+            } elseif ($this->wikiContentArr[$this->separatorCount] !== ''
                      && substr($wikiContent, -1) == '=') {
                 $this->hasEndHeader = true;
                 $filteredWikiContent = substr($wikiContent, 0, -1);
@@ -69,8 +65,7 @@ class TableRow extends \WikiRenderer\Tag
 
             $this->wikiContentArr[$this->separatorCount] .= $wikiContent;
             $this->cell[] = $this->convertWords($filteredWikiContent);
-        }
-        else {
+        } else {
             $this->wikiContentArr[$this->separatorCount] .= $wikiContent;
             $this->cell[] = $childGenerator;
         }
@@ -85,25 +80,22 @@ class TableRow extends \WikiRenderer\Tag
 
         if (count($this->cell) === 0) {
             $this->generator->setColSpan($this->generator->getColSpan() + 1);
-        }
-        else {
+        } else {
             if ($this->hasStartHeader && $this->hasEndHeader) {
                 $this->generator->setIsHeader(true);
-            }
-            else if ($this->hasStartHeader) {
+            } elseif ($this->hasStartHeader) {
                 // no header, we revert the '=' removal
                 $words = $this->documentGenerator->getInlineGenerator('words');
                 $words->addRawContent('=');
                 array_unshift($this->cell, $words);
-            }
-            else if ($this->hasEndHeader) {
+            } elseif ($this->hasEndHeader) {
                 // no header, we revert the '=' removal
                 $words = $this->documentGenerator->getInlineGenerator('words');
                 $words->addRawContent('=');
                 array_push($this->cell, $words);
             }
 
-            foreach($this->cell as $gen) {
+            foreach ($this->cell as $gen) {
                 $this->generator->addContent($gen);
             }
             $this->row->addGenerator($this->generator);
@@ -124,6 +116,7 @@ class TableRow extends \WikiRenderer\Tag
         if (!$this->generator->isEmpty()) {
             $this->row->addGenerator($this->generator);
         }
+
         return $this->row;
     }
 
@@ -132,7 +125,8 @@ class TableRow extends \WikiRenderer\Tag
         return true;
     }
 
-    public function __clone() {
+    public function __clone()
+    {
         $this->generator = clone $this->generator;
         $this->row = clone $this->row;
     }

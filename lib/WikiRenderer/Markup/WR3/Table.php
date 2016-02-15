@@ -1,7 +1,7 @@
 <?php
 
 /**
- * wikirenderer3 (wr3) syntax
+ * wikirenderer3 (wr3) syntax.
  *
  * @author Laurent Jouanneau
  * @copyright 2003-2016 Laurent Jouanneau
@@ -10,11 +10,10 @@
  *
  * @licence MIT see LICENCE file
  */
-
 namespace WikiRenderer\Markup\WR3;
 
 /**
- * Parse a table block
+ * Parse a table block.
  */
 class Table extends \WikiRenderer\Block
 {
@@ -32,6 +31,7 @@ class Table extends \WikiRenderer\Block
     public function close()
     {
         $this->engine->getConfig()->defaultTextLineContainer = '\WikiRenderer\Markup\WR3\TextLine';
+
         return parent::close();
     }
 
@@ -42,7 +42,7 @@ class Table extends \WikiRenderer\Block
         $generator = $this->_renderInlineTag($this->_detectMatch[1]);
 
         $cells = $generator->getGenerators();
-        foreach($cells as $generator) {
+        foreach ($cells as $generator) {
             $this->generator->addCell($generator);
         }
     }

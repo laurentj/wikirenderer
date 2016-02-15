@@ -1,7 +1,7 @@
 <?php
 
 /**
- * DokuWiki syntax
+ * DokuWiki syntax.
  *
  * @author Laurent Jouanneau
  * @copyright 2008-2016 Laurent Jouanneau
@@ -10,11 +10,10 @@
  *
  * @licence MIT see LICENCE file
  */
-
 namespace WikiRenderer\Markup\DokuWiki;
 
 /**
- * Parse code inline tag
+ * Parse code inline tag.
  */
 class NoWikiInline extends \WikiRenderer\Tag
 {

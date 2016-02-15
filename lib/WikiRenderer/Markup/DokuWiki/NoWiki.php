@@ -1,7 +1,7 @@
 <?php
 
 /**
- * DokuWiki syntax
+ * DokuWiki syntax.
  *
  * @author Laurent Jouanneau
  * @copyright 2008-2016 Laurent Jouanneau
@@ -10,11 +10,10 @@
  *
  * @licence MIT see LICENCE file
  */
-
 namespace WikiRenderer\Markup\DokuWiki;
 
 /**
- * Parser for nowiki content
+ * Parser for nowiki content.
  */
 class NoWiki extends \WikiRenderer\Block
 {
@@ -62,6 +61,7 @@ class NoWiki extends \WikiRenderer\Block
                     $this->_closeNow = false;
                     $this->_detectMatch = $m[2];
                 }
+
                 return true;
             } else {
                 return false;

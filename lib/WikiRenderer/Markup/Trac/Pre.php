@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Trac syntax
+ * Trac syntax.
  *
  * @author Laurent Jouanneau
  * @copyright 2006-2016 Laurent Jouanneau
@@ -10,11 +10,10 @@
  *
  * @licence MIT see LICENCE file
  */
-
 namespace WikiRenderer\Markup\Trac;
 
 /**
- * Parser for preformated content
+ * Parser for preformated content.
  */
 class Pre extends \WikiRenderer\Block
 {
@@ -47,9 +46,10 @@ class Pre extends \WikiRenderer\Block
                 return;
             }
             if (preg_match('/^#\!(\w+)\s*$/', $this->_detectMatch, $m)) {
-                switch($m[1]) {
+                switch ($m[1]) {
                     case 'comment':
                         $this->generator = new \WikiRenderer\Generator\DummyBlock();
+
                         return;
                     case 'div': // html section
                     case 'span': // html section
@@ -68,6 +68,7 @@ class Pre extends \WikiRenderer\Block
                         // syntax highlighting
                         $this->generator = $this->documentGenerator->getBlockGenerator('syntaxhighlight');
                         $this->generator->setSyntaxType($m[1]);
+
                         return;
                 }
             }
@@ -102,6 +103,7 @@ class Pre extends \WikiRenderer\Block
                     $this->_closeNow = false;
                     $this->_detectMatch = $m[1];
                 }
+
                 return true;
             } else {
                 return false;

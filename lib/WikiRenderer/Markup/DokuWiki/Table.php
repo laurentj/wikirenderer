@@ -1,7 +1,7 @@
 <?php
 
 /**
- * DokuWiki syntax
+ * DokuWiki syntax.
  *
  * @author Laurent Jouanneau
  * @copyright 2008-2016 Laurent Jouanneau
@@ -10,11 +10,10 @@
  *
  * @licence MIT see LICENCE file
  */
-
 namespace WikiRenderer\Markup\DokuWiki;
 
 /**
- * Parse a table block
+ * Parse a table block.
  */
 class Table extends \WikiRenderer\Block
 {
@@ -32,6 +31,7 @@ class Table extends \WikiRenderer\Block
     public function close()
     {
         $this->engine->getConfig()->defaultTextLineContainer = '\WikiRenderer\Markup\DokuWiki\TextLine';
+
         return parent::close();
     }
 
@@ -42,7 +42,7 @@ class Table extends \WikiRenderer\Block
         $generator = $this->_renderInlineTag($this->_detectMatch[2]);
 
         $cells = $generator->getGenerators();
-        foreach($cells as $k=>$generator) {
+        foreach ($cells as $k => $generator) {
             if ($k === 0 && $this->_detectMatch[1] ==  '^') {
                 $generator->setIsHeader(true);
             }

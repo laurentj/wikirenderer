@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Trac syntax
+ * Trac syntax.
  *
  * @author Laurent Jouanneau
  * @copyright 2006-2016 Laurent Jouanneau
@@ -10,17 +10,17 @@
  *
  * @licence MIT see LICENCE file
  */
-
 namespace WikiRenderer\Markup\Trac;
 
 /**
- * Parse blockquote block
+ * Parse blockquote block.
  */
 class Blockquote2 extends Blockquote
 {
     protected $regexp = "/^(\s{2,})([^\s\>\*1\=\{\-\[].*)/";
 
-    protected function getTagLen($tag) {
+    protected function getTagLen($tag)
+    {
         return floor(strlen($tag) / 2);
     }
 }

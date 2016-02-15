@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Original wikirenderer (wr) syntax
+ * Original wikirenderer (wr) syntax.
  *
  * @author Laurent Jouanneau
  * @copyright 2003-2016 Laurent Jouanneau
@@ -10,11 +10,10 @@
  *
  * @licence MIT see LICENCE file
  */
-
 namespace WikiRenderer\Markup\ClassicWR;
 
 /**
- * Parse a table block
+ * Parse a table block.
  */
 class Table extends \WikiRenderer\Markup\WR3\Table
 {

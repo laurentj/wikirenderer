@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Original wikirenderer (wr) syntax
+ * Original wikirenderer (wr) syntax.
  *
  * @author Laurent Jouanneau
  * @copyright 2003-2016 Laurent Jouanneau
@@ -10,11 +10,10 @@
  *
  * @licence MIT see LICENCE file
  */
-
 namespace WikiRenderer\Markup\ClassicWR;
 
 /**
- * Configuration for the WikiRenderer parser for WR markup
+ * Configuration for the WikiRenderer parser for WR markup.
  */
 class Config extends \WikiRenderer\Config
 {
@@ -29,7 +28,7 @@ class Config extends \WikiRenderer\Config
             '\WikiRenderer\Markup\WR3\Acronym',
             '\WikiRenderer\Markup\ClassicWR\Link',
             '\WikiRenderer\Markup\WR3\Image',
-            '\WikiRenderer\Markup\WR3\Anchor'
+            '\WikiRenderer\Markup\WR3\Anchor',
         ),
         '\WikiRenderer\Markup\WR3\DefinitionTextLine' => array(
             '\WikiRenderer\Markup\WR3\Strong',
@@ -40,7 +39,7 @@ class Config extends \WikiRenderer\Config
             '\WikiRenderer\Markup\WR3\Acronym',
             '\WikiRenderer\Markup\ClassicWR\Link',
             '\WikiRenderer\Markup\WR3\Image',
-            '\WikiRenderer\Markup\WR3\Anchor'
+            '\WikiRenderer\Markup\WR3\Anchor',
         ),
         '\WikiRenderer\Markup\WR3\TableRow' => array(
             '\WikiRenderer\Markup\WR3\Strong',
@@ -51,7 +50,7 @@ class Config extends \WikiRenderer\Config
             '\WikiRenderer\Markup\WR3\Acronym',
             '\WikiRenderer\Markup\ClassicWR\Link',
             '\WikiRenderer\Markup\WR3\Image',
-            '\WikiRenderer\Markup\WR3\Anchor'
+            '\WikiRenderer\Markup\WR3\Anchor',
         ),
     );
 

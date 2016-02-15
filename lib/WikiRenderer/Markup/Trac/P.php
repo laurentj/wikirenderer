@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Trac syntax
+ * Trac syntax.
  *
  * @author Laurent Jouanneau
  * @copyright 2006-2016 Laurent Jouanneau
@@ -10,17 +10,15 @@
  *
  * @licence MIT see LICENCE file
  */
-
 namespace WikiRenderer\Markup\Trac;
 
 /**
- * Parser for a paragraph block
+ * Parser for a paragraph block.
  */
 class P extends \WikiRenderer\Block
 {
     public $type = 'para';
 
-    
     public function detect($string, $inBlock = false)
     {
         if ($string == '') {
@@ -28,8 +26,10 @@ class P extends \WikiRenderer\Block
         }
         if (preg_match("/^([^\s\*\1\=\-\|\^\{\>].*)/", $string, $m)) {
             $this->_detectMatch = array($m[1],$m[1]);
+
             return true;
         }
+
         return false;
     }
 

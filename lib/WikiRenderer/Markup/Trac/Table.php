@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Trac syntax
+ * Trac syntax.
  *
  * @author Laurent Jouanneau
  * @copyright 2006-2016 Laurent Jouanneau
@@ -10,11 +10,10 @@
  *
  * @licence MIT see LICENCE file
  */
-
 namespace WikiRenderer\Markup\Trac;
 
 /**
- * Parse a table block
+ * Parse a table block.
  */
 class Table extends \WikiRenderer\Block
 {
@@ -32,6 +31,7 @@ class Table extends \WikiRenderer\Block
     public function close()
     {
         $this->engine->getConfig()->defaultTextLineContainer = '\WikiRenderer\Markup\Trac\TextLine';
+
         return parent::close();
     }
 
@@ -40,9 +40,9 @@ class Table extends \WikiRenderer\Block
         $this->generator->createRow();
         // $generator is supposed to be a InlineBagGenerator class
         $generator = $this->_renderInlineTag($this->_detectMatch[1]);
-        
+
         $cells = $generator->getGenerators();
-        foreach($cells as $generator) {
+        foreach ($cells as $generator) {
             $this->generator->addCell($generator);
         }
     }

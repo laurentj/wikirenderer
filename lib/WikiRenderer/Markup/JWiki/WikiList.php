@@ -1,7 +1,7 @@
 <?php
 
 /**
- * jWiki syntax
+ * jWiki syntax.
  *
  * @author Laurent Jouanneau
  * @copyright 2008-2016 Laurent Jouanneau
@@ -10,19 +10,18 @@
  *
  * @licence MIT see LICENCE file
  */
-
 namespace WikiRenderer\Markup\JWiki;
 
 /**
- * Parse a list block
+ * Parse a list block.
  */
 class WikiList extends \WikiRenderer\Markup\DokuWiki\WikiList
 {
-
     public $type = 'list';
     protected $regexp = "/^(\s*)(\-|\*|#)\s*(.*)/";
 
-    protected function getItemType($type) {
-        return $type == '*' ? 'u':'o';
+    protected function getItemType($type)
+    {
+        return $type == '*' ? 'u' : 'o';
     }
 }

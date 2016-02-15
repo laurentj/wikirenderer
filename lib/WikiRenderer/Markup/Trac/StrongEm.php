@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Trac syntax
+ * Trac syntax.
  *
  * @author Laurent Jouanneau
  * @copyright 2006-2016 Laurent Jouanneau
@@ -10,11 +10,10 @@
  *
  * @licence MIT see LICENCE file
  */
-
 namespace WikiRenderer\Markup\Trac;
 
 /**
- * Parser for a strong and normal emphasys inline tag
+ * Parser for a strong and normal emphasys inline tag.
  */
 class StrongEm extends \WikiRenderer\Tag
 {
@@ -28,6 +27,7 @@ class StrongEm extends \WikiRenderer\Tag
         parent::getContent();
         $generator = $this->documentGenerator->getInlineGenerator('strong');
         $generator->addContent($this->generator);
+
         return $generator;
     }
 }

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * DokuWiki syntax
+ * DokuWiki syntax.
  *
  * @author Laurent Jouanneau
  * @copyright 2008-2016 Laurent Jouanneau
@@ -10,11 +10,10 @@
  *
  * @licence MIT see LICENCE file
  */
-
 namespace WikiRenderer\Markup\DokuWiki;
 
 /**
- * Parser for code content
+ * Parser for code content.
  */
 class CodeBlock extends NoWiki
 {
@@ -29,5 +28,4 @@ class CodeBlock extends NoWiki
         }
         $this->generator->addLine($this->_detectMatch);
     }
-
 }

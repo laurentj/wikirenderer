@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Trac syntax
+ * Trac syntax.
  *
  * @author Laurent Jouanneau
  * @copyright 2006-2016 Laurent Jouanneau
@@ -10,11 +10,11 @@
  *
  * @licence MIT see LICENCE file
  */
-
 namespace WikiRenderer\Markup\Trac;
 
 /**
- * Parse a title block
+ * Parse a title block.
+ *
  * @FIXME support nested sections
  */
 class Title extends \WikiRenderer\Block
@@ -41,13 +41,11 @@ class Title extends \WikiRenderer\Block
                 $this->generator->setId($m[2]);
             }
             $title = rtrim($title);
-        }
-        else {
+        } else {
             if (preg_match("/(\s+#([\w\-_]+)\s*)$/", $title, $m)) {
-                $title = substr($title, 0, - strlen($m[1]));
+                $title = substr($title, 0, -strlen($m[1]));
                 $this->generator->setId($m[2]);
-            }
-            else {
+            } else {
                 $title = rtrim($title);
             }
         }

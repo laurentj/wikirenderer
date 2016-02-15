@@ -1,7 +1,7 @@
 <?php
 
 /**
- * wikirenderer3 (wr3) syntax
+ * wikirenderer3 (wr3) syntax.
  *
  * @author Laurent Jouanneau
  * @copyright 2003-2016 Laurent Jouanneau
@@ -10,11 +10,10 @@
  *
  * @licence MIT see LICENCE file
  */
-
 namespace WikiRenderer\Markup\WR3;
 
 /**
- * Configuration for the WikiRenderer parser for WR3 markup
+ * Configuration for the WikiRenderer parser for WR3 markup.
  */
 class Config extends \WikiRenderer\Config
 {
@@ -70,17 +69,18 @@ class Config extends \WikiRenderer\Config
     );
 
     /**
-     * content all foot notes
+     * content all foot notes.
      */
     public $footnotes = array();
 
     /**
-     * prefix for footnotes id
+     * prefix for footnotes id.
      */
     public $footnotesId = '';
 
     /**
-     * html content for footnotes
+     * html content for footnotes.
+     *
      * @deprecated
      */
     public $footnotesTemplate = '<div class="footnotes"><h4>Notes</h4>%s</div>';
@@ -97,6 +97,7 @@ class Config extends \WikiRenderer\Config
      * It should returns the given text. It may modify the text.
      *
      * @param string $text the wiki text
+     *
      * @return string the wiki text
      */
     public function onStart($text)
@@ -112,7 +113,7 @@ class Config extends \WikiRenderer\Config
      * @param string $finalText the generated text in the target format (html...)
      *
      * @return string the final text, which may contains new modifications
-     *    (content added at the begining or at the end for example)
+     *                (content added at the begining or at the end for example)
      */
     public function onParse($finalText)
     {

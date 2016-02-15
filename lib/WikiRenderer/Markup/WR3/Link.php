@@ -1,7 +1,7 @@
 <?php
 
 /**
- * wikirenderer3 (wr3) syntax
+ * wikirenderer3 (wr3) syntax.
  *
  * @author Laurent Jouanneau
  * @copyright 2003-2016 Laurent Jouanneau
@@ -10,11 +10,10 @@
  *
  * @licence MIT see LICENCE file
  */
-
 namespace WikiRenderer\Markup\WR3;
 
 /**
- * Parser for a link
+ * Parser for a link.
  */
 class Link extends \WikiRenderer\Tag
 {
@@ -32,12 +31,13 @@ class Link extends \WikiRenderer\Tag
         if ($cnt == 1) {
             list($href, $label) = $this->config->getLinkProcessor()->processLink($this->wikiContentArr[0], $this->generatorName);
             $this->wikiContentArr[1] = $href;
-            $this->separatorCount++;
+            ++$this->separatorCount;
             $this->generator->setRawContent($label);
         } else {
             list($href, $label) = $this->config->getLinkProcessor()->processLink($this->wikiContentArr[1], $this->generatorName);
             $this->wikiContentArr[1] = $href;
         }
+
         return parent::getContent();
     }
 }

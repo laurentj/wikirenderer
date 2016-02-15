@@ -1,7 +1,7 @@
 <?php
 
 /**
- * DokuWiki syntax
+ * DokuWiki syntax.
  * 
  * @author Laurent Jouanneau
  * @copyright 2016 Laurent Jouanneau
@@ -10,11 +10,10 @@
  *
  * @licence MIT see LICENCE file
  */
-
 namespace WikiRenderer\Markup\DokuWiki;
 
 /**
- * Parse a line of a table
+ * Parse a line of a table.
  */
 class TableRow extends \WikiRenderer\Tag
 {
@@ -30,7 +29,8 @@ class TableRow extends \WikiRenderer\Tag
 
     protected $cell = array();
 
-    public function __construct(\WikiRenderer\Config $config, \WikiRenderer\Generator\DocumentGeneratorInterface $generator) {
+    public function __construct(\WikiRenderer\Config $config, \WikiRenderer\Generator\DocumentGeneratorInterface $generator)
+    {
         parent::__construct($config, $generator);
         $this->row = new \WikiRenderer\Generator\InlineBagGenerator();
     }
@@ -50,12 +50,12 @@ class TableRow extends \WikiRenderer\Tag
         if ($childGenerator === null) {
             if (trim($wikiContent) == ':::') {
                 $this->generator->setRowSpan(-1);
+
                 return;
             }
             $parsedContent = $this->convertWords($wikiContent);
             $this->generator->addContent($parsedContent);
-        }
-        else {
+        } else {
             $this->generator->addContent($childGenerator);
         }
     }
@@ -71,19 +71,15 @@ class TableRow extends \WikiRenderer\Tag
             if ($this->previousGenerator) {
                 $this->previousGenerator->setColSpan($this->previousGenerator->getColSpan() + 1);
             }
-            
-        }
-        else {
+        } else {
             if (preg_match('/^\s\s/', $cellContent) &&
                 preg_match('/\s\s$/', $cellContent)) {
                 if (trim($cellContent) != '') {
                     $this->generator->setAlign('center');
                 }
-            }
-            else if (preg_match('/^\s\s/', $cellContent)) {
+            } elseif (preg_match('/^\s\s/', $cellContent)) {
                 $this->generator->setAlign('right');
-            }
-            else if (preg_match('/\s\s$/', $cellContent) && preg_match('/^\S/', $cellContent)) {
+            } elseif (preg_match('/\s\s$/', $cellContent) && preg_match('/^\S/', $cellContent)) {
                 $this->generator->setAlign('left');
             }
             $this->row->addGenerator($this->generator);
@@ -107,6 +103,7 @@ class TableRow extends \WikiRenderer\Tag
         if (!$this->generator->isEmpty()) {
             $this->row->addGenerator($this->generator);
         }
+
         return $this->row;
     }
 
@@ -115,7 +112,8 @@ class TableRow extends \WikiRenderer\Tag
         return true;
     }
 
-    public function __clone() {
+    public function __clone()
+    {
         $this->generator = clone $this->generator;
         $this->row = clone $this->row;
     }

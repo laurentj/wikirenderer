@@ -1,7 +1,7 @@
 <?php
 
 /**
- * abstract class processing a simple tag
+ * abstract class processing a simple tag.
  *
  * @author Laurent Jouanneau
  * @copyright 2016 Laurent Jouanneau
@@ -10,19 +10,21 @@
  *
  * @licence MIT see LICENCE file
  */
-
 namespace WikiRenderer\Markup\DokuWiki;
 
-class LineBreak extends \WikiRenderer\SimpleTag\AbstractSimpleTag {
-    protected $tag ='\\\\ ';
+class LineBreak extends \WikiRenderer\SimpleTag\AbstractSimpleTag
+{
+    protected $tag = '\\\\ ';
 
     protected $regexpSubPattern = '\\\\\\\(?: |$)';
 
-    function getPossibleTags() {
-        return array("\\\\ ", "\\\\");
+    public function getPossibleTags()
+    {
+        return array('\\\\ ', '\\\\');
     }
 
-    public function getContent(\WikiRenderer\Generator\DocumentGeneratorInterface $documentGenerator, $token) {
+    public function getContent(\WikiRenderer\Generator\DocumentGeneratorInterface $documentGenerator, $token)
+    {
         return $documentGenerator->getInlineGenerator('linebreak');
     }
 }

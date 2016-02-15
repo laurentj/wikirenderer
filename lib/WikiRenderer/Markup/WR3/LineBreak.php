@@ -1,7 +1,7 @@
 <?php
 
 /**
- * abstract class processing a simple tag
+ * abstract class processing a simple tag.
  *
  * @author Laurent Jouanneau
  * @copyright 2016 Laurent Jouanneau
@@ -10,13 +10,14 @@
  *
  * @licence MIT see LICENCE file
  */
-
 namespace WikiRenderer\Markup\WR3;
 
-class LineBreak extends \WikiRenderer\SimpleTag\AbstractSimpleTag {
-    protected $tag ='%%%';
+class LineBreak extends \WikiRenderer\SimpleTag\AbstractSimpleTag
+{
+    protected $tag = '%%%';
 
-    public function getContent(\WikiRenderer\Generator\DocumentGeneratorInterface $documentGenerator, $token) {
+    public function getContent(\WikiRenderer\Generator\DocumentGeneratorInterface $documentGenerator, $token)
+    {
         return $documentGenerator->getInlineGenerator('linebreak');
     }
 }

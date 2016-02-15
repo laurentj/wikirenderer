@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Trac syntax
+ * Trac syntax.
  *
  * @author Laurent Jouanneau
  * @copyright 2016 Laurent Jouanneau
@@ -10,29 +10,30 @@
  *
  * @licence MIT see LICENCE file
  */
-
 namespace WikiRenderer\Markup\Trac;
 
 /**
- * Image() macro
- * 
+ * Image() macro.
  */
-class ImageMacro implements MacroInterface {
-
+class ImageMacro implements MacroInterface
+{
     /**
-     * @return boolean true if the given wiki content is the macro
+     * @return bool true if the given wiki content is the macro
      */
-    function match($wikiContent) {
+    public function match($wikiContent)
+    {
         return preg_match('/^Image\([^\)]+\)$/', $wikiContent);
     }
 
     /**
-     * returns the generator corresponding to the macro
+     * returns the generator corresponding to the macro.
+     *
      * @return \WikiRenderer\Generator\InlineGeneratorInterface
      */
-    function getContent(\WikiRenderer\Markup\Trac\Config $config,
+    public function getContent(\WikiRenderer\Markup\Trac\Config $config,
                         \WikiRenderer\Generator\DocumentGeneratorInterface $documentGenerator,
-                        $wikiContent) {
+                        $wikiContent)
+    {
         preg_match('/^Image\(([^\)]+)\)$/', $wikiContent, $attributes);
         $image = $documentGenerator->getInlineGenerator('image');
 
@@ -47,7 +48,7 @@ class ImageMacro implements MacroInterface {
         foreach ($params as $p) {
             $p = trim($p);
             if (in_array($p, array('right', 'left', 'top', 'bottom'))) {
-                $image->setAttribute('align', $p); 
+                $image->setAttribute('align', $p);
             } elseif ($p == 'nolink') {
                 $nolink = true;
             } elseif (preg_match('/^(\d+)(px|em|\%)?$/', $p)) {
@@ -68,6 +69,7 @@ class ImageMacro implements MacroInterface {
             $link = $documentGenerator->getInlineGenerator('link');
             $link->addContent($image);
             $link->setAttribute('href', $file[0]);
+
             return $link;
         }
     }

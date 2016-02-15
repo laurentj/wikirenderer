@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Trac syntax
+ * Trac syntax.
  *
  * @author Laurent Jouanneau
  * @copyright 2006-2016 Laurent Jouanneau
@@ -10,11 +10,10 @@
  *
  * @licence MIT see LICENCE file
  */
-
 namespace WikiRenderer\Markup\Trac;
 
 /**
- * Parser for definitions block
+ * Parser for definitions block.
  */
 class Definition extends \WikiRenderer\Block
 {
@@ -35,15 +34,16 @@ class Definition extends \WikiRenderer\Block
     public function close()
     {
         $this->generateDef();
+
         return parent::close();
     }
 
-    protected function generateDef() {
+    protected function generateDef()
+    {
         if ($this->currentTerm && count($this->currentDefinition)) {
             if (count($this->currentDefinition) > 1) {
                 $definition = new \WikiRenderer\Generator\InlineBagGenerator(' ', $this->currentDefinition);
-            }
-            else {
+            } else {
                 $definition = $this->currentDefinition[0];
             }
             $this->generator->addDefinition($this->currentTerm, $definition);
@@ -56,8 +56,7 @@ class Definition extends \WikiRenderer\Block
             $this->generateDef();
             $this->currentTerm = $this->_renderInlineTag($this->detectedTerm);
             $this->currentDefinition = array();
-        }
-        else {
+        } else {
             $this->currentDefinition[] = $this->_renderInlineTag($this->detectedDef);
         }
     }
@@ -79,14 +78,17 @@ class Definition extends \WikiRenderer\Block
                     $this->detectedTerm = null;
                     $this->detectedDef = $m[2].$m[4];
                 }
+
                 return true;
             }
+
             return false;
         } else {
             if (preg_match('/^(\s*)([^:]+)::(.*)/i', $string, $m)) {
                 $this->detectedTerm = $m[2];
                 $this->detectedDef = null;
                 $this->indent = strlen($m[1]);
+
                 return true;
             } else {
                 return false;

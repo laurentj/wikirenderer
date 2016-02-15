@@ -1,7 +1,7 @@
 <?php
 
 /**
- * word converter for inlined URLS
+ * word converter for inlined URLS.
  *
  * @author Laurent Jouanneau
  * @copyright 2016 Laurent Jouanneau
@@ -10,10 +10,9 @@
  *
  * @licence MIT see LICENCE file
  */
-
 namespace WikiRenderer\Markup\Trac;
 
-class ReportConverter extends URLConverter {
-
+class ReportConverter extends URLConverter
+{
     protected $regexp = '/^{([0-9]+)}$/';
 }

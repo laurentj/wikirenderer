@@ -1,7 +1,7 @@
 <?php
 
 /**
- * DokuWiki syntax
+ * DokuWiki syntax.
  *
  * @author Laurent Jouanneau
  * @copyright 2008-2016 Laurent Jouanneau
@@ -10,11 +10,10 @@
  *
  * @licence MIT see LICENCE file
  */
-
 namespace WikiRenderer\Markup\DokuWiki;
 
 /**
- * Parser for an image inline tag
+ * Parser for an image inline tag.
  */
 class Image extends \WikiRenderer\Tag
 {
@@ -57,8 +56,7 @@ class Image extends \WikiRenderer\Tag
                     if (isset($m2[2])) {
                         $height = $m2[3];
                     }
-                }
-                else if ($m[3] == '?linkonly') {
+                } elseif ($m[3] == '?linkonly') {
                     $linkonly = true;
                 }
             }
@@ -67,15 +65,16 @@ class Image extends \WikiRenderer\Tag
         if ($linkonly) {
             $this->generator = $this->documentGenerator->getInlineGenerator('link');
             $this->generator->setAttribute('href', $href);
-            $this->generator->setRawContent(($title?:$label));
+            $this->generator->setRawContent(($title ?: $label));
+
             return $this->generator;
         }
 
         $type = 0;
         if (preg_match('/\.([a-zA-Z0-9]+)$/', $href, $m)) {
             $ext = $m[1];
-            switch($ext) {
-                case 'mp4':
+            switch ($ext) {
+                case 'mp4' :
                 case 'webm':
                 case 'ogv':
                     $this->generator = $this->documentGenerator->getInlineGenerator('video');
@@ -109,8 +108,7 @@ class Image extends \WikiRenderer\Tag
         if ($title != '') {
             if ($type == 0) {
                 $this->generator->setAttribute('alt', $title);
-            }
-            else {
+            } else {
                 $this->generator->setAttribute('title', $title);
             }
         }

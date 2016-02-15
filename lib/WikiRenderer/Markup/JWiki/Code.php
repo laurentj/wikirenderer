@@ -1,7 +1,7 @@
 <?php
 
 /**
- * DokuWiki syntax
+ * DokuWiki syntax.
  *
  * @author Laurent Jouanneau
  * @copyright 2008-2016 Laurent Jouanneau
@@ -10,11 +10,10 @@
  *
  * @licence MIT see LICENCE file
  */
-
 namespace WikiRenderer\Markup\JWiki;
 
 /**
- * Parse code inline tag
+ * Parse code inline tag.
  */
 class Code extends \WikiRenderer\Tag
 {
@@ -56,8 +55,7 @@ class Code extends \WikiRenderer\Tag
                         $this->generator = $this->documentGenerator->getInlineGenerator('variable');
                     } elseif (isset($this->code_types[$type])) {
                         $this->generator->setAttribute('type', $this->code_types[$type]);
-                    }
-                    else {
+                    } else {
                         // unknown type, let's cancel
                         $wikiContent = $type.'@'.$wikiContent;
                     }
@@ -68,12 +66,10 @@ class Code extends \WikiRenderer\Tag
             $parsedContent = $this->convertWords($wikiContent);
             if (is_string($parsedContent)) {
                 $this->generator->addRawContent($parsedContent);
-            }
-            else {
+            } else {
                 $this->generator->addContent($parsedContent);
             }
-        }
-        else {
+        } else {
             $this->hasStarted = true;
             $this->generator->addContent($childGenerator);
         }

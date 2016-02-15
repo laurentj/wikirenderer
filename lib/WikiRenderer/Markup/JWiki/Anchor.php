@@ -1,7 +1,7 @@
 <?php
 
 /**
- * jWiki syntax
+ * jWiki syntax.
  *
  * @author Laurent Jouanneau
  * @copyright 2008-2016 Laurent Jouanneau
@@ -10,11 +10,10 @@
  *
  * @licence MIT see LICENCE file
  */
-
 namespace WikiRenderer\Markup\JWiki;
 
 /**
- * Parse anchor inline tag
+ * Parse anchor inline tag.
  */
 class Anchor extends \WikiRenderer\Tag
 {
@@ -28,6 +27,7 @@ class Anchor extends \WikiRenderer\Tag
     public function getContent()
     {
         $this->generator->setAttribute('anchor', $this->wikiContentArr[0]);
+
         return $this->generator;
     }
 }

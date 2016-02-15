@@ -1,7 +1,7 @@
 <?php
 
 /**
- * wikirenderer3 (wr3) syntax
+ * wikirenderer3 (wr3) syntax.
  *
  * @author Laurent Jouanneau
  * @copyright 2003-2016 Laurent Jouanneau
@@ -10,17 +10,15 @@
  *
  * @licence MIT see LICENCE file
  */
-
 namespace WikiRenderer\Markup\WR3;
 
 /**
- * Parser for a paragraph block
+ * Parser for a paragraph block.
  */
 class P extends \WikiRenderer\Block
 {
     public $type = 'para';
 
-    
     public function detect($string, $inBlock = false)
     {
         if ($string == '') {

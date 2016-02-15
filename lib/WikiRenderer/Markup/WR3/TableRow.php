@@ -1,7 +1,7 @@
 <?php
 
 /**
- * wikirenderer3 (wr3) syntax
+ * wikirenderer3 (wr3) syntax.
  * 
  * @author Laurent Jouanneau
  * @copyright 2016 Laurent Jouanneau
@@ -10,11 +10,10 @@
  *
  * @licence MIT see LICENCE file
  */
-
 namespace WikiRenderer\Markup\WR3;
 
 /**
- * Parse a line of a table
+ * Parse a line of a table.
  */
 class TableRow extends \WikiRenderer\Tag
 {
@@ -28,7 +27,8 @@ class TableRow extends \WikiRenderer\Tag
      */
     protected $row;
 
-    public function __construct(\WikiRenderer\Config $config, \WikiRenderer\Generator\DocumentGeneratorInterface $generator) {
+    public function __construct(\WikiRenderer\Config $config, \WikiRenderer\Generator\DocumentGeneratorInterface $generator)
+    {
         parent::__construct($config, $generator);
         $this->row = new \WikiRenderer\Generator\InlineBagGenerator();
     }
@@ -39,8 +39,7 @@ class TableRow extends \WikiRenderer\Tag
         if ($childGenerator === null) {
             $parsedContent = $this->convertWords($wikiContent);
             $this->generator->addContent($parsedContent);
-        }
-        else {
+        } else {
             $this->generator->addContent($childGenerator);
         }
     }
@@ -64,6 +63,7 @@ class TableRow extends \WikiRenderer\Tag
     public function getContent()
     {
         $this->row->addGenerator($this->generator);
+
         return $this->row;
     }
 
@@ -72,7 +72,8 @@ class TableRow extends \WikiRenderer\Tag
         return true;
     }
 
-    public function __clone() {
+    public function __clone()
+    {
         $this->generator = clone $this->generator;
         $this->row = clone $this->row;
     }

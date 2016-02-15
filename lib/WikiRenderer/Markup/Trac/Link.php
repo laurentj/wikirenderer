@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Trac syntax
+ * Trac syntax.
  *
  * @author Laurent Jouanneau
  * @copyright 2006-2016 Laurent Jouanneau
@@ -10,11 +10,10 @@
  *
  * @licence MIT see LICENCE file
  */
-
 namespace WikiRenderer\Markup\Trac;
 
 /**
- * Parser for a link
+ * Parser for a link.
  */
 class Link extends LinkCreole
 {
@@ -30,13 +29,13 @@ class Link extends LinkCreole
     public function addContent($wikiContent, Generator\InlineGeneratorInterface $childGenerator = null)
     {
         if (!$this->inLabel) {
-            $items = preg_split("/(\\s+)/", $wikiContent, 2, PREG_SPLIT_DELIM_CAPTURE);
+            $items = preg_split('/(\\s+)/', $wikiContent, 2, PREG_SPLIT_DELIM_CAPTURE);
             $this->wikiContentArr[0] .= $items[0];
 
             if (count($items) < 2) {
                 return;
             }
-            
+
             $this->inLabel = true;
             $this->wikiContent .= $this->wikiContentArr[0].$items[1];
             ++$this->separatorCount;
@@ -53,8 +52,7 @@ class Link extends LinkCreole
         if ($childGenerator === null) {
             $parsedContent = $this->convertWords($wikiContent);
             $this->generator->addContent($parsedContent);
-        }
-        else {
+        } else {
             $this->generator->addContent($childGenerator);
         }
     }

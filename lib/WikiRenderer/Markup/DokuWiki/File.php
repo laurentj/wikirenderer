@@ -1,7 +1,7 @@
 <?php
 
 /**
- * DokuWiki syntax
+ * DokuWiki syntax.
  *
  * @author Laurent Jouanneau
  * @copyright 2008-2016 Laurent Jouanneau
@@ -10,11 +10,10 @@
  *
  * @licence MIT see LICENCE file
  */
-
 namespace WikiRenderer\Markup\DokuWiki;
 
 /**
- * Parser for file content
+ * Parser for file content.
  */
 class File extends NoWiki
 {
@@ -24,7 +23,7 @@ class File extends NoWiki
     public function validateDetectedLine()
     {
         if ($this->_args && $this->_args[1] != '') {
-            $args = preg_split("/\s+/",$this->_args[1],2);
+            $args = preg_split("/\s+/", $this->_args[1], 2);
             if ($args[0] != '-') {
                 $this->generator->setSyntaxType($args[0]);
             }
@@ -34,5 +33,4 @@ class File extends NoWiki
         }
         $this->generator->addLine($this->_detectMatch);
     }
-
 }

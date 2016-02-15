@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Trac syntax
+ * Trac syntax.
  *
  * @author Laurent Jouanneau
  * @copyright 2016 Laurent Jouanneau
@@ -10,16 +10,15 @@
  *
  * @licence MIT see LICENCE file
  */
-
 namespace WikiRenderer\Markup\Trac;
 
 /**
- * Parser for sup inline tag
+ * Parser for sup inline tag.
  */
 class Sup extends \WikiRenderer\Tag
 {
     protected $name = 'sup';
     protected $generatorName = 'superscript';
-    public $beginTag = "^";
-    public $endTag = "^";
+    public $beginTag = '^';
+    public $endTag = '^';
 }

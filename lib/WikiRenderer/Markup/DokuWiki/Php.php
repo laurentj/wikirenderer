@@ -1,7 +1,7 @@
 <?php
 
 /**
- * DokuWiki syntax
+ * DokuWiki syntax.
  *
  * @author Laurent Jouanneau
  * @copyright 2008-2016 Laurent Jouanneau
@@ -10,11 +10,10 @@
  *
  * @licence MIT see LICENCE file
  */
-
 namespace WikiRenderer\Markup\DokuWiki;
 
 /**
- * Parser for php content. Executing php is not supported
+ * Parser for php content. Executing php is not supported.
  */
 class Php extends NoWiki
 {
@@ -29,6 +28,5 @@ class Php extends NoWiki
 
     public function validateDetectedLine()
     {
-
     }
 }

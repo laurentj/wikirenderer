@@ -1,7 +1,7 @@
 <?php
 
 /**
- * DokuWiki syntax
+ * DokuWiki syntax.
  *
  * @author Laurent Jouanneau
  * @copyright 2008-2016 Laurent Jouanneau
@@ -10,16 +10,15 @@
  *
  * @licence MIT see LICENCE file
  */
-
 namespace WikiRenderer\Markup\DokuWiki;
 
 /**
- * Parser for sub inline tag
+ * Parser for sub inline tag.
  */
 class Subscript extends \WikiRenderer\Tag
 {
     protected $name = 'sub';
     protected $generatorName = 'subscript';
-    public $beginTag = "<sub>";
-    public $endTag = "</sub>";
+    public $beginTag = '<sub>';
+    public $endTag = '</sub>';
 }

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * wikirenderer3 (wr3) syntax
+ * wikirenderer3 (wr3) syntax.
  *
  * @author Laurent Jouanneau
  * @copyright 2003-2016 Laurent Jouanneau
@@ -10,12 +10,12 @@
  *
  * @licence MIT see LICENCE file
  */
-
 namespace WikiRenderer\Markup\WR3;
+
 use WikiRenderer\Generator\BlockListInterface;
 
 /**
- * Parse a list block
+ * Parse a list block.
  */
 class WikiList extends \WikiRenderer\Block
 {
@@ -31,7 +31,7 @@ class WikiList extends \WikiRenderer\Block
 
     public function detect($string, $inBlock = false)
     {
-        if(!preg_match($this->regexp, $string, $this->_detectMatch)) {
+        if (!preg_match($this->regexp, $string, $this->_detectMatch)) {
             return false;
         }
         // if we are already and the first sign is not equal to the
@@ -40,6 +40,7 @@ class WikiList extends \WikiRenderer\Block
         if ($inBlock && $this->_previousTag[0] != $this->_detectMatch[1][0]) {
             return false;
         }
+
         return true;
     }
 
@@ -58,9 +59,9 @@ class WikiList extends \WikiRenderer\Block
 
         // if the block starts with more than a sign, we should create
         // all corresponding lists
-        for($i=1; $i < $this->_firstTagLen; $i++) {
+        for ($i = 1; $i < $this->_firstTagLen; ++$i) {
             $generator = $this->_createList(substr($this->_previousTag, $i, 1));
-            $last = $this->generatorStack[count($this->generatorStack)-1];
+            $last = $this->generatorStack[count($this->generatorStack) - 1];
             $last->addContentToItem($generator);
             $this->generatorStack[] = $generator;
         }
@@ -69,10 +70,12 @@ class WikiList extends \WikiRenderer\Block
     public function close()
     {
         $this->generatorStack = array();
+
         return parent::close();
     }
 
-    protected function _createList($type) {
+    protected function _createList($type)
+    {
         $generator = $this->documentGenerator->getBlockGenerator('list');
         if ($type == '#') {
             $generator->setListType(BlockListInterface::ORDERED_LIST);
@@ -80,6 +83,7 @@ class WikiList extends \WikiRenderer\Block
             $generator->setListType(BlockListInterface::UNORDERED_LIST);
         }
         $generator->createItem();
+
         return $generator;
     }
 
@@ -100,10 +104,10 @@ class WikiList extends \WikiRenderer\Block
             // are changed
             $newtag = $this->_detectMatch[1];
             $change = false;
-            foreach($this->generatorStack as $k=>$generator) {
+            foreach ($this->generatorStack as $k => $generator) {
                 if ($change) {
                     $generator = $this->_createList($newtag[$k]);
-                    $this->generatorStack[$k-1]->addContentToItem($generator);
+                    $this->generatorStack[$k - 1]->addContentToItem($generator);
                     $this->generatorStack[$k] = $generator;
                     continue;
                 }
@@ -112,7 +116,7 @@ class WikiList extends \WikiRenderer\Block
                 }
                 $change = true;
                 $generator = $this->_createList($newtag[$k]);
-                $this->generatorStack[$k-1]->addContentToItem($generator);
+                $this->generatorStack[$k - 1]->addContentToItem($generator);
                 $this->generatorStack[$k] = $generator;
             }
             $this->_previousTag = substr($this->_previousTag, 0, -$d); // to be sure..
@@ -123,15 +127,14 @@ class WikiList extends \WikiRenderer\Block
             $generator = $this->documentGenerator->getBlockGenerator('list');
             if ($c == '#') {
                 $generator->setListType(BlockListInterface::ORDERED_LIST);
-            }
-            else {
+            } else {
                 $generator->setListType(BlockListInterface::UNORDERED_LIST);
             }
-            $last = $this->generatorStack[count($this->generatorStack)-1];
+            $last = $this->generatorStack[count($this->generatorStack) - 1];
             $last->addContentToItem($generator);
             $this->generatorStack[] = $generator;
         }
-        $last = $this->generatorStack[count($this->generatorStack)-1];
+        $last = $this->generatorStack[count($this->generatorStack) - 1];
         $last->createItem();
         $last->addContentToItem($this->_renderInlineTag($this->_detectMatch[2]));
     }

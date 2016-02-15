@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Trac syntax
+ * Trac syntax.
  *
  * @author Laurent Jouanneau
  * @copyright 2006-2016 Laurent Jouanneau
@@ -10,11 +10,10 @@
  *
  * @licence MIT see LICENCE file
  */
-
 namespace WikiRenderer\Markup\Trac;
 
 /**
- * Parse blockquote block
+ * Parse blockquote block.
  */
 class Blockquote extends \WikiRenderer\Block
 {
@@ -27,7 +26,7 @@ class Blockquote extends \WikiRenderer\Block
     protected $generatorStack;
 
     protected $_firstLine = true;
-    
+
     public function open()
     {
         $this->_previousTag = $this->_detectMatch[1];
@@ -37,7 +36,7 @@ class Blockquote extends \WikiRenderer\Block
         $this->generatorStack = new \SplStack();
         $this->generatorStack->push($this->generator);
 
-        for($i=0; $i < $firstTagLen-1; $i++) {
+        for ($i = 0; $i < $firstTagLen - 1; ++$i) {
             $generator = $this->documentGenerator->getBlockGenerator('blockquote');
             $last = $this->generatorStack->top();
             $last->addContent($generator);
@@ -47,11 +46,13 @@ class Blockquote extends \WikiRenderer\Block
 
     public function close()
     {
-        $this->generatorStack =null;
+        $this->generatorStack = null;
+
         return parent::close();
     }
 
-    protected function getTagLen($tag) {
+    protected function getTagLen($tag)
+    {
         return strlen($tag);
     }
 
@@ -66,7 +67,7 @@ class Blockquote extends \WikiRenderer\Block
             $this->_previousTag = $this->_detectMatch[1];
         } elseif ($d < 0) { // we have an other nested blockquote 
             $this->_previousTag = $this->_detectMatch[1];
-            for ($i = 0; $i < -$d; $i++) {
+            for ($i = 0; $i < -$d; ++$i) {
                 $generator = $this->documentGenerator->getBlockGenerator('blockquote');
                 $last = $this->generatorStack->top();
                 $last->addContent($generator);
