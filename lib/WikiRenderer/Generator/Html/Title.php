@@ -25,6 +25,11 @@ class Title implements \WikiRenderer\Generator\BlockTitleInterface
         $this->level = $level;
     }
 
+    public function getLevel()
+    {
+        return $this->level;
+    }
+
     public function setId($id)
     {
         $this->id = $id;

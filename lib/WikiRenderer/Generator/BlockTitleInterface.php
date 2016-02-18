@@ -18,6 +18,11 @@ interface BlockTitleInterface extends BlockGeneratorInterface
     public function setLevel($level);
 
     /**
+     * @return integer Level of the title
+     */
+    public function getLevel();
+
+    /**
      * content of the title.
      */
     public function addLine(InlineGeneratorInterface $content);
