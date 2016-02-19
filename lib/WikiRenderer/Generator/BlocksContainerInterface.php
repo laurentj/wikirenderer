@@ -23,4 +23,10 @@ interface BlocksContainerInterface extends GeneratorInterface
      * @return BlockGeneratorInterface
      */
     public function getCurrentBlock();
+
+    /**
+     * @return BlockGeneratorInterface
+     */
+    public function getFirstBlock();
+
 }

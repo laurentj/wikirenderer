@@ -17,4 +17,66 @@ class Document extends \WikiRenderer\Generator\AbstractDocumentGenerator
     {
         return $this->config->blockGenerators['para'];
     }
+
+    protected $containersStack = array();
+
+    public function addBlock(\WikiRenderer\Generator\BlockGeneratorInterface $block)
+    {
+        if (count($this->containersStack)) {
+            end($this->containersStack)->addBlock($block);
+        }
+        else {
+            parent::addBlock($block);
+        }
+    }
+
+    /**
+     * @return \WikiRenderer\Generator\BlockGeneratorInterface
+     */
+    public function getPreviousBlock()
+    {
+        if (count($this->containersStack)) {
+            return end($this->containersStack)->getPreviousBlock();
+        }
+        return parent::getPreviousBlock();
+    }
+
+    /**
+     * @return \WikiRenderer\Generator\BlockGeneratorInterface
+     */
+    public function getFirstBlock()
+    {
+        if (count($this->containersStack)) {
+            return end($this->containersStack)->getFirstBlock();
+        }
+        return parent::getFirstBlock();
+    }
+
+
+    /**
+     * @return \WikiRenderer\Generator\BlockGeneratorInterface
+     */
+    public function getCurrentBlock()
+    {
+        if (count($this->containersStack)) {
+            return end($this->containersStack)->getCurrentBlock();
+        }
+        return parent::getCurrentBlock();
+    }
+
+    /**
+     * @param  \WikiRenderer\Generator\BlocksContainerInterface $container
+     */
+    public function pushContainer(\WikiRenderer\Generator\BlocksContainerInterface $container) {
+        $this->addBlock($container);
+        $this->containersStack[] = $container;
+    }
+
+    /**
+     * @return  \WikiRenderer\Generator\BlocksContainerInterface
+     */
+    public function popContainer() {
+        return array_pop($this->containersStack);
+    }
+
 }

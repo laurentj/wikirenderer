@@ -41,7 +41,7 @@ trait BlocksContainerTrait
             return $this->blocksList[$c - 2];
         }
 
-        return;
+        return null;
     }
 
     /**
@@ -53,6 +53,19 @@ trait BlocksContainerTrait
             return end($this->blocksList);
         }
 
-        return;
+        return null;
     }
+
+    /**
+     * @return BlockGeneratorInterface
+     */
+    public function getFirstBlock()
+    {
+        if (count($this->blocksList)) {
+            return $this->blocksList[0];
+        }
+
+        return null;
+    }
+
 }
