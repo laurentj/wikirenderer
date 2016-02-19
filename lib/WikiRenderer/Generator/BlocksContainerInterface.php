@@ -29,4 +29,9 @@ interface BlocksContainerInterface extends GeneratorInterface
      */
     public function getFirstBlock();
 
+    /**
+     * number of blocks
+     * @return integer
+     */
+    public function length();
 }

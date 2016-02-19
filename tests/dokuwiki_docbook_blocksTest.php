@@ -68,9 +68,9 @@ truc3 </programlisting>',
             array('list',0),
             array('quote',0),
             array('table',0),
-            //array('section',0),
-            //array('section2',0),
-            //array('section3',0),
+            array('section',0),
+            array('section2',0),
+            array('section3',0),
             array('pre',0),
         );
     }

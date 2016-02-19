@@ -68,4 +68,7 @@ trait BlocksContainerTrait
         return null;
     }
 
+    public function length() {
+        return count($this->blocksList);
+    }
 }
