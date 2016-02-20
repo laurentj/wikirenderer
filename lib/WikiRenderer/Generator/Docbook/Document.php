@@ -30,11 +30,15 @@ class Document extends \WikiRenderer\Generator\AbstractDocumentGenerator
                     $previousLevel = $otherTitle->getLevel();
                     if ($previousLevel > $level) {
                         $this->popContainer();
-                        $this->popContainer();
+                        for($i = $previousLevel-$level; $i > 0; $i--) {
+                            $this->popContainer();
+                        }
                         $this->pushContainer(new Section());
                     }
                     elseif ($previousLevel < $level) {
-                        $this->pushContainer(new Section());
+                        for($i = $level-$previousLevel; $i > 0; $i--) {
+                            $this->pushContainer(new Section());
+                        }
                     }
                     else {
                         $this->popContainer();
