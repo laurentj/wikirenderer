@@ -12,27 +12,41 @@ namespace WikiRenderer\Generator\Docbook;
 
 class Video extends AbstractInlineGenerator
 {
-    protected $dbTagName = 'video';
-
     protected $supportedAttributes = array('id', 'src', 'align', 'width',
                                            'height', 'title', 'class', );
 
     public function generate()
     {
-        $attrs = ' src="'.htmlspecialchars($this->getAttribute('src'), ENT_XML1).'"';
+        $id = '';
+        $attrs = '';
+        $info = '';
 
-        foreach (array('id', 'width', 'height', 'title', 'class') as $attr) {
-            $val = $this->getAttribute($attr);
-            if ($val) {
-                $attrs .= ' '.$attr.'="'.htmlspecialchars($val, ENT_XML1).'"';
-            }
+        $title = $this->getAttribute('title');
+        if ($title) {
+            $info = '<info><abstract><title>'.htmlspecialchars($title, ENT_XML1).'</title>';
+            $info .= "<para></para></abstract></info>\n";
         }
 
-        $align = $this->getAttribute('align');
-        if ($align) {
-            $attrs .= ' style="float:'.htmlspecialchars($align, ENT_XML1).';"';
+        $attr = $this->getAttribute('id');
+        if ($attr) {
+            $id = ' xml:id="'.htmlspecialchars($attr, ENT_XML1).'"';
         }
 
-        return '<'.$this->dbTagName.$attrs.' controls="true"/>';
+        $attr = $this->getAttribute('align');
+        if ($attr) {
+            $attrs .= ' align="'.htmlspecialchars($attr, ENT_XML1).'"';
+        }
+        $width = $this->getAttribute('width');
+        if ($width) {
+            $attrs .= ' contentwidth="'.htmlspecialchars($width, ENT_XML1).'"';
+        }
+        $height = $this->getAttribute('height');
+        if ($height) {
+            $attrs .= ' contentdepth="'.htmlspecialchars($height, ENT_XML1).'"';
+        }
+
+        $imagedata = '<videodata fileref="'.htmlspecialchars($this->getAttribute('src'), ENT_XML1).'"'.$attrs."/>\n";
+
+        return '<inlinemediaobject'.$id.">\n".$info.'<videoobject>'.$imagedata.'</videoobject></inlinemediaobject>';
     }
 }

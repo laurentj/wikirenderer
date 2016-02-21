@@ -55,7 +55,7 @@ class Image extends AbstractInlineGenerator
         }
 
         $imagedata = '<imagedata fileref="'.htmlspecialchars($this->getAttribute('src'), ENT_XML1).'"'.$attrs."/>\n";
-// FIXME: generates mediaobject if not in block
+
         return '<inlinemediaobject'.$id.">\n".$info.$alt.'<imageobject>'.$imagedata.'</imageobject>'.$text.'</inlinemediaobject>';
     }
 }

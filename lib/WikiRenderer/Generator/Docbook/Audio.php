@@ -18,20 +18,23 @@ class Audio extends AbstractInlineGenerator
 
     public function generate()
     {
-        $attrs = ' src="'.htmlspecialchars($this->getAttribute('src'), ENT_XML1).'"';
+        $id = '';
+        $attrs = '';
+        $info = '';
 
-        foreach (array('id', 'title', 'class') as $attr) {
-            $val = $this->getAttribute($attr);
-            if ($val) {
-                $attrs .= ' '.$attr.'="'.htmlspecialchars($val, ENT_XML1).'"';
-            }
+        $title = $this->getAttribute('title');
+        if ($title) {
+            $info = '<info><abstract><title>'.htmlspecialchars($title, ENT_XML1).'</title>';
+            $info .= "<para></para></abstract></info>\n";
         }
 
-        $align = $this->getAttribute('align');
-        if ($align) {
-            $attrs .= ' style="float:'.htmlspecialchars($align, ENT_XML1).';"';
+        $attr = $this->getAttribute('id');
+        if ($attr) {
+            $id = ' xml:id="'.htmlspecialchars($attr, ENT_XML1).'"';
         }
 
-        return '<'.$this->dbTagName.$attrs.' controls="true"/>';
+        $imagedata = '<audiodata format="" fileref="'.htmlspecialchars($this->getAttribute('src'), ENT_XML1).'"'.$attrs."/>\n";
+
+        return '<inlinemediaobject'.$id.">\n".$info.'<audioobject>'.$imagedata.'</audioobject></inlinemediaobject>';
     }
 }

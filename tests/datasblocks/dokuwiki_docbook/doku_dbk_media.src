@@ -1,0 +1,18 @@
+
+==== image ====
+
+Lorem {{ ipsumdolorsit.png?200x50 |alternative text}} amet, consectetuer adipiscing elit.
+
+{{ ipsumdolorsit.png }}
+
+==== audio ====
+
+Lorem {{ wiki:ipsumdolorsit.ogg|alternative text}} amet, consectetuer adipiscing elit.
+
+==== video ====
+
+Lorem {{ wiki:ipsumdolorsit.ogv?1024x720|alternative text}} amet, consectetuer adipiscing elit.
+
+==== flash ====
+
+Lorem {{ wiki:ipsumdolorsit.swf|alternative text}} amet, consectetuer adipiscing elit.
