@@ -12,7 +12,7 @@ namespace WikiRenderer\Generator\Docbook;
 
 class Image extends AbstractInlineGenerator
 {
-    protected $dbTagName = 'img';
+    protected $dbTagName = 'imageobject';
 
     protected $supportedAttributes = array('id', 'src', 'alt', 'align', 'longdesc',
                                            'width', 'height', 'title', 'class', );

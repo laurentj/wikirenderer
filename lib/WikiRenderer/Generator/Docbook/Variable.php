@@ -12,5 +12,5 @@ namespace WikiRenderer\Generator\Docbook;
 
 class Variable extends AbstractInlineGenerator
 {
-    protected $dbTagName = 'var';
+    protected $dbTagName = 'varname';
 }

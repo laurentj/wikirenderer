@@ -12,7 +12,7 @@ namespace WikiRenderer\Generator\Docbook;
 
 class Audio extends AbstractInlineGenerator
 {
-    protected $dbTagName = 'audio';
+    protected $dbTagName = 'audioobject';
 
     protected $supportedAttributes = array('id', 'src', 'align', 'title', 'class');
 

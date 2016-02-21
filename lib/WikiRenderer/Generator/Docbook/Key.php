@@ -12,5 +12,5 @@ namespace WikiRenderer\Generator\Docbook;
 
 class Key extends AbstractInlineGenerator
 {
-    protected $dbTagName = 'key';
+    protected $dbTagName = 'keysym';
 }
