@@ -60,6 +60,24 @@ abstract class AbstractDocumentGenerator implements \WikiRenderer\Generator\Docu
         $this->blocksList = array();
     }
 
+    protected $metadata = array();
+
+    public function getMetaData($name) {
+        if (isset($this->metadata[$name])) {
+            return $this->metadata[$name];
+        }
+        return null;
+    }
+
+    /**
+     * store meta data readed by parsers
+     * @param string $name
+     * @param mixed value
+     */
+    public function setMetaData($name, $value) {
+        $this->metadata[$name] = $value;
+    }
+
     /**
      * @var GeneratorInterface[]
      */

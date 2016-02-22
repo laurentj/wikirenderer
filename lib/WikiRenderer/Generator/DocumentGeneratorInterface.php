@@ -48,6 +48,18 @@ interface DocumentGeneratorInterface extends BlocksContainerInterface
     public function getDefaultBlock();
 
     /**
+     * retrieve meta data stored by parsers
+     */
+    public function getMetaData($name);
+
+    /**
+     * store meta data readed by parsers
+     * @param string $name
+     * @param mixed value
+     */
+    public function setMetaData($name, $value);
+
+    /**
      * Add content to the header. May be used by a parser.
      */
     public function addHeader(GeneratorInterface $header);
