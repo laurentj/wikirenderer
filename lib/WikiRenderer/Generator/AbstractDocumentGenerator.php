@@ -33,7 +33,22 @@ abstract class AbstractDocumentGenerator implements \WikiRenderer\Generator\Docu
         if (isset($this->config->inlineGenerators[$type])) {
             $class = $this->config->inlineGenerators[$type];
 
-            return new $class();
+            if ($type == 'footnotelink') {
+                $footnotes = $this->getMetaData('footnotes');
+                if (!$footnodes) {
+                    $footnodes = $this->getBlockGenerator('footnotes');
+                    $this->setMetaData('footnotes', $footnotes);
+                }
+                $number = $footnotes->getFootnoteCount() + 1;
+                $id = 'footnote-'.$this->config->footnotesId.'-'.$number;
+                $revid = 'rev-'.$id;
+                $gen = new $class($id, $revid, $number);
+                $footnotes->addFootnote($gen);
+                return $gen;
+            }
+            else {
+                return new $class();
+            }
         }
         throw new \Exception('unknown inline generator '.$type);
     }
