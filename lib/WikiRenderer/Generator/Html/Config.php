@@ -42,6 +42,7 @@ class Config extends \WikiRenderer\Generator\Config
         'linebreak' => '\WikiRenderer\Generator\Html\LineBreak',
         'tablecell' => '\WikiRenderer\Generator\Html\TableCell',
         'noformat' => '\WikiRenderer\Generator\Html\NoFormat',
+        'footnotelink' => '\WikiRenderer\Generator\Html\FootnoteLink',
     );
 
     public $blockGenerators = array(
@@ -56,5 +57,7 @@ class Config extends \WikiRenderer\Generator\Config
         'definition' => '\WikiRenderer\Generator\Html\Definition',
         'table' => '\WikiRenderer\Generator\Html\Table',
         'html' => '\WikiRenderer\Generator\Html\Html',
+        'footnotes' => '\WikiRenderer\Generator\Html\Footnotes',
+        
     );
 }

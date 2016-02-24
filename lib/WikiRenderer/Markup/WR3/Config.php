@@ -29,7 +29,7 @@ class Config extends \WikiRenderer\Config
             '\WikiRenderer\Markup\WR3\Link',
             '\WikiRenderer\Markup\WR3\Image',
             '\WikiRenderer\Markup\WR3\Anchor',
-            //'\WikiRenderer\Markup\WR3\Footnote',
+            '\WikiRenderer\Markup\WR3\Footnote',
         ),
         '\WikiRenderer\Markup\WR3\DefinitionTextLine' => array(
             '\WikiRenderer\Markup\WR3\Strong',
@@ -41,7 +41,7 @@ class Config extends \WikiRenderer\Config
             '\WikiRenderer\Markup\WR3\Link',
             '\WikiRenderer\Markup\WR3\Image',
             '\WikiRenderer\Markup\WR3\Anchor',
-            //'\WikiRenderer\Markup\WR3\Footnote',
+            '\WikiRenderer\Markup\WR3\Footnote',
         ),
         '\WikiRenderer\Markup\WR3\TableRow' => array(
             '\WikiRenderer\Markup\WR3\Strong',
@@ -53,7 +53,7 @@ class Config extends \WikiRenderer\Config
             '\WikiRenderer\Markup\WR3\Link',
             '\WikiRenderer\Markup\WR3\Image',
             '\WikiRenderer\Markup\WR3\Anchor',
-            //'\WikiRenderer\Markup\WR3\Footnote',
+            '\WikiRenderer\Markup\WR3\Footnote',
         ),
     );
     /** List of block parsers. */

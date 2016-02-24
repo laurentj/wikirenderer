@@ -31,4 +31,6 @@ abstract class Config
     public $inlineGenerators = array();
 
     public $blockGenerators = array();
+
+    public $footnotesIdPrefix = 'footnote-';
 }

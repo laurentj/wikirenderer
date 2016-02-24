@@ -19,7 +19,7 @@ class WR3TestsBlocks extends PHPUnit_Framework_TestCase {
             array('wr3/wr3_blockquote',0),
             array('wr3/wr3_definition',0),
             array('wr3/wr3_table',0),
-            /*array('wr3/wr3_footnote',0),
+            /*
             array('wr3/wr3_bug12894',0)*/
         );
     }
@@ -42,12 +42,26 @@ class WR3TestsBlocks extends PHPUnit_Framework_TestCase {
 
         $res = $wr->render($source);
 
-        if($file=='wr3_footnote'){
-            $conf = & $wr->getConfig();
-            $res=str_replace('-'.$conf->footnotesId.'-', '-XXX-',$res);
-        }
         $this->assertEquals($result, $res);
         $this->assertEquals($nberror, count($wr->errors));
+    }
+
+
+    function testFootnotes() {
+        $genConfig = new \WikiRenderer\Generator\Html\Config();
+        $generator = new \WikiRenderer\Generator\Html\Document($genConfig);
+        $markupConfig = new \WikiRenderer\Markup\WR3\Config();
+        $wr = new \WikiRenderer\Renderer($generator, $markupConfig);
+
+        $sourceFile = 'datasblocks/wr3/wr3_footnote.src';
+        $resultFile = 'datasblocks/wr3/wr3_footnote.res';
+
+        $source = file_get_contents($sourceFile);
+        $result = file_get_contents($resultFile);
+        $res = $wr->render($source);
+
+        $res .= $generator->getMetaData('footnotes')->generate();
+        $this->assertEquals($result, $res);
     }
 
     function testOther() {
