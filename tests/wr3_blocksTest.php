@@ -59,8 +59,9 @@ class WR3TestsBlocks extends PHPUnit_Framework_TestCase {
         $source = file_get_contents($sourceFile);
         $result = file_get_contents($resultFile);
         $res = $wr->render($source);
-
         $res .= $generator->getMetaData('footnotes')->generate();
+
+        $res = preg_replace("/footnote\-(\d+)\-(\d+)/", 'footnote-XXX-$2', $res);
         $this->assertEquals($result, $res);
     }
 
