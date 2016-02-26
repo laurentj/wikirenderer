@@ -13,7 +13,7 @@
 <h4>title level 2</h4>
 
 <p>This is a paragraph with a <strong>strong emphasis</strong> and a <em>normal emphasis</em>.
-this sentence contains a <a href="http://jelix.org">link</a> and a reference to a foot note((this is the foot note)).
+this sentence contains a <a href="http://jelix.org">link</a>.
 Now here is a list</p>
 
 <ul>

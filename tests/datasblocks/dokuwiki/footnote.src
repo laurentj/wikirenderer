@@ -6,7 +6,8 @@
 
 ==== Main title (4) ====
 
-This //example// use <sup>the</sup> dokuwiki syntax.
+This example use((Ut iaculis ultrices nulla. **Cras viverra** diam nec)) the dokuwiki syntax.
+
 
 === title level 2 ===
 
@@ -20,4 +21,4 @@ Now here is a list
     * nested item B
   * item 3
 
-Of course, some other wiki 'tags' are available for this syntax.
+Of course, some other wiki 'tags' are available for this syntax, like some ''codes''.

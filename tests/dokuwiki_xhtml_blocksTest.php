@@ -95,5 +95,23 @@ truc3 </code></pre>',
         $this->assertEquals($expected, $res);
         $this->assertEquals($nberror, count($wr->errors));
     }
+
+    function testFootnotes() {
+        $genConfig = new \WikiRenderer\Generator\Html\Config();
+        $generator = new \WikiRenderer\Generator\Html\Document($genConfig);
+        $markupConfig = new \WikiRenderer\Markup\DokuWiki\Config();
+        $wr = new \WikiRenderer\Renderer($generator, $markupConfig);
+
+        $sourceFile = 'datasblocks/dokuwiki/footnote.src';
+        $resultFile = 'datasblocks/dokuwiki/footnote.res';
+
+        $source = file_get_contents($sourceFile);
+        $result = file_get_contents($resultFile);
+        $res = $wr->render($source);
+        $res .= $generator->getMetaData('footnotes')->generate();
+
+        $res = preg_replace("/footnote\-(\d+)\-(\d+)/", 'footnote-XXX-$2', $res);
+        $this->assertEquals($result, $res);
+    }
 }
 

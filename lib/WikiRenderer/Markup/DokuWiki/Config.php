@@ -30,7 +30,7 @@ class Config extends \WikiRenderer\Config
             '\WikiRenderer\Markup\DokuWiki\Image',
             '\WikiRenderer\Markup\DokuWiki\Link',
             '\WikiRenderer\Markup\DokuWiki\NoWikiInline',
-            //'\WikiRenderer\Markup\DokuWiki\Footnote',
+            '\WikiRenderer\Markup\DokuWiki\Footnote',
         ),
         '\WikiRenderer\Markup\DokuWiki\TableRow' => array(
             '\WikiRenderer\Markup\DokuWiki\Strong',
@@ -43,7 +43,7 @@ class Config extends \WikiRenderer\Config
             '\WikiRenderer\Markup\DokuWiki\Link',
             '\WikiRenderer\Markup\DokuWiki\Image',
             '\WikiRenderer\Markup\DokuWiki\NoWikiInline',
-            //'\WikiRenderer\Markup\DokuWiki\Footnote',
+            '\WikiRenderer\Markup\DokuWiki\Footnote',
         ),
     );
     /** List of block parsers. */

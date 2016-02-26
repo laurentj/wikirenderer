@@ -37,6 +37,9 @@ class dokuwiki_textTest extends PHPUnit_Framework_TestCase {
 
         $result = $wr->render($source);
 
+        if ($file == 'general') {
+            $result .= $generator->getMetaData('footnotes')->generate();
+        }
         $this->assertEquals($expected, $result);
         $this->assertEquals($nberror, count($wr->errors));
     }
