@@ -4,7 +4,7 @@
 
 <section>
 <title>bbb</title>
-<para>Lorem <emphasis role="strong">ipsum dolor</emphasis> sit amet, <emphasis>consectetuer adipiscing</emphasis> elit. Ut scelerisque. Ut iaculis ultrices nulla. Cras viverra diam nec justo.</para>
+<para>Lorem <emphasis role="strong">ipsum dolor</emphasis> sit amet, <emphasis>consectetuer adipiscing</emphasis> elit. Ut scelerisque. <footnote xml:id="footnote-XXX-1"><para>Ut iaculis ultrices nulla.</para></footnote> Cras viverra diam nec justo.</para>
 </section>
 <section>
 <title>bbb2</title>

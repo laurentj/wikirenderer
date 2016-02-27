@@ -88,10 +88,7 @@ truc3 </code></pre>',
         $expected = file_get_contents($resultFile);
 
         $res = $wr->render($source);
-        if($file=='general'){
-            $conf = & $wr->getConfig();
-            $res=str_replace('-'.$conf->footnotesId.'-', '-XXX-',$res);
-        }
+
         $this->assertEquals($expected, $res);
         $this->assertEquals($nberror, count($wr->errors));
     }

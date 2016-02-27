@@ -94,6 +94,9 @@ truc3 </programlisting>',
 
         $res = $wr->render($source);
 
+        if ($file == 'section2') {
+            $res = preg_replace("/footnote\-(\d+)\-(\d+)/", 'footnote-XXX-$2', $res);
+        }
         $this->assertEquals($result, $res);
         $this->assertEquals($nberror, count($wr->errors));
         $this->validateDocbook($res);
