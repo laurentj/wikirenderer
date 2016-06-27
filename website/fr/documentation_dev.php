@@ -258,7 +258,7 @@ vous mettrez dans la configuration :</p>
 est utilisé un objet WikiRendererBloc par le moteur WikiRenderer.</p>
 <ul>
 <li>WikiRenderer analyse une à une les lignes du texte wiki.</li>
-<li>À chaque ligne, il va appeler la méthode <code>detect</code> du bloc courant.</li>
+<li>À chaque ligne, il va appeler la méthode <code>isAccepting</code> du bloc courant.</li>
 <li>Si elle renvoie <code>true</code>, c'est que la ligne fait encore partie du bloc.
 Il va donc demander au bloc de transformer la ligne en XHTML en appelant <code>getRenderedLine</code>.</li>
 <li>Si la détection a échoué, WikiRenderer ferme le bloc (en éxecutant la méthode <code>close</code>

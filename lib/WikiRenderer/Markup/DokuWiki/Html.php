@@ -20,7 +20,7 @@ class Html extends NoWiki
     public $type = 'html';
     protected $tagName = 'html';
 
-    public function validateDetectedLine()
+    public function validateLine()
     {
         $this->generator->addLine($this->_detectMatch);
     }

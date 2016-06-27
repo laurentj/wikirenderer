@@ -49,12 +49,12 @@ class NoWiki extends \WikiRenderer\Block
         parent::open();
     }
 
-    public function validateDetectedLine()
+    public function validateLine()
     {
         $this->generator->addLine($this->_detectMatch);
     }
 
-    public function detect($string)
+    public function isAccepting($string)
     {
         if ($this->closeTagDetected) {
             return false;

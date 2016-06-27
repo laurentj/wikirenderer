@@ -21,10 +21,10 @@ class P extends \WikiRenderer\Block
 
     public function isStarting($line)
     {
-        return $this->detect($line);
+        return $this->isAccepting($line);
     }
 
-    public function detect($string)
+    public function isAccepting($string)
     {
         if ($string == '') {
             return false;
@@ -37,7 +37,7 @@ class P extends \WikiRenderer\Block
         return true;
     }
 
-    public function validateDetectedLine()
+    public function validateLine()
     {
         $this->generator->addLine($this->_renderInlineTag($this->_detectMatch[1]));
     }

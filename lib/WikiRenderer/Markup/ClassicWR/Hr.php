@@ -21,7 +21,7 @@ class Hr extends \WikiRenderer\Block
     protected $regexp = '/^={4,} *$/';
     protected $_closeNow = true;
 
-    public function validateDetectedLine()
+    public function validateLine()
     {
     }
 }

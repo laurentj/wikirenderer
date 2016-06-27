@@ -307,7 +307,8 @@ property to <code>true</code>.</p>
 
 <dl>
     <dt><code>open()</code></dt>
-    <dd>When the parser detect (with the help of the <code>detect()</code>
+    <dd>When the parser detect (with the help of the
+    <code>isStarting()</code> method and <code>isAccepting()</code>
     method) that the block starts, this method is called. You can
     redefine it to do some additionnal process. It can return a string
     which will be added to the generated content. By default, it returns
@@ -315,7 +316,7 @@ property to <code>true</code>.</p>
     if you don't want to redefine the method).</dd>
 
     <dt><code>close()</code></dt>
-    <dd>When the parser detect (with the help of the <code>detect()</code>
+    <dd>When the parser detect (with the help of the <code>isAccepting()</code>
     method) that the block ends, this method is called. You can
     redefine it to do some additionnal process at this step.
     It can return a string which will be added to the generated content.

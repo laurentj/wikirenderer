@@ -38,7 +38,7 @@ class Pre extends \WikiRenderer\Block
         }
     }
 
-    public function detect($string)
+    public function isAccepting($string)
     {
         if ($this->closeTagDetected) {
             return false;
@@ -53,7 +53,7 @@ class Pre extends \WikiRenderer\Block
         return true;
     }
 
-    public function validateDetectedLine()
+    public function validateLine()
     {
         $this->generator->addLine($this->_detectMatch);
     }

@@ -29,7 +29,7 @@ class Title extends \WikiRenderer\Block
      */
     protected $_order = false;
 
-    public function validateDetectedLine()
+    public function validateLine()
     {
         if ($this->_order) {
             $hx = $this->_minlevel + strlen($this->_detectMatch[1]) - 1;

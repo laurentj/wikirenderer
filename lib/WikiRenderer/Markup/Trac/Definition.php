@@ -63,7 +63,7 @@ class Definition extends \WikiRenderer\Block
         }
     }
 
-    public function validateDetectedLine()
+    public function validateLine()
     {
         if ($this->detectedTerm) {
             $this->generateDef();
@@ -74,7 +74,7 @@ class Definition extends \WikiRenderer\Block
         }
     }
 
-    public function detect($string)
+    public function isAccepting($string)
     {
         if (preg_match('/^(\s*)([^:]+)(::)?(.*)/i', $string, $m)) {
             $this->indent = strlen($m[1]);

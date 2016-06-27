@@ -93,17 +93,17 @@ abstract class Block
      * 
      * @return bool True if the line is part of the block.
      */
-    public function detect($string)
+    public function isAccepting($string)
     {
         return preg_match($this->regexp, $string, $this->_detectMatch);
     }
 
     /**
      * called by the parser when the current line has been detected, so after
-     * the call of detect(). This method should then take care of the line
-     * given tho the detect() method.
+     * the call of isAccepting(). This method should then take care of the line
+     * given tho the isAccepting() method.
      */
-    public function validateDetectedLine()
+    public function validateLine()
     {
         $this->generator->addContent($this->_renderInlineTag($this->_detectMatch[1]));
     }
@@ -133,7 +133,7 @@ abstract class Block
      * Returns a boolean value about the need to clone this block object.
      *
      * The parser instancies the block at the start of the parsing to call
-     * the detect method on each line. In most of case, the block should
+     * the isAccepting method on each line. In most of case, the block should
      * be cloned when it is used for lines. But in particular case, depending
      * of the markup, it may not be cloned. 
      * 

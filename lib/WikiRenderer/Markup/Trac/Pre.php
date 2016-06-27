@@ -50,7 +50,7 @@ class Pre extends \WikiRenderer\Block
         parent::open();
     }
 
-    public function detect($string)
+    public function isAccepting($string)
     {
         if ($this->closeTagDetected) {
             return false;
@@ -66,7 +66,7 @@ class Pre extends \WikiRenderer\Block
         return true;
     }
 
-    public function validateDetectedLine()
+    public function validateLine()
     {
         if ($this->checkType) {
             if (trim($this->_detectMatch) === '') {

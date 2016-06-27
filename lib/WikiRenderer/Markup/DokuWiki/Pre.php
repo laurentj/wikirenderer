@@ -20,7 +20,7 @@ class Pre extends \WikiRenderer\Block
     public $type = 'pre';
     protected $regexp = "/^(\s{2,})(.*)/";
 
-    public function validateDetectedLine()
+    public function validateLine()
     {
         $this->generator->addLine($this->_detectMatch[1].$this->_detectMatch[2]);
     }

@@ -26,7 +26,7 @@ class Php extends NoWiki
         $this->generator = new \WikiRenderer\Generator\DummyBlock();
     }
 
-    public function validateDetectedLine()
+    public function validateLine()
     {
     }
 }

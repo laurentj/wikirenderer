@@ -34,10 +34,10 @@ class WikiList extends \WikiRenderer\Block
 
     public function isStarting($line)
     {
-        return $this->detect($line);
+        return $this->isAccepting($line);
     }
 
-    public function detect($string)
+    public function isAccepting($string)
     {
         $this->sameItem = false;
         if (!preg_match($this->regexp, $string, $this->_detectMatch)) {
@@ -113,7 +113,7 @@ class WikiList extends \WikiRenderer\Block
         return $generator;
     }
 
-    public function validateDetectedLine()
+    public function validateLine()
     {
         if ($this->sameItem) {
             $last = $this->generatorStack[count($this->generatorStack) - 1];

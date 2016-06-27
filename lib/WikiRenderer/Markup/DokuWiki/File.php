@@ -20,7 +20,7 @@ class File extends NoWiki
     public $type = 'syntaxhighlight';
     protected $tagName = 'file';
 
-    public function validateDetectedLine()
+    public function validateLine()
     {
         if ($this->_args && $this->_args[1] != '') {
             $args = preg_split("/\s+/", $this->_args[1], 2);

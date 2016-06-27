@@ -21,7 +21,7 @@ class Title extends \WikiRenderer\Block
     protected $regexp = "/^\s*(\=+)\s*([^=]+)\s*(\=+)\s*$/";
     protected $_closeNow = true;
 
-    public function validateDetectedLine()
+    public function validateLine()
     {
         $level = strlen($this->_detectMatch[1]);
         $h = 6 - $level + $this->engine->getConfig()->startHeaderNumber;

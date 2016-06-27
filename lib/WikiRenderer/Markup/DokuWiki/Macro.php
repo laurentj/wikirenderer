@@ -29,7 +29,7 @@ class Macro extends \WikiRenderer\Block
         $this->documentGenerator = $generator;
     }
 
-    public function validateDetectedLine()
+    public function validateLine()
     {
         if (preg_match('/^\s*(\w+)(?:\:?\s*(.+))?\s*$/', $this->_detectMatch[1], $m)) {
             $macroName = strtolower($m[1]);

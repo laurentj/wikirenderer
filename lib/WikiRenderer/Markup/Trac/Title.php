@@ -23,7 +23,7 @@ class Title extends \WikiRenderer\Block
     protected $regexp = "/^\s*(\={1,6})\s*([^=]+)\s*(\={1,6})?(.*)$/";
     protected $_closeNow = true;
 
-    public function validateDetectedLine()
+    public function validateLine()
     {
         $level = strlen($this->_detectMatch[1]);
         $h = $this->engine->getConfig()->startHeaderNumber - 1 + $level;

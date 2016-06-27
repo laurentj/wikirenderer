@@ -35,7 +35,7 @@ class Table extends \WikiRenderer\Block
         return parent::close();
     }
 
-    public function validateDetectedLine()
+    public function validateLine()
     {
         $this->generator->createRow();
         // $generator is supposed to be a InlineBagGenerator class

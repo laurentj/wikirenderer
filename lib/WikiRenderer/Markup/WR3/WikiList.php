@@ -57,7 +57,7 @@ class WikiList extends \WikiRenderer\Block
         }
     }
 
-    public function detect($string)
+    public function isAccepting($string)
     {
         if (!preg_match($this->regexp, $string, $this->_detectMatch)) {
             return false;
@@ -92,7 +92,7 @@ class WikiList extends \WikiRenderer\Block
         return $generator;
     }
 
-    public function validateDetectedLine()
+    public function validateLine()
     {
         $t = $this->_previousTag;
         $d = strlen($t) - strlen($this->_detectMatch[1]);

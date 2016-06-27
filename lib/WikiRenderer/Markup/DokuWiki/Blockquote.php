@@ -51,7 +51,7 @@ class Blockquote extends \WikiRenderer\Block
         return parent::close();
     }
 
-    public function validateDetectedLine()
+    public function validateLine()
     {
         $d = strlen($this->_previousTag) - strlen($this->_detectMatch[1]);
 

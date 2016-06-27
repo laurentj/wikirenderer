@@ -83,9 +83,9 @@ class Renderer
             $line = $linesIterator->current();
             if ($this->_currentBlock) {
                 // a block is already opened
-                if ($this->_currentBlock->detect($line)) {
+                if ($this->_currentBlock->isAccepting($line)) {
                     // the line is part of the block
-                    $this->_currentBlock->validateDetectedLine();
+                    $this->_currentBlock->validateLine();
                 } else {
                     // the line is not part of the block, we close it.
                     $this->documentGenerator->addBlock($this->_currentBlock->close());
@@ -136,13 +136,13 @@ class Renderer
                 if ($block->closeNow()) {
                     // if we have to close now the block, we close.
                     $block->open();
-                    $block->validateDetectedLine();
+                    $block->validateLine();
                     $this->documentGenerator->addBlock($block->close());
                     $this->_currentBlock = null;
                 } else {
                     $this->_currentBlock = $block;
                     $this->_currentBlock->open();
-                    $this->_currentBlock->validateDetectedLine();
+                    $this->_currentBlock->validateLine();
                 }
                 break;
             }
@@ -153,7 +153,7 @@ class Renderer
             } elseif ($defaultBlock = $this->documentGenerator->getDefaultBlock()) {
                 $defaultBlock->isStarting($line);
                 $defaultBlock->open();
-                $defaultBlock->validateDetectedLine();
+                $defaultBlock->validateLine();
                 $this->documentGenerator->addBlock($defaultBlock->close());
             } else {
                 $blockLine = new Generator\SingleLineBlock($this->inlineParser->parse($line));
