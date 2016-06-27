@@ -64,16 +64,15 @@ abstract class Block
     }
 
     /**
-     * Says if the given line belongs to the block. Called by the parser
+     * Says if the given line starts the block. Called by the parser
      * to know if the block can be used for the given line.
      * If yes, the open() method will be called.
      *
      * @param string $string  The string to check.
-     * @param bool   $inBlock (optional) True if the parser is already in the block. False by default.
-     *
+     * 
      * @return bool True if the line is part of the block.
      */
-    public function detect($string, $inBlock = false)
+    public function isStarting($string)
     {
         return preg_match($this->regexp, $string, $this->_detectMatch);
     }
@@ -84,6 +83,19 @@ abstract class Block
      */
     public function open()
     {
+    }
+
+    /**
+     * Says if the given line belongs to the block. Called by the parser
+     * to know if the block can be used for the given line.
+     * 
+     * @param string $string  The string to check.
+     * 
+     * @return bool True if the line is part of the block.
+     */
+    public function detect($string)
+    {
+        return preg_match($this->regexp, $string, $this->_detectMatch);
     }
 
     /**

@@ -83,7 +83,7 @@ class Renderer
             $line = $linesIterator->current();
             if ($this->_currentBlock) {
                 // a block is already opened
-                if ($this->_currentBlock->detect($line, true)) {
+                if ($this->_currentBlock->detect($line)) {
                     // the line is part of the block
                     $this->_currentBlock->validateDetectedLine();
                 } else {
@@ -130,7 +130,7 @@ class Renderer
                 // block must be cloned so it can be change its internal values
                 $block = clone $block;
             }
-            if ($block->detect($line, false)) {
+            if ($block->isStarting($line)) {
                 $found = true;
                 // we open the new block
                 if ($block->closeNow()) {
@@ -151,7 +151,7 @@ class Renderer
             if (trim($line) == '') {
                 $this->documentGenerator->addBlock(new Generator\SingleLineBlock());
             } elseif ($defaultBlock = $this->documentGenerator->getDefaultBlock()) {
-                $defaultBlock->detect($line);
+                $defaultBlock->isStarting($line);
                 $defaultBlock->open();
                 $defaultBlock->validateDetectedLine();
                 $this->documentGenerator->addBlock($defaultBlock->close());

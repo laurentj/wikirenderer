@@ -32,7 +32,12 @@ class WikiList extends \WikiRenderer\Block
      */
     protected $indentStack = array();
 
-    public function detect($string, $inBlock = false)
+    public function isStarting($line)
+    {
+        return $this->detect($line);
+    }
+
+    public function detect($string)
     {
         $this->sameItem = false;
         if (!preg_match($this->regexp, $string, $this->_detectMatch)) {

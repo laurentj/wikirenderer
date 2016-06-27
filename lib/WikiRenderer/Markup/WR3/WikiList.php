@@ -29,19 +29,9 @@ class WikiList extends \WikiRenderer\Block
      */
     protected $generatorStack = array();
 
-    public function detect($string, $inBlock = false)
+    public function isStarting($string)
     {
-        if (!preg_match($this->regexp, $string, $this->_detectMatch)) {
-            return false;
-        }
-        // if we are already and the first sign is not equal to the
-        // first sign of the previous line, so it is a new list.
-        // we should start an other block
-        if ($inBlock && $this->_previousTag[0] != $this->_detectMatch[1][0]) {
-            return false;
-        }
-
-        return true;
+        return preg_match($this->regexp, $string, $this->_detectMatch);
     }
 
     public function open()
@@ -65,6 +55,21 @@ class WikiList extends \WikiRenderer\Block
             $last->addContentToItem($generator);
             $this->generatorStack[] = $generator;
         }
+    }
+
+    public function detect($string)
+    {
+        if (!preg_match($this->regexp, $string, $this->_detectMatch)) {
+            return false;
+        }
+        // if we are already and the first sign is not equal to the
+        // first sign of the previous line, so it is a new list.
+        // we should start an other block
+        if ($this->_previousTag[0] != $this->_detectMatch[1][0]) {
+            return false;
+        }
+
+        return true;
     }
 
     public function close()

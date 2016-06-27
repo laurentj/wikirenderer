@@ -31,6 +31,19 @@ class Definition extends \WikiRenderer\Block
     protected $detectedTerm = null;
     protected $detectedDef = null;
 
+
+    public function isStarting($string)
+    {
+        if (preg_match('/^(\s*)([^:]+)::(.*)/i', $string, $m)) {
+            $this->detectedTerm = $m[2];
+            $this->detectedDef = null;
+            $this->indent = strlen($m[1]);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public function close()
     {
         $this->generateDef();
@@ -61,38 +74,25 @@ class Definition extends \WikiRenderer\Block
         }
     }
 
-    public function detect($string, $inBlock = false)
+    public function detect($string)
     {
-        if ($inBlock) {
-            if (preg_match('/^(\s*)([^:]+)(::)?(.*)/i', $string, $m)) {
-                $this->indent = strlen($m[1]);
-                if (isset($m[3]) && $m[3] == '::') {
-                    // this is a term
-                    $this->detectedTerm = $m[2];
-                    $this->detectedDef = null;
-                } else {
-                    if (strlen($m[1]) < $this->indent) {
-                        return false;
-                    }
-                    // this is a definition
-                    $this->detectedTerm = null;
-                    $this->detectedDef = $m[2].$m[4];
-                }
-
-                return true;
-            }
-
-            return false;
-        } else {
-            if (preg_match('/^(\s*)([^:]+)::(.*)/i', $string, $m)) {
+        if (preg_match('/^(\s*)([^:]+)(::)?(.*)/i', $string, $m)) {
+            $this->indent = strlen($m[1]);
+            if (isset($m[3]) && $m[3] == '::') {
+                // this is a term
                 $this->detectedTerm = $m[2];
                 $this->detectedDef = null;
-                $this->indent = strlen($m[1]);
-
-                return true;
             } else {
-                return false;
+                if (strlen($m[1]) < $this->indent) {
+                    return false;
+                }
+                // this is a definition
+                $this->detectedTerm = null;
+                $this->detectedDef = $m[2].$m[4];
             }
+            return true;
         }
+
+        return false;
     }
 }

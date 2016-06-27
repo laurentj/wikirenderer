@@ -19,7 +19,12 @@ class P extends \WikiRenderer\Block
 {
     public $type = 'para';
 
-    public function detect($string, $inBlock = false)
+    public function isStarting($line)
+    {
+        return $this->detect($line);
+    }
+
+    public function detect($string)
     {
         if ($string == '') {
             return false;

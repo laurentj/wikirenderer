@@ -18,59 +18,43 @@ namespace WikiRenderer\Markup\WR3;
 class Pre extends \WikiRenderer\Block
 {
     public $type = 'pre';
-    protected $isOpen = false;
     protected $closeTagDetected = false;
 
-    public function open()
+    public function isStarting($string)
     {
-        $this->isOpen = true;
-        $this->closeTagDetected = false;
-
-        parent::open();
+        if (preg_match('/^\s*<code>(.*)/', $string, $m)) {
+            if (preg_match('/(.*)<\/code>\s*$/', $m[1], $m2)) {
+                $this->_closeNow = true;
+                $this->_detectMatch = $m2[1];
+                $this->closeTagDetected = true;
+            } else {
+                $this->_closeNow = false;
+                $this->_detectMatch = $m[1];
+                $this->closeTagDetected = false;
+            }
+            return true;
+        } else {
+            return false;
+        }
     }
 
-    public function close()
+    public function detect($string)
     {
-        $this->isOpen = false;
+        if ($this->closeTagDetected) {
+            return false;
+        }
+        if (preg_match('/(.*)<\/code>\s*$/', $string, $m)) {
+            $this->_detectMatch = $m[1];
+            $this->closeTagDetected = true;
+        } else {
+            $this->_detectMatch = $string;
+        }
 
-        return parent::close();
+        return true;
     }
 
     public function validateDetectedLine()
     {
         $this->generator->addLine($this->_detectMatch);
-    }
-
-    public function detect($string, $inBlock = false)
-    {
-        if ($this->closeTagDetected) {
-            return false;
-        }
-        if ($this->isOpen) {
-            if (preg_match('/(.*)<\/code>\s*$/', $string, $m)) {
-                $this->_detectMatch = $m[1];
-                $this->isOpen = false;
-                $this->closeTagDetected = true;
-            } else {
-                $this->_detectMatch = $string;
-            }
-
-            return true;
-        } else {
-            if (preg_match('/^\s*<code>(.*)/', $string, $m)) {
-                if (preg_match('/(.*)<\/code>\s*$/', $m[1], $m2)) {
-                    $this->_closeNow = true;
-                    $this->_detectMatch = $m2[1];
-                    $this->closeTagDetected = true;
-                } else {
-                    $this->_closeNow = false;
-                    $this->_detectMatch = $m[1];
-                }
-
-                return true;
-            } else {
-                return false;
-            }
-        }
     }
 }

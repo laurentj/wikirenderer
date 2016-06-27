@@ -18,25 +18,52 @@ namespace WikiRenderer\Markup\Trac;
 class Pre extends \WikiRenderer\Block
 {
     public $type = 'pre';
-    protected $isOpen = false;
+
     protected $closeTagDetected = false;
 
     protected $checkType = false;
 
+    public function isStarting($string)
+    {
+        if (preg_match('/^\s*{{{(.*)/', $string, $m)) {
+            $this->checkType = false;
+            if (preg_match('/(.*)}}}\s*$/', $m[1], $m2)) {
+                $this->_closeNow = true;
+                $this->_detectMatch = $m2[1];
+                $this->closeTagDetected = true;
+            } else {
+                $this->_closeNow = false;
+                $this->_detectMatch = $m[1];
+            }
+
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public function open()
     {
-        $this->isOpen = true;
         $this->closeTagDetected = false;
         $this->checkType = true;
 
         parent::open();
     }
 
-    public function close()
+    public function detect($string)
     {
-        $this->isOpen = false;
+        if ($this->closeTagDetected) {
+            return false;
+        }
 
-        return parent::close();
+        if (preg_match('/(.*)}}}\s*$/', $string, $m)) {
+            $this->_detectMatch = $m[1];
+            $this->closeTagDetected = true;
+        } else {
+            $this->_detectMatch = $string;
+        }
+
+        return true;
     }
 
     public function validateDetectedLine()
@@ -68,46 +95,11 @@ class Pre extends \WikiRenderer\Block
                         // syntax highlighting
                         $this->generator = $this->documentGenerator->getBlockGenerator('syntaxhighlight');
                         $this->generator->setSyntaxType($m[1]);
-
                         return;
                 }
             }
             $this->checkType = false;
         }
         $this->generator->addLine($this->_detectMatch);
-    }
-
-    public function detect($string, $inBlock = false)
-    {
-        if ($this->closeTagDetected) {
-            return false;
-        }
-        if ($this->isOpen) {
-            if (preg_match('/(.*)}}}\s*$/', $string, $m)) {
-                $this->_detectMatch = $m[1];
-                $this->isOpen = false;
-                $this->closeTagDetected = true;
-            } else {
-                $this->_detectMatch = $string;
-            }
-
-            return true;
-        } else {
-            if (preg_match('/^\s*{{{(.*)/', $string, $m)) {
-                $this->checkType = false;
-                if (preg_match('/(.*)}}}\s*$/', $m[1], $m2)) {
-                    $this->_closeNow = true;
-                    $this->_detectMatch = $m2[1];
-                    $this->closeTagDetected = true;
-                } else {
-                    $this->_closeNow = false;
-                    $this->_detectMatch = $m[1];
-                }
-
-                return true;
-            } else {
-                return false;
-            }
-        }
     }
 }
