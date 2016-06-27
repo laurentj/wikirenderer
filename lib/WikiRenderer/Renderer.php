@@ -22,9 +22,6 @@ class Renderer
     /** @var \WikiRenderer\Block The currently opened block element. */
     protected $_currentBlock = null;
 
-    /** @var \WikiRenderer\Block The previous opened block element. */
-    protected $_previousBloc = null;
-
     /** @var \WikiRenderer\Block[]  List of all possible blocks. */
     protected $_blockList = array();
 
@@ -80,7 +77,6 @@ class Renderer
         $this->documentGenerator->clear();
         $this->errors = array();
         $this->_currentBlock = null;
-        $this->_previousBloc = null;
 
         // we loop over all lines
         while ($linesIterator->valid()) {
@@ -142,10 +138,8 @@ class Renderer
                     $block->open();
                     $block->validateDetectedLine();
                     $this->documentGenerator->addBlock($block->close());
-                    $this->_previousBloc = $block;
                     $this->_currentBlock = null;
                 } else {
-                    $this->_previousBloc = $this->_currentBlock;
                     $this->_currentBlock = $block;
                     $this->_currentBlock->open();
                     $this->_currentBlock->validateDetectedLine();
@@ -165,9 +159,6 @@ class Renderer
                 $blockLine = new Generator\SingleLineBlock($this->inlineParser->parse($line));
                 $this->documentGenerator->addBlock($blockLine);
             }
-            if ($this->_currentBlock) {
-                $this->_previousBloc = $this->_currentBlock;
-            }
             $this->_currentBlock = null;
         }
     }
@@ -180,10 +171,5 @@ class Renderer
     public function getConfig()
     {
         return $this->config;
-    }
-
-    public function getPreviousBlocParser()
-    {
-        return $this->_previousBloc;
     }
 }
