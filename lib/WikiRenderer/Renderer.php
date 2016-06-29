@@ -6,22 +6,20 @@
  * @author Laurent Jouanneau
  * @contributor  Amaury Bouchard
  *
- * @copyright 2003-2013 Laurent Jouanneau
+ * @copyright 2003-2016 Laurent Jouanneau
  *
  * @link http://wikirenderer.jelix.org
  *
  * @licence MIT see LICENCE file
  */
+
 namespace WikiRenderer;
 
 /**
- * Main class of WikiRenderenr.
+ * Main class of WikiRenderer.
  */
 class Renderer
 {
-    /** @var \WikiRenderer\Block The currently opened block element. */
-    protected $_currentBlock = null;
-
     /** @var \WikiRenderer\Block[]  List of all possible blocks. */
     protected $_blockList = array();
 
@@ -76,33 +74,11 @@ class Renderer
         $linesIterator = new \ArrayIterator(preg_split("/\015\012|\015|\012/", $text)); // we split the text at all line feeds
         $this->documentGenerator->clear();
         $this->errors = array();
-        $this->_currentBlock = null;
 
-        // we loop over all lines
         while ($linesIterator->valid()) {
             $line = $linesIterator->current();
-            if ($this->_currentBlock) {
-                // a block is already opened
-                if ($this->_currentBlock->isAccepting($line)) {
-                    // the line is part of the block
-                    $this->_currentBlock->validateLine();
-                } else {
-                    // the line is not part of the block, we close it.
-                    $this->documentGenerator->addBlock($this->_currentBlock->close());
-                    $this->detectNewBlock($line);
-                }
-            } else {
-                // no opened block, we see if the line correspond to a block
-                $this->detectNewBlock($line);
-            }
-            if ($this->inlineParser->error) {
-                $this->errors[$linesIterator->key() + 1] = $line;
-            }
-            $linesIterator->next();
-        }
-
-        if ($this->_currentBlock) {
-            $this->documentGenerator->addBlock($this->_currentBlock->close());
+            $blockGen = $this->parseBlock($linesIterator);
+            $this->documentGenerator->addBlock($blockGen);
         }
 
         $result = $this->documentGenerator->generate();
@@ -116,13 +92,9 @@ class Renderer
         return $this->config->onParse($result);
     }
 
-    /**
-     * detect the block corresponding to the given line.
-     *
-     * @var string
-     */
-    protected function detectNewBlock($line)
+    protected function parseBlock($linesIterator)
     {
+        $line = $linesIterator->current();
         $found = false;
         // let's check if the line is part of a type of block
         foreach ($this->_blockList as $block) {
@@ -130,6 +102,7 @@ class Renderer
                 // block must be cloned so it can be change its internal values
                 $block = clone $block;
             }
+
             if ($block->isStarting($line)) {
                 $found = true;
                 // we open the new block
@@ -137,30 +110,55 @@ class Renderer
                     // if we have to close now the block, we close.
                     $block->open();
                     $block->validateLine();
-                    $this->documentGenerator->addBlock($block->close());
-                    $this->_currentBlock = null;
-                } else {
-                    $this->_currentBlock = $block;
-                    $this->_currentBlock->open();
-                    $this->_currentBlock->validateLine();
+                    $this->nextLine($linesIterator);
+
+                    return $block->close();
                 }
+                $block->open();
                 break;
             }
         }
-        if (!$found) {
+        if ($found) {
+            $block->validateLine();
+            $this->nextLine($linesIterator);
+            // we loop over all lines
+            while ($linesIterator->valid()) {
+                $line = $linesIterator->current();
+                if ($block->isAccepting($line)) {
+                    // the line is part of the block
+                    $block->validateLine();
+                    $this->nextLine($linesIterator);
+                } else {
+                    // the line is not part of the block, we close it.
+                    break;
+                }
+            }
+
+            return $block->close();
+        } else {
+            // no block found, we use a default block
             if (trim($line) == '') {
-                $this->documentGenerator->addBlock(new Generator\SingleLineBlock());
+                $blockGenerator = new Generator\SingleLineBlock();
             } elseif ($defaultBlock = $this->documentGenerator->getDefaultBlock()) {
                 $defaultBlock->isStarting($line);
                 $defaultBlock->open();
                 $defaultBlock->validateLine();
-                $this->documentGenerator->addBlock($defaultBlock->close());
+                $blockGenerator = $defaultBlock->close();
             } else {
-                $blockLine = new Generator\SingleLineBlock($this->inlineParser->parse($line));
-                $this->documentGenerator->addBlock($blockLine);
+                $blockGenerator = new Generator\SingleLineBlock($this->inlineParser->parse($line));
             }
-            $this->_currentBlock = null;
+            $this->nextLine($linesIterator);
+
+            return $blockGenerator;
         }
+    }
+
+    protected function nextLine($linesIterator)
+    {
+        if ($this->inlineParser->error) {
+            $this->errors[$linesIterator->key() + 1] = $linesIterator->current();
+        }
+        $linesIterator->next();
     }
 
     /**
