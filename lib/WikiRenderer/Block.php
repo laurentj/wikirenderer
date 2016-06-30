@@ -41,6 +41,9 @@ abstract class Block
     /** @var bool  True if the block object must be cloned. Warning: True by default. */
     protected $_mustClone = true;
 
+    /** @var bool True if the block allows child block */
+    protected $_allowChild = false;
+
     /**
      * @var \WikiRenderer\Generator\BlockGeneratorInterface
      */
@@ -77,6 +80,15 @@ abstract class Block
         return preg_match($this->regexp, $string, $this->_detectMatch);
     }
 
+    public function allowsChildBlocks()
+    {
+        return $this->_allowChild;
+    }
+
+    public function addChildBlock(\WikiRenderer\Generator\GeneratorInterface $child)
+    {
+    }
+
     /**
      * Called when the parser wants to use this block, after detecing
      * that the block correspond to a line.
@@ -103,10 +115,7 @@ abstract class Block
      * the call of isAccepting(). This method should then take care of the line
      * given tho the isAccepting() method.
      */
-    public function validateLine()
-    {
-        $this->generator->addContent($this->_renderInlineTag($this->_detectMatch[1]));
-    }
+    abstract public function validateLine();
 
     /**
      * Called when the parser wants to close this block, after it discovers

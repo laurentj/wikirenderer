@@ -77,8 +77,14 @@ class Renderer
 
         while ($linesIterator->valid()) {
             $line = $linesIterator->current();
-            $blockGen = $this->parseBlock($linesIterator);
-            $this->documentGenerator->addBlock($blockGen);
+            $blockGen = $this->parseBlock($linesIterator, '');
+            if (is_object($blockGen)) {
+                $this->documentGenerator->addBlock($blockGen);
+            }
+            else {
+                // it should not happen
+                throw new \UnexpectedValueException("Block not recognised");
+            }
         }
 
         $result = $this->documentGenerator->generate();
@@ -92,9 +98,21 @@ class Renderer
         return $this->config->onParse($result);
     }
 
-    protected function parseBlock($linesIterator)
+    const NO_LINE_PREFIXED = 1;
+    const NO_CHILD_BLOCK = 2;
+
+    protected function parseBlock($linesIterator, $linePrefix)
     {
         $line = $linesIterator->current();
+        if ($linePrefix) {
+            if (strpos($line, $linePrefix) === 0) {
+                $line = substr($line, mb_strlen($linePrefix));
+            }
+            else {
+                return self::NO_LINE_PREFIXED;
+            }
+        }
+
         $found = false;
         // let's check if the line is part of a type of block
         foreach ($this->_blockList as $block) {
@@ -111,7 +129,6 @@ class Renderer
                     $block->open();
                     $block->validateLine();
                     $this->nextLine($linesIterator);
-
                     return $block->close();
                 }
                 $block->open();
@@ -119,18 +136,36 @@ class Renderer
             }
         }
         if ($found) {
-            $block->validateLine();
-            $this->nextLine($linesIterator);
-            // we loop over all lines
-            while ($linesIterator->valid()) {
-                $line = $linesIterator->current();
-                if ($block->isAccepting($line)) {
-                    // the line is part of the block
-                    $block->validateLine();
-                    $this->nextLine($linesIterator);
-                } else {
-                    // the line is not part of the block, we close it.
-                    break;
+            if ($block->allowsChildBlocks()) {
+                // we loop over all lines, and try to found child block
+                while ($linesIterator->valid()) {
+                    $subblock = $this->parseBlock($linesIterator, $linePrefix.$block->getLinePrefix());
+                    if (is_object($subblock)) {
+                        $block->addChildBlock($res);
+                    }
+                    else if ($subblock === self::NO_LINE_PREFIXED) {
+                        return $block->close();
+                    }
+                    else {
+                        // it should not happen
+                        throw new \UnexpectedValueException("Block has bizarre line");
+                    }
+                }
+            }
+            else {
+                $block->validateLine();
+                $this->nextLine($linesIterator);
+                // we loop over all lines
+                while ($linesIterator->valid()) {
+                    $line = $linesIterator->current();
+                    if ($block->isAccepting($line)) {
+                        // the line is part of the block
+                        $block->validateLine();
+                        $this->nextLine($linesIterator);
+                    } else {
+                        // the line is not part of the block, we close it.
+                        break;
+                    }
                 }
             }
 
