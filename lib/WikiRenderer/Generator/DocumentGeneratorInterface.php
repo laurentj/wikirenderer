@@ -45,7 +45,7 @@ interface DocumentGeneratorInterface extends BlocksContainerInterface
      *
      * @return BlockGeneratorInterface
      */
-    public function getDefaultBlock();
+    public function getDefaultBlock(InlineGeneratorInterface $inlineContent);
 
     /**
      * retrieve meta data stored by parsers

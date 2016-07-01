@@ -63,9 +63,9 @@ abstract class AbstractDocumentGenerator implements \WikiRenderer\Generator\Docu
         throw new \Exception('unknown block generator '.$type);
     }
 
-    public function getDefaultBlock()
+    public function getDefaultBlock(InlineGeneratorInterface $inlineContent)
     {
-        return;
+        return null;
     }
 
     public function clear()

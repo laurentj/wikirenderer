@@ -82,8 +82,18 @@ class Renderer
                 $this->documentGenerator->addBlock($blockGen);
             }
             else {
-                // it should not happen
-                throw new \UnexpectedValueException("Block not recognised");
+                // no block found, we use a default block
+                if (trim($line) == '') {
+                    $blockGenerator = new Generator\SingleLineBlock();
+                } else {
+                    $inline = $this->inlineParser->parse($line);
+                    $blockGenerator = $this->documentGenerator->getDefaultBlock($inline);
+                    if (!$blockGenerator) {
+                        $blockGenerator = new Generator\SingleLineBlock($inline);
+                    }
+                }
+                $this->documentGenerator->addBlock($blockGenerator);
+                $this->nextLine($linesIterator);
             }
         }
 

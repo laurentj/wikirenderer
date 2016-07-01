@@ -13,9 +13,12 @@ namespace WikiRenderer\Generator\Docbook;
 
 class Document extends \WikiRenderer\Generator\AbstractDocumentGenerator
 {
-    public function getDefaultBlock()
+    public function getDefaultBlock(\WikiRenderer\Generator\InlineGeneratorInterface $inlineContent)
     {
-        return $this->config->blockGenerators['para'];
+        $class = $this->config->blockGenerators['para'];
+        $block = new $class();
+        $block->addLine($inlineContent);
+        return $block;
     }
 
     protected $containersStack = array();
