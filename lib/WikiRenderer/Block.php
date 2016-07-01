@@ -44,6 +44,8 @@ abstract class Block
     /** @var bool True if the block allows child block */
     protected $_allowChild = false;
 
+    protected $linePrefix = '';
+
     /**
      * @var \WikiRenderer\Generator\BlockGeneratorInterface
      */
@@ -85,6 +87,14 @@ abstract class Block
         return $this->_allowChild;
     }
 
+    /**
+     * @return array list of block type
+     */
+    public function getAuthorizedChildBlocks()
+    {
+        return array();
+    }
+
     public function addChildBlock(\WikiRenderer\Generator\GeneratorInterface $child)
     {
     }
@@ -108,6 +118,11 @@ abstract class Block
     public function isAccepting($string)
     {
         return preg_match($this->regexp, $string, $this->_detectMatch);
+    }
+
+
+    public function getLinePrefix() {
+        return $this->linePrefix;
     }
 
     /**

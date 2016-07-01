@@ -111,21 +111,19 @@ class Renderer
     const NO_LINE_PREFIXED = 1;
     const NO_CHILD_BLOCK = 2;
 
-    protected function parseBlock($linesIterator, $linePrefix)
+    protected function parseBlock($linesIterator, $linePrefix = '', $autorizedBlocks = null)
     {
-        $line = $linesIterator->current();
-        if ($linePrefix) {
-            if (strpos($line, $linePrefix) === 0) {
-                $line = substr($line, mb_strlen($linePrefix));
-            }
-            else {
-                return self::NO_LINE_PREFIXED;
-            }
+        $line = $this->currentLine($linesIterator, $linePrefix);
+        if (!is_string($line)) {
+            return $line;
         }
 
         $found = false;
         // let's check if the line is part of a type of block
         foreach ($this->_blockList as $block) {
+            if ($autorizedBlocks && !in_array($block->type, $autorizedBlocks)) {
+                continue;
+            }
             if ($block->mustClone()) {
                 // block must be cloned so it can be change its internal values
                 $block = clone $block;
@@ -145,57 +143,48 @@ class Renderer
                 break;
             }
         }
-        if ($found) {
-            if ($block->allowsChildBlocks()) {
-                // we loop over all lines, and try to found child block
-                while ($linesIterator->valid()) {
-                    $subblock = $this->parseBlock($linesIterator, $linePrefix.$block->getLinePrefix());
-                    if (is_object($subblock)) {
-                        $block->addChildBlock($res);
-                    }
-                    else if ($subblock === self::NO_LINE_PREFIXED) {
+        if (!$found) {
+            return null;
+        }
+        if ($block->allowsChildBlocks()) {
+            // we loop over all lines, and try to found child block
+            while ($linesIterator->valid()) {
+                $subblock = $this->parseBlock($linesIterator,
+                                              $linePrefix.$block->getLinePrefix(),
+                                              $block->getAuthorizedChildBlocks());
+                if (is_object($subblock)) {
+                    $block->addChildBlock($subblock);
+                }
+                else if ($subblock === self::NO_LINE_PREFIXED) {
+                    return $block->close();
+                }
+                else {
+                    $line = $this->currentLine($linesIterator, $linePrefix);
+                    if (!is_string($line) || !$block->isAccepting($line)) {
                         return $block->close();
                     }
-                    else {
-                        // it should not happen
-                        throw new \UnexpectedValueException("Block has bizarre line");
-                    }
+                    $block->validateLine();
+                    $this->nextLine($linesIterator);
                 }
             }
-            else {
+        }
+        else {
+            $block->validateLine();
+            $this->nextLine($linesIterator);
+            // we loop over all lines
+            while ($linesIterator->valid()) {
+                $line = $this->currentLine($linesIterator, $linePrefix);
+                if (!is_string($line) || !$block->isAccepting($line)) {
+                    // the line is not part of the block, we close it.
+                    break;
+                }
+                // the line is part of the block
                 $block->validateLine();
                 $this->nextLine($linesIterator);
-                // we loop over all lines
-                while ($linesIterator->valid()) {
-                    $line = $linesIterator->current();
-                    if ($block->isAccepting($line)) {
-                        // the line is part of the block
-                        $block->validateLine();
-                        $this->nextLine($linesIterator);
-                    } else {
-                        // the line is not part of the block, we close it.
-                        break;
-                    }
-                }
             }
-
-            return $block->close();
-        } else {
-            // no block found, we use a default block
-            if (trim($line) == '') {
-                $blockGenerator = new Generator\SingleLineBlock();
-            } elseif ($defaultBlock = $this->documentGenerator->getDefaultBlock()) {
-                $defaultBlock->isStarting($line);
-                $defaultBlock->open();
-                $defaultBlock->validateLine();
-                $blockGenerator = $defaultBlock->close();
-            } else {
-                $blockGenerator = new Generator\SingleLineBlock($this->inlineParser->parse($line));
-            }
-            $this->nextLine($linesIterator);
-
-            return $blockGenerator;
         }
+
+        return $block->close();
     }
 
     protected function nextLine($linesIterator)
@@ -204,6 +193,17 @@ class Renderer
             $this->errors[$linesIterator->key() + 1] = $linesIterator->current();
         }
         $linesIterator->next();
+    }
+
+    protected function currentLine($linesIterator, $linePrefix) {
+        $line = $linesIterator->current();
+        if ($linePrefix) {
+            if (!preg_match('/^'.$linePrefix.'(.*)$/', $line, $m)) {
+                return self::NO_LINE_PREFIXED;
+            }
+            $line = $m[1];
+        }
+        return $line;
     }
 
     /**
