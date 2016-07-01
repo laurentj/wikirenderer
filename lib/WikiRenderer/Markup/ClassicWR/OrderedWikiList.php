@@ -15,7 +15,8 @@ namespace WikiRenderer\Markup\ClassicWR;
 /**
  * Parse a list block.
  */
-class WikiList extends \WikiRenderer\Markup\WR3\WikiList
+class OrderedWikiList extends \WikiRenderer\Markup\WR3\OrderedWikiList
 {
-    protected $regexp = "/^([\*#-]+)\s?(.*)/";
+    protected $regexp = "/^(#)\s?(.*)/";
+    protected $linePrefix = "#\s?";
 }

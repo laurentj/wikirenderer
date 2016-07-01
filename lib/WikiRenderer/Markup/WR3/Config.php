@@ -59,7 +59,8 @@ class Config extends \WikiRenderer\Config
     /** List of block parsers. */
     public $blocktags = array(
         '\WikiRenderer\Markup\WR3\Title',
-        '\WikiRenderer\Markup\WR3\WikiList',
+        '\WikiRenderer\Markup\WR3\OrderedWikiList',
+        '\WikiRenderer\Markup\WR3\UnorderedWikiList',
         '\WikiRenderer\Markup\WR3\Pre',
         '\WikiRenderer\Markup\WR3\Hr',
         '\WikiRenderer\Markup\WR3\Blockquote',
