@@ -30,6 +30,10 @@
       <file>dokuwiki_inlineParserTest.php</file>
     </testsuite>
 
+    <testsuite name="Markdown syntax">
+        <file>markdownHtmlTest.php</file>
+    </testsuite>
+
     <testsuite name="Trac syntax">
         <file>trac_blocksTest.php</file>
         <file>trac_inlinesTest.php</file>

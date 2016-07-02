@@ -1,0 +1,1 @@
+["[foo *bar][ref]\n\n[ref]: \/uri","<p><a href=\"\/uri\">foo *bar<\/a><\/p>"]

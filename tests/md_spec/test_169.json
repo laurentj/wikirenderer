@@ -1,0 +1,1 @@
+["[foo]\n\n[foo]: first\n[foo]: second","<p><a href=\"first\">foo<\/a><\/p>"]
