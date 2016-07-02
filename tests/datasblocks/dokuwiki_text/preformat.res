@@ -19,11 +19,12 @@ Pellentesque sodales laoreet est.
         luctus luctus. Aliquam nec lacus. Integer egestas.
 
 
+
     Lorem ipsum dolor **sit amet**,
     consectetuer adipiscing elit. Cras interdum.
     Donec dictum.     Sed fringilla.
     Duis feugiat //pharetra tortor//. Nulla facilisi.
-    
+
 
     
     /**
@@ -35,13 +36,13 @@ Pellentesque sodales laoreet est.
             System.out.println("Hello **World**!"); //Display //the string.
         }
     }
-    
+
 
     Lorem ipsum dolor **sit amet**,
     consectetuer adipiscing elit. Cras interdum.
     Donec dictum.     Sed fringilla.
     Duis feugiat //pharetra tortor//. Nulla facilisi.
-    
+
 
     
     /**
@@ -53,7 +54,7 @@ Pellentesque sodales laoreet est.
             System.out.println("Hello **World**!"); //Display //the string.
         }
     }
-    
+
 
 mysource.java:
     
@@ -66,14 +67,14 @@ mysource.java:
             System.out.println("Hello **World**!"); //Display //the string.
         }
     }
-    
+
 
 mytext.txt:
     
     consectetuer adipiscing elit. Cras interdum.
     Donec dictum.     Sed fringilla.
     Duis feugiat //pharetra tortor//. Nulla facilisi.
-    
+
 
     
     This is some inline HTML

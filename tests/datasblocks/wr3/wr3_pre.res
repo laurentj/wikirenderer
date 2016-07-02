@@ -6,6 +6,7 @@ Phasellus non eros sit amet sem tristique laoreet.
      pellentesque dictum,
 tristique in, tristique quis, erat.
 In in erat ut urna vulputate vestibulum. Aenean justo.
-  </pre>
+  
+</pre>
 
 <p>Mauris sit amet massa at neque pretium dapibus.</p>

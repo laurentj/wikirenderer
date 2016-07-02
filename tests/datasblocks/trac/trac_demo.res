@@ -40,7 +40,8 @@ libero metus laoreet libero, in gravida purus nunc quis orci.
 gravida varius. Vivamus fringilla, neque ac suscipit vehicula,
 	  
 libero metus laoreet libero, in gravida purus nunc quis orci.
-qdqd </pre>
+qdqd 
+</pre>
 
 <blockquote><p>Phasellus non eros sit amet sem tristique laoreet.</p>
 <blockquote><p>Nam mi wisi, pellentesque dictum,

@@ -73,10 +73,7 @@ class SyntaxHighlighting implements \WikiRenderer\Generator\BlockSyntaxHighlight
         }
         $text .= '>';
         foreach ($this->lines as $k => $line) {
-            if ($k > 0) {
-                $text .= "\n";
-            }
-            $text .= htmlspecialchars($line);
+            $text .= htmlspecialchars($line)."\n";
         }
         $text .= '</code></pre>';
 

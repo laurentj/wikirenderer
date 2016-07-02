@@ -62,10 +62,7 @@ class SyntaxHighlighting implements \WikiRenderer\Generator\BlockSyntaxHighlight
             $text .= $this->indentation.$this->filename.":\n";
         }
         foreach ($this->lines as $k => $line) {
-            if ($k > 0) {
-                $text .= "\n";
-            }
-            $text .= $this->indentation.'    '.$line;
+            $text .= $this->indentation.'    '.$line."\n";
         }
 
         return $text;

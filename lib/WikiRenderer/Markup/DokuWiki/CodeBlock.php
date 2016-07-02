@@ -26,6 +26,8 @@ class CodeBlock extends NoWiki
             $args = preg_split("/\s+/", $this->_args[1], 2);
             $this->generator->setSyntaxType($args[0]);
         }
-        $this->generator->addLine($this->_detectMatch);
+        if (!$this->closeTagDetected || $this->_detectMatch != '') {
+            $this->generator->addLine($this->_detectMatch);
+        }
     }
 }

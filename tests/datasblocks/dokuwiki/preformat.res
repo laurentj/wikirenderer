@@ -16,7 +16,8 @@ Pellentesque sodales laoreet est.</p>
 <pre>    Nulla varius egestas risus. Duis
         sollicitudin tempor arcu.
       Mauris porta leo id dui
-    luctus luctus. Aliquam nec lacus. Integer egestas.</pre>
+    luctus luctus. Aliquam nec lacus. Integer egestas.
+</pre>
 
 
 <pre><code>Lorem ipsum dolor **sit amet**,

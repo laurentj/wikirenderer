@@ -100,6 +100,8 @@ class Pre extends \WikiRenderer\Block
             }
             $this->checkType = false;
         }
-        $this->generator->addLine($this->_detectMatch);
+        if (!$this->closeTagDetected || $this->_detectMatch != '') {
+            $this->generator->addLine($this->_detectMatch);
+        }
     }
 }

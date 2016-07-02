@@ -20,7 +20,7 @@ class classicwr_seriesTest extends PHPUnit_Framework_TestCase {
         $wr = new \WikiRenderer\Renderer($generator, $markupConfig);
         foreach($list as $k=> $t){
             $res = $wr->render($t[0]);
-            $this->assertEquals($t[2], $res);
+            $this->assertEquals($t[2], $res, 'test '.$k);
         }
     }
 

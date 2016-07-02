@@ -45,10 +45,7 @@ class Preformated implements \WikiRenderer\Generator\BlockOfRawLinesInterface
         }
 
         foreach ($this->lines as $k => $line) {
-            if ($k > 0) {
-                $text .= "\n";
-            }
-            $text .= htmlspecialchars($line, ENT_XML1);
+            $text .= htmlspecialchars($line, ENT_XML1)."\n";
         }
         $text .= '</'.$this->dbTagName.'>';
 

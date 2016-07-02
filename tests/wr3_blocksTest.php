@@ -73,7 +73,7 @@ class WR3TestsBlocks extends PHPUnit_Framework_TestCase {
         $wr = new \WikiRenderer\Renderer($generator, $markupConfig);
 
         $source = '<code>foo</code>';
-        $expected = '<pre>foo</pre>';
+        $expected = "<pre>foo\n</pre>";
 
         $result = $wr->render($source);
         $this->assertEquals($expected, $result);
@@ -81,7 +81,8 @@ class WR3TestsBlocks extends PHPUnit_Framework_TestCase {
 
         $source = "<code>foo</code>
 __bar__";
-        $expected = "<pre>foo</pre>
+        $expected = "<pre>foo
+</pre>
 <p><strong>bar</strong></p>";
 
         $result = $wr->render($source);
@@ -93,7 +94,8 @@ __bar__";
         $source = "__bar__
 <code>foo</code>";
         $expected = "<p><strong>bar</strong></p>
-<pre>foo</pre>";
+<pre>foo
+</pre>";
 
         $result = $wr->render($source);
         $this->assertEquals($expected, $result);

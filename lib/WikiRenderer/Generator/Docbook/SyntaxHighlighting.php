@@ -71,10 +71,7 @@ class SyntaxHighlighting implements \WikiRenderer\Generator\BlockSyntaxHighlight
             $text .= '<filename>'.htmlspecialchars($this->filename, ENT_XML1)."</filename>\n";
         }
         foreach ($this->lines as $k => $line) {
-            if ($k > 0) {
-                $text .= "\n";
-            }
-            $text .= htmlspecialchars($line, ENT_XML1);
+            $text .= htmlspecialchars($line, ENT_XML1)."\n";
         }
         $text .= '</programlisting>';
 

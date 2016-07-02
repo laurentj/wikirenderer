@@ -31,6 +31,8 @@ class File extends NoWiki
                 $this->generator->setFileName($args[1]);
             }
         }
-        $this->generator->addLine($this->_detectMatch);
+        if (!$this->closeTagDetected || $this->_detectMatch != '') {
+            $this->generator->addLine($this->_detectMatch);
+        }
     }
 }

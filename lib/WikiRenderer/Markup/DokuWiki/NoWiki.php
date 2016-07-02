@@ -51,7 +51,9 @@ class NoWiki extends \WikiRenderer\Block
 
     public function validateLine()
     {
-        $this->generator->addLine($this->_detectMatch);
+        if (!$this->closeTagDetected || $this->_detectMatch != '') {
+            $this->generator->addLine($this->_detectMatch);
+        }
     }
 
     public function isAccepting($string)

@@ -62,7 +62,8 @@ File dbgheap.c
 Line 1044
 
 Expression: _CrtIsValidHeapPointer(pUserData)
-...</pre>
+...
+</pre>
 <p>Au final j\'ai bien un fichier cert.txt qui est créé mais il est désespérément vide.</p>
 
 <p>Quelqu\'un l\'a-t-il déjà rencontré et/ou saurait-il de quoi ça peut venir ? Et surtout comment résoudre ce problème ?</p>
@@ -87,7 +88,8 @@ Pour désactiver un progressmeter en undetermined, il faut mettre sa value à 0%
 </p>',
     2 => '<p>Changer sa valeur :</p>
 
-<pre>document.getElementById(\'wait\').setAttribute(\'value\',\'10%\');</pre>
+<pre>document.getElementById(\'wait\').setAttribute(\'value\',\'10%\');
+</pre>
 
 <p>Pour désactiver un progressmeter en undetermined, il faut mettre sa value à 0%, et changer son mode à &quot;determined&quot;</p>',
   ),
@@ -190,9 +192,11 @@ var corps = &quot;pseudo=&quot;+login+&quot;&amp;mot_de_passe=&quot;+pass;
 quand la console javascript te dit que ta fonction n\'est pas définie, c\'est qu\'il y a une erreur de syntaxe quelque part.
 </p>',
     2 => '<p>remplace</p>
-<pre>var corps = &quot;pseudo=&quot;+login&quot;&amp;mot_de_passe=&quot;+pass;</pre>
+<pre>var corps = &quot;pseudo=&quot;+login&quot;&amp;mot_de_passe=&quot;+pass;
+</pre>
 <p>par</p>
-<pre>var corps = &quot;pseudo=&quot;+login+&quot;&amp;mot_de_passe=&quot;+pass;</pre>
+<pre>var corps = &quot;pseudo=&quot;+login+&quot;&amp;mot_de_passe=&quot;+pass;
+</pre>
 
 <p>quand la console javascript te dit que ta fonction n\'est pas définie, c\'est qu\'il y a une erreur de syntaxe quelque part.</p>',
   ),
@@ -229,7 +233,8 @@ Merci d\'avance.
 
 <p>Quand je fais comme ça par exemple (donc méthode 2) :</p>
 <pre>var x=window.frames[\'nomIfr\'].document;
-var y=x.body.textContent;</pre>
+var y=x.body.textContent;
+</pre>
 
 <p>ça marche pas, mais si je crée une extension et que j\'utilise une url chrome://, ça fonctionne nickel (quoique, y\'a pas moyen d\'obtenir le code source HTML de la page, pas seulement le texte ?)...
 Donc, suis-je vraiment obligé d\'être en chrome:// ?</p>
@@ -319,17 +324,20 @@ Voilà, merci d\'avance pour vos réponses.
 <ul>
 <li>comment fait-on pour utiliser un fichier dtd avec un fichier xul ?</li></ul>
 <p>J\'ai essayé ça dans mon fichier xul (les deux fichiers sont dans le même repertoire) : </p>
-<pre>&lt;!DOCTYPE window SYSTEM &quot;exemple1.dtd&quot;&gt;</pre>
+<pre>&lt;!DOCTYPE window SYSTEM &quot;exemple1.dtd&quot;&gt;
+</pre>
 
 <p>Mais lorsque je charge ma page, j\'ai une erreur : </p>
 <pre>Emplacement : file:///G:/testxul/exemple1.xul
 Numéro de ligne 7, Colonne 3 :	
 	&lt;button label=&quot;&amp;exemple.1.hello;&quot; /&gt;
---^</pre>
+--^
+</pre>
 
 <ul>
 <li>Faut il obligatoirement pointer vers un fichier qui se trouve dans le <strong>chrome</strong> :</li></ul>
-<pre>&lt;!DOCTYPE window SYSTEM &quot;chrome://exemple1/locale/exemple1.dtd&quot;&gt;</pre>
+<pre>&lt;!DOCTYPE window SYSTEM &quot;chrome://exemple1/locale/exemple1.dtd&quot;&gt;
+</pre>
 <p>Dans ce cas faut-il que je développe directement dans le <strong>chrome</strong> et que je déclare l\'application dans le fichier <strong>installed-chrome.txt</strong>.</p>
 
 <ul>
@@ -715,7 +723,8 @@ chrome
     --&gt; montest (dir)
           ----&gt; montest.xul
           ----&gt; montest.js
-          ----&gt; montest.rdf</pre>
+          ----&gt; montest.rdf
+</pre>
 
 <p>Le bouton fonctionne bien mais cest lappel au composant qui me renvoi Une erreur.
 Erreur : uncaught exception: Permission refusée d\'obtenir la propriété UnnamedClass.classes</p>
@@ -747,7 +756,8 @@ montest.xul</p>
 
   &lt;button id=&quot;copier-button&quot;   label=&quot;Copier fichier&quot; default=&quot;true&quot;
   onclick=&quot;copyFile(\'C:/testfile.txt\',\'C:/PerfLogs\');&quot; /&gt;
-&lt;/window&gt;</pre>
+&lt;/window&gt;
+</pre>
 
 <p>//////////////////
 montest.js</p>
@@ -770,7 +780,8 @@ montest.js</p>
      aDir.initWithPath(destdir);
      // Au final, on copie le fichier sans le renommer
      aFile.copyTo(aDir,null);
-  }</pre>
+  }
+</pre>
 
 <p>///////////////
 montest.rdf</p>
@@ -790,11 +801,13 @@ montest.rdf</p>
           chrome:name=&quot;montest&quot;
           chrome:extension=&quot;true&quot;/&gt;
 
-&lt;/RDF:RDF&gt;</pre>
+&lt;/RDF:RDF&gt;
+</pre>
 
 <p>merci de votre aide</p>
 
-<pre>macgile</pre>
+<pre>macgile
+</pre>
 
 
 ',
@@ -910,7 +923,8 @@ soit les deux onglets contiennent le résultat de l\'action avec le paramètre &
     &lt;iframe src=&quot;action.do?type=onglet2&quot; width=&quot;1024&quot; height=&quot;550&quot;/&gt;
   &lt;/tabpanel&gt;
  &lt;/tabpanels&gt;
-&lt;/tabbox&gt;</pre>
+&lt;/tabbox&gt;
+</pre>
 <p>&lt;/tabcontrol&gt;</p>
 
 <p>merci pour votre aide.</p>
@@ -1020,7 +1034,8 @@ Je souhaite incorporer dans une page xul plusieurs scrollbox contenant du SVG.</
 +-----------------+      BP OK
 --------------------------------
      Status bar
---------------------------------</pre>
+--------------------------------
+</pre>
 
 <p>Je ne vois pas dans quel objet inclure mon bloc de SVG...
 Pour faire bien il me faudrait une scrollbox par exemple, mais sur
@@ -1072,7 +1087,8 @@ top.document.getElementById(\'content\')
 </pre>',
     2 => '<p>Bon j\'ai trouvé en fait c\'est tout bête ...</p>
 
-<pre>top.document.getElementById(\'content\')</pre>',
+<pre>top.document.getElementById(\'content\')
+</pre>',
   ),
   26 => 
   array (
@@ -1576,7 +1592,8 @@ if (xmlrequete.readyState==4) {
 } 
 xmlrequete.open(&quot;GET&quot;, &quot;get_notes.php&quot;);
 xmlrequete.onreadystatechange=test;
-xmlrequete.send(null);</pre>
+xmlrequete.send(null);
+</pre>
 
 <p>Merci beaucoup à vous... et aussi énormément au débuggeur Javascript intégré à mozilla qui est juste... génial !!!</p>',
   ),
@@ -1729,7 +1746,8 @@ for(var i=0; i &lt; nodelist.length; i++) {
     var valeur2 = document.evaluate(&quot;valeur2/text()&quot;,node,null,0,null);
 alert(&quot;valeur1=&quot; + valeur1.iterateNext().nodeValue + &quot;\\n&quot; + &quot;valeur2=&quot; + valeur2.iterateNext().nodeValue);
          }
-}</pre>
+}
+</pre>
 
 <p>Deux choses :</p>
 <ul>
@@ -1778,13 +1796,15 @@ Par contre il est tout à fait possible de récuperer les données qu\'il y a da
 <pre>&lt;iframe src=&quot;toto.xul&quot; id=&quot;maframe&quot;&gt;
    &lt;bla /&gt;
     &lt;rebla /&gt;
- &lt;/iframe&gt;</pre>
+ &lt;/iframe&gt;
+</pre>
 
 <p>Les balise bla et rebla seront ignorées par le navigateur.</p>
 
 <p>Par contre il est tout à fait possible de récuperer les données qu\'il y a dans toto.xul avec le DOM. Ça sera un truc du genre :</p>
 
-<pre> document.getElementById(\'maframe\').document.getElement....</pre>
+<pre> document.getElementById(\'maframe\').document.getElement....
+</pre>
 
 
 ',
@@ -1839,7 +1859,8 @@ Je sais, je fais ma sauce dans mon coin, sur ce post... :S
 
 <p><em>In order to configure Mozilla to enable the use of these security privileges, you must set the preference signed.applets.codebase_principal_support to true. You can do this either by using about:config to add the boolean preference, or modifying the user.js preferences file in your Mozilla profile directory to contain the line :</em></p>
 
-<pre>user_pref(&quot;signed.applets.codebase_principal_support&quot;, true);</pre>
+<pre>user_pref(&quot;signed.applets.codebase_principal_support&quot;, true);
+</pre>
 
 <p>ref: <a href="http://bclary.com/2004/07/10/spider/content/spider/spider-help.html">http://bclary.com/2004/07/10/spider/cont(..)</a></p>
 
@@ -1918,7 +1939,8 @@ Merci d\'avance
 
 <p>Je cherche à comprendre la syntaxe utilisée dans le constructeur de la searchbar de firefox (cf search.xml de browser.jar)...</p>
 
-<pre>setTimeout(function(a) { a.initialize(); }, 0, this);</pre>
+<pre>setTimeout(function(a) { a.initialize(); }, 0, this);
+</pre>
 
 <p>Quelle est l\'utilité du setTimeout : pourquoi n\'appelle-t-on pas la fonction this.initialize() directement dans le constructeur ? quel est l\'intérêt de cette syntaxe ?</p>
 
@@ -2155,7 +2177,8 @@ Qu\'en pensez-vous ?
         // unchecked
         col6Cell.setAttribute(&quot;src&quot;, &quot;chrome://global/skin/checkbox/cbox.gif&quot;);
   }
-}</pre>
+}
+</pre>
 
 
 <p>Je ne vois pas ce qui cloche ! Si je mets la ligne <code>alert(&quot;Valeur de la cellule&quot;)</code> en commentaire, ça ne marche plus. D\'où mon idée d\'un problème de timing ou de rafraichissement...</p>
@@ -2245,7 +2268,8 @@ En cadeau, un petit bout de mon code :
 		&lt;svg:line x1=&quot;15&quot; y1=&quot;15&quot; x2=&quot;80&quot; y2=&quot;80&quot; stroke=&quot;blue&quot; stroke-width=&quot;1&quot;/&gt;
 		&lt;svg:line x1=&quot;100&quot; y1=&quot;15&quot; x2=&quot;40&quot; y2=&quot;35&quot; stroke=&quot;red&quot; stroke-width=&quot;1&quot;/&gt;
 	&lt;/svg:svg&gt;
-&lt;/stack&gt;</pre>
+&lt;/stack&gt;
+</pre>
 
 <p>(le html:div, seul moyen trouvé pour empêcher l\'étirement des éléments)</p>',
   ),
@@ -2551,7 +2575,8 @@ Attention, il faut que ce soit sous une app chrome (ou un plugin).</p>
 	&lt;button label=&quot;Upload&quot; oncommand=&quot;onUpload();&quot;/&gt;
 &lt;/hbox&gt;
 
-&lt;/window&gt;</pre>
+&lt;/window&gt;
+</pre>
 
 <p>Cet exemple a été testé sou Firefox 1.0 .</p>
 ',
@@ -2590,6 +2615,7 @@ je suis tjr dans mon extension firefox avec mon interface faite en xul dont un b
  {
 document.bgColor = &quot;#000000&quot;;
  }
+
 </pre>
 <p>c\'est tout bête, mais ca marche pas, sachant que lorsque je clique sur le bouton la méthode est bien appelée je l\'ai testé avec un alert.
 merci encore.</p>',
@@ -2685,7 +2711,8 @@ Pour ton histoire de lenteur, je ne sais pas si c\'est du à mozilla ou ton code
 <pre>var treeView = {
   getCellText : function(row,column){
     return datas[row][column];
- },</pre>
+ },
+</pre>
 
 <p>Toi tu as besoin d\'un arbre hierarchique.
 En fait lors de l\'affichage du ligne par ligne, le tree va aussi appeler la méthode iscontainer(row) de ton objet, pour déterminer si la ligne courante est un conteneur, donc si elle contient des fils: à toi donc de renvoyer true ou false en fonction de ça. Dans le même genre, tu as getLevel(row).</p>
@@ -2739,7 +2766,8 @@ firefox -chrome chrome://ton_appli/content/
 
 <p>Ensuite, pour lancer directement l\'appli :</p>
 
-<pre>firefox -chrome chrome://ton_appli/content/</pre>
+<pre>firefox -chrome chrome://ton_appli/content/
+</pre>
 
 
 ',
@@ -3339,7 +3367,8 @@ hidden=&quot;false&quot;
 persist=&quot;hidden&quot;
 style=&quot;background-color:#FF8000&quot;&gt;
     ...
-  &lt;/toolbar&gt;</pre>
+  &lt;/toolbar&gt;
+</pre>
 
 <p>quelqu\'un serait-il pourquoi?
 et il y a t-il une solution?
@@ -3419,7 +3448,8 @@ HTML--+---P
               |
               +----B    (c\'est)
               |
-              +----text  (bien)</pre>
+              +----text  (bien)
+</pre>
 
 <p>Impossible de distinger le text \'SOLARIS\' du text \'bien\' (qui n\'ont pas le meme numero de fils sur l\'objet P) meme en mettant un addevent sur l\'objet text. 
 La je tombe en ruine et commmence a mépuisé sur le idee =o(</p>',
@@ -3454,7 +3484,8 @@ David
     2 => '<p>Salut,</p>
 
 <p>il marche tres bien le windows.close(); sous FireFox (sous la suite Mozilla aussi d\'ailleurs). Par contre toi, tu ne lances pas ton application comme une application chrome, tu devrais la lancer comme ceçi:</p>
-<pre>/ton_chemin/firefox.exe -chrome &quot;chrome://findfile/content/findfile.xul&quot;</pre>
+<pre>/ton_chemin/firefox.exe -chrome &quot;chrome://findfile/content/findfile.xul&quot;
+</pre>
 
 <p>avec çà tu as vraiment lancer le &quot;protocole&quot; chrome. Bien sûr, tu devra avoir installer ton appli XUL comme préciser ici: <a href="http://xulfr.org/wiki/ConfigurerMozillaPourDevelopper">http://xulfr.org/wiki/ConfigurerMozillaP(..)</a> Lis surtout le chap 3</p>
 
@@ -3572,7 +3603,8 @@ var clip = Components.classes[&quot;@mozilla.org/widget/clipboard;1&quot;]
 .getService(clipid);
 if (!clip) return false;
 
-clip.setData(trans,null,clipid.kGlobalClipboard);</pre>
+clip.setData(trans,null,clipid.kGlobalClipboard);
+</pre>
 
 <p>Le problème, c\'est que la console javascript de Mozilla me retourne l\'erreur : <em>Erreur : uncaught exception: Permission refusée d\'obtenir la propriété UnnamedClass.classes</em></p>
 
@@ -3827,7 +3859,8 @@ Merci d\'avance
    &lt;option&gt;m&lt;sup&gt;3&lt;/sup&gt;&lt;/option&gt;
   &lt;/select&gt;
  &lt;/p&gt;
-&lt;/form&gt;</pre>
+&lt;/form&gt;
+</pre>
 
 <p>malheureusement, cela n\'a pas fonctionné : cela n\'affiche à l\'écran que les noeuds textes qui descendent du noeud &lt;option&gt;, et ce aussi bien dans la case de choix que dans le menu déroulant (m2 au lieu de m² pour m&lt;sup&gt;2&lt;/sup&gt;).</p>
 
@@ -3841,7 +3874,8 @@ Merci d\'avance
    &lt;menuitem label=&quot;m&quot;/&gt;
   &lt;/menupopup&gt;
  &lt;/menulist&gt;
-&lt;/box&gt;</pre>
+&lt;/box&gt;
+</pre>
 
 <p>Le problème en xul est que label est un attribut de menuitem (alors que option était un élément en html et xhtml). Il semble donc impossible d\'utiliser &lt;sub&gt;, &lt;sup&gt; ou autres balises mathml à l\'interieur.</p>
 
@@ -3877,7 +3911,8 @@ Alors que je veux l\'installer &quot;moa&quot;  :(
 </p>',
     2 => '<p>En effet, j\'avais pas vu au depart que mon logiciel de compression me créer un repertoire supplémentaire dans le .jar. 
 Mais ce n\'est pas ici que la saga s\'arrete! Maintenant il compile correctement mais quand je réouvre mozilla il m\'affiche:</p>
-<pre>Cet element sera desinstallé lors du prochain démarage de Firefox</pre>
+<pre>Cet element sera desinstallé lors du prochain démarage de Firefox
+</pre>
 
 <p>Alors que je veux l\'installer &quot;moa&quot;  :(</p>
 ',
@@ -4293,13 +4328,15 @@ var treeView = {
    getRowProperties: function(row,props){},
    getCellProperties: function(row,col,props){},
    getColumnProperties: function(colid,col,props){}
-};</pre>
+};
+</pre>
 
 <pre>function setView()
 {
    document.getElementById(\'my-tree\').view=treeView;
 }
-&lt;/script&gt;</pre>
+&lt;/script&gt;
+</pre>
 
 <pre>&lt;tree id=&quot;my-tree&quot; flex=&quot;1&quot;&gt;
  &lt;treecols&gt;
@@ -4307,7 +4344,8 @@ var treeView = {
    &lt;treecol id=&quot;datecol&quot; label=&quot;Date&quot; flex=&quot;1&quot;/&gt;
  &lt;/treecols&gt;
  &lt;treechildren/&gt;
-&lt;/tree&gt;</pre>
+&lt;/tree&gt;
+</pre>
 
 <p>marche!
 et j\'ai besoin de treechildren!!!</p>
@@ -4318,7 +4356,8 @@ et j\'ai besoin de treechildren!!!</p>
 
 <p>voici donc (la partie de) mon code:</p>
 <pre>&lt;groupbox orient=&quot;horizontal&quot; style=&quot;width: 90em; height: 300px;&quot;&gt;
-     &lt;caption label=&quot;WBS Union - Interco&quot;/&gt;</pre>
+     &lt;caption label=&quot;WBS Union - Interco&quot;/&gt;
+</pre>
 
 <pre>&lt;tree id=&quot;IntercoTree&quot; flags=&quot;dont-build-content&quot; style=&quot;width: 59em; height: 200px;&quot; multiple=&quot;true&quot; onclick=&quot;showIntercoDetailValues2(this);&quot;
      datasources=&quot;WBS.rdf&quot; ref=&quot;http://127.0.0.1:8080/reporting/WBSSS&quot; enableColumnDrag=&quot;true&quot;&gt;
@@ -4358,11 +4397,12 @@ et j\'ai besoin de treechildren!!!</p>
      &lt;/treeitem&gt;
    &lt;/treechildren&gt;
     &lt;/template&gt;
-   &lt;/tree&gt;</pre>
+   &lt;/tree&gt;
+</pre>
 
 <p>Ca serait cool si quelqun pouvait m\'aider
 Merci!!!
 Cyril</p>
 ',
   ),
-); ?>
+);

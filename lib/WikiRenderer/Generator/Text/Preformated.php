@@ -41,10 +41,7 @@ class Preformated implements \WikiRenderer\Generator\BlockOfRawLinesInterface
         $text = '';
 
         foreach ($this->lines as $k => $line) {
-            if ($k > 0) {
-                $text .= "\n";
-            }
-            $text .= $this->indentation.$this->preformatIndent.$line;
+            $text .= $this->indentation.$this->preformatIndent.$line."\n";
         }
 
         return $text;

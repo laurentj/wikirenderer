@@ -36,7 +36,8 @@
 
 <p>cursus et, <code>vulputate in</code>, eros.</p>
 <pre>Phasellus ??placerat|semper neque??.
-In hac habitasse platea dictumst.</pre>
+In hac habitasse platea dictumst.
+</pre>
 
 <p>Fusce sagittis, mi eu elementum lobortis, augue enim tristique ante, sed varius urna mauris sed erat.</p>
 <hr/>
