@@ -47,7 +47,7 @@ diam nec justo.</p>';
 
     function getTestsList() {
         $list = array();
-        for($i=1; $i < 620; $i++) {
+        for($i=1; $i < 4; $i++) {
             $list[] = array('test_'.$i.'.json');
         }
         return $list;
@@ -65,6 +65,6 @@ diam nec justo.</p>';
 
         list($md, $html) = json_decode(file_get_contents(__DIR__.'/md_spec/'.$file));
         $result = $wr->render($md);
-        $this->assertEquals($html, $result, 'test '.$file."\n".$md);
+        $this->assertEquals($html, $result, 'test '.$file."\n`````\n".$md."\n````\n");
     }
 }
