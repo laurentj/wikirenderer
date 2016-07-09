@@ -17,6 +17,5 @@ namespace WikiRenderer\Markup\ClassicWR;
  */
 class UnorderedWikiList extends \WikiRenderer\Markup\WR3\UnorderedWikiList
 {
-    protected $regexp = "/^([\*-])\s?(.*)/";
-    protected $linePrefix = "[\*-]\s?";
+    protected $regexp = "/^([\\*-])\\s?(.*)/";
 }

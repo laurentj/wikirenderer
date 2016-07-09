@@ -44,8 +44,6 @@ abstract class Block
     /** @var bool True if the block allows child block */
     protected $_allowChild = false;
 
-    protected $linePrefix = '';
-
     /**
      * @var \WikiRenderer\Generator\BlockGeneratorInterface
      */
@@ -73,8 +71,8 @@ abstract class Block
      * to know if the block can be used for the given line.
      * If yes, the open() method will be called.
      *
-     * @param string $string  The string to check.
-     * 
+     * @param string $string The string to check.
+     *
      * @return bool True if the line is part of the block.
      */
     public function isStarting($string)
@@ -110,9 +108,9 @@ abstract class Block
     /**
      * Says if the given line belongs to the block. Called by the parser
      * to know if the block can be used for the given line.
-     * 
-     * @param string $string  The string to check.
-     * 
+     *
+     * @param string $string The string to check.
+     *
      * @return bool True if the line is part of the block.
      */
     public function isAccepting($string)
@@ -120,9 +118,25 @@ abstract class Block
         return preg_match($this->regexp, $string, $this->_detectMatch);
     }
 
+    /**
+     * When a block is accepting a line (after the call of isAccepting), and
+     * if it accepts sub-blocks, the parser could call it to retrieve the part
+     * of the line corresponding to the content of the block
+     * @return string
+     */
+    public function getLineContentForSubBlocks()
+    {
+        return '';
+    }
 
-    public function getLinePrefix() {
-        return $this->linePrefix;
+    /**
+     * When a block is accepting a line, and if it accepts sub-blocks,
+     * it returns the part of the line that is belongs to the block syntax
+     * @return string
+     */
+    public function getLinePrefixForSubBlocks()
+    {
+        return '';
     }
 
     /**
@@ -159,8 +173,8 @@ abstract class Block
      * The parser instancies the block at the start of the parsing to call
      * the isAccepting method on each line. In most of case, the block should
      * be cloned when it is used for lines. But in particular case, depending
-     * of the markup, it may not be cloned. 
-     * 
+     * of the markup, it may not be cloned.
+     *
      * @return bool true if the block should be cloned each time
      *              it is opened.
      */

@@ -19,8 +19,7 @@ use WikiRenderer\Generator\BlockListInterface;
  */
 class UnorderedWikiList extends OrderedWikiList
 {
-    protected $regexp = "/^(\s*[\*-])\s?(.*)/";
-    protected $linePrefix = "\s*[\*-]\s?";
+    protected $regexp = "/^(\\s*[\\*-])\\s?(.*)/";
 
     protected function getTypeList() {
         return BlockListInterface::UNORDERED_LIST;

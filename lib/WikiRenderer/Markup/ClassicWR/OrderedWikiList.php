@@ -17,6 +17,5 @@ namespace WikiRenderer\Markup\ClassicWR;
  */
 class OrderedWikiList extends \WikiRenderer\Markup\WR3\OrderedWikiList
 {
-    protected $regexp = "/^(#)\s?(.*)/";
-    protected $linePrefix = "#\s?";
+    protected $regexp = "/^(#)\\s?(.*)/";
 }

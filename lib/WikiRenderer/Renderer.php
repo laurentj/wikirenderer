@@ -43,6 +43,11 @@ class Renderer
     protected $documentGenerator;
 
     /**
+     * list of blocks/sub-blocks used on the current line
+     */
+    protected $blockStacks = array();
+
+    /**
      * Constructor. Prepare the engine.
      *
      * @param \WikiRenderer\Config $config A configuration object. If it is not present, it uses wr3_to_xhtml rules.
@@ -77,24 +82,25 @@ class Renderer
 
         while ($linesIterator->valid()) {
             $line = $linesIterator->current();
-            $blockGen = $this->parseBlock($linesIterator, '');
-            if (is_object($blockGen)) {
-                $this->documentGenerator->addBlock($blockGen);
-            }
-            else {
-                // no block found, we use a default block
-                if (trim($line) == '') {
-                    $blockGenerator = new Generator\SingleLineBlock();
-                } else {
-                    $inline = $this->inlineParser->parse($line);
-                    $blockGenerator = $this->documentGenerator->getDefaultBlock($inline);
-                    if (!$blockGenerator) {
-                        $blockGenerator = new Generator\SingleLineBlock($inline);
-                    }
+            if ($line != '') {
+                $blockGen = $this->parseBlock($linesIterator, '', null);
+                if (is_object($blockGen)) {
+                    $this->documentGenerator->addBlock($blockGen);
+                    continue;
                 }
-                $this->documentGenerator->addBlock($blockGenerator);
-                $this->nextLine($linesIterator);
             }
+            // no block found, we use a default block
+            if (trim($line) == '') {
+                $blockGenerator = new Generator\SingleLineBlock();
+            } else {
+                $inline = $this->inlineParser->parse($line);
+                $blockGenerator = $this->documentGenerator->getDefaultBlock($inline);
+                if (!$blockGenerator) {
+                    $blockGenerator = new Generator\SingleLineBlock($inline);
+                }
+            }
+            $this->documentGenerator->addBlock($blockGenerator);
+            $this->nextLine($linesIterator);
         }
 
         $result = $this->documentGenerator->generate();
@@ -111,17 +117,18 @@ class Renderer
     const NO_LINE_PREFIXED = 1;
     const NO_CHILD_BLOCK = 2;
 
-    protected function parseBlock($linesIterator, $linePrefix = '', $autorizedBlocks = null)
+    protected function parseBlock(\ArrayIterator $linesIterator, $firstLinePrefix = '', \WikiRenderer\Block $parentBlock = null)
     {
-        $line = $this->currentLine($linesIterator, $linePrefix);
+        $line = $this->currentLine($linesIterator, $firstLinePrefix);
         if (!is_string($line)) {
             return $line;
         }
 
+        $authorizedBlocks = ($parentBlock? $parentBlock->getAuthorizedChildBlocks():null);
         $found = false;
         // let's check if the line is part of a type of block
         foreach ($this->_blockList as $block) {
-            if ($autorizedBlocks && !in_array($block->type, $autorizedBlocks)) {
+            if ($authorizedBlocks && !in_array($block->type, $authorizedBlocks)) {
                 continue;
             }
             if ($block->mustClone()) {
@@ -147,33 +154,40 @@ class Renderer
             return null;
         }
         if ($block->allowsChildBlocks()) {
+            $this->blockStacks[] = $block;
             // we loop over all lines, and try to found child block
             while ($linesIterator->valid()) {
                 $subblock = $this->parseBlock($linesIterator,
-                                              $linePrefix.$block->getLinePrefix(),
-                                              $block->getAuthorizedChildBlocks());
+                                              $firstLinePrefix.$block->getLinePrefixForSubBlocks(),
+                                              $block);
                 if (is_object($subblock)) {
                     $block->addChildBlock($subblock);
                 }
                 else if ($subblock === self::NO_LINE_PREFIXED) {
+                    array_pop($this->blockStacks);
                     return $block->close();
                 }
                 else {
-                    $line = $this->currentLine($linesIterator, $linePrefix);
+                    // no sub blocks was found, this is probably just
+                    // a line of text, or a new line that starts a sub section of the block
+                    array_pop($this->blockStacks);
+                    $line = $this->currentLine($linesIterator, $firstLinePrefix);
                     if (!is_string($line) || !$block->isAccepting($line)) {
                         return $block->close();
                     }
+                    $this->blockStacks[] = $block;
                     $block->validateLine();
                     $this->nextLine($linesIterator);
                 }
             }
+            array_pop($this->blockStacks);
         }
         else {
             $block->validateLine();
             $this->nextLine($linesIterator);
             // we loop over all lines
             while ($linesIterator->valid()) {
-                $line = $this->currentLine($linesIterator, $linePrefix);
+                $line = $this->currentLine($linesIterator, '');
                 if (!is_string($line) || !$block->isAccepting($line)) {
                     // the line is not part of the block, we close it.
                     break;
@@ -183,11 +197,10 @@ class Renderer
                 $this->nextLine($linesIterator);
             }
         }
-
         return $block->close();
     }
 
-    protected function nextLine($linesIterator)
+    protected function nextLine(\ArrayIterator $linesIterator)
     {
         if ($this->inlineParser->error) {
             $this->errors[$linesIterator->key() + 1] = $linesIterator->current();
@@ -195,13 +208,27 @@ class Renderer
         $linesIterator->next();
     }
 
-    protected function currentLine($linesIterator, $linePrefix) {
+    protected function currentLine(\ArrayIterator $linesIterator, $firstLinePrefix = '') {
         $line = $linesIterator->current();
-        if ($linePrefix) {
-            if (!preg_match('/^'.$linePrefix.'(.*)$/', $line, $m)) {
+        if ($firstLinePrefix) {
+            // for first line of a block, the line can start by a pattern
+            // that belongs to a parent block.
+            if (mb_strpos($line, $firstLinePrefix) !== 0) {
                 return self::NO_LINE_PREFIXED;
             }
-            $line = $m[1];
+            $line = mb_substr($line, mb_strlen($firstLinePrefix));
+        }
+        else {
+            //for line inside blocks, we should ask to parent block
+            // if the line is still ok for them
+            foreach($this->blockStacks as $block) {
+                if ($block->isAccepting($line)) {
+                    $line = $block->getLineContentForSubBlocks();
+                }
+                else {
+                    return self::NO_LINE_PREFIXED;
+                }
+            }
         }
         return $line;
     }

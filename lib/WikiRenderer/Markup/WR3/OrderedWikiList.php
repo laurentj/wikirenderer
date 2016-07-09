@@ -21,8 +21,7 @@ class OrderedWikiList extends \WikiRenderer\Block
 {
     public $type = 'list';
 
-    protected $regexp = "/^(\s*#)\s?(.*)/";
-    protected $linePrefix = "\s*#\s?";
+    protected $regexp = "/^(\\s*#)\\s?(.*)/";
 
     protected $_allowChild = true;
 
@@ -47,6 +46,16 @@ class OrderedWikiList extends \WikiRenderer\Block
             return false;
         }
         return true;
+    }
+
+    public function getLineContentForSubBlocks()
+    {
+        return $this->_detectMatch[2];
+    }
+
+    public function getLinePrefixForSubBlocks()
+    {
+        return $this->_detectMatch[1];
     }
 
     public function addChildBlock(\WikiRenderer\Generator\GeneratorInterface $child)
