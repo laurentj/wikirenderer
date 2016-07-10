@@ -47,7 +47,7 @@ diam nec justo.</p>';
 
     function getTestsList() {
         $list = array();
-        for($i=1; $i < 4; $i++) {
+        for($i=1; $i < 5; $i++) {
             $list[] = array('test_'.$i.'.json');
         }
         return $list;

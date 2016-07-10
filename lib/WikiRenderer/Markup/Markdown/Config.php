@@ -24,10 +24,10 @@ class Config extends \WikiRenderer\Config
     );
 
     public $blocktags = array(
-        /*'\WikiRenderer\Markup\Markdown\Title',
+        /*'\WikiRenderer\Markup\Markdown\Title',*/
         '\WikiRenderer\Markup\Markdown\OrderedWikiList',
         '\WikiRenderer\Markup\Markdown\UnorderedWikiList',
-        '\WikiRenderer\Markup\Markdown\Blockquote',
+        /*'\WikiRenderer\Markup\Markdown\Blockquote',
         '\WikiRenderer\Markup\Markdown\Table',
         '\WikiRenderer\Markup\Markdown\SyntaxHighlight',
         '\WikiRenderer\Markup\Markdown\File',

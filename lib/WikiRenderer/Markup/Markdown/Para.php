@@ -22,21 +22,21 @@ class Para extends \WikiRenderer\Block
         return $this->isAccepting($line);
     }
 
-    public function isAccepting($string)
+    public function isAccepting($line)
     {
-        if ($string == '') {
+        if ($line == '') {
             return false;
         }
-        if (preg_match("/^\s*[^\\w].*/u", $string)) {
+        if (preg_match("/^\\s*[^\\w\\s].*/u", $line)) {
             return false;
         }
-        $this->_detectMatch = array($string, $string);
+        $this->_detectMatch = array($line, $line);
         return true;
     }
 
     public function validateLine()
     {
-        $this->generator->addLine($this->_renderInlineTag($this->_detectMatch[1]));
+        $this->generator->addLine($this->_renderInlineTag(trim($this->_detectMatch[1])));
     }
 }
 
