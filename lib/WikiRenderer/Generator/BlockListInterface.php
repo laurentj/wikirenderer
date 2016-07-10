@@ -36,4 +36,10 @@ interface BlockListInterface extends BlockGeneratorInterface
      * @param GeneratorInterface $content
      */
     public function addContentToItem(GeneratorInterface $content, $itemIndex = -1);
+
+    /**
+     * Set the index number of the first item, in the case of an ORDERED_LIST
+     * @param integer $number the number
+     */
+    public function setStartIndex($number);
 }

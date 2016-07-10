@@ -22,6 +22,8 @@ class DocbookList implements BlockListInterface
 
     protected $id = '';
 
+    protected $startIndex = 1;
+
     public function setId($id)
     {
         $this->id = $id;
@@ -55,15 +57,19 @@ class DocbookList implements BlockListInterface
 
     public function generate()
     {
+        $attr = '';
         if ($this->listType == $this::ORDERED_LIST) {
             $tag = 'orderedlist';
+            if ($this->startIndex != 1) {
+                $attr = ' startingnumber="'.$this->startIndex.'"';
+            }
         } else {
             $tag = 'itemizedlist';
         }
         if ($this->id) {
-            $text = '<'.$tag.' xml:id="'.htmlspecialchars($this->id, ENT_XML1).'">';
+            $text = '<'.$tag.$attr.' xml:id="'.htmlspecialchars($this->id, ENT_XML1).'">';
         } else {
-            $text = '<'.$tag.'>';
+            $text = '<'.$tag.$attr.'>';
         }
 
         foreach ($this->items as $k => $generators) {
@@ -92,5 +98,9 @@ class DocbookList implements BlockListInterface
         $text .= '</'.$tag.'>';
 
         return $text;
+    }
+
+    public function setStartIndex($number) {
+        $this->startIndex = $number;
     }
 }

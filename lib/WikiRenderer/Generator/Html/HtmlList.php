@@ -22,6 +22,8 @@ class HtmlList implements BlockListInterface
 
     protected $id = '';
 
+    protected $startIndex = 1;
+
     public function setId($id)
     {
         $this->id = $id;
@@ -55,15 +57,19 @@ class HtmlList implements BlockListInterface
 
     public function generate()
     {
+        $attr = '';
         if ($this->listType == $this::ORDERED_LIST) {
             $tag = 'ol';
+            if ($this->startIndex != 1) {
+                $attr = ' start="'.$this->startIndex.'"';
+            }
         } else {
             $tag = 'ul';
         }
         if ($this->id) {
-            $text = '<'.$tag.' id="'.htmlspecialchars($this->id).'">';
+            $text = '<'.$tag.$attr.' id="'.htmlspecialchars($this->id).'">';
         } else {
-            $text = '<'.$tag.'>';
+            $text = '<'.$tag.$attr.'>';
         }
 
         foreach ($this->items as $k => $generators) {
@@ -89,5 +95,9 @@ class HtmlList implements BlockListInterface
         $text .= "\n".'</'.$tag.'>';
 
         return $text;
+    }
+
+    public function setStartIndex($number) {
+        $this->startIndex = $number;
     }
 }

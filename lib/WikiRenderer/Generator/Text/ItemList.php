@@ -22,6 +22,8 @@ class ItemList implements BlockListInterface
 
     protected $id = '';
 
+    protected $startIndex = 1;
+
     public function setId($id)
     {
         $this->id = $id;
@@ -63,7 +65,7 @@ class ItemList implements BlockListInterface
             $text .= $this->indentation;
 
             if ($this->listType == $this::ORDERED_LIST) {
-                $text .= ($k + 1).'. ';
+                $text .= ($k + $this->startIndex).'. ';
             } else {
                 $text .= '- ';
             }
@@ -85,4 +87,8 @@ class ItemList implements BlockListInterface
     }
 
     public $indentation = '';
+
+    public function setStartIndex($number) {
+        $this->startIndex = $number;
+    }
 }
