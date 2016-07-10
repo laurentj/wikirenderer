@@ -281,7 +281,8 @@ J\'ai un pb et ça fait plusieurs jours que je passe dessus sans le résoudre, d
 <ul>
 
 <li>comment fait-on pour utiliser un fichier dtd avec un fichier xul ?
-</li></ul>
+</li>
+</ul>
 
 <p>
 J\'ai essayé ça dans mon fichier xul (les deux fichiers sont dans le même repertoire) : 
@@ -301,7 +302,8 @@ Numéro de ligne 7, Colonne 3 :
 <ul>
 
 <li>Faut il obligatoirement pointer vers un fichier qui se trouve dans le <strong>chrome</strong> :
-</li></ul>
+</li>
+</ul>
 
 <pre>
 &lt;!DOCTYPE window SYSTEM &quot;chrome://exemple1/locale/exemple1.dtd&quot;&gt;
@@ -312,7 +314,8 @@ Dans ce cas faut-il que je développe directement dans le <strong>chrome</strong
 <ul>
 
 <li>Dernière question : L\'utilisation des fichiers dtd est-elle possible dans le développement d\'appli web ?
-</li></ul>
+</li>
+</ul>
 
 <p>
 Voilà, merci d\'avance pour vos réponses.
@@ -322,7 +325,8 @@ Voilà, merci d\'avance pour vos réponses.
 <p>J\'ai un pb et ça fait plusieurs jours que je passe dessus sans le résoudre, donc je viens demander de l\'aide : </p>
 
 <ul>
-<li>comment fait-on pour utiliser un fichier dtd avec un fichier xul ?</li></ul>
+<li>comment fait-on pour utiliser un fichier dtd avec un fichier xul ?</li>
+</ul>
 <p>J\'ai essayé ça dans mon fichier xul (les deux fichiers sont dans le même repertoire) : </p>
 <pre>&lt;!DOCTYPE window SYSTEM &quot;exemple1.dtd&quot;&gt;
 </pre>
@@ -335,13 +339,15 @@ Numéro de ligne 7, Colonne 3 :
 </pre>
 
 <ul>
-<li>Faut il obligatoirement pointer vers un fichier qui se trouve dans le <strong>chrome</strong> :</li></ul>
+<li>Faut il obligatoirement pointer vers un fichier qui se trouve dans le <strong>chrome</strong> :</li>
+</ul>
 <pre>&lt;!DOCTYPE window SYSTEM &quot;chrome://exemple1/locale/exemple1.dtd&quot;&gt;
 </pre>
 <p>Dans ce cas faut-il que je développe directement dans le <strong>chrome</strong> et que je déclare l\'application dans le fichier <strong>installed-chrome.txt</strong>.</p>
 
 <ul>
-<li>Dernière question : L\'utilisation des fichiers dtd est-elle possible dans le développement d\'appli web ?</li></ul>
+<li>Dernière question : L\'utilisation des fichiers dtd est-elle possible dans le développement d\'appli web ?</li>
+</ul>
 
 <p>Voilà, merci d\'avance pour vos réponses.</p>',
   ),
@@ -1223,7 +1229,8 @@ Il y a des modifs dans:
 <li> toolkit/components/Makefile.in
 </li>
 <li> xpfe/components/Makefile.in
-</li></ul>
+</li>
+</ul>
 
 <p>
 Et toute l\'appli dans un répertoire avec des trucs du genre:
@@ -1237,7 +1244,8 @@ Et toute l\'appli dans un répertoire avec des trucs du genre:
 <li> HelloWorld/base/
 </li>
 <li> HelloWorld/components/
-</li></ul>
+</li>
+</ul>
 
 <p>
 Après base/ (qui contient l\'ui) et components/ (pour les composants XPCom, il y a au moins un pour enregistrer l\'appli et sa ligne de commande) sont à modifier pour faire une appli. Le nom, l\'uuid et les autres détails sont dans mon .mozconfig.
@@ -1259,14 +1267,16 @@ Sinon le tarball des fichiers cités ci-dessus est là: <a href="http://fynl.fre
 <li>config/autoconf.mk.in</li>
 <li>allmakefiles.sh</li>
 <li>toolkit/components/Makefile.in</li>
-<li>xpfe/components/Makefile.in</li></ul>
+<li>xpfe/components/Makefile.in</li>
+</ul>
 
 <p>Et toute l\'appli dans un répertoire avec des trucs du genre:</p>
 <ul>
 <li>HelloWorld/</li>
 <li>HelloWorld/app/</li>
 <li>HelloWorld/base/</li>
-<li>HelloWorld/components/</li></ul>
+<li>HelloWorld/components/</li>
+</ul>
 
 <p>Après base/ (qui contient l\'ui) et components/ (pour les composants XPCom, il y a au moins un pour enregistrer l\'appli et sa ligne de commande) sont à modifier pour faire une appli. Le nom, l\'uuid et les autres détails sont dans mon .mozconfig.</p>
 
@@ -1381,7 +1391,8 @@ Tout dépend ce que tu veux réaliser :
 <li> réaliser une application qui necessite Mozilla (comme xulmaker par exemple)
 </li>
 <li> réaliser une application autonome, embarquant la plateforme
-</li></ul>
+</li>
+</ul>
 
 <p>
 Dans le premier cas, tu peux effectivement avoir quelques soucis de compatibilité. Le jeu de balise XUL évolue sans cesse (même si il tend à se stabiliser). C\'est malheureusement un choix des développeurs de mozilla. Mais ça va changer.
@@ -1394,7 +1405,8 @@ Dans le deuxième cas : le problème ne se pose même pas. Tu te choisi une vers
 
 <ul>
 <li>réaliser une application qui necessite Mozilla (comme xulmaker par exemple)</li>
-<li>réaliser une application autonome, embarquant la plateforme</li></ul>
+<li>réaliser une application autonome, embarquant la plateforme</li>
+</ul>
 
 
 <p>Dans le premier cas, tu peux effectivement avoir quelques soucis de compatibilité. Le jeu de balise XUL évolue sans cesse (même si il tend à se stabiliser). C\'est malheureusement un choix des développeurs de mozilla. Mais ça va changer.
@@ -1720,7 +1732,8 @@ Deux choses :
 <li> <code>if (valeur1 == &quot;B&quot;)</code> ne fonctionne pas, doit y avoir une astuce toute con, mais j\'ai pas trouvé :-(
 </li>
 <li> ici, je récupère des infos en partant d\'une string, comment obtenir cette string à partir d\'un fichier XML ?
-</li></ul>
+</li>
+</ul>
 
 <p>
 Merci
@@ -1752,7 +1765,8 @@ alert(&quot;valeur1=&quot; + valeur1.iterateNext().nodeValue + &quot;\\n&quot; +
 <p>Deux choses :</p>
 <ul>
 <li><code>if (valeur1 == &quot;B&quot;)</code> ne fonctionne pas, doit y avoir une astuce toute con, mais j\'ai pas trouvé :-(</li>
-<li>ici, je récupère des infos en partant d\'une string, comment obtenir cette string à partir d\'un fichier XML ?</li></ul>
+<li>ici, je récupère des infos en partant d\'une string, comment obtenir cette string à partir d\'un fichier XML ?</li>
+</ul>
 
 <p>Merci</p>',
   ),
@@ -3183,7 +3197,8 @@ Apres avoir parcourus le toile dans tout les sens, j\'ai testé plusieurs soluti
 <li> placer la dll et le xpt dans le repertoire components avec relancement demozilla
 </li>
 <li> enregistrement avec regxpcom.exe 
-</li></ul>
+</li>
+</ul>
 
 <p>
 et la je bloque.
@@ -3199,7 +3214,8 @@ L\'enregistrement de cette objet ce fait tres bien avec mes differentes version 
 <ul>
 <li>ajout du fichier .autoreg </li>
 <li>placer la dll et le xpt dans le repertoire components avec relancement demozilla</li>
-<li>enregistrement avec regxpcom.exe </li></ul>
+<li>enregistrement avec regxpcom.exe </li>
+</ul>
 
 <p>et la je bloque.
 donc si quelqu\'un à une idée ... je suis preneur  ;-)
@@ -3712,7 +3728,8 @@ Toutefois il y a deux bemols qui doivent retenir ton attention:
 <li>Premierement Xul ne FONCTIONNE que sous Mozilla, et non sous IE.
 </li>
 <li> Deuxiement, a l\'heure actuel il n\'existe pas enormement de documentation (riche comme pourrait etre Java) sur les composants de Gecko. Donc arme toi de patience si tu veux faire des choses en dehors des chantiers battus. 
-</li></ul>
+</li>
+</ul>
 
 <p>
 A part ca, Xul c\'est vraiment de la balle qui tue :)
@@ -3727,7 +3744,8 @@ Theo
 <p>Toutefois il y a deux bemols qui doivent retenir ton attention:</p>
 <ul>
 <li>Premierement Xul ne FONCTIONNE que sous Mozilla, et non sous IE.</li>
-<li>Deuxiement, a l\'heure actuel il n\'existe pas enormement de documentation (riche comme pourrait etre Java) sur les composants de Gecko. Donc arme toi de patience si tu veux faire des choses en dehors des chantiers battus. </li></ul>
+<li>Deuxiement, a l\'heure actuel il n\'existe pas enormement de documentation (riche comme pourrait etre Java) sur les composants de Gecko. Donc arme toi de patience si tu veux faire des choses en dehors des chantiers battus. </li>
+</ul>
 <p>A part ca, Xul c\'est vraiment de la balle qui tue :)
 Salutation,
 Theo</p>',

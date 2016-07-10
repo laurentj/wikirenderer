@@ -20,9 +20,11 @@ Now here is a list</p>
 <li>item 2
 <ul>
 <li>nested item A</li>
-<li>nested item B</li></ul>
+<li>nested item B</li>
+</ul>
 </li>
-<li>item 3</li></ul>
+<li>item 3</li>
+</ul>
 
 <p>Of course, some other wiki 'tags' are available for this syntax, like some <code>codes</code>.</p>
 <div class="footnotes"><h4>Notes</h4>

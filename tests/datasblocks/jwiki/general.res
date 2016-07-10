@@ -22,9 +22,11 @@ Now here is a list</p>
 <ul><li>nested item A
 </li>
 <li>nested item B
-</li></ul>
 </li>
-<li>item 3</li></ul>
+</ul>
+</li>
+<li>item 3</li>
+</ul>
 
 
 <p>Of course, some other wiki 'tags' are available for this syntax. </p></div></div></div></div><div class="footnotes"><h4>Notes</h4><p>[<a href="#rev-footnote-XXX-1" name="footnote-XXX-1" id="footnote-XXX-1">1</a>] this is the foot note</p></div>

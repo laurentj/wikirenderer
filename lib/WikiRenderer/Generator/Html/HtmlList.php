@@ -77,7 +77,7 @@ class HtmlList implements BlockListInterface
             }
             $text .= '</li>';
         }
-        $text .= '</'.$tag.'>';
+        $text .= "\n".'</'.$tag.'>';
 
         return $text;
     }
