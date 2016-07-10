@@ -68,11 +68,20 @@ class HtmlList implements BlockListInterface
 
         foreach ($this->items as $k => $generators) {
             $text .= "\n<li>";
+            $previousWasText = true;
             foreach ($generators as $generator) {
                 if ($generator instanceof \WikiRenderer\Generator\BlockGeneratorInterface) {
-                    $text .= "\n".$generator->generate()."\n";
+                    if ($previousWasText) {
+                        $text .= "\n";
+                    }
+                    $text .= $generator->generate()."\n";
+                    $previousWasText = false;
                 } else {
-                    $text .= $generator->generate();
+                    $words = $generator->generate();
+                    if ($words) {
+                        $text .= $words;
+                        $previousWasText = true;
+                    }
                 }
             }
             $text .= '</li>';
