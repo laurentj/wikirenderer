@@ -15,7 +15,7 @@ namespace WikiRenderer\Markup\Markdown;
  */
 class Pre extends \WikiRenderer\Block
 {
-    public $type = 'pre';
+    public $type = 'syntaxhighlight';
 
     protected $closeTagDetected = false;
 

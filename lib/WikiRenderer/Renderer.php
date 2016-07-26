@@ -132,7 +132,7 @@ class Renderer
                 continue;
             }
             if ($block->mustClone()) {
-                // block must be cloned so it can be change its internal values
+                // block must be cloned so it can change its internal values
                 $block = clone $block;
             }
 
@@ -222,7 +222,7 @@ class Renderer
             //for line inside blocks, we should ask to parent block
             // if the line is still ok for them
             foreach($this->blockStacks as $block) {
-                if ($block->isAccepting($line)) {
+                if ($block->isAcceptingForSubBlocks($line)) {
                     $line = $block->getLineContentForSubBlocks();
                 }
                 else {

@@ -17,21 +17,45 @@ class PreSpace extends \WikiRenderer\Block
 {
     public $type = 'syntaxhighlight';
 
-    protected $closeTagDetected = false;
+    protected $lineContent = '';
 
-    public function isStarting($string)
+    public function isStarting($line)
     {
-        return preg_match("/^( {4,}|\t| +\t)\s*(.*)/", $string, $this->_detectMatch);
+        $res =  preg_match("/^( {4,}|\t| +\t)(.*)/", $line, $m);
+        if ($res) {
+            $expanded = str_replace("\t", "    ", $m[1]);
+            if (strlen($expanded) > 4) {
+                $this->lineContent = substr($m[1], 4).$m[2];
+            }
+            else {
+                $this->lineContent = $m[2];
+            }
+        }
+        return $res;
     }
 
-    public function isAccepting($string)
+    public function isAccepting($line)
     {
-        return preg_match("/^( {4,}|\t)\s*(.*)/", $string, $this->_detectMatch);
+        if ($line == '') {
+            $this->lineContent = '';
+            return true;
+        }
+        $res =  preg_match("/^(\\s+)(.*)/", $line, $m);
+        if ($res) {
+            $expanded = str_replace("\t", "    ", $m[1]);
+            if (strlen($expanded) > 4) {
+                $this->lineContent = substr($m[1], 4).$m[2];
+            }
+            else {
+                $this->lineContent = $m[2];
+            }
+        }
+        return $res;
     }
 
     public function validateLine()
     {
-        $this->generator->addLine($this->_detectMatch[2]);
+        $this->generator->addLine($this->lineContent);
     }
 }
 

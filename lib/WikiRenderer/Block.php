@@ -108,14 +108,35 @@ abstract class Block
     /**
      * Says if the given line belongs to the block. Called by the parser
      * to know if the block can be used for the given line.
+     * No child block was found in this line.
      *
-     * @param string $string The string to check.
+     * @param string $line The line to check. It may be a line truncated
+     *   by parent blocks
      *
      * @return bool True if the line is part of the block.
      */
-    public function isAccepting($string)
+    public function isAccepting($line)
     {
-        return preg_match($this->regexp, $string, $this->_detectMatch);
+        return preg_match($this->regexp, $line, $this->_detectMatch);
+    }
+
+    /**
+     * Says if the given line belongs to the block.
+     *
+     * Called by the parser when parsing a subblock, to be
+     * sure that the current line is belonging to the block
+     * which is the parent block of the current subblock
+     *
+     * It may be called several times for the same line.
+     *
+     * @param string $line The line to check. It may be a line
+     *                     truncated by a parent block.
+     *
+     * @return bool True if the line is part of the block.
+     */
+    public function isAcceptingForSubBlocks($line)
+    {
+        return $this->isAccepting($line);
     }
 
     /**

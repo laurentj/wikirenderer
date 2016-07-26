@@ -15,30 +15,76 @@ use WikiRenderer\Generator\BlockListInterface;
 
 /**
  * Parse a list block.
+ *
+ * case 1: Basic case
+ * ( {0,3})(\d{1,9}[\.\)])(\s{0,4})(.*)
+ * -> indent = length((\s{0,3})(\d{1,9}[\.\)])(\s{0,4}))
+ *
+ * case 2: Item starting with indented code
+ * ( {0,3})(\d{1,9}[\.\)])(\s)(\s{4,})(.*)
+ * -> indent = length(( {0,3})(\d{1,9}[\.\)])(\s))
+ *
+ * case 3: Item starting with a blank line
+ * ( {0,3})(\d{1,9}[\.\)])(\s*)$
+ * -> indent = length(( {0,3})(\d{1,9}[\.\)])\s)
+ *
+ * case 4 : if indentation of one line of a paragraph is < indent
+ * the line is part of the previous paragraph
+ *
+ * changing the bullet/orderered list delimiter change the list
  */
 class OrderedWikiList extends \WikiRenderer\Block
 {
     public $type = 'list';
 
-    protected $regexp = "/^(\\s*)(\\d+\\.)\\s?(.*)/";
+    protected $regexp = "/^( {0,3})(\\d{1,9}[\\.\\)])(\\s*)(.*)/";
 
     protected $_allowChild = true;
 
     protected $previousLineWasEmpty = false;
 
-    protected $firstItemIndent = '';
+    protected $firstItemIndentLength = 0;
+    protected $previousItemIndentLength = 0;
+    protected $itemIndentLength = 0;
     protected $linePrefix = '';
     protected $lineContent = '';
 
     public function isStarting($line)
     {
         if (preg_match($this->regexp, $line, $m)) {
-            $this->linePrefix = $m[1].$m[2];
-            $this->lineContent = $m[3];
-            $this->firstItemIndent = $m[1];
+            $this->setItemIndentation($m);
+            $this->firstItemIndentLength = $this->itemIndentLength;
+            $this->previousItemIndentLength = $this->itemIndentLength;
+            if ($this->getTypeList() == BlockListInterface::ORDERED_LIST) {
+                $this->generator->setStartIndex(intval(substr($m[1], 0 ,-1)));
+            }
             return true;
         }
         return false;
+    }
+
+    protected function setItemIndentation($matches) {
+        $this->linePrefix = $matches[1].$matches[2];
+        $this->lineContent = $matches[4];
+        $this->itemIndentLength = strlen($matches[1])+strlen($matches[2]);
+
+        $indentContent = strlen(str_replace("\t", "    ", $matches[3]));
+        if ($indentContent == 0 || $matches[4] == '') {
+            // case 3: item starting with a blank line
+            $this->itemIndentLength++;
+            $this->linePrefix .= $matches[3];
+        }
+        else if ($indentContent <5) {
+            // case 1: basic case
+            $this->linePrefix .= $matches[3];
+            $this->itemIndentLength += $indentContent;
+        }
+        else {
+            // case 2: item starting with indented code
+            $this->itemIndentLength++;
+            $this->linePrefix .= ' ';
+            $this->lineContent = substr($indentContent, 1).$matches[4];
+        }
     }
 
     public function getLinePrefixForSubBlocks()
@@ -61,38 +107,56 @@ class OrderedWikiList extends \WikiRenderer\Block
         if ($line == '') {
             $this->linePrefix = '';
             $this->lineContent = '';
+            if ($this->previousLineWasEmpty) {
+                // two blank lines interrupt a list
+                return false;
+            }
             $this->previousLineWasEmpty = true;
             return true;
         }
-        if (preg_match("/^(\\s+)(.*)/", $line, $m)) {
+        if (preg_match($this->regexp, $line, $m)) {
+            // a new item is starting
             $this->previousLineWasEmpty = false;
-            if (preg_match($this->regexp, $line, $m2)) {
-                // the line is starting a new list item
-                if ($m2[1] == $this->linePrefix) {
-                    // if the indentation is the same as the first item
-                    // then we are still in the same list
-                    $this->linePrefix = $m2[1].$m2[2];
-                    $this->lineContent = $m2[3];
-                    $this->generator->createItem();
-                }
-                else {
-                    // if the indentation is not the same as the first item
-                    // then a sub list is began
-                    $this->linePrefix = '';
-                    $this->lineContent = $line;
-                }
+            $this->setItemIndentation($m);
+            if ($this->itemIndentLength == $this->firstItemIndentLength) {
+                // if the indentation is the same as the first item
+                // then we are still in the same list
+                $this->generator->createItem();
+                $this->previousItemIndentLength = $this->itemIndentLength;
+                return true;
+            }
+            else if ($this->itemIndentLength < $this->firstItemIndentLength) {
+                // this is an item of a parent list. We can stop
+                return false;
             }
             else {
-                $this->linePrefix = $m[1];
-                $this->lineContent = $m[2];
+                // this is an item of a child list.
+                // we should not be there...
+                throw new \LogicException("new child item in isAccepting???");
             }
-            return true;
-        } else if (!$this->previousLineWasEmpty) {
+        }
+        return false;
+    }
+
+    public function isAcceptingForSubBlocks($line)
+    {
+        if ($line == '') {
             $this->linePrefix = '';
-            $this->lineContent = $line;
+            $this->lineContent = '';
             return true;
         }
-        $this->previousLineWasEmpty = false;
+        if (preg_match("/^(\\s+)(.*)/", $line, $m)) {
+            $expanded = str_replace("\t", "    ", $m[1]);
+            $indentLength = strlen($expanded);
+            if ($indentLength == $this->previousItemIndentLength) {
+                $this->lineContent = $m[2];
+                return true;
+            }
+            else if ($indentLength > $this->previousItemIndentLength) {
+                $this->lineContent = substr($expanded, $this->previousItemIndentLength).$m[2];
+                return true;
+            }
+        }
         return false;
     }
 
@@ -103,9 +167,6 @@ class OrderedWikiList extends \WikiRenderer\Block
 
     public function addChildBlock(\WikiRenderer\Generator\GeneratorInterface $child)
     {
-        /*if (!($child instanceof BlockListInterface)) {
-            $this->generator->createItem();
-        }*/
         $this->generator->addContentToItem($child);
     }
 
