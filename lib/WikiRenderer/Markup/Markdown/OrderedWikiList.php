@@ -12,6 +12,7 @@
 namespace WikiRenderer\Markup\Markdown;
 
 use WikiRenderer\Generator\BlockListInterface;
+use WikiRenderer\StringUtils;
 
 /**
  * Parse a list block.
@@ -51,6 +52,7 @@ class OrderedWikiList extends \WikiRenderer\Block
 
     public function isStarting($line)
     {
+        $line = StringUtils::tabExpand($line);
         if (preg_match($this->regexp, $line, $m)) {
             $this->setItemIndentation($m);
             $this->firstItemIndentLength = $this->itemIndentLength;
@@ -68,7 +70,7 @@ class OrderedWikiList extends \WikiRenderer\Block
         $this->lineContent = $matches[4];
         $this->itemIndentLength = strlen($matches[1])+strlen($matches[2]);
 
-        $indentContent = strlen(str_replace("\t", "    ", $matches[3]));
+        $indentContent = strlen($matches[3]);
         if ($indentContent == 0 || $matches[4] == '') {
             // case 3: item starting with a blank line
             $this->itemIndentLength++;
@@ -114,6 +116,7 @@ class OrderedWikiList extends \WikiRenderer\Block
             $this->previousLineWasEmpty = true;
             return true;
         }
+        $line = StringUtils::tabExpand($line);
         if (preg_match($this->regexp, $line, $m)) {
             // a new item is starting
             $this->previousLineWasEmpty = false;
@@ -145,8 +148,9 @@ class OrderedWikiList extends \WikiRenderer\Block
             $this->lineContent = '';
             return true;
         }
+        $line = StringUtils::tabExpand($line);
         if (preg_match("/^(\\s+)(.*)/", $line, $m)) {
-            $expanded = str_replace("\t", "    ", $m[1]);
+            $expanded = $m[1];
             $indentLength = strlen($expanded);
             if ($indentLength == $this->previousItemIndentLength) {
                 $this->lineContent = $m[2];
@@ -172,7 +176,7 @@ class OrderedWikiList extends \WikiRenderer\Block
 
     public function getAuthorizedChildBlocks()
     {
-        return array('list', 'para', 'pre', 'syntaxhighlight');
+        return array('list', 'para', 'pre', 'syntaxhighlight', 'blockquote');
     }
 
     public function validateLine()

@@ -39,6 +39,8 @@ class BlockQuote implements \WikiRenderer\Generator\BlockBlockQuoteInterface
             $text = '<blockquote>';
         }
 
+        $text .="\n";
+
         $currentPara = null;
         foreach ($this->lines as $generator) {
             if ($generator instanceof \WikiRenderer\Generator\BlockGeneratorInterface) {

@@ -11,6 +11,8 @@
  */
 namespace WikiRenderer\Markup\Markdown;
 
+use WikiRenderer\StringUtils;
+
 /**
  */
 class PreSpace extends \WikiRenderer\Block
@@ -23,9 +25,9 @@ class PreSpace extends \WikiRenderer\Block
     {
         $res =  preg_match("/^( {4,}|\t| +\t)(.*)/", $line, $m);
         if ($res) {
-            $expanded = str_replace("\t", "    ", $m[1]);
+            $expanded = StringUtils::tabExpand($m[1]);
             if (strlen($expanded) > 4) {
-                $this->lineContent = substr($m[1], 4).$m[2];
+                $this->lineContent = substr($expanded, 4).$m[2];
             }
             else {
                 $this->lineContent = $m[2];
@@ -42,9 +44,9 @@ class PreSpace extends \WikiRenderer\Block
         }
         $res =  preg_match("/^(\\s+)(.*)/", $line, $m);
         if ($res) {
-            $expanded = str_replace("\t", "    ", $m[1]);
+            $expanded = StringUtils::tabExpand($m[1]);
             if (strlen($expanded) > 4) {
-                $this->lineContent = substr($m[1], 4).$m[2];
+                $this->lineContent = substr($expanded, 4).$m[2];
             }
             else {
                 $this->lineContent = $m[2];

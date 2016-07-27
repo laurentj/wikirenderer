@@ -156,7 +156,8 @@ Est-ce que ça veut dire qu\'on ne peut pas récupérer de données avec un gete
     1 => '<p>
 Définition :
 </p>
-<blockquote><p>
+<blockquote>
+<p>
 Un cadre qui fonctionne de façon similaire aux iframe du HTML. L\'attribut src permet de spécifier l\'?URI du document source. Le contenu est un document séparé (qui peut être du HTML, du XUL...). <strong>Les enfants de cet élément sont ignorés.</strong>
 </p></blockquote>
 <p>
@@ -164,7 +165,8 @@ Est-ce que ça veut dire qu\'on ne peut pas récupérer de données avec un gete
 </p>',
     2 => '<p>Définition :</p>
 
-<blockquote><p>Un cadre qui fonctionne de façon similaire aux iframe du HTML. L\'attribut src permet de spécifier l\'?URI du document source. Le contenu est un document séparé (qui peut être du HTML, du XUL...). <strong>Les enfants de cet élément sont ignorés.</strong></p></blockquote>
+<blockquote>
+<p>Un cadre qui fonctionne de façon similaire aux iframe du HTML. L\'attribut src permet de spécifier l\'?URI du document source. Le contenu est un document séparé (qui peut être du HTML, du XUL...). <strong>Les enfants de cet élément sont ignorés.</strong></p></blockquote>
 
 <p>Est-ce que ça veut dire qu\'on ne peut pas récupérer de données avec un getelement ?</p>',
   ),
@@ -1135,7 +1137,8 @@ David',
     1 => '<p>
 Jim a écrit:
 </p>
-<blockquote><p>
+<blockquote>
+<p>
 Merci pour la publicité libre ! ! !
 
 
@@ -1151,7 +1154,8 @@ David
 </p>',
     2 => '<p>Jim a écrit:</p>
 
-<blockquote><p>Merci pour la publicité libre ! ! !
+<blockquote>
+<p>Merci pour la publicité libre ! ! !
 
 
 http://www.xugle.com
@@ -2680,7 +2684,8 @@ En fait lors de l\'affichage du ligne par ligne, le tree va aussi appeler la mé
 voir ici [http://www.xulplanet.com/references/xpcomref/ifaces/nsITreeView.html] pour connaître toutes les fonctions que tu peux développer pour indiquer à ton arbre comment réagire lors de l\'affichage.
 
 Pour ton histoire de lenteur, je ne sais pas si c\'est du à mozilla ou ton code.',
-    1 => '<blockquote><p>
+    1 => '<blockquote>
+<p>
  mais je ne comprend pas comment (le truc avec le view) fonctionne
 </p></blockquote>
 <p>
@@ -2711,7 +2716,8 @@ voir ici <a href="http://www.xulplanet.com/references/xpcomref/ifaces/nsITreeVie
 <p>
 Pour ton histoire de lenteur, je ne sais pas si c\'est du à mozilla ou ton code.
 </p>',
-    2 => '<blockquote><p> mais je ne comprend pas comment (le truc avec le view) fonctionne</p></blockquote>
+    2 => '<blockquote>
+<p> mais je ne comprend pas comment (le truc avec le view) fonctionne</p></blockquote>
 
 
 <p>he bien il faut définir un objet avec un certain nombre de méthode qui sont appellées à différents moments de l\'affichage par le tree.</p>
@@ -3049,20 +3055,23 @@ Ben là il n\'y a que la console javascript de mozilla qui va nous aider... quoi
     1 => '<p>
 Cyrare a écrit:
 </p>
-<blockquote><p>
+<blockquote>
+<p>
 J\'ai donc bien mis les types mime oui, (vu que le fichier se lance) et j\'ai mis un chmod à 777 sur le répertoire et ses fichiers pour pas être embêté par ça.
 </p></blockquote>
 <p>
 tu es bien sur de ton type-mime? Le meilleure moyen c\'est dans Mozilla: Affichage-&gt;Informations sur la page-&gt;Onglet Général-&gt;type: là tu dois avoir application/vnd.mozilla.xul+xml
 Parce que si tu as text/xml ou text/html ca ne vas pas deranger Mozilla te t\'afficher la page (il l\'interpretera comme du XML, car ton fichier .xul doit commencer par &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;). C\'est pas parce que ca a l\'air de bien s\'afficher que Mozilla prend ca pour du XUL.
 </p>
-<blockquote><p>
+<blockquote>
+<p>
 Je suis content parce que tu raisonnes comme moi, ça prouve que je suis pas un abruti avec un réponse évidente que je ne vois pas. ;)
 </p></blockquote>
 <p>
 Ou alors on est deux abrutis? ;-)
 </p>
-<blockquote><p>
+<blockquote>
+<p>
 Ce que je me demande, vu que XUL lance bien le fichier (sans le charger) et vu que .status lance une exception, si c\'est pas mon apache qui doit lancer par exemple une information au navigateur (par exemple le status) et qu\'il l\'ommet, ou le fait mal, d\'où l\'erreur.
 </p></blockquote>
 <p>
@@ -3083,7 +3092,8 @@ _j\'etais en mode synchrone et j\'essayais de lire la reponse avant qu\'elle ne 
 <p>
 _Le site auquel je fais une requete ne repond pas. (serveur down donc il ne me renvoie meme pas un code d\'etat)
 </p>
-<blockquote><p>
+<blockquote>
+<p>
 
 Mais dans ce cas, il faudrait que j\'ai accès à ce qui déclanche l\'exception 0x80040111 pour pouvoir changer ça... Et c\'est là où j\'en suis, parce qu\'il n\'y a aucune information de ce type sur le net... :( (Ou alors j\'ai pas trouvé)
 
@@ -3093,16 +3103,19 @@ Ben là il n\'y a que la console javascript de mozilla qui va nous aider... quoi
 </p>',
     2 => '<p>Cyrare a écrit:</p>
 
-<blockquote><p>J\'ai donc bien mis les types mime oui, (vu que le fichier se lance) et j\'ai mis un chmod à 777 sur le répertoire et ses fichiers pour pas être embêté par ça.</p></blockquote>
+<blockquote>
+<p>J\'ai donc bien mis les types mime oui, (vu que le fichier se lance) et j\'ai mis un chmod à 777 sur le répertoire et ses fichiers pour pas être embêté par ça.</p></blockquote>
 
 <p>tu es bien sur de ton type-mime? Le meilleure moyen c\'est dans Mozilla: Affichage-&gt;Informations sur la page-&gt;Onglet Général-&gt;type: là tu dois avoir application/vnd.mozilla.xul+xml
 Parce que si tu as text/xml ou text/html ca ne vas pas deranger Mozilla te t\'afficher la page (il l\'interpretera comme du XML, car ton fichier .xul doit commencer par &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;). C\'est pas parce que ca a l\'air de bien s\'afficher que Mozilla prend ca pour du XUL.</p>
 
-<blockquote><p>Je suis content parce que tu raisonnes comme moi, ça prouve que je suis pas un abruti avec un réponse évidente que je ne vois pas. ;)</p></blockquote>
+<blockquote>
+<p>Je suis content parce que tu raisonnes comme moi, ça prouve que je suis pas un abruti avec un réponse évidente que je ne vois pas. ;)</p></blockquote>
 
 <p>Ou alors on est deux abrutis? ;-)</p>
 
-<blockquote><p>Ce que je me demande, vu que XUL lance bien le fichier (sans le charger) et vu que .status lance une exception, si c\'est pas mon apache qui doit lancer par exemple une information au navigateur (par exemple le status) et qu\'il l\'ommet, ou le fait mal, d\'où l\'erreur.</p></blockquote>
+<blockquote>
+<p>Ce que je me demande, vu que XUL lance bien le fichier (sans le charger) et vu que .status lance une exception, si c\'est pas mon apache qui doit lancer par exemple une information au navigateur (par exemple le status) et qu\'il l\'ommet, ou le fait mal, d\'où l\'erreur.</p></blockquote>
 
 <p>Pour le lancement d\'une requete http il n\'y a jamais de problemes (hormis les privileges), si elle tombe dans le vide ou echoue c\'est a la lecture de le reponse (status ou responseText par exemple) que ca va poser probleme. Et Apache ne peut pas se planter au niveau des codes d\'etat HTTP (200 ou autre), en tous cas c\'est pas de ton ressort ce n\'est pas accessible par httpd.conf. La seul chose dans notre cas ou il peut merdouiller c\'est les type-mimes, mais toi tu attend un responseText , ca devrait marcher a tous les coup ca!!!</p>
 
@@ -3116,7 +3129,8 @@ Parce que si tu as text/xml ou text/html ca ne vas pas deranger Mozilla te t\'af
 
 <p>_Le site auquel je fais une requete ne repond pas. (serveur down donc il ne me renvoie meme pas un code d\'etat)</p>
 
-<blockquote><p>
+<blockquote>
+<p>
 Mais dans ce cas, il faudrait que j\'ai accès à ce qui déclanche l\'exception 0x80040111 pour pouvoir changer ça... Et c\'est là où j\'en suis, parce qu\'il n\'y a aucune information de ce type sur le net... :( (Ou alors j\'ai pas trouvé)
 </p></blockquote>
 
@@ -3148,7 +3162,8 @@ Le plus simple, c\'est que tu ne fasses pas ton appli en java, mais en javascrip
 
 Et pour l\'integrer, il faut en faire une extension (voir [/wiki/ExtensionsFirefox] ) qui contient [des overlays|http://xulfr.org/xulplanet/xultu/overlay.html] dont le rôle est de modifier l\'interface de Firefox (en ajoutant des boutons où tu veux, des items de menu sur le clic droit etc..)
 ',
-    1 => '<blockquote><p>
+    1 => '<blockquote>
+<p>
  Ce que j\'aimerais réaliser, c\'est intégrer cette application à Firefox sous forme d\'une barre d\'outils
 </p></blockquote>
 <p>
@@ -3157,7 +3172,8 @@ Le plus simple, c\'est que tu ne fasses pas ton appli en java, mais en javascrip
 <p>
 Et pour l\'integrer, il faut en faire une extension (voir <a href="/wiki/ExtensionsFirefox">/wiki/ExtensionsFirefox</a> ) qui contient <a href="http://xulfr.org/xulplanet/xultu/overlay.html">des overlays</a> dont le rôle est de modifier l\'interface de Firefox (en ajoutant des boutons où tu veux, des items de menu sur le clic droit etc..)
 </p>',
-    2 => '<blockquote><p> Ce que j\'aimerais réaliser, c\'est intégrer cette application à Firefox sous forme d\'une barre d\'outils</p></blockquote>
+    2 => '<blockquote>
+<p> Ce que j\'aimerais réaliser, c\'est intégrer cette application à Firefox sous forme d\'une barre d\'outils</p></blockquote>
 
 <p>Le plus simple, c\'est que tu ne fasses pas ton appli en java, mais en javascript ou c++ (XPCOM) et XUL. Parce que appeler du Java à partir de tes fichiers javascript, ça va pas être possible je pense.</p>
 
@@ -3761,7 +3777,8 @@ Il n\'y a pas à ma connaissance d\'autres endroits plus "ciblés".
 Pour viser plus large, vous avez [http://fr.lolix.org/] par exemple.
 
 ',
-    1 => '<blockquote><p>
+    1 => '<blockquote>
+<p>
  Pouvez vous m\'indiquer ou chercher ?
 </p></blockquote>
 <p>
@@ -3773,7 +3790,8 @@ Il n\'y a pas à ma connaissance d\'autres endroits plus &quot;ciblés&quot;.
 <p>
 Pour viser plus large, vous avez <a href="http://fr.lolix.org/">http://fr.lolix.org/</a> par exemple.
 </p>',
-    2 => '<blockquote><p> Pouvez vous m\'indiquer ou chercher ?</p></blockquote>
+    2 => '<blockquote>
+<p> Pouvez vous m\'indiquer ou chercher ?</p></blockquote>
 
 <p>Posez votre annonce ici et éventuellement aussi dans la mailing-list.</p>
 

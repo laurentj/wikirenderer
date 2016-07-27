@@ -1,10 +1,13 @@
 <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Cras interdum.
 Donec dictum. Sed fringilla. Duis feugiat pharetra tortor. Nulla facilisi.</p>
 
-<blockquote><p> Phasellus non eros sit amet sem tristique laoreet.</p>
-<blockquote><p> Nam mi wisi, pellentesque dictum,
+<blockquote>
+<p> Phasellus non eros sit amet sem tristique laoreet.</p>
+<blockquote>
+<p> Nam mi wisi, pellentesque dictum,
  tristique in, tristique quis, erat.</p>
-<blockquote><p> In in erat ut urna vulputate vestibulum. Aenean justo.
+<blockquote>
+<p> In in erat ut urna vulputate vestibulum. Aenean justo.
  In quis nisl.</p></blockquote>
 </blockquote>
 <p> Morbi justo libero, pharetra a,
@@ -14,11 +17,15 @@ Donec dictum. Sed fringilla. Duis feugiat pharetra tortor. Nulla facilisi.</p>
 Nulla varius egestas risus. Duis sollicitudin tempor arcu. Mauris porta leo id dui
 luctus luctus. Aliquam nec lacus. Integer egestas.</p>
 
-<blockquote><blockquote><blockquote><p> Phasellus non eros sit amet sem tristique laoreet.
+<blockquote>
+<blockquote>
+<blockquote>
+<p> Phasellus non eros sit amet sem tristique laoreet.
  Nam mi wisi, pellentesque dictum,</p></blockquote>
 <p> tristique in, tristique quis, erat.
  In in erat ut urna vulputate vestibulum. Aenean justo.</p>
-<blockquote><p> In quis nisl.</p></blockquote>
+<blockquote>
+<p> In quis nisl.</p></blockquote>
 </blockquote>
 <p> Morbi justo libero, pharetra a,
  malesuada eget, lacinia in, ligula.</p></blockquote>

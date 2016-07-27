@@ -47,7 +47,8 @@ In hac habitasse platea dictumst.
 <p>Praesent pellentesque, <q lang=" consectetuer imperdiet">augue at</q>, mi metus <cite>dignissim arcu</cite>, sed sodales quam risus eu neque.</p>
 
 <p>Pellentesque euismod.</p>
-<blockquote><p> Curabitur mi. Aenean vitae lectus vel turpis feugiat egestas.
+<blockquote>
+<p> Curabitur mi. Aenean vitae lectus vel turpis feugiat egestas.
  Quisque diam. Maecenas tincidunt tortor sed neque.</p></blockquote>
 
 <p>Mauris nibh. Vivamus tempus est in urna.</p>
