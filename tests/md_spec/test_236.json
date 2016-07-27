@@ -1,1 +1,1 @@
-["    indented code\n\nparagraph\n\n    more code","<pre><code>indented code\n<\/code><\/pre>\n<p>paragraph<\/p>\n<pre><code>more code\n<\/code><\/pre>"]
+["   foo\n\nbar","<p>foo<\/p>\n<p>bar<\/p>"]

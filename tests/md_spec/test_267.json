@@ -1,1 +1,1 @@
-["The number of windows in my house is\n14.  The number of doors is 6.","<p>The number of windows in my house is<\/p>\n<ol start=\"14\">\n<li>The number of doors is 6.<\/li>\n<\/ol>"]
+["- foo\n\n- bar\n\n\n- baz","<ul>\n<li>\n<p>foo<\/p>\n<\/li>\n<li>\n<p>bar<\/p>\n<\/li>\n<li>\n<p>baz<\/p>\n<\/li>\n<\/ul>"]

@@ -1,1 +1,1 @@
-["Foo\n- bar\n- baz","<p>Foo<\/p>\n<ul>\n<li>bar<\/li>\n<li>baz<\/li>\n<\/ul>"]
+["The number of windows in my house is\n1.  The number of doors is 6.","<p>The number of windows in my house is<\/p>\n<ol>\n<li>The number of doors is 6.<\/li>\n<\/ol>"]

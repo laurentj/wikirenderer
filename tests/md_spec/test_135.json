@@ -1,1 +1,1 @@
-["<del>\n\n*foo*\n\n<\/del>","<del>\n<p><em>foo<\/em><\/p>\n<\/del>"]
+["<pre language=\"haskell\"><code>\nimport Text.HTML.TagSoup\n\nmain :: IO ()\nmain = print $ parseTags tags\n<\/code><\/pre>\nokay","<pre language=\"haskell\"><code>\nimport Text.HTML.TagSoup\n\nmain :: IO ()\nmain = print $ parseTags tags\n<\/code><\/pre>\n<p>okay<\/p>"]

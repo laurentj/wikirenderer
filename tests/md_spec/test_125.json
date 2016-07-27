@@ -1,1 +1,1 @@
-["<div class\nfoo","<div class\nfoo"]
+["<div><a href=\"bar\">*foo*<\/a><\/div>","<div><a href=\"bar\">*foo*<\/a><\/div>"]

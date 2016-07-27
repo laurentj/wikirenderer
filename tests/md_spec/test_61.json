@@ -1,1 +1,1 @@
-["Foo\\\n----","<h2>Foo\\<\/h2>"]
+["> Foo\n---","<blockquote>\n<p>Foo<\/p>\n<\/blockquote>\n<hr \/>"]

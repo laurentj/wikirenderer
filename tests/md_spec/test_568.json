@@ -1,1 +1,1 @@
-["<localhost:5001\/foo>","<p><a href=\"localhost:5001\/foo\">localhost:5001\/foo<\/a><\/p>"]
+["<http:\/\/example.com\/\\[\\>","<p><a href=\"http:\/\/example.com\/%5C%5B%5C\">http:\/\/example.com\/\\[\\<\/a><\/p>"]

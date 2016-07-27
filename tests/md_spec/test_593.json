@@ -1,1 +1,1 @@
-["foo <!-- not a comment -- two hyphens -->","<p>foo &lt;!-- not a comment -- two hyphens --&gt;<\/p>"]
+["foo <?php echo $a; ?>","<p>foo <?php echo $a; ?><\/p>"]

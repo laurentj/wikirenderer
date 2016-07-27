@@ -1,1 +1,1 @@
-["[link](\/url \"title \"and\" title\")","<p>[link](\/url &quot;title &quot;and&quot; title&quot;)<\/p>"]
+["[link](   \/uri\n  \"title\"  )","<p><a href=\"\/uri\" title=\"title\">link<\/a><\/p>"]

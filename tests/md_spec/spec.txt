@@ -1,8 +1,8 @@
 ---
 title: CommonMark Spec
 author: John MacFarlane
-version: 0.25
-date: '2016-03-24'
+version: 0.26
+date: '2016-07-15'
 license: '[CC-BY-SA 4.0](http://creativecommons.org/licenses/by-sa/4.0/)'
 ...
 
@@ -336,9 +336,14 @@ the Unicode classes `Pc`, `Pd`, `Pe`, `Pf`, `Pi`, `Po`, or `Ps`.
 ## Tabs
 
 Tabs in lines are not expanded to [spaces].  However,
-in contexts where indentation is significant for the
-document's structure, tabs behave as if they were replaced
-by spaces with a tab stop of 4 characters.
+in contexts where whitespace helps to define block structure,
+tabs behave as if they were replaced by spaces with a tab stop
+of 4 characters.
+
+Thus, for example, a tab can be used instead of four spaces
+in an indented code block.  (Note, however, that internal
+tabs are passed through as literal tabs, not expanded to
+spaces.)
 
 ```````````````````````````````` example
 →foo→baz→→bim
@@ -347,14 +352,12 @@ by spaces with a tab stop of 4 characters.
 </code></pre>
 ````````````````````````````````
 
-
 ```````````````````````````````` example
   →foo→baz→→bim
 .
 <pre><code>foo→baz→→bim
 </code></pre>
 ````````````````````````````````
-
 
 ```````````````````````````````` example
     a→a
@@ -365,6 +368,9 @@ by spaces with a tab stop of 4 characters.
 </code></pre>
 ````````````````````````````````
 
+In the following example, a continuation paragraph of a list
+item is indented with a tab; this has exactly the same effect
+as indentation with four spaces would:
 
 ```````````````````````````````` example
   - foo
@@ -392,6 +398,15 @@ by spaces with a tab stop of 4 characters.
 </li>
 </ul>
 ````````````````````````````````
+
+Normally the `>` that begins a block quote may be followed
+optionally by a space, which is not considered part of the
+content.  In the following case `>` is followed by a tab,
+which is treated as if it were expanded into spaces.
+Since one of theses spaces is considered part of the
+delimiter, `foo` is considered to be indented six spaces
+inside the block quote context, so we get an indented
+code block starting with two spaces.
 
 ```````````````````````````````` example
 >→→foo
@@ -441,6 +456,17 @@ bar
 </ul>
 ````````````````````````````````
 
+```````````````````````````````` example
+#→Foo
+.
+<h1>Foo</h1>
+````````````````````````````````
+
+```````````````````````````````` example
+*→*→*→
+.
+<hr />
+````````````````````````````````
 
 
 ## Insecure characters
@@ -499,7 +525,7 @@ Markdown document.
 
 A line consisting of 0-3 spaces of indentation, followed by a sequence
 of three or more matching `-`, `_`, or `*` characters, each followed
-optionally by any number of spaces or tabs, forms a
+optionally by any number of spaces, forms a
 [thematic break](@).
 
 ```````````````````````````````` example
@@ -615,15 +641,6 @@ Spaces are allowed at the end:
 ````````````````````````````````
 
 
-Tabs are allowed both between and after the characters:
-
-```````````````````````````````` example
--→-→-→-→
-.
-<hr />
-````````````````````````````````
-
-
 However, no other characters may occur in the line:
 
 ```````````````````````````````` example
@@ -639,8 +656,8 @@ a------
 ````````````````````````````````
 
 
-It is required that all of the characters (besides spaces and
-tabs) be the same.  So, this is not a thematic break:
+It is required that all of the [non-whitespace characters] be the same.
+So, this is not a thematic break:
 
 ```````````````````````````````` example
  *-*
@@ -730,18 +747,17 @@ If you want a thematic break in a list item, use a different bullet:
 
 ## ATX headings
 
-An [ATX heading](@) consists of a string of characters, parsed
-as inline content, between an opening sequence of 1--6 unescaped
-`#` characters and an optional closing sequence of any number of
-unescaped `#` characters.  The opening sequence of `#`
-characters must be followed by a [space], a tab, or by the end of
-the line. The optional closing sequence of `#`s must be preceded
-by a [space] or tab and may be followed by spaces or tabs only.
-The opening `#` character may be indented 0-3 spaces.  The raw
-contents of the heading are stripped of leading and trailing
-spaces and tabs before being parsed as inline content.  The
-heading level is equal to the number of `#` characters in the
-opening sequence.
+An [ATX heading](@)
+consists of a string of characters, parsed as inline content, between an
+opening sequence of 1--6 unescaped `#` characters and an optional
+closing sequence of any number of unescaped `#` characters.
+The opening sequence of `#` characters must be followed by a
+[space] or by the end of line. The optional closing sequence of `#`s must be
+preceded by a [space] and may be followed by spaces only.  The opening
+`#` character may be indented 0-3 spaces.  The raw contents of the
+heading are stripped of leading and trailing spaces before being parsed
+as inline content.  The heading level is equal to the number of `#`
+characters in the opening sequence.
 
 Simple headings:
 
@@ -771,7 +787,7 @@ More than six `#` characters is not a heading:
 ````````````````````````````````
 
 
-At least one space or tab is required between the `#` characters and the
+At least one space is required between the `#` characters and the
 heading's contents, unless the heading is empty.  Note that many
 implementations currently do not require the space.  However, the
 space was required by the
@@ -786,24 +802,6 @@ headings:
 .
 <p>#5 bolt</p>
 <p>#hashtag</p>
-````````````````````````````````
-
-
-A tab can be used instead of a space:
-
-```````````````````````````````` example
-#→foo
-.
-<h1>foo</h1>
-````````````````````````````````
-
-
-Any number of spaces and tabs can be used after the `#`s:
-
-```````````````````````````````` example
-# →→  foo
-.
-<h1>foo</h1>
 ````````````````````````````````
 
 
@@ -825,16 +823,16 @@ Contents are parsed as inlines:
 ````````````````````````````````
 
 
-Leading and trailing spaces and tabs are ignored in parsing inline content:
+Leading and trailing blanks are ignored in parsing inline content:
 
 ```````````````````````````````` example
-#  →→              foo  →→               
+#                  foo                     
 .
 <h1>foo</h1>
 ````````````````````````````````
 
 
-One to three spaces indentation are allowed before the first `#`:
+One to three spaces indentation are allowed:
 
 ```````````````````````````````` example
  ### foo
@@ -888,18 +886,18 @@ It need not be the same length as the opening sequence:
 ````````````````````````````````
 
 
-Spaces and tabs are allowed after the closing sequence:
+Spaces are allowed after the closing sequence:
 
 ```````````````````````````````` example
-### foo ###→     
+### foo ###     
 .
 <h3>foo</h3>
 ````````````````````````````````
 
 
-A sequence of `#` characters with anything but spaces or tabs
-following it is not a closing sequence, but counts as part of
-the contents of the heading:
+A sequence of `#` characters with anything but [spaces] following it
+is not a closing sequence, but counts as part of the contents of the
+heading:
 
 ```````````````````````````````` example
 ### foo ### b
@@ -908,18 +906,12 @@ the contents of the heading:
 ````````````````````````````````
 
 
-The closing sequence must be preceded by at least one space or tab:
+The closing sequence must be preceded by a space:
 
 ```````````````````````````````` example
 # foo#
 .
 <h1>foo#</h1>
-````````````````````````````````
-
-```````````````````````````````` example
-# foo→#
-.
-<h1>foo</h1>
 ````````````````````````````````
 
 
@@ -968,12 +960,10 @@ ATX headings can be empty:
 ## 
 #
 ### ###
-####→####
 .
 <h2></h2>
 <h1></h1>
 <h3></h3>
-<h4></h4>
 ````````````````````````````````
 
 
@@ -3638,13 +3628,19 @@ The following rules define [list items]:
 1.  **Basic case.**  If a sequence of lines *Ls* constitute a sequence of
     blocks *Bs* starting with a [non-whitespace character] and not separated
     from each other by more than one blank line, and *M* is a list
-    marker of width *W* followed by 0 < *N* < 5 spaces, then the result
+    marker of width *W* followed by 1 ≤ *N* ≤ 4 spaces, then the result
     of prepending *M* and the following spaces to the first line of
     *Ls*, and indenting subsequent lines of *Ls* by *W + N* spaces, is a
     list item with *Bs* as its contents.  The type of the list item
     (bullet or ordered) is determined by the type of its list marker.
     If the list item is ordered, then it is also assigned a start
     number, based on the ordered list marker.
+
+    Exceptions: When the list item interrupts a paragraph---that
+    is, when it starts on a line that would otherwise count as
+    [paragraph continuation text]---then (a) the lines *Ls* must
+    not begin with a blank line, and (b) if the list item is
+    ordered, the start number must be 1.
 
 For example, let *Ls* be the lines
 
@@ -3820,65 +3816,19 @@ any following content, so these are not list items:
 ````````````````````````````````
 
 
-A list item may not contain blocks that are separated by more than
-one blank line.  Thus, two blank lines will end a list, unless the
-two blanks are contained in a [fenced code block].
+A list item may contain blocks that are separated by more than
+one blank line.
 
 ```````````````````````````````` example
 - foo
 
-  bar
-
-- foo
-
 
   bar
-
-- ```
-  foo
-
-
-  bar
-  ```
-
-- baz
-
-  + ```
-    foo
-
-
-    bar
-    ```
 .
 <ul>
 <li>
 <p>foo</p>
 <p>bar</p>
-</li>
-<li>
-<p>foo</p>
-</li>
-</ul>
-<p>bar</p>
-<ul>
-<li>
-<pre><code>foo
-
-
-bar
-</code></pre>
-</li>
-<li>
-<p>baz</p>
-<ul>
-<li>
-<pre><code>foo
-
-
-bar
-</code></pre>
-</li>
-</ul>
 </li>
 </ul>
 ````````````````````````````````
@@ -3912,14 +3862,13 @@ A list item may contain any kind of block:
 
 
 A list item that contains an indented code block will preserve
-empty lines within the code block verbatim, unless there are two
-or more empty lines in a row (since as described above, two
-blank lines end the list):
+empty lines within the code block verbatim.
 
 ```````````````````````````````` example
 - Foo
 
       bar
+
 
       baz
 .
@@ -3927,33 +3876,13 @@ blank lines end the list):
 <li>
 <p>Foo</p>
 <pre><code>bar
+
 
 baz
 </code></pre>
 </li>
 </ul>
 ````````````````````````````````
-
-
-```````````````````````````````` example
-- Foo
-
-      bar
-
-
-      baz
-.
-<ul>
-<li>
-<p>Foo</p>
-<pre><code>bar
-</code></pre>
-</li>
-</ul>
-<pre><code>  baz
-</code></pre>
-````````````````````````````````
-
 
 Note that ordered list start numbers must be nine digits or less:
 
@@ -4281,6 +4210,20 @@ A list may start or end with an empty list item:
 </ul>
 ````````````````````````````````
 
+However, an empty list item cannot interrupt a paragraph:
+
+```````````````````````````````` example
+foo
+*
+
+foo
+1.
+.
+<p>foo
+*</p>
+<p>foo
+1.</p>
+````````````````````````````````
 
 
 4.  **Indentation.**  If a sequence of lines *Ls* constitutes a list item
@@ -4787,8 +4730,7 @@ takes four spaces (a common case), but diverge in other cases.
 
 A [list](@) is a sequence of one or more
 list items [of the same type].  The list items
-may be separated by single [blank lines], but two
-blank lines end all containing lists.
+may be separated by any number of blank lines.
 
 Two list items are [of the same type](@)
 if they begin with a [list marker] of the same type.
@@ -4863,28 +4805,20 @@ Foo
 </ul>
 ````````````````````````````````
 
-
 `Markdown.pl` does not allow this, through fear of triggering a list
 via a numeral in a hard-wrapped line:
 
-```````````````````````````````` example
+```````````````````````````````` markdown
 The number of windows in my house is
 14.  The number of doors is 6.
-.
-<p>The number of windows in my house is</p>
-<ol start="14">
-<li>The number of doors is 6.</li>
-</ol>
 ````````````````````````````````
+Oddly, though, `Markdown.pl` *does* allow a blockquote to
+interrupt a paragraph, even though the same considerations might
+apply.
 
-
-Oddly, `Markdown.pl` *does* allow a blockquote to interrupt a paragraph,
-even though the same considerations might apply.  We think that the two
-cases should be treated the same.  Here are two reasons for allowing
-lists to interrupt paragraphs:
-
-First, it is natural and not uncommon for people to start lists without
-blank lines:
+In CommonMark, we do allow lists to interrupt paragraphs, for
+two reasons.  First, it is natural and not uncommon for people
+to start lists without blank lines:
 
     I need to buy
     - new shoes
@@ -4918,20 +4852,40 @@ then
 
 by itself should be a paragraph followed by a nested sublist.
 
-Our adherence to the [principle of uniformity]
-thus inclines us to think that there are two coherent packages:
+Since it is well established Markdown practice to allow lists to
+interrupt paragraphs inside list items, the [principle of
+uniformity] requires us to allow this outside list items as
+well.  ([reStructuredText](http://docutils.sourceforge.net/rst.html)
+takes a different approach, requiring blank lines before lists
+even inside other list items.)
 
-1.  Require blank lines before *all* lists and blockquotes,
-    including lists that occur as sublists inside other list items.
+In order to solve of unwanted lists in paragraphs with
+hard-wrapped numerals, we allow only lists starting with `1` to
+interrupt paragraphs.  Thus,
 
-2.  Require blank lines in none of these places.
+```````````````````````````````` example
+The number of windows in my house is
+14.  The number of doors is 6.
+.
+<p>The number of windows in my house is
+14.  The number of doors is 6.</p>
+````````````````````````````````
 
-[reStructuredText](http://docutils.sourceforge.net/rst.html) takes
-the first approach, for which there is much to be said.  But the second
-seems more consistent with established practice with Markdown.
+We may still get an unintended result in cases like
 
-There can be blank lines between items, but two blank lines end
-a list:
+```````````````````````````````` example
+The number of windows in my house is
+1.  The number of doors is 6.
+.
+<p>The number of windows in my house is</p>
+<ol>
+<li>The number of doors is 6.</li>
+</ol>
+````````````````````````````````
+
+but this rule should prevent most spurious list captures.
+
+There can be any number of blank lines between items:
 
 ```````````````````````````````` example
 - foo
@@ -4948,35 +4902,11 @@ a list:
 <li>
 <p>bar</p>
 </li>
-</ul>
-<ul>
-<li>baz</li>
-</ul>
-````````````````````````````````
-
-
-As illustrated above in the section on [list items],
-two blank lines between blocks *within* a list item will also end a
-list:
-
-```````````````````````````````` example
-- foo
-
-
-  bar
-- baz
-.
-<ul>
-<li>foo</li>
-</ul>
-<p>bar</p>
-<ul>
-<li>baz</li>
+<li>
+<p>baz</p>
+</li>
 </ul>
 ````````````````````````````````
-
-
-Indeed, two blank lines will end *all* containing lists:
 
 ```````````````````````````````` example
 - foo
@@ -4991,26 +4921,28 @@ Indeed, two blank lines will end *all* containing lists:
 <ul>
 <li>bar
 <ul>
-<li>baz</li>
-</ul>
+<li>
+<p>baz</p>
+<p>bim</p>
 </li>
 </ul>
 </li>
 </ul>
-<pre><code>  bim
-</code></pre>
+</li>
+</ul>
 ````````````````````````````````
 
 
-Thus, two blank lines can be used to separate consecutive lists of
-the same type, or to separate a list from an indented code block
-that would otherwise be parsed as a subparagraph of the final list
-item:
+To separate consecutive lists of the same type, or to separate a
+list from an indented code block that would otherwise be parsed
+as a subparagraph of the final list item, you can insert a blank HTML
+comment:
 
 ```````````````````````````````` example
 - foo
 - bar
 
+<!-- -->
 
 - baz
 - bim
@@ -5019,6 +4951,7 @@ item:
 <li>foo</li>
 <li>bar</li>
 </ul>
+<!-- -->
 <ul>
 <li>baz</li>
 <li>bim</li>
@@ -5033,6 +4966,7 @@ item:
 
 -   foo
 
+<!-- -->
 
     code
 .
@@ -5045,6 +4979,7 @@ item:
 <p>foo</p>
 </li>
 </ul>
+<!-- -->
 <pre><code>code
 </code></pre>
 ````````````````````````````````
@@ -6203,10 +6138,8 @@ A newline also counts as whitespace:
 *foo bar
 *
 .
-<p>*foo bar</p>
-<ul>
-<li></li>
-</ul>
+<p>*foo bar
+*</p>
 ````````````````````````````````
 
 
@@ -6624,7 +6557,7 @@ Note that in the preceding case, the interpretation
 
 
 is precluded by the condition that a delimiter that
-can both open and close (like the `*` after `foo`
+can both open and close (like the `*` after `foo`)
 cannot form emphasis if the sum of the lengths of
 the delimiter runs containing the opening and
 closing delimiters is a multiple of 3.

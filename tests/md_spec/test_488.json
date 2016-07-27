@@ -1,1 +1,1 @@
-["[foo [bar](\/uri)](\/uri)","<p>[foo <a href=\"\/uri\">bar<\/a>](\/uri)<\/p>"]
+["![[[foo](uri1)](uri2)](uri3)","<p><img src=\"uri3\" alt=\"[foo](uri2)\" \/><\/p>"]

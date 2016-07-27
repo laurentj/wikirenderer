@@ -1,1 +1,1 @@
-["<\/a><\/foo >","<p><\/a><\/foo ><\/p>"]
+["foo <!-- this is a\ncomment - with hyphen -->","<p>foo <!-- this is a\ncomment - with hyphen --><\/p>"]

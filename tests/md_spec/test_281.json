@@ -1,1 +1,1 @@
-["* a\n  > b\n  >\n* c","<ul>\n<li>a\n<blockquote>\n<p>b<\/p>\n<\/blockquote>\n<\/li>\n<li>c<\/li>\n<\/ul>"]
+["- a","<ul>\n<li>a<\/li>\n<\/ul>"]

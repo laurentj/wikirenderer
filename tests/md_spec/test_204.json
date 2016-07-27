@@ -1,1 +1,1 @@
-[">\n> foo\n>  ","<blockquote>\n<p>foo<\/p>\n<\/blockquote>"]
+["> foo\n> bar","<blockquote>\n<p>foo\nbar<\/p>\n<\/blockquote>"]

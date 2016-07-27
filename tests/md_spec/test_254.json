@@ -1,1 +1,1 @@
-["  1.  A paragraph\n    with two lines.","<ol>\n<li>A paragraph\nwith two lines.<\/li>\n<\/ol>"]
+["> 1. > Blockquote\n> continued here.","<blockquote>\n<ol>\n<li>\n<blockquote>\n<p>Blockquote\ncontinued here.<\/p>\n<\/blockquote>\n<\/li>\n<\/ol>\n<\/blockquote>"]

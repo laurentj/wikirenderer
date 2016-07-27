@@ -1,1 +1,1 @@
-["10) foo\n   - bar","<ol start=\"10\">\n<li>foo<\/li>\n<\/ol>\n<ul>\n<li>bar<\/li>\n<\/ul>"]
+["1. - 2. foo","<ol>\n<li>\n<ul>\n<li>\n<ol start=\"2\">\n<li>foo<\/li>\n<\/ol>\n<\/li>\n<\/ul>\n<\/li>\n<\/ol>"]

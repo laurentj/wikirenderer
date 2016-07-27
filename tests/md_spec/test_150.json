@@ -1,1 +1,1 @@
-["  <!-- foo -->\n\n    <!-- foo -->","  <!-- foo -->\n<pre><code>&lt;!-- foo --&gt;\n<\/code><\/pre>"]
+["Foo\n<div>\nbar\n<\/div>","<p>Foo<\/p>\n<div>\nbar\n<\/div>"]

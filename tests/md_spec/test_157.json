@@ -1,1 +1,1 @@
-["<table>\n\n<tr>\n\n<td>\nHi\n<\/td>\n\n<\/tr>\n\n<\/table>","<table>\n<tr>\n<td>\nHi\n<\/td>\n<\/tr>\n<\/table>"]
+["[foo]: \/url \"title\"\n\n[foo]","<p><a href=\"\/url\" title=\"title\">foo<\/a><\/p>"]

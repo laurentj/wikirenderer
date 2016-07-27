@@ -1,1 +1,1 @@
-["<MAILTO:FOO@BAR.BAZ>","<p><a href=\"MAILTO:FOO@BAR.BAZ\">MAILTO:FOO@BAR.BAZ<\/a><\/p>"]
+["<made-up-scheme:\/\/foo,bar>","<p><a href=\"made-up-scheme:\/\/foo,bar\">made-up-scheme:\/\/foo,bar<\/a><\/p>"]

@@ -1,1 +1,1 @@
-["<style>p{color:red;}<\/style>\n*foo*","<style>p{color:red;}<\/style>\n<p><em>foo<\/em><\/p>"]
+["<script>\nfoo\n<\/script>1. *bar*","<script>\nfoo\n<\/script>1. *bar*"]

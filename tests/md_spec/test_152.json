@@ -1,1 +1,1 @@
-["Foo\n<div>\nbar\n<\/div>","<p>Foo<\/p>\n<div>\nbar\n<\/div>"]
+["Foo\n<a href=\"bar\">\nbaz","<p>Foo\n<a href=\"bar\">\nbaz<\/p>"]

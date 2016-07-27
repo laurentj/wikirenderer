@@ -1,1 +1,1 @@
-["\\## foo","<p>## foo<\/p>"]
+["# foo *bar* \\*baz\\*","<h1>foo <em>bar<\/em> *baz*<\/h1>"]

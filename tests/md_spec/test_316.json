@@ -1,1 +1,1 @@
-["` `` `","<p><code>``<\/code><\/p>"]
+["`foo   bar\n  baz`","<p><code>foo bar baz<\/code><\/p>"]

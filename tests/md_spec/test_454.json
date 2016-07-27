@@ -1,1 +1,1 @@
-["*a `*`*","<p><em>a <code>*<\/code><\/em><\/p>"]
+["**a<http:\/\/foo.bar\/?q=**>","<p>**a<a href=\"http:\/\/foo.bar\/?q=**\">http:\/\/foo.bar\/?q=**<\/a><\/p>"]

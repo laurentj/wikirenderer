@@ -1,1 +1,1 @@
-["Foo *bar*\n=========\n\nFoo *bar*\n---------","<h1>Foo <em>bar<\/em><\/h1>\n<h2>Foo <em>bar<\/em><\/h2>"]
+["Foo\n-------------------------\n\nFoo\n=","<h2>Foo<\/h2>\n<h1>Foo<\/h1>"]

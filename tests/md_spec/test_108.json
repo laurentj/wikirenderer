@@ -1,1 +1,1 @@
-["``` ```\naaa","<p><code><\/code>\naaa<\/p>"]
+["foo\n```\nbar\n```\nbaz","<p>foo<\/p>\n<pre><code>bar\n<\/code><\/pre>\n<p>baz<\/p>"]

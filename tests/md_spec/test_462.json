@@ -1,1 +1,1 @@
-["[link](\/my uri)","<p>[link](\/my uri)<\/p>"]
+["[link](foo\nbar)","<p>[link](foo\nbar)<\/p>"]

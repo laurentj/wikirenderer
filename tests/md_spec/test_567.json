@@ -1,1 +1,1 @@
-["<http:\/\/..\/>","<p><a href=\"http:\/\/..\/\">http:\/\/..\/<\/a><\/p>"]
+["<http:\/\/foo.bar\/baz bim>","<p>&lt;http:\/\/foo.bar\/baz bim&gt;<\/p>"]

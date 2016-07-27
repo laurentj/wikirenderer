@@ -1,1 +1,1 @@
-["``` foo\\+bar\nfoo\n```","<pre><code class=\"language-foo+bar\">foo\n<\/code><\/pre>"]
+["&#35; &#1234; &#992; &#98765432; &#0;","<p># \u04d2 \u03e0 \ufffd \ufffd<\/p>"]

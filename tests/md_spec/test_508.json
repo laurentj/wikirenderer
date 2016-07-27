@@ -1,1 +1,1 @@
-["[foo<http:\/\/example.com\/?search=][ref]>\n\n[ref]: \/uri","<p>[foo<a href=\"http:\/\/example.com\/?search=%5D%5Bref%5D\">http:\/\/example.com\/?search=][ref]<\/a><\/p>"]
+["[\u0422\u043e\u043b\u043f\u043e\u0439][\u0422\u043e\u043b\u043f\u043e\u0439] is a Russian word.\n\n[\u0422\u041e\u041b\u041f\u041e\u0419]: \/url","<p><a href=\"\/url\">\u0422\u043e\u043b\u043f\u043e\u0439<\/a> is a Russian word.<\/p>"]

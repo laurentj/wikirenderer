@@ -1,1 +1,1 @@
-["<foo\\+@bar.example.com>","<p>&lt;foo+@bar.example.com&gt;<\/p>"]
+["< http:\/\/foo.bar >","<p>&lt; http:\/\/foo.bar &gt;<\/p>"]

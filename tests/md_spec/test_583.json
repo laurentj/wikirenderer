@@ -1,1 +1,1 @@
-["<a foo=\"bar\" bam = 'baz <em>\"<\/em>'\n_boolean zoop:33=zoop:33 \/>","<p><a foo=\"bar\" bam = 'baz <em>\"<\/em>'\n_boolean zoop:33=zoop:33 \/><\/p>"]
+["<33> <__>","<p>&lt;33&gt; &lt;__&gt;<\/p>"]

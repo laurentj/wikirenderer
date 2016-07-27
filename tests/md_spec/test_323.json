@@ -1,1 +1,1 @@
-["`<a href=\"`\">`","<p><code>&lt;a href=&quot;<\/code>&quot;&gt;`<\/p>"]
+["`<http:\/\/foo.bar.`baz>`","<p><code>&lt;http:\/\/foo.bar.<\/code>baz&gt;`<\/p>"]

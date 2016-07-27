@@ -1,1 +1,1 @@
-["~~~~~~\naaa\n~~~ ~~","<pre><code>aaa\n~~~ ~~\n<\/code><\/pre>"]
+["foo\n---\n~~~\nbar\n~~~\n# baz","<h2>foo<\/h2>\n<pre><code>bar\n<\/code><\/pre>\n<h1>baz<\/h1>"]

@@ -1,1 +1,1 @@
-["<del>*foo*<\/del>","<p><del><em>foo<\/em><\/del><\/p>"]
+["<script type=\"text\/javascript\">\n\/\/ JavaScript example\n\ndocument.getElementById(\"demo\").innerHTML = \"Hello JavaScript!\";\n<\/script>\nokay","<script type=\"text\/javascript\">\n\/\/ JavaScript example\n\ndocument.getElementById(\"demo\").innerHTML = \"Hello JavaScript!\";\n<\/script>\n<p>okay<\/p>"]

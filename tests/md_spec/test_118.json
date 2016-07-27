@@ -1,1 +1,1 @@
-[" <div>\n  *hello*\n         <foo><a>"," <div>\n  *hello*\n         <foo><a>"]
+["<DIV CLASS=\"foo\">\n\n*Markdown*\n\n<\/DIV>","<DIV CLASS=\"foo\">\n<p><em>Markdown<\/em><\/p>\n<\/DIV>"]

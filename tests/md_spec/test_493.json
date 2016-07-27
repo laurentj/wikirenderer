@@ -1,1 +1,1 @@
-["*foo [bar* baz]","<p><em>foo [bar<\/em> baz]<\/p>"]
+["[foo`](\/uri)`","<p>[foo<code>](\/uri)<\/code><\/p>"]

@@ -1,1 +1,1 @@
-["![foo *bar*]\n\n[foo *bar*]: train.jpg \"train & tracks\"","<p><img src=\"train.jpg\" alt=\"foo bar\" title=\"train &amp; tracks\" \/><\/p>"]
+["![foo [bar](\/url)](\/url2)","<p><img src=\"\/url2\" alt=\"foo bar\" \/><\/p>"]

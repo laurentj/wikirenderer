@@ -1,1 +1,1 @@
-["__foo__bar__baz__","<p><strong>foo__bar__baz<\/strong><\/p>"]
+["*foo [bar](\/url)*","<p><em>foo <a href=\"\/url\">bar<\/a><\/em><\/p>"]

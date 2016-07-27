@@ -1,1 +1,1 @@
-[">     code\n\n>    not code","<blockquote>\n<pre><code>code\n<\/code><\/pre>\n<\/blockquote>\n<blockquote>\n<p>not code<\/p>\n<\/blockquote>"]
+["1.  A paragraph\n    with two lines.\n\n        indented code\n\n    > A block quote.","<ol>\n<li>\n<p>A paragraph\nwith two lines.<\/p>\n<pre><code>indented code\n<\/code><\/pre>\n<blockquote>\n<p>A block quote.<\/p>\n<\/blockquote>\n<\/li>\n<\/ol>"]

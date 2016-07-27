@@ -1,1 +1,1 @@
-["`foo\\`bar`","<p><code>foo\\<\/code>bar`<\/p>"]
+["[not a `link](\/foo`)","<p>[not a <code>link](\/foo<\/code>)<\/p>"]

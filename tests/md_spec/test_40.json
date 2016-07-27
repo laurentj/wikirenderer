@@ -1,1 +1,1 @@
-["    # foo","<pre><code># foo\n<\/code><\/pre>"]
+["foo\n    # bar","<p>foo\n# bar<\/p>"]

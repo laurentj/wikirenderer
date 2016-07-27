@@ -1,1 +1,1 @@
-["1.      indented code\n\n   paragraph\n\n       more code","<ol>\n<li>\n<pre><code> indented code\n<\/code><\/pre>\n<p>paragraph<\/p>\n<pre><code>more code\n<\/code><\/pre>\n<\/li>\n<\/ol>"]
+["-  foo\n\n   bar","<ul>\n<li>\n<p>foo<\/p>\n<p>bar<\/p>\n<\/li>\n<\/ul>"]

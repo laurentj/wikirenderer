@@ -1,1 +1,1 @@
-["<pre language=\"haskell\"><code>\nimport Text.HTML.TagSoup\n\nmain :: IO ()\nmain = print $ parseTags tags\n<\/code><\/pre>\nokay","<pre language=\"haskell\"><code>\nimport Text.HTML.TagSoup\n\nmain :: IO ()\nmain = print $ parseTags tags\n<\/code><\/pre>\n<p>okay<\/p>"]
+["<style\n  type=\"text\/css\">\nh1 {color:red;}\n\np {color:blue;}\n<\/style>\nokay","<style\n  type=\"text\/css\">\nh1 {color:red;}\n\np {color:blue;}\n<\/style>\n<p>okay<\/p>"]

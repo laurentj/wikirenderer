@@ -1,1 +1,1 @@
-["1. ```\n   foo\n   ```\n\n   bar","<ol>\n<li>\n<pre><code>foo\n<\/code><\/pre>\n<p>bar<\/p>\n<\/li>\n<\/ol>"]
+["- a\n  - b\n  - c\n\n- d\n  - e\n  - f","<ul>\n<li>\n<p>a<\/p>\n<ul>\n<li>b<\/li>\n<li>c<\/li>\n<\/ul>\n<\/li>\n<li>\n<p>d<\/p>\n<ul>\n<li>e<\/li>\n<li>f<\/li>\n<\/ul>\n<\/li>\n<\/ul>"]

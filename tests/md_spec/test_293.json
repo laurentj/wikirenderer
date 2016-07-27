@@ -1,1 +1,1 @@
-["foo\\\nbar","<p>foo<br \/>\nbar<\/p>"]
+["    \\[\\]","<pre><code>\\[\\]\n<\/code><\/pre>"]

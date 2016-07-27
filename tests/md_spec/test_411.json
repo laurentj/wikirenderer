@@ -1,1 +1,1 @@
-["____ is not an empty strong emphasis","<p>____ is not an empty strong emphasis<\/p>"]
+["foo *\\**","<p>foo <em>*<\/em><\/p>"]

@@ -1,1 +1,1 @@
-["[foo]\n\n[foo]: \/bar\\* \"ti\\*tle\"","<p><a href=\"\/bar*\" title=\"ti*tle\">foo<\/a><\/p>"]
+["&nbsp; &amp; &copy; &AElig; &Dcaron;\n&frac34; &HilbertSpace; &DifferentialD;\n&ClockwiseContourIntegral; &ngE;","<p>\u00a0 &amp; \u00a9 \u00c6 \u010e\n\u00be \u210b \u2146\n\u2232 \u2267\u0338<\/p>"]

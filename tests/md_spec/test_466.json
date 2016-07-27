@@ -1,1 +1,1 @@
-["[link](\\(foo\\))","<p><a href=\"(foo)\">link<\/a><\/p>"]
+["[link](foo(and(bar)))","<p>[link](foo(and(bar)))<\/p>"]

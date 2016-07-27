@@ -1,1 +1,1 @@
-["<!DOCTYPE html>","<!DOCTYPE html>"]
+["  <!-- foo -->\n\n    <!-- foo -->","  <!-- foo -->\n<pre><code>&lt;!-- foo --&gt;\n<\/code><\/pre>"]

@@ -1,1 +1,1 @@
-["<irc:\/\/foo.bar:2233\/baz>","<p><a href=\"irc:\/\/foo.bar:2233\/baz\">irc:\/\/foo.bar:2233\/baz<\/a><\/p>"]
+["<a+b+c:d>","<p><a href=\"a+b+c:d\">a+b+c:d<\/a><\/p>"]

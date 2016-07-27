@@ -1,1 +1,1 @@
-["[foo]\n\n[foo]: \/url \"title\"","<p><a href=\"\/url\" title=\"title\">foo<\/a><\/p>"]
+["[[*foo* bar]]\n\n[*foo* bar]: \/url \"title\"","<p>[<a href=\"\/url\" title=\"title\"><em>foo<\/em> bar<\/a>]<\/p>"]

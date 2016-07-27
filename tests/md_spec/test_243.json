@@ -1,1 +1,1 @@
-["-   \n  foo","<ul>\n<li>foo<\/li>\n<\/ul>"]
+["- foo\n-   \n- bar","<ul>\n<li>foo<\/li>\n<li><\/li>\n<li>bar<\/li>\n<\/ul>"]

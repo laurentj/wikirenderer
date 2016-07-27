@@ -1,1 +1,1 @@
-["<a  \/><b2\ndata=\"foo\" >","<p><a  \/><b2\ndata=\"foo\" ><\/p>"]
+["Foo <responsive-image src=\"foo.jpg\" \/>","<p>Foo <responsive-image src=\"foo.jpg\" \/><\/p>"]

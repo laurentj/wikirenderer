@@ -1,1 +1,1 @@
-["__foo bar__","<p><strong>foo bar<\/strong><\/p>"]
+["__\nfoo bar__","<p>__\nfoo bar__<\/p>"]

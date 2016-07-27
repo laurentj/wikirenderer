@@ -1,1 +1,1 @@
-["-   foo\n\n    notcode\n\n-   foo\n\n\n    code","<ul>\n<li>\n<p>foo<\/p>\n<p>notcode<\/p>\n<\/li>\n<li>\n<p>foo<\/p>\n<\/li>\n<\/ul>\n<pre><code>code\n<\/code><\/pre>"]
+["1. a\n\n  2. b\n\n    3. c","<ol>\n<li>\n<p>a<\/p>\n<\/li>\n<li>\n<p>b<\/p>\n<\/li>\n<li>\n<p>c<\/p>\n<\/li>\n<\/ol>"]

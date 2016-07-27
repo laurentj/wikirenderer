@@ -1,1 +1,1 @@
-["<http:\/\/example.com?find=\\*>","<p><a href=\"http:\/\/example.com?find=%5C*\">http:\/\/example.com?find=\\*<\/a><\/p>"]
+["[foo](\/bar\\* \"ti\\*tle\")","<p><a href=\"\/bar*\" title=\"ti*tle\">foo<\/a><\/p>"]

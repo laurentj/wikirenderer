@@ -1,1 +1,1 @@
-["> 1. > Blockquote\n> continued here.","<blockquote>\n<ol>\n<li>\n<blockquote>\n<p>Blockquote\ncontinued here.<\/p>\n<\/blockquote>\n<\/li>\n<\/ol>\n<\/blockquote>"]
+["- foo\n - bar\n  - baz\n   - boo","<ul>\n<li>foo<\/li>\n<li>bar<\/li>\n<li>baz<\/li>\n<li>boo<\/li>\n<\/ul>"]

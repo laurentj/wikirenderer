@@ -1,1 +1,1 @@
-["foo <![CDATA[>&<]]>","<p>foo <![CDATA[>&<]]><\/p>"]
+["foo <a href=\"\\*\">","<p>foo <a href=\"\\*\"><\/p>"]

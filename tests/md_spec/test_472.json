@@ -1,1 +1,1 @@
-["[link](#fragment)\n\n[link](http:\/\/example.com#fragment)\n\n[link](http:\/\/example.com?foo=3#frag)","<p><a href=\"#fragment\">link<\/a><\/p>\n<p><a href=\"http:\/\/example.com#fragment\">link<\/a><\/p>\n<p><a href=\"http:\/\/example.com?foo=3#frag\">link<\/a><\/p>"]
+["[link](foo%20b&auml;)","<p><a href=\"foo%20b%C3%A4\">link<\/a><\/p>"]

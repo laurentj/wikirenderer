@@ -1,1 +1,1 @@
-["1. foo\n2.\n3. bar","<ol>\n<li>foo<\/li>\n<li><\/li>\n<li>bar<\/li>\n<\/ol>"]
+[" 1.  A paragraph\n     with two lines.\n\n         indented code\n\n     > A block quote.","<ol>\n<li>\n<p>A paragraph\nwith two lines.<\/p>\n<pre><code>indented code\n<\/code><\/pre>\n<blockquote>\n<p>A block quote.<\/p>\n<\/blockquote>\n<\/li>\n<\/ol>"]

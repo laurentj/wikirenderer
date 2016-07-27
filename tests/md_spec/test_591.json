@@ -1,1 +1,1 @@
-["<\/a href=\"foo\">","<p>&lt;\/a href=&quot;foo&quot;&gt;<\/p>"]
+["foo <!-- not a comment -- two hyphens -->","<p>foo &lt;!-- not a comment -- two hyphens --&gt;<\/p>"]

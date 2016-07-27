@@ -1,1 +1,1 @@
-["[Foo*bar\\]]:my_(url) 'title (with parens)'\n\n[Foo*bar\\]]","<p><a href=\"my_(url)\" title=\"title (with parens)\">Foo*bar]<\/a><\/p>"]
+["[foo]: \/url '\ntitle\nline1\nline2\n'\n\n[foo]","<p><a href=\"\/url\" title=\"\ntitle\nline1\nline2\n\">foo<\/a><\/p>"]

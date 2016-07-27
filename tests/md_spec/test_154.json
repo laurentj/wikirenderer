@@ -1,1 +1,1 @@
-["Foo\n<a href=\"bar\">\nbaz","<p>Foo\n<a href=\"bar\">\nbaz<\/p>"]
+["<div>\n*Emphasized* text.\n<\/div>","<div>\n*Emphasized* text.\n<\/div>"]

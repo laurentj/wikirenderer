@@ -1,1 +1,1 @@
-["_____foo_____","<p><strong><strong><em>foo<\/em><\/strong><\/strong><\/p>"]
+["*foo __bar *baz bim__ bam*","<p><em>foo <strong>bar *baz bim<\/strong> bam<\/em><\/p>"]

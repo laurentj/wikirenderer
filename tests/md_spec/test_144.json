@@ -1,1 +1,1 @@
-["<!-- foo -->*bar*\n*baz*","<!-- foo -->*bar*\n<p><em>baz<\/em><\/p>"]
+["<!-- Foo\n\nbar\n   baz -->\nokay","<!-- Foo\n\nbar\n   baz -->\n<p>okay<\/p>"]

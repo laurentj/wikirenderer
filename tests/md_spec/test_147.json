@@ -1,1 +1,1 @@
-["<?php\n\n  echo '>';\n\n?>\nokay","<?php\n\n  echo '>';\n\n?>\n<p>okay<\/p>"]
+["<![CDATA[\nfunction matchwo(a,b)\n{\n  if (a < b && a < 0) then {\n    return 1;\n\n  } else {\n\n    return 0;\n  }\n}\n]]>\nokay","<![CDATA[\nfunction matchwo(a,b)\n{\n  if (a < b && a < 0) then {\n    return 1;\n\n  } else {\n\n    return 0;\n  }\n}\n]]>\n<p>okay<\/p>"]

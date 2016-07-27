@@ -1,1 +1,1 @@
-["a * foo bar*","<p>a * foo bar*<\/p>"]
+["*\u00a0a\u00a0*","<p>*\u00a0a\u00a0*<\/p>"]

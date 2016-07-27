@@ -1,1 +1,1 @@
-["[foo]: \/url\n\"title\" ok","<p>&quot;title&quot; ok<\/p>"]
+["```\n[foo]: \/url\n```\n\n[foo]","<pre><code>[foo]: \/url\n<\/code><\/pre>\n<p>[foo]<\/p>"]

@@ -1,1 +1,1 @@
-["foo\n```\nbar\n```\nbaz","<p>foo<\/p>\n<pre><code>bar\n<\/code><\/pre>\n<p>baz<\/p>"]
+["```ruby\ndef foo(x)\n  return 3\nend\n```","<pre><code class=\"language-ruby\">def foo(x)\n  return 3\nend\n<\/code><\/pre>"]
