@@ -85,7 +85,7 @@ class OrderedWikiList extends \WikiRenderer\Block
             // case 2: item starting with indented code
             $this->itemIndentLength++;
             $this->linePrefix .= ' ';
-            $this->lineContent = substr($indentContent, 1).$matches[4];
+            $this->lineContent = substr($matches[3], 1).$matches[4];
         }
     }
 

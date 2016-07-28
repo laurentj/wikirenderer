@@ -5,7 +5,7 @@
  */
 
 class MdTestsBlocks extends PHPUnit_Framework_TestCase {
-
+/*
     function testParagraph() {
         $genConfig = new \WikiRenderer\Generator\Html\Config();
         $generator = new \WikiRenderer\Generator\Html\Document($genConfig);
@@ -44,10 +44,10 @@ diam nec justo.</p>';
         $this->assertEquals($expected, $result);
         $this->assertEquals(0, count($wr->errors));
     }
-
+*/
     function getTestsList() {
         $list = array();
-        for($i=1; $i < 7; $i++) {
+        for($i=1; $i <= 8; $i++) {
             $list[] = array('test_'.$i.'.json');
         }
         return $list;
