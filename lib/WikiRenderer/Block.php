@@ -54,6 +54,12 @@ abstract class Block
      */
     protected $documentGenerator;
 
+    const CLOSE_REASON_UNKNOWN = 0;
+    const CLOSE_REASON_LINE_NOT_MATCH = 1;
+    const CLOSE_REASON_IMMEDIATELY = 2;
+    const CLOSE_REASON_PARENT_CLOSED = 3;
+    const CLOSE_REASON_EOF = 4;
+
     /**
      * Constructor.
      *
@@ -173,9 +179,10 @@ abstract class Block
      *
      * this method should then return the content generated with all lines
      *
-     * @return string the content of the block.
+     * @param integer $reason  one of the CLOSE_REASON constants
+     * @return \WikiRenderer\Generator\BlockGeneratorInterface the content of the block.
      */
-    public function close()
+    public function close($reason)
     {
         return $this->generator;
     }

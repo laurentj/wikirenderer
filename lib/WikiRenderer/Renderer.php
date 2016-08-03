@@ -114,9 +114,12 @@ class Renderer
         return $this->config->onParse($result);
     }
 
-    const NO_LINE_PREFIXED = 1;
-    const NO_CHILD_BLOCK = 2;
-
+    /**
+     * @param \ArrayIterator $linesIterator
+     * @param string $firstLine
+     * @param Block|null $parentBlock
+     * @return null|Generator\BlockGeneratorInterface
+     */
     protected function parseBlock(\ArrayIterator $linesIterator,
                                   $firstLine = '',
                                   \WikiRenderer\Block $parentBlock = null)
@@ -141,7 +144,7 @@ class Renderer
                     $block->open();
                     $block->validateLine();
                     $this->nextLine($linesIterator);
-                    return $block->close();
+                    return $block->close($block::CLOSE_REASON_IMMEDIATELY);
                 }
                 $block->open();
                 break;
@@ -163,20 +166,19 @@ class Renderer
                     $line = $this->currentLine($linesIterator);
                     if ($line === null) {
                         array_pop($this->blockStacks);
-                        return $block->close();
+                        return $block->close($block::CLOSE_REASON_PARENT_CLOSED);
                     }
-                }
-                else if ($subblock === self::NO_LINE_PREFIXED) {
-                    array_pop($this->blockStacks);
-                    return $block->close();
                 }
                 else {
                     // no sub blocks was found, this is probably just
                     // a line of text, or a new line that starts a sub section of the block
                     array_pop($this->blockStacks);
                     $line = $this->currentLine($linesIterator);
-                    if ($line === null || !$block->isAccepting($line)) {
-                        return $block->close();
+                    if ($line === null) {
+                        return $block->close($block::CLOSE_REASON_PARENT_CLOSED);
+                    }
+                    if (!$block->isAccepting($line)) {
+                        return $block->close($block::CLOSE_REASON_LINE_NOT_MATCH);
                     }
                     $this->blockStacks[] = $block;
                     $block->validateLine();
@@ -184,7 +186,7 @@ class Renderer
                     $line = $this->currentLine($linesIterator);
                     if ($line === null) {
                         array_pop($this->blockStacks);
-                        return $block->close();
+                        return $block->close($block::CLOSE_REASON_PARENT_CLOSED);
                     }
                 }
             }
@@ -198,14 +200,14 @@ class Renderer
                 $line = $this->currentLine($linesIterator);
                 if ($line === null || !$block->isAccepting($line)) {
                     // the line is not part of the block, we close it.
-                    break;
+                    return $block->close($block::CLOSE_REASON_LINE_NOT_MATCH);
                 }
                 // the line is part of the block
                 $block->validateLine();
                 $this->nextLine($linesIterator);
             }
         }
-        return $block->close();
+        return $block->close($block::CLOSE_REASON_EOF);
     }
 
     protected function nextLine(\ArrayIterator $linesIterator)

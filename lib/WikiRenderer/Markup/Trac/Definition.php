@@ -44,11 +44,11 @@ class Definition extends \WikiRenderer\Block
         }
     }
 
-    public function close()
+    public function close($reason)
     {
         $this->generateDef();
 
-        return parent::close();
+        return parent::close($reason);
     }
 
     protected function generateDef()

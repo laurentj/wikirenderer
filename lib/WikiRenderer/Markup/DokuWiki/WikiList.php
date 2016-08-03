@@ -92,12 +92,12 @@ class WikiList extends \WikiRenderer\Block
         }
     }
 
-    public function close()
+    public function close($reason)
     {
         $this->generatorStack = array();
         $this->indentStack = array();
 
-        return parent::close();
+        return parent::close($reason);
     }
 
     protected function _createList($type)

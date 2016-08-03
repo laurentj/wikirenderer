@@ -17,10 +17,10 @@ namespace WikiRenderer\Markup\JWiki;
  */
 class Definition extends \WikiRenderer\Markup\WR3\Definition
 {
-    public function close()
+    public function close($reason)
     {
         $this->engine->getConfig()->defaultTextLineContainer = '\WikiRenderer\Markup\DokuWiki\TextLine';
 
-        return parent::close();
+        return parent::close($reason);
     }
 }

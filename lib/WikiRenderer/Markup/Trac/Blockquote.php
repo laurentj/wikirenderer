@@ -44,11 +44,11 @@ class Blockquote extends \WikiRenderer\Block
         }
     }
 
-    public function close()
+    public function close($reason)
     {
         $this->generatorStack = null;
 
-        return parent::close();
+        return parent::close($reason);
     }
 
     protected function getTagLen($tag)

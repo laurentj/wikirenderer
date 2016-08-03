@@ -50,7 +50,7 @@ class WR3_NGTestsBlocks extends PHPUnit_Framework_TestCase {
         $this->assertTrue($block->isAccepting('lorem ipsum'));
         $block->open();
         $block->validateLine();
-        $generator = $block->close();
+        $generator = $block->close(0);
 
         $this->assertEquals('WikiRenderer\Generator\Html\Paragraph', get_class($generator));
         $this->assertEquals("<p>lorem ipsum</p>", $generator->generate());

@@ -27,11 +27,11 @@ class Definition extends \WikiRenderer\Block
         parent::open();
     }
 
-    public function close()
+    public function close($reason)
     {
         $this->engine->getConfig()->defaultTextLineContainer = '\WikiRenderer\Markup\WR3\TextLine';
 
-        return parent::close();
+        return parent::close($reason);
     }
 
     public function validateLine()

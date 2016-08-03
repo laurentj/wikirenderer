@@ -44,7 +44,7 @@ class Macro extends \WikiRenderer\Block
         $this->content = $this->_detectMatch[0];
     }
 
-    public function close()
+    public function close($reason)
     {
         $block = new \WikiRenderer\Generator\SingleLineBlock();
         $block->setLineAsString($this->content);
