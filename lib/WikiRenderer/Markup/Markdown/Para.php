@@ -17,17 +17,38 @@ class Para extends \WikiRenderer\Block
 {
     public $type = 'para';
 
+    protected $lines = array();
+
+    protected $hasEmptyLineBeforeAfter = false;
+
     public function isStarting($line)
     {
-        return $this->isAccepting($line);
+        if ($line == '') {
+            return false;
+        }
+
+        if (preg_match("/^( {0,3})[^\\w\\s].*/u", $line)) {
+            return false;
+        }
+        $this->_detectMatch = array($line, $line);
+        return true;
+    }
+
+    public function open()
+    {
+        $this->hasEmptyLineBeforeAfter = $this->engine->getConfig()->emptyLineCloseParagraph;
+        $this->engine->getConfig()->emptyLineCloseParagraph = false;
     }
 
     public function isAccepting($line)
     {
         if ($line == '') {
+            $this->engine->getConfig()->emptyLineCloseParagraph = true;
+            $this->hasEmptyLineBeforeAfter = true;
             return false;
         }
-        if (preg_match("/^\\s*[^\\w\\s].*/u", $line)) {
+
+        if (preg_match("/^( {0,3})[^\\w\\s].*/u", $line)) {
             return false;
         }
         $this->_detectMatch = array($line, $line);
@@ -36,7 +57,21 @@ class Para extends \WikiRenderer\Block
 
     public function validateLine()
     {
-        $this->generator->addLine($this->_renderInlineTag(trim($this->_detectMatch[1])));
+        $this->lines [] = $this->_renderInlineTag(trim($this->_detectMatch[1]));;
+    }
+
+    public function close($reason) {
+        if ($this->engine->inASubBlock() &&
+            !$this->hasEmptyLineBeforeAfter &&
+            count($this->lines) == 1) {
+            $block = new \WikiRenderer\Generator\SingleLineBlock();
+            $block->setLineAsString($this->lines[0]);
+            return $block;
+        }
+        foreach($this->lines as $line) {
+            $this->generator->addLine($line);
+        }
+        return $this->generator;
     }
 }
 

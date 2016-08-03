@@ -5,7 +5,7 @@
  */
 
 class MdTestsBlocks extends PHPUnit_Framework_TestCase {
-/*
+
     function testParagraph() {
         $genConfig = new \WikiRenderer\Generator\Html\Config();
         $generator = new \WikiRenderer\Generator\Html\Document($genConfig);
@@ -31,23 +31,29 @@ class MdTestsBlocks extends PHPUnit_Framework_TestCase {
 Lorem ipsum dolor sit amet consectetuer adipiscing elit.
 Ut scelerisque.
 
-Ut iaculis ultrices nulla. Cras viverra
+Ut iaculis ultrices 
+nulla. Cras 
+
+viverra
 diam nec justo.';
         $expected = '
 <p>Lorem ipsum dolor sit amet consectetuer adipiscing elit.
 Ut scelerisque.</p>
 
-<p>Ut iaculis ultrices nulla. Cras viverra
+<p>Ut iaculis ultrices
+nulla. Cras</p>
+
+<p>viverra
 diam nec justo.</p>';
 
         $result = $wr->render($source);
         $this->assertEquals($expected, $result);
         $this->assertEquals(0, count($wr->errors));
     }
-*/
+
     function getTestsList() {
         $list = array();
-        for($i=1; $i <= 8; $i++) {
+        for($i=1; $i <= 9; $i++) {
             $list[] = array('test_'.$i.'.json');
         }
         return $list;
@@ -65,6 +71,6 @@ diam nec justo.</p>';
 
         list($md, $html) = json_decode(file_get_contents(__DIR__.'/md_spec/'.$file));
         $result = $wr->render($md);
-        $this->assertEquals($html, $result, 'test '.$file."\n`````\n".$md."\n````\n");
+        $this->assertEquals($html, $result, 'test '.$file."\n`````\n".str_replace("\t", '→', $md)."\n````\n");
     }
 }

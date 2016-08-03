@@ -233,6 +233,11 @@ class Renderer
         return $line;
     }
 
+    public function inASubBlock()
+    {
+        return count($this->blockStacks) > 0;
+    }
+
     /**
      * Returns the current configuration object.
      *
