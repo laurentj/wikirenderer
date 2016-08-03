@@ -1,7 +1,7 @@
 <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Cras interdum.
 Donec dictum. Sed fringilla. Duis feugiat pharetra tortor. Nulla facilisi.</p>
 
-<hr/>
+<hr />
 
 <p>In hac habitasse platea dictumst. Nulla facilisi. Pellentesque sodales laoreet est.
 Nulla varius egestas risus. Duis sollicitudin tempor arcu. Mauris porta leo id dui

@@ -43,7 +43,7 @@ In hac habitasse platea dictumst.
 </pre>
 
 <p>Fusce sagittis, mi eu elementum lobortis, augue enim tristique ante, sed varius urna mauris sed erat.</p>
-<hr/>
+<hr />
 <p>Praesent pellentesque, <q lang=" consectetuer imperdiet">augue at</q>, mi metus <cite>dignissim arcu</cite>, sed sodales quam risus eu neque.</p>
 
 <p>Pellentesque euismod.</p>

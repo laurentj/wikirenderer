@@ -29,7 +29,7 @@ class Hr implements \WikiRenderer\Generator\BlockGeneratorInterface
         if ($this->id) {
             return '<hr id="'.htmlspecialchars($this->id).'"/>';
         } else {
-            return '<hr/>';
+            return '<hr />';
         }
     }
 }

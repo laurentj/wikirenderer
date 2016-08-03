@@ -31,8 +31,8 @@
 <dd>metus in cursus dapibus, purus ipsum consequat quam, et vehicula libero velit sit amet felis. Sed id leo.</dd>
 </dl>
 
-<hr/>
-<hr/>
+<hr />
+<hr />
 
 <pre>      non odio gravida varius. Vivamus fringilla, neque ac suscipit vehicula,
 	  
