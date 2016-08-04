@@ -6,28 +6,14 @@
 
 class MdTestsBlocks extends PHPUnit_Framework_TestCase {
 
-    function testParagraph() {
-        $genConfig = new \WikiRenderer\Generator\Html\Config();
-        $generator = new \WikiRenderer\Generator\Html\Document($genConfig);
-        $markupConfig = new \WikiRenderer\Markup\Markdown\Config();
-        $wr = new \WikiRenderer\Renderer($generator, $markupConfig);
-
-        $source = 'foo';
-        $expected = '<p>foo</p>';
-
-        $result = $wr->render($source);
-        $this->assertEquals($expected, $result);
-        $this->assertEquals(0, count($wr->errors));
-
-    }
-
-    function test2Paragraph() {
-        $genConfig = new \WikiRenderer\Generator\Html\Config();
-        $generator = new \WikiRenderer\Generator\Html\Document($genConfig);
-        $markupConfig = new \WikiRenderer\Markup\Markdown\Config();
-        $wr = new \WikiRenderer\Renderer($generator, $markupConfig);
-
-        $source = '
+    function getTestsList() {
+        $list = array();
+        $list[] = array(
+            'foo',
+            '<p>foo</p>'
+        );
+        $list[] = array(
+            '
 Lorem ipsum dolor sit amet consectetuer adipiscing elit.
 Ut scelerisque.
 
@@ -35,8 +21,8 @@ Ut iaculis ultrices
 nulla. Cras 
 
 viverra
-diam nec justo.';
-        $expected = '
+diam nec justo.',
+            '
 <p>Lorem ipsum dolor sit amet consectetuer adipiscing elit.
 Ut scelerisque.</p>
 
@@ -44,23 +30,37 @@ Ut scelerisque.</p>
 nulla. Cras</p>
 
 <p>viverra
-diam nec justo.</p>';
+diam nec justo.</p>'
+        );
+
+        return $list;
+    }
+
+    /**
+     * @dataProvider getTestsList
+     */
+    function testParagraph($source, $expected) {
+        $genConfig = new \WikiRenderer\Generator\Html\Config();
+        $generator = new \WikiRenderer\Generator\Html\Document($genConfig);
+        $markupConfig = new \WikiRenderer\Markup\Markdown\Config();
+        $wr = new \WikiRenderer\Renderer($generator, $markupConfig);
 
         $result = $wr->render($source);
         $this->assertEquals($expected, $result);
         $this->assertEquals(0, count($wr->errors));
     }
 
-    function getTestsList() {
+
+    function getOfficialTestsList() {
         $list = array();
-        for($i=1; $i <= 11; $i++) {
+        for($i=1; $i <= 12; $i++) {
             $list[] = array('test_'.$i.'.json');
         }
         return $list;
     }
 
     /**
-     * @dataProvider getTestsList
+     * @dataProvider getOfficialTestsList
      */
     function testAllSeries($file) {
 

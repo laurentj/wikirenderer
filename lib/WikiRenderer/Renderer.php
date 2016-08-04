@@ -163,6 +163,26 @@ class Renderer
                                               $block);
                 if (is_object($subblock)) {
                     $block->addChildBlock($subblock);
+                    // get the line for the possible next sub block
+                    $line = $this->currentLine($linesIterator);
+                    if ($line !== null) {
+                        // let's parse the next sub block
+                        continue;
+                    }
+
+                    // perhaps a new kind of item is starting for the block
+                    // like a new item of a list
+                    array_pop($this->blockStacks);
+                    $line = $this->currentLine($linesIterator);
+                    if ($line === null) {
+                        return $block->close($block::CLOSE_REASON_PARENT_CLOSED);
+                    }
+                    if (!$block->isAccepting($line)) {
+                        return $block->close($block::CLOSE_REASON_LINE_NOT_MATCH);
+                    }
+                    $this->blockStacks[] = $block;
+                    $block->validateLine();
+                    $this->nextLine($linesIterator);
                     $line = $this->currentLine($linesIterator);
                     if ($line === null) {
                         array_pop($this->blockStacks);
@@ -198,8 +218,10 @@ class Renderer
             // we loop over all lines
             while ($linesIterator->valid()) {
                 $line = $this->currentLine($linesIterator);
-                if ($line === null || !$block->isAccepting($line)) {
-                    // the line is not part of the block, we close it.
+                if ($line === null) {
+                    return $block->close($block::CLOSE_REASON_PARENT_CLOSED);
+                }
+                if (!$block->isAccepting($line)) {
                     return $block->close($block::CLOSE_REASON_LINE_NOT_MATCH);
                 }
                 // the line is part of the block

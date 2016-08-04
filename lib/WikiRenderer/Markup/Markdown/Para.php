@@ -27,11 +27,11 @@ class Para extends \WikiRenderer\Block
             return false;
         }
 
-        if (preg_match("/^( {0,3})[^\\w\\s].*/u", $line)) {
-            return false;
+        if (preg_match("/^( {0,3})[\\w\\s`].*/u", $line)) {
+            $this->_detectMatch = array($line, $line);
+            return true;
         }
-        $this->_detectMatch = array($line, $line);
-        return true;
+        return false;
     }
 
     public function open()
@@ -48,11 +48,12 @@ class Para extends \WikiRenderer\Block
             return false;
         }
 
-        if (preg_match("/^( {0,3})[^\\w\\s].*/u", $line)) {
-            return false;
+        if (preg_match("/^( {0,3})[\\w\\s`].*/u", $line)) {
+            $this->_detectMatch = array($line, $line);
+            return true;
+
         }
-        $this->_detectMatch = array($line, $line);
-        return true;
+        return false;
     }
 
     public function validateLine()
