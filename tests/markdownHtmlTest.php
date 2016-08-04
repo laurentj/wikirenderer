@@ -53,7 +53,7 @@ diam nec justo.</p>'
 
     function getOfficialTestsList() {
         $list = array();
-        for($i=1; $i <= 12; $i++) {
+        for($i=1; $i <= 24; $i++) {
             $list[] = array('test_'.$i.'.json');
         }
         return $list;

@@ -38,7 +38,7 @@ class OrderedWikiList extends \WikiRenderer\Block
 {
     public $type = 'list';
 
-    protected $regexp = "/^( {0,3})(\\d{1,9}[\\.\\)])(\\s*)(.*)/";
+    protected $regexp = "/^( {0,3})(\\d{1,9}[\\.\\)])(\\s+)(.*)/";
 
     protected $_allowChild = true;
 

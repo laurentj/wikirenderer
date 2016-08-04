@@ -27,7 +27,7 @@ class Para extends \WikiRenderer\Block
             return false;
         }
 
-        if (preg_match("/^( {0,3})[\\w\\s`].*/u", $line)) {
+        if (preg_match("/^( {0,3})[\\S].*/u", $line)) {
             $this->_detectMatch = array($line, $line);
             return true;
         }
@@ -48,7 +48,25 @@ class Para extends \WikiRenderer\Block
             return false;
         }
 
-        if (preg_match("/^( {0,3})[\\w\\s`].*/u", $line)) {
+        if (preg_match("/^( {0,3})(\\>)( ?)(.*)$/", $line)) {
+            return false;
+        }
+        if (preg_match('/^( {0,3})([\\-_\\*]\\s*){3,}$/', $line)) {
+            return false;
+        }
+        if (preg_match("/^( {0,3})(\\d{1,9}[\\.\\)])(\\s+)(.*)/", $line)) {
+            return false;
+        }
+        if (preg_match('/^\s*```(.*)/', $line)) {
+            return false;
+        }
+        if (preg_match("/^\\s*(#{1,6})\\s*(.*)/", $line)) {
+            return false;
+        }
+        if (preg_match("/^( {0,3})([\\-\\+\\*])(\\s+)(.*)/", $line)) {
+            return false;
+        }
+        if (preg_match("/^( *)[\\S].*/u", $line)) {
             $this->_detectMatch = array($line, $line);
             return true;
 
