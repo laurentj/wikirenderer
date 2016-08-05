@@ -19,9 +19,9 @@ class Config extends \WikiRenderer\Config
 
     public $textLineContainers = array(
         '\WikiRenderer\Markup\Markdown\TextLine' => array(
-            /*'\WikiRenderer\Markup\Markdown\Strong',
+            '\WikiRenderer\Markup\Markdown\Strong',
             '\WikiRenderer\Markup\Markdown\Em',
-            '\WikiRenderer\Markup\Markdown\Del',*/
+            /*'\WikiRenderer\Markup\Markdown\Del',*/
         ),
     );
 
