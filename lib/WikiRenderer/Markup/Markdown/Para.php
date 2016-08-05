@@ -21,6 +21,8 @@ class Para extends \WikiRenderer\Block
 
     protected $hasEmptyLineBeforeAfter = false;
 
+    protected $isSetextHeading = false;
+
     public function isStarting($line)
     {
         if ($line == '') {
@@ -48,10 +50,18 @@ class Para extends \WikiRenderer\Block
             return false;
         }
 
+        if ($this->isSetextHeading) {
+            return false;
+        }
+
+        if (preg_match("/^( {0,3})((\\-{2,})|(=+))\\s*$/", $line, $m)) {
+            $this->isSetextHeading = $m[2][0];
+            return true;
+        }
         if (preg_match("/^( {0,3})(\\>)( ?)(.*)$/", $line)) {
             return false;
         }
-        if (preg_match('/^( {0,3})([\\-_\\*]\\s*){3,}$/', $line)) {
+        if (preg_match('/^( {0,3})((\\-\\s*){3,}|(_\\s*){3,}|(\\*\\s*){3,})$/', $line)) {
             return false;
         }
         if (preg_match("/^( {0,3})(\\d{1,9}[\\.\\)])(\\s+)(.*)/", $line)) {
@@ -73,16 +83,27 @@ class Para extends \WikiRenderer\Block
 
     public function validateLine()
     {
-        $this->lines [] = $this->_renderInlineTag(trim($this->_detectMatch[1]));;
+        if (!$this->isSetextHeading) {
+            $this->lines [] = $this->_renderInlineTag(trim($this->_detectMatch[1]));
+        }
     }
 
     public function close($reason) {
-        if ($this->engine->inASubBlock() &&
+        if ($this->isSetextHeading) {
+            $this->generator = $this->documentGenerator->getBlockGenerator('title');
+            if ($this->isSetextHeading == '-') {
+                $this->generator->setLevel(2);
+            }
+            else {
+                $this->generator->setLevel(1);
+            }
+        }
+        else if ($this->engine->inASubBlock() &&
             !$this->hasEmptyLineBeforeAfter &&
             count($this->lines) == 1) {
-            $block = new \WikiRenderer\Generator\SingleLineBlock();
-            $block->setLineAsString($this->lines[0]);
-            return $block;
+            $this->generator = new \WikiRenderer\Generator\SingleLineBlock();
+            $this->generator->setLineAsString($this->lines[0]);
+            return $this->generator;
         }
         foreach($this->lines as $line) {
             $this->generator->addLine($line);
