@@ -60,9 +60,6 @@ class Para extends \WikiRenderer\Block
         if (preg_match('/^\s*```(.*)/', $line)) {
             return false;
         }
-        if (preg_match("/^\\s*(#{1,6})\\s*(.*)/", $line)) {
-            return false;
-        }
         if (preg_match("/^( {0,3})([\\-\\+\\*])(\\s+)(.*)/", $line)) {
             return false;
         }
