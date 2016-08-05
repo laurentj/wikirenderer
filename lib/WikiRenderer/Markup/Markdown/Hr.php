@@ -17,7 +17,7 @@ namespace WikiRenderer\Markup\Markdown;
 class Hr extends \WikiRenderer\Block
 {
     public $type = 'hr';
-    protected $regexp = '/^( {0,3})([\\-_\\*]\\s*){3,}$/';
+    protected $regexp = '/^( {0,3})((\\-\\s*){3,}|(_\\s*){3,}|(\\*\\s*){3,})$/';
     protected $_closeNow = true;
 
     public function validateLine()
