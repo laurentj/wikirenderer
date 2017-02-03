@@ -264,7 +264,7 @@ abstract class Tag
             }
         }
 
-        return;
+        return null;
     }
 
     public function __clone()

@@ -63,7 +63,7 @@ abstract class AbstractInlineGenerator implements \WikiRenderer\Generator\Inline
             return $this->attributes[$name];
         }
 
-        return;
+        return null;
     }
 
     public function isEmpty()
