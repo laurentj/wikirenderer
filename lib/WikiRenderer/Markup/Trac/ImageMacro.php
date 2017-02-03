@@ -47,7 +47,6 @@ class ImageMacro implements MacroInterface
 
         $width = null;
         $nolink = false;
-        $hasAlt = false;
 
         foreach ($params as $p) {
             $p = trim($p);

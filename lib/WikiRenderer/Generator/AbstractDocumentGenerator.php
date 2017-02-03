@@ -87,7 +87,7 @@ abstract class AbstractDocumentGenerator implements \WikiRenderer\Generator\Docu
     /**
      * store meta data readed by parsers
      * @param string $name
-     * @param mixed value
+     * @param mixed $value
      */
     public function setMetaData($name, $value) {
         $this->metadata[$name] = $value;
@@ -115,9 +115,9 @@ abstract class AbstractDocumentGenerator implements \WikiRenderer\Generator\Docu
     /**
      * Add content to the footer. May be used by a parser.
      * example: footnotes.
-     * @param GeneratorInterface $header
+     * @param GeneratorInterface $footer
      */
-    public function addFooter(GeneratorInterface $header)
+    public function addFooter(GeneratorInterface $footer)
     {
         $this->footers[] = $footer;
     }

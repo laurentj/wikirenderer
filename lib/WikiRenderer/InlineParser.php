@@ -88,7 +88,6 @@ class InlineParser
             $c->tag = new $class($config, $generator);
             $separators = $c->tag->separators;
 
-            $tagList = array();
             foreach ($tags as $tag) {
                 $t = new $tag($config, $generator);
                 $c->allowedTags[$t->beginTag] = $t;

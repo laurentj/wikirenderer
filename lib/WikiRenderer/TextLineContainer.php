@@ -17,7 +17,7 @@ namespace WikiRenderer;
  */
 class TextLineContainer
 {
-    /** @var WikiRenderer\Tag */
+    /** @var \WikiRenderer\Tag */
     public $tag = null;
 
     /** ??? */

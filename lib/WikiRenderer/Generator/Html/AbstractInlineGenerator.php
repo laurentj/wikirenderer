@@ -16,6 +16,9 @@ abstract class AbstractInlineGenerator implements \WikiRenderer\Generator\Inline
 
     protected $supportedAttributes = array('id');
 
+    /**
+     * @var \WikiRenderer\Generator\InlineWordsInterface[]
+     */
     protected $content = array();
 
     protected $attributes = array();

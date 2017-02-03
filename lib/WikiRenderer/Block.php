@@ -17,7 +17,7 @@ namespace WikiRenderer;
 /**
  * Base class to parse block elements.
  *
- * @cubpackage  core
+ * @subpackage  core
  */
 abstract class Block
 {

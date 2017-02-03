@@ -10,8 +10,6 @@
  */
 namespace WikiRenderer\Generator;
 
-use WikiRenderer\Generator\InlineGeneratorInterface;
-
 /**
  * a simple bag of inline generator. Useful to carry a list of inline generator
  * that can be produced by a single inline tag parser.
@@ -24,7 +22,7 @@ class InlineBagGenerator implements InlineGeneratorInterface
 
     /**
      * @param string $glue
-     * @param InlineGeneratorInterface[] $list
+     * @param \WikiRenderer\Generator\InlineGeneratorInterface[] $list
      */
     public function __construct($glue = '', $list = array())
     {

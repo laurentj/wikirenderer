@@ -98,7 +98,9 @@ class Document extends \WikiRenderer\Generator\AbstractDocumentGenerator
      * @param  \WikiRenderer\Generator\BlocksContainerInterface $container
      */
     public function pushContainer(\WikiRenderer\Generator\BlocksContainerInterface $container) {
-        $this->addBlock($container);
+        if ($container instanceof \WikiRenderer\Generator\BlockGeneratorInterface) {
+            $this->addBlock($container);
+        }
         $this->containersStack[] = $container;
     }
 

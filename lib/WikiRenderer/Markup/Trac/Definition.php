@@ -25,8 +25,13 @@ class Definition extends \WikiRenderer\Block
     /** @var \WikiRenderer\Generator\InlineGeneratorInterface */
     protected $currentTerm = null;
 
-    /** @var \WikiRenderer\Generator\InlineGeneratorInterface */
+    /** @var \WikiRenderer\Generator\InlineGeneratorInterface[] */
     protected $currentDefinition = array();
+
+    /**
+     * @var \WikiRenderer\Generator\BlockDefinitionInterface
+     */
+    protected $generator;
 
     protected $detectedTerm = null;
     protected $detectedDef = null;

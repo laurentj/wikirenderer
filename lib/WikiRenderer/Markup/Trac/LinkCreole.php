@@ -24,6 +24,14 @@ class LinkCreole extends \WikiRenderer\Tag
     protected $attribute = array('href', '$$');
     public $separators = array('|');
 
+    /** @var \WikiRenderer\Markup\Trac\Config */
+    protected $config = null;
+
+    /**
+     * @var \WikiRenderer\Generator\InlineComplexGeneratorInterface
+     */
+    protected $generator = null;
+
     public function getContent()
     {
         foreach ($this->config->macros as $macro) {

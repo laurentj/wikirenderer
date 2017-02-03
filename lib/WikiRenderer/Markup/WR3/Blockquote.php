@@ -26,6 +26,8 @@ class Blockquote extends \WikiRenderer\Block
     protected $generatorStack;
 
     protected $_firstLine = true;
+    protected $_previousTag = '';
+    protected $_firstTagLen = 0;
 
     public function open()
     {

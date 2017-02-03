@@ -14,6 +14,11 @@ class FootnoteLink extends AbstractInlineGenerator implements \WikiRenderer\Gene
 {
     protected $supportedAttributes = array('number');
 
+    /**
+     * @var \WikiRenderer\Generator\BlockFootnoteInterface
+     */
+    protected $footnotes;
+
     function __construct(\WikiRenderer\Generator\BlockFootnoteInterface $footnotes) {
         $this->footnotes = $footnotes;
     }

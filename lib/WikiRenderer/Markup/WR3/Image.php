@@ -28,7 +28,7 @@ class Image extends \WikiRenderer\Tag
     {
         $contents = $this->wikiContentArr;
         $cnt = count($contents);
-        $attribut = '';
+
         if ($cnt > 4) {
             $cnt = 4;
         }

@@ -18,7 +18,7 @@ interface BlockListInterface extends BlockGeneratorInterface
     /**
      * type of the list.
      *
-     * @param int use ORDERED_LIST or UNORDERED_LIST constants
+     * @param int $type use ORDERED_LIST or UNORDERED_LIST constants
      */
     public function setListType($type);
 

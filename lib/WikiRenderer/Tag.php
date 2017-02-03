@@ -196,10 +196,8 @@ abstract class Tag
      */
     public function getContent()
     {
-        $attr = '';
         $cntattr = count($this->attribute);
         $count = ($this->separatorCount >= $cntattr) ? ($cntattr - 1) : $this->separatorCount;
-        $content = '';
 
         for ($i = 0; $i <= $count; ++$i) {
             if ($this->attribute[$i] != '$$') {

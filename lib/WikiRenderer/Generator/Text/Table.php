@@ -11,6 +11,7 @@
 namespace WikiRenderer\Generator\Text;
 
 use WikiRenderer\Generator\BlockTableInterface;
+use WikiRenderer\Generator\BlockTableCellInterface;
 
 class Table implements BlockTableInterface
 {

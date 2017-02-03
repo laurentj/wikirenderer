@@ -70,6 +70,9 @@ class Config extends \WikiRenderer\Config
 
     public $wikiWordBaseUrl = '/wiki/%s';
 
+    /**
+     * @var MacroInterface[]
+     */
     public $macros = array();
 
     public function __construct()
