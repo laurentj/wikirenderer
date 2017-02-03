@@ -11,6 +11,7 @@
  * @licence MIT see LICENCE file
  */
 namespace WikiRenderer\Markup\JWiki;
+use \WikiRenderer\Generator\InlineGeneratorInterface;
 
 /**
  * Parse code inline tag.
@@ -41,7 +42,7 @@ class Code extends \WikiRenderer\Tag
         'V' => 'varname',
     );
 
-    public function addContent($wikiContent, Generator\InlineGeneratorInterface $childGenerator = null)
+    public function addContent($wikiContent, InlineGeneratorInterface $childGenerator = null)
     {
         $this->wikiContentArr[$this->separatorCount] .= $wikiContent;
         if ($childGenerator === null) {

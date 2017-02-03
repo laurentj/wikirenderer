@@ -11,6 +11,7 @@
  * @licence MIT see LICENCE file
  */
 namespace WikiRenderer\Markup\Trac;
+use \WikiRenderer\Generator\InlineGeneratorInterface;
 
 /**
  * Parser for a link.
@@ -26,7 +27,7 @@ class Link extends LinkCreole
 
     protected $inLabel = false;
 
-    public function addContent($wikiContent, Generator\InlineGeneratorInterface $childGenerator = null)
+    public function addContent($wikiContent, InlineGeneratorInterface $childGenerator = null)
     {
         if (!$this->inLabel) {
             $items = preg_split('/(\\s+)/', $wikiContent, 2, PREG_SPLIT_DELIM_CAPTURE);
