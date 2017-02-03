@@ -14,6 +14,8 @@ interface BlockTitleInterface extends BlockGeneratorInterface
 {
     /**
      * Level of the title. Lower is bigger.
+     * @param integer $level
+     * @return
      */
     public function setLevel($level);
 
@@ -24,6 +26,8 @@ interface BlockTitleInterface extends BlockGeneratorInterface
 
     /**
      * content of the title.
+     * @param InlineGeneratorInterface $content
+     * @return
      */
     public function addLine(InlineGeneratorInterface $content);
 }

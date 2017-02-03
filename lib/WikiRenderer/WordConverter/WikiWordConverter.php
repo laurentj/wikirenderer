@@ -28,6 +28,7 @@ class WikiWordConverter extends AbstractWordConverter
 
     /**
      * @param string $url should contain marker %s for sprintf()
+     * @param string $escapeChar
      */
     public function __construct($url, $escapeChar = '\\')
     {

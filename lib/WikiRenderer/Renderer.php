@@ -50,6 +50,7 @@ class Renderer
     /**
      * Constructor. Prepare the engine.
      *
+     * @param Generator\DocumentGeneratorInterface $generator
      * @param \WikiRenderer\Config $config A configuration object. If it is not present, it uses wr3_to_xhtml rules.
      */
     public function __construct(\WikiRenderer\Generator\DocumentGeneratorInterface $generator, Config $config)

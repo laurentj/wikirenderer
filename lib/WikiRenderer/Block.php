@@ -64,6 +64,7 @@ abstract class Block
      * Constructor.
      *
      * @param \WikiRenderer\Renderer $wr Main parser object.
+     * @param Generator\DocumentGeneratorInterface $generator
      */
     public function __construct(Renderer $wr, \WikiRenderer\Generator\DocumentGeneratorInterface $generator)
     {

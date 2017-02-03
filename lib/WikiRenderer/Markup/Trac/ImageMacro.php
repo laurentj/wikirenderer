@@ -18,6 +18,7 @@ namespace WikiRenderer\Markup\Trac;
 class ImageMacro implements MacroInterface
 {
     /**
+     * @param string $wikiContent
      * @return bool true if the given wiki content is the macro
      */
     public function match($wikiContent)
@@ -28,6 +29,9 @@ class ImageMacro implements MacroInterface
     /**
      * returns the generator corresponding to the macro.
      *
+     * @param Config $config
+     * @param \WikiRenderer\Generator\DocumentGeneratorInterface $documentGenerator
+     * @param string $wikiContent
      * @return \WikiRenderer\Generator\InlineGeneratorInterface
      */
     public function getContent(\WikiRenderer\Markup\Trac\Config $config,

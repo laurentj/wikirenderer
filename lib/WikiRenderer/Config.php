@@ -71,6 +71,8 @@ abstract class Config
     /**
      * Called after the parsing. You can add additionnal data to
      * the result of the parsing.
+     * @param string $finalText
+     * @return string
      */
     public function onParse($finalText)
     {

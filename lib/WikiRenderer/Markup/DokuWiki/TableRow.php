@@ -61,8 +61,10 @@ class TableRow extends \WikiRenderer\Tag
     }
 
     protected $previousGenerator = null;
+
     /**
      * called by the inline parser, when it found a separator.
+     * @param string $token
      */
     public function addSeparator($token)
     {

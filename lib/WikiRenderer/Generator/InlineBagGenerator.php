@@ -23,7 +23,8 @@ class InlineBagGenerator implements InlineGeneratorInterface
     protected $glue;
 
     /**
-     * @param InlineGeneratorInterface[]
+     * @param string $glue
+     * @param InlineGeneratorInterface[] $list
      */
     public function __construct($glue = '', $list = array())
     {

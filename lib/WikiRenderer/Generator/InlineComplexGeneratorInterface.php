@@ -91,7 +91,8 @@ interface InlineComplexGeneratorInterface extends InlineGeneratorInterface
     /**
      * return the value of an attribute.
      *
-     * @return string|null null if the attribute does not exists ore has no
+     * @param string $name
+     * @return null|string null if the attribute does not exists ore has no
      *                     value
      */
     public function getAttribute($name);

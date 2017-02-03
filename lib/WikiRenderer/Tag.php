@@ -113,6 +113,7 @@ abstract class Tag
      * Constructor.
      *
      * @param \WikiRenderer\Config $config Configuration object.
+     * @param Generator\DocumentGeneratorInterface $generator
      */
     public function __construct(Config $config, \WikiRenderer\Generator\DocumentGeneratorInterface $generator)
     {
@@ -170,6 +171,7 @@ abstract class Tag
      * Says if the given token is the current separator of the tag.
      * The tag can support many separator.
      *
+     * @param string $token
      * @return string The separator.
      */
     public function isCurrentSeparator($token)
@@ -273,6 +275,7 @@ abstract class Tag
     }
 
     /**
+     * @param string $wikiContent
      * @return Generator\InlineGeneratorInterface
      */
     protected function convertWords($wikiContent)

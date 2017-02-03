@@ -49,9 +49,10 @@ class Config extends \WikiRenderer\Config
     }
 
 
-
     /**
      * called after the parsing
+     * @param string $finalText
+     * @return string
      */
     public function onParse($finalText)
     {

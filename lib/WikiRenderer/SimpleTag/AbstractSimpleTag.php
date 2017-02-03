@@ -57,6 +57,8 @@ abstract class AbstractSimpleTag
     }
 
     /**
+     * @param \WikiRenderer\Generator\DocumentGeneratorInterface $documentGenerator
+     * @param $token
      * @return \WikiRenderer\Generator\InlineGeneratorInterface
      */
     abstract public function getContent(\WikiRenderer\Generator\DocumentGeneratorInterface $documentGenerator, $token);

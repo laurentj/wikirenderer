@@ -20,11 +20,14 @@ interface InlineRawWordsInterface extends InlineGeneratorInterface
     /**
      * add original content from the wiki text
      * This content may certainly escaped or something like that.
+     * @param string $words
+     * @return
      */
     public function addRawContent($words);
 
     /**
-     *
+     * @param InlineWordsInterface $words
+     * @return
      */
     public function addContent(InlineWordsInterface $words);
 }

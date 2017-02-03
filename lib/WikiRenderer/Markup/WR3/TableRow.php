@@ -46,6 +46,7 @@ class TableRow extends \WikiRenderer\Tag
 
     /**
      * called by the inline parser, when it found a separator.
+     * @param string $token
      */
     public function addSeparator($token)
     {

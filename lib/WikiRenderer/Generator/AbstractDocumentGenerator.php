@@ -100,6 +100,7 @@ abstract class AbstractDocumentGenerator implements \WikiRenderer\Generator\Docu
 
     /**
      * Add content to the header. May be used by a parser.
+     * @param GeneratorInterface $header
      */
     public function addHeader(GeneratorInterface $header)
     {
@@ -114,6 +115,7 @@ abstract class AbstractDocumentGenerator implements \WikiRenderer\Generator\Docu
     /**
      * Add content to the footer. May be used by a parser.
      * example: footnotes.
+     * @param GeneratorInterface $header
      */
     public function addFooter(GeneratorInterface $header)
     {
