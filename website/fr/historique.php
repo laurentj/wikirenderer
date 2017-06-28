@@ -7,6 +7,21 @@ require('header.inc.php');
 <p>WikiRenderer est distribué sous <a href="http://www.gnu.org/licenses/licenses.html#LGPL">licence LGPL</a>.</p>
 
 <dl>
+    <dt id="v3.1.8">Version 3.1.8, 28/05/2016</dt>
+    <dd>
+        <ul>
+            <li>Correction de l'auto-chargement des classes WikiTextLine</li>
+        </ul>
+    </dd>
+
+    <dt id="v3.1.7">Version 3.1.7, 05/06/2015</dt>
+    <dd>
+        <ul>
+            <li>Installable avec Composer : paquet 'jelix/wikirenderer'</li>
+            <li>Correction de conformité sur la génération de Docbook</li>
+        </ul>
+    </dd>
+
     <dt id="v3.1.6">Version 3.1.6, 02/02/2015</dt>
     <dd>
         <ul>

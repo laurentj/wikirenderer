@@ -8,6 +8,20 @@ require('header.inc.php');
 <a href="http://www.gnu.org/licenses/licenses.html#LGPL">LGPL licence</a>.</p>
 
 <dl>
+    <dt id="v3.1.8">Version 3.1.8, 05/28/2016</dt>
+    <dd>
+        <ul>
+            <li>Fix autoloading of WikiTextLine classes</li>
+        </ul>
+    </dd>
+
+    <dt id="v3.1.7">Version 3.1.7, 06/05/2015</dt>
+    <dd>
+        <ul>
+            <li>Installable with Composer, as the jelix/wikirenderer package</li>
+            <li>Fix some Docbook conformance</li>
+        </ul>
+    </dd>
     <dt id="v3.1.6">Version 3.1.6, 02/02/2015</dt>
     <dd>
         <ul>

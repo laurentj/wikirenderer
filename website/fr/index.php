@@ -1,17 +1,17 @@
 <?php
-require(dirname(__FILE__).'/header.inc.php');
+require(__DIR__.'/header.inc.php');
 ?>
 
 <h2>Qu'est-ce WikiRenderer ?</h2>
 
-<p>WikiRenderer est une classe PHP permettant de transformer un contenu wiki
+<p>WikiRenderer est un composant PHP permettant de transformer un contenu wiki
 en un texte formaté en XHTML ou tout autre format, et même une autre syntaxe wiki.
 Vous pouvez l'intégrer dans votre CMS, votre wiki, votre forum, pour transformer
 et afficher du contenu wiki, mais aussi pour migrer du contenu wiki
 d'un CMS à un autre, quand ils utilisent chacun d'eux une
 syntaxe différente.</p>
 
-<p>Vous pouvez tester Wikirenderer <a href="demo.php">sur la page de démonstration</a></p>
+<p>Vous pouvez tester Wikirenderer <a href="/fr/demo.php">sur la page de démonstration</a></p>
 <p>WikiRenderer est distribué sous
 <a href="http://www.gnu.org/licenses/licenses.html#LGPL">licence LGPL</a>.</p>
 
@@ -19,12 +19,16 @@ syntaxe différente.</p>
 <h2>Dernière version</h2>
 <dl>
 <dt>Stable</dt>
-<dd><strong>3.1.6</strong>, uniquement pour PHP 5 (02/02/2015)</dd>
+<dd><strong>3.1.8</strong>, pour PHP 5.3+ (28/05/2016)</dd>
 </dl>
 <p>Wikirenderer est
 <a href="http://download.jelix.org/wikirenderer/">disponible
-en téléchargement</a>. Vous pouvez aussi lire
-<a href="/fr/historique.php#v3.1.6">la liste des changements</a> pour cette version.</p>
+    en téléchargement</a>. Vous pouvez aussi l'installer avec Composer :</p>
+<pre>
+    <code>composer require jelix/wikirenderer</code>
+</pre>
+
+<p>Voir <a href="/fr/historique.php#v3.1.8">la liste des changements</a> pour cette version.</p>
 
 <h2 id="caracteristiques">Caractéristiques</h2>
 <h3>Caractéristiques</h3>
@@ -108,9 +112,9 @@ distribution officielles de WikiRenderer, envoyez moi le fichier.</p>
 </ul>
 
 <h2 id="contact">Contact</h2>
-<p>WikiRenderer est réalisé par Laurent Jouanneau : ljouanneau chez gmail point com.
+<p>WikiRenderer est réalisé par Laurent Jouanneau : dev@ljouanneau.com.
 (site : <a href="http://ljouanneau.com">ljouanneau.com</a>).</p>
 
 <?php
-require(dirname(__FILE__).'/footer.inc.php');
+require(__DIR__.'/footer.inc.php');
 ?>

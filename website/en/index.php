@@ -1,5 +1,5 @@
 <?php
-require(dirname(__FILE__).'/header.inc.php');
+require(__DIR__.'/header.inc.php');
 
 ?>
 
@@ -16,11 +16,16 @@ to migrate wiki contents from an old wiki CMS to a new one.</p>
 
 <h2>Latest version</h2>
 <dl>
-<dt>Stable</dt>
-<dd><strong>3.1.6</strong>, only for php5 (02/02/2015)</dd>
+    <dt>Stable</dt>
+    <dd><strong>3.1.8</strong>, for php 5.3+ (05/28/2016)</dd>
 </dl>
-<p>See the <a href="http://download.jelix.org/wikirenderer/">download page</a>,
-and <a href="/en/history.php#v3.1.6">the changes</a>.</p>
+
+<p>You can <a href="http://download.jelix.org/wikirenderer/">download it manually</a>,
+    or install it with Composer:</p>
+<pre>
+    <code>composer require jelix/wikirenderer</code>
+</pre>
+<p>See <a href="/en/history.php#v3.1.8">the changes</a> of the latest version.</p>
 
 <h2 id="caracteristiques">Features</h2>
 
@@ -96,9 +101,9 @@ send me files of your rule.</p>
 </ul>
 
 <h2 id="contact">Contact</h2>
-<p>WikiRenderer is developed by Laurent Jouanneau : ljouanneau at gmail dot com.
+<p>WikiRenderer is developed by Laurent Jouanneau : dev@ljouanneau.com.
 (site : <a href="http://ljouanneau.com">ljouanneau.com</a>).</p>
 
 <?php
-require(dirname(__FILE__).'/footer.inc.php');
+require(__DIR__.'/footer.inc.php');
 ?>

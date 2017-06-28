@@ -6,11 +6,11 @@ require('header.inc.php');
 <h2>Foire Aux Questions</h2>
 
 <dl>
-   <dt id="echappement">Je ne veux pas que des caractères correspondants à des tags
-   wiki soient interprétés, comment faire ?</dt>
-   <dd>Mettre un anti-slash devant le caractère. <br />
-   Exemple : <code>\[ exemple \]</code> ne sera pas interprété comme
-   étant un lien.</dd>
+   <dt id="echappement">Je ne veux pas que des caractÃ¨res correspondants Ã  des tags
+   wiki soient interprÃ©tÃ©s, comment faire ?</dt>
+   <dd>Mettre un anti-slash devant le caractÃ¨re. <br />
+   Exemple : <code>\[ exemple \]</code> ne sera pas interprÃ©tÃ© comme
+   Ã©tant un lien.</dd>
 </dl>
 
 
