@@ -35,7 +35,7 @@ class WR3TestsBlocks extends PHPUnit_Framework_TestCase {
             $res = $wr->render($source);
 
             if($file=='wr3_footnote'){
-                $conf = & $wr->getConfig();
+                $conf = $wr->getConfig();
                 $res=str_replace('-'.$conf->footnotesId.'-', '-XXX-',$res);
             }
             $this->assertEquals($result, $res, "error on $file");

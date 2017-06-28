@@ -84,7 +84,7 @@ truc3 </code></pre>',
 
             $res = $wr->render($source);
             if($file=='general'){
-                $conf = & $wr->getConfig();
+                $conf = $wr->getConfig();
                 $res=str_replace('-'.$conf->footnotesId.'-', '-XXX-',$res);
             }
             $this->assertEquals($result, $res,"error on $file");
