@@ -7,15 +7,14 @@ ifndef WIKIRENDERER_DNL_TARGET
     WIKIRENDERER_DNL_TARGET=_dnl/
 endif
 
-VERSION=$(shell cat src/VERSION)
-FILES=src composer.json README.md example
+VERSION=$(shell cat VERSION)
+FILES=lib/ composer.json CHANGELOG CREDITS LICENCE README.md VERSION example
 
 ifeq (,$(findstring -,$(VERSION)))
     SUBDIR=
 else
     SUBDIR=dev/
 endif
-
 
 _dist :
 	@mkdir -p _dist _site
@@ -47,8 +46,8 @@ tests: vendor
 
 .PHONY: deploysite
 deploysite:
-	rsync -av --delete --exclude=/wikirenderer/ website/ $(WIKIRENDERER_SITE_TARGET)
-	rsync -av --delete src/ $(WIKIRENDERER_SITE_TARGET)/wikirenderer/
+	#rsync -av --delete --exclude=/wikirenderer/ website/ $(WIKIRENDERER_SITE_TARGET)
+	#rsync -av --delete src/ $(WIKIRENDERER_SITE_TARGET)/wikirenderer/
 
 .PHONY: deploypackage
 deploypackage: build
