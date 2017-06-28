@@ -4,3 +4,5 @@ vendor/
 composer.lock
 _dist/
 .idea
+_site
+_dnl
