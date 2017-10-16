@@ -182,13 +182,7 @@ class Renderer
                         return $block->close($block::CLOSE_REASON_LINE_NOT_MATCH);
                     }
                     $this->blockStacks[] = $block;
-                    $block->validateLine();
-                    $this->nextLine($linesIterator);
-                    $line = $this->currentLine($linesIterator);
-                    if ($line === null) {
-                        array_pop($this->blockStacks);
-                        return $block->close($block::CLOSE_REASON_PARENT_CLOSED);
-                    }
+                    $line = $block->getLineContentForSubBlocks();
                 }
                 else {
                     // no sub blocks was found, this is probably just

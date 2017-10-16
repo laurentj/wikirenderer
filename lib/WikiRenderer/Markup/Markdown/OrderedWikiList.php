@@ -118,6 +118,19 @@ class OrderedWikiList extends \WikiRenderer\Block
         }
         $line = StringUtils::tabExpand($line);
         if (preg_match($this->regexp, $line, $m)) {
+            if ($this->getTypeList() === BlockListInterface::UNORDERED_LIST) {
+                if ($m[2] == '-') {
+                    if(preg_match('/^( {0,3})(\\-\\s*){3,}$/', $line, $m2)) {
+                        return false;
+                    }
+                }
+                else if ($m[2] == '*') {
+                    if (preg_match('/^( {0,3})(\\*\\s*){3,}$/', $line, $m2)) {
+                        return false;
+                    }
+                }
+            }
+
             // a new item is starting
             $this->previousLineWasEmpty = false;
             $this->setItemIndentation($m);

@@ -117,33 +117,37 @@ abstract class Block
      * to know if the block can be used for the given line.
      * No child block was found in this line.
      *
-     * @param string $line The line to check. It may be a line truncated
-     *   by parent blocks
+     * @param string $blockLine The line to check. This is not the full line of
+     *                     text as appearing into the wiki content, but a line
+     *                     that have been truncated by parent block (characters
+     *                      for parent blocks have been removed)
      *
      * @return bool True if the line is part of the block.
      */
-    public function isAccepting($line)
+    public function isAccepting($blockLine)
     {
-        return preg_match($this->regexp, $line, $this->_detectMatch);
+        return preg_match($this->regexp, $blockLine, $this->_detectMatch);
     }
 
     /**
-     * Says if the given line belongs to the block.
+     * Says if the given line belongs to the block when the block is a parent block
      *
-     * Called by the parser when parsing a subblock, to be
+     * Called by the parser when the block parsing a sub-block, to be
      * sure that the current line is belonging to the block
-     * which is the parent block of the current subblock
+     * which is the parent block of the current sub-block.
      *
      * It may be called several times for the same line.
      *
-     * @param string $line The line to check. It may be a line
-     *                     truncated by a parent block.
+     * @param string $blockLine The line to check. This is not the full line of
+     *                     text as appearing into the wiki content, but a line
+     *                     that have been truncated by parent block (characters
+     *                      for parent blocks have been removed)
      *
      * @return bool True if the line is part of the block.
      */
-    public function isAcceptingForSubBlocks($line)
+    public function isAcceptingForSubBlocks($blockLine)
     {
-        return $this->isAccepting($line);
+        return $this->isAccepting($blockLine);
     }
 
     /**
