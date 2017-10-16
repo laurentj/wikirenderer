@@ -38,8 +38,14 @@ abstract class Config
     /** Character used to escape wiki syntax. */
     public $escapeChar = '\\';
 
-    /** escape char is taken account to escape tags but it is kept into the output */
-    public $outputEscapeChar = false;
+    /** @var boolean if true escape char is kept into the output for anything except for tags*/
+    public $outputEscapeChar = true;
+
+    /** @var boolean if true escape char is kept into the output for tags */
+    public $outputEscapeCharForTags = false;
+
+    /** @var boolean if true escape char is kept when escaping the escape char */
+    public $outputDoubleEscapeChar = false;
 
     /**
      * @var \WikiRenderer\WordConverter\WordConverterInterface[]

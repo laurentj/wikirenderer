@@ -16,7 +16,7 @@ class Config extends \WikiRenderer\Config
     public $defaultTextLineContainer = '\WikiRenderer\Markup\Markdown\TextLine';
 
     public $emptyLineCloseParagraph = false;
-
+    public $outputEscapeChar = false;
     public $textLineContainers = array(
         '\WikiRenderer\Markup\Markdown\TextLine' => array(
             '\WikiRenderer\Markup\Markdown\Strong',

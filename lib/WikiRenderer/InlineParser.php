@@ -160,7 +160,7 @@ class InlineParser
                 } else {
                     // if we are here, this is because the previous part was the escape char
                     $tag->addContent($this->escapeChar);
-                    if ($this->config->outputEscapeChar) {
+                    if ($this->config->outputDoubleEscapeChar) {
                         $tag->addContent($this->escapeChar);
                     }
                     $checkNextTag = true;
@@ -198,13 +198,21 @@ class InlineParser
             // previous token prevents us to process the current token, and
             // indicated to ignore it, so let's ignore it.
             } else {
-                if (!$this->config->outputEscapeChar &&
-                    (isset($this->currentTextLineContainer->allowedTags[$t]) ||
+                if (isset($this->currentTextLineContainer->allowedTags[$t]) ||
                     isset($this->allSimpleTags[$t]) ||
-                    $tag->endTag == $t)) {
-                    $tag->addContent($t);
+                    $tag->endTag == $t
+                ) {
+                    if ($this->config->outputEscapeCharForTags) {
+                        $tag->addContent($this->escapeChar . $t);
+                    } else {
+                        $tag->addContent($t);
+                    }
                 } else {
-                    $tag->addContent($this->escapeChar.$t);
+                    if ($this->config->outputEscapeChar) {
+                        $tag->addContent($this->escapeChar . $t);
+                    } else {
+                        $tag->addContent($t);
+                    }
                 }
                 $checkNextTag = true;
             }

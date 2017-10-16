@@ -77,15 +77,19 @@ class WR3TestsInlineParser extends PHPUnit_Framework_TestCase {
         }
     }
 
-    var $listinline1 = array(
+    function getListinline1() {
+        return array(
+            array('Lorem ipsum dolor sit amet, consectetuer adipiscing elit.',
+                  'Lorem ipsum dolor sit amet, consectetuer adipiscing elit.'),
+            array('Lorem ipsum dolor __sit amet__, consectetuer adipiscing elit.',
+                  'Lorem ipsum dolor <strong>sit amet</strong>, consectetuer adipiscing elit.')
+        );
+    }
 
-        'Lorem ipsum dolor sit amet, consectetuer adipiscing elit.'
-            =>'Lorem ipsum dolor sit amet, consectetuer adipiscing elit.',
-        'Lorem ipsum dolor __sit amet__, consectetuer adipiscing elit.'
-            =>'Lorem ipsum dolor <strong>sit amet</strong>, consectetuer adipiscing elit.',
-    );
-
-    function testInlineParser1() {
+    /**
+     * @dataProvider getListinline1
+     */
+    function testInlineParser1($source, $expected) {
         $conf = new WRConfigTest();
         $conf->textLineContainers = array ('\WikiRenderer\Markup\WR3\TextLine' => array(
             '\WikiRenderer\Markup\WR3\Strong',
@@ -96,13 +100,11 @@ class WR3TestsInlineParser extends PHPUnit_Framework_TestCase {
         $generator = new \WikiRenderer\Generator\Html\Document($genConfig);
 
         $wip = new \WikiRenderer\InlineParser($conf, $generator);
-        foreach($this->listinline1 as $source=>$trueResult){
-            $res = $wip->parse($source);
-            $this->assertEquals($trueResult,$res->generate());
-        }
+        $res = $wip->parse($source);
+        $this->assertEquals($expected, $res->generate());
     }
 
-    var $listinline2 = array(
+    protected $listinline2 = array(
 
         'Lorem ipsum dolor sit amet, consectetuer adipiscing elit.'
            =>'Lorem ipsum dolor sit amet, consectetuer adipiscing elit.',
@@ -151,12 +153,24 @@ class WR3TestsInlineParser extends PHPUnit_Framework_TestCase {
         'Lorem ~~ipsumdolorsit~~ amet, consectetuer adipiscing elit.'
             =>'Lorem <span id="ipsumdolorsit" class="wikianchor"><a href="#ipsumdolorsit" class="anchor">¶</a></span> amet, consectetuer adipiscing elit.',
         'Lorem \[[ipsum dolor|bar|fr]] sit amet, \consectetuer \\\\adipiscing \%%%elit.'
-            =>'Lorem [[ipsum dolor|bar|fr]] sit amet, \consectetuer \\adipiscing %%%elit.',
+            =>'Lorem [[ipsum dolor|bar|fr]] sit amet, \\consectetuer \\adipiscing %%%elit.',
         'Lorem ipsum ^^dolor [[ipsum dolor|bar|fr]] amet|fr^^, consectetuer adipiscing elit.'
             =>'Lorem ipsum <q lang="fr">dolor <a href="bar" hreflang="fr">ipsum dolor</a> amet</q>, consectetuer adipiscing elit.',
     );
 
-    function testInlineParser2() {
+    function getListinline2() {
+        $list = array();
+
+        foreach($this->listinline2 as $source=>$trueResult) {
+            $list[] = array($source, $trueResult);
+        }
+        return $list;
+    }
+
+    /**
+     * @dataProvider getListinline2
+     */
+    function testInlineParser2($source, $expected) {
         $genConfig = new \WikiRenderer\Generator\Html\Config();
         $generator = new \WikiRenderer\Generator\Html\Document($genConfig);
 
@@ -164,12 +178,8 @@ class WR3TestsInlineParser extends PHPUnit_Framework_TestCase {
 
         $wip = new \WikiRenderer\InlineParser($conf, $generator);
 
-        $k=0;
-        foreach($this->listinline2 as $source=>$trueResult){
-            $k++;
-            $res = $wip->parse($source);
-            $this->assertEquals($trueResult,$res->generate());
-        }
+        $res = $wip->parse($source);
+        $this->assertEquals($expected, $res->generate());
     }
 
 /*
