@@ -17,9 +17,18 @@ namespace WikiRenderer\Markup\Markdown;
 class Title extends \WikiRenderer\Block
 {
     public $type = 'title';
-    protected $regexp = "/^\s*(#{1,6})\s*(.*)/";
+    protected $regexp = "/^\s*(#+)\s+(.*)/";
     protected $_closeNow = true;
     protected $_minlevel = 1;
+
+    public function isStarting($blockLine)
+    {
+        $found = preg_match($this->regexp, $blockLine, $this->_detectMatch);
+        if ($found && strlen($this->_detectMatch[1]) > 6 ) {
+            return false;
+        }
+        return $found;
+    }
 
     public function validateLine()
     {
