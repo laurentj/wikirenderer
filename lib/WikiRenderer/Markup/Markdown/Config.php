@@ -27,6 +27,8 @@ class Config extends \WikiRenderer\Config
 
     public $blocktags = array(
         '\WikiRenderer\Markup\Markdown\Hr',
+        '\WikiRenderer\Markup\Markdown\Pre',
+        '\WikiRenderer\Markup\Markdown\PreSpace',
         '\WikiRenderer\Markup\Markdown\Title',
         '\WikiRenderer\Markup\Markdown\OrderedWikiList',
         '\WikiRenderer\Markup\Markdown\UnorderedWikiList',
@@ -37,8 +39,6 @@ class Config extends \WikiRenderer\Config
         '\WikiRenderer\Markup\Markdown\Nowiki',
         '\WikiRenderer\Markup\Markdown\Html',
         '\WikiRenderer\Markup\Markdown\Macro',*/
-        '\WikiRenderer\Markup\Markdown\Pre',
-        '\WikiRenderer\Markup\Markdown\PreSpace',
         '\WikiRenderer\Markup\Markdown\Para'
     );
 

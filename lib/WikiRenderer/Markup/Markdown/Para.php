@@ -58,9 +58,6 @@ class Para extends \WikiRenderer\Block
             $this->isSetextHeading = $m[2][0];
             return true;
         }
-        if (preg_match("/^( {0,3})(\\>)( ?)(.*)$/", $line)) {
-            return false;
-        }
         if (preg_match('/^( {0,3})((\\-\\s*){3,}|(_\\s*){3,}|(\\*\\s*){3,})$/', $line)) {
             return false;
         }
@@ -70,7 +67,7 @@ class Para extends \WikiRenderer\Block
         if (preg_match('/^\s*```(.*)/', $line)) {
             return false;
         }
-        if (preg_match("/^( {0,3})([\\-\\+\\*])(\\s+)(.*)/", $line)) {
+        if (preg_match("/^( {0,3})([\\-\\+\\*\\>#])(\\s+)(.*)/", $line)) {
             return false;
         }
         if (preg_match("/^( *)[\\S].*/u", $line)) {
