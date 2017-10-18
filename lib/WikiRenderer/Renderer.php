@@ -256,6 +256,14 @@ class Renderer
     }
 
     /**
+     * @return Block
+     */
+    public function getParentBlock()
+    {
+        return end($this->blockStacks);
+    }
+
+    /**
      * Returns the current configuration object.
      *
      * @return \WikiRenderer\Config The current configuration object.

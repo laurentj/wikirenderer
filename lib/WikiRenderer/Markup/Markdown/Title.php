@@ -30,6 +30,11 @@ class Title extends \WikiRenderer\Block
         return $found;
     }
 
+    public function open()
+    {
+        $this->engine->getConfig()->emptyLineCloseParagraph = false;
+    }
+
     public function validateLine()
     {
         $hx = $this->_minlevel + strlen($this->_detectMatch[1]) - 1;

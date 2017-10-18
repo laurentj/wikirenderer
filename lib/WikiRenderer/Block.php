@@ -110,6 +110,7 @@ abstract class Block
      */
     public function open()
     {
+        $this->engine->getConfig()->emptyLineCloseParagraph = false;
     }
 
     /**

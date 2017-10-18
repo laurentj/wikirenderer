@@ -20,6 +20,11 @@ class Hr extends \WikiRenderer\Block
     protected $regexp = '/^( {0,3})((\\-\\s*){3,}|(_\\s*){3,}|(\\*\\s*){3,})$/';
     protected $_closeNow = true;
 
+    public function open()
+    {
+        $this->engine->getConfig()->emptyLineCloseParagraph = false;
+    }
+
     public function validateLine()
     {
     }

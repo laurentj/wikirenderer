@@ -36,6 +36,11 @@ class PreSpace extends \WikiRenderer\Block
         return $res;
     }
 
+    public function open()
+    {
+        $this->engine->getConfig()->emptyLineCloseParagraph = false;
+    }
+
     public function isAccepting($line)
     {
         if ($line == '') {

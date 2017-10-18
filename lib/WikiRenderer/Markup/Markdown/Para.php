@@ -54,7 +54,9 @@ class Para extends \WikiRenderer\Block
             return false;
         }
 
-        if (preg_match("/^( {0,3})((\\-{2,})|(=+))\\s*$/", $line, $m)) {
+        if (!$this->engine->inASubBlock() &&
+            preg_match("/^( {0,3})((\\-{2,})|(=+))\\s*$/", $line, $m)
+        ) {
             $this->isSetextHeading = $m[2][0];
             return true;
         }
@@ -81,7 +83,7 @@ class Para extends \WikiRenderer\Block
     public function validateLine()
     {
         if (!$this->isSetextHeading) {
-            $this->lines [] = $this->_renderInlineTag(trim($this->_detectMatch[1]));
+            $this->lines [] = trim($this->_detectMatch[1]);
         }
     }
 
@@ -95,16 +97,18 @@ class Para extends \WikiRenderer\Block
                 $this->generator->setLevel(1);
             }
         }
-        else if ($this->engine->inASubBlock() &&
-            !$this->hasEmptyLineBeforeAfter &&
-            count($this->lines) == 1) {
+        else if (!$this->hasEmptyLineBeforeAfter &&
+            count($this->lines) == 1 &&
+            $this->engine->inASubBlock() &&
+            !($this->engine->getParentBlock() instanceof Blockquote)
+        ) {
             $this->generator = new \WikiRenderer\Generator\SingleLineBlock();
-            $this->generator->setLineAsString($this->lines[0]);
+            $this->generator->setLineAsString($this->_renderInlineTag($this->lines[0]));
             return $this->generator;
         }
-        foreach($this->lines as $line) {
-            $this->generator->addLine($line);
-        }
+
+        $lines = $this->_renderInlineTag(implode("\n", $this->lines));
+        $this->generator->addLine($lines);
         return $this->generator;
     }
 }

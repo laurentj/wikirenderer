@@ -217,6 +217,10 @@ class InlineParser
                 $checkNextTag = true;
             }
         }
+
+        if (!$checkNextTag && ($this->config->outputEscapeChar||$this->config->outputEscapeCharAtEOL)) {
+            $tag->addContent($this->escapeChar);
+        }
         if (!$tag->isTextLineTag) {
             //we didn't find the ended tag, error
             $this->error = true;

@@ -37,6 +37,11 @@ class Pre extends \WikiRenderer\Block
         }
     }
 
+    public function open()
+    {
+        $this->engine->getConfig()->emptyLineCloseParagraph = false;
+    }
+
     public function isAccepting($string)
     {
         if ($this->closeTagDetected) {

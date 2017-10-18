@@ -58,7 +58,7 @@ class OrderedWikiList extends \WikiRenderer\Block
             $this->firstItemIndentLength = $this->itemIndentLength;
             $this->previousItemIndentLength = $this->itemIndentLength;
             if ($this->getTypeList() == BlockListInterface::ORDERED_LIST) {
-                $this->generator->setStartIndex(intval(substr($m[1], 0 ,-1)));
+                $this->generator->setStartIndex(intval(substr($m[2], 0 ,-1)));
             }
             return true;
         }
@@ -102,6 +102,7 @@ class OrderedWikiList extends \WikiRenderer\Block
     {
         $this->generator->setListType($this->getTypeList());
         $this->generator->createItem();
+        $this->engine->getConfig()->emptyLineCloseParagraph = false;
     }
 
     public function isAccepting($line)

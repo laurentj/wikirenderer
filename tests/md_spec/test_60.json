@@ -1,1 +1,1 @@
-["`Foo\n----\n`\n\n<a title=\"a lot\n---\nof dashes\"\/>","<h2>`Foo<\/h2>\n<p>`<\/p>\n<h2>&lt;a title=&quot;a lot<\/h2>\n<p>of dashes&quot;\/&gt;<\/p>"]
+["`Foo\n----\n`\n\n<a title=\"a lot\n---\nof dashes\"\/>","<h2>`Foo<\/h2>\n<p>`<\/p>\n\n<h2>&lt;a title=&quot;a lot<\/h2>\n<p>of dashes&quot;\/&gt;<\/p>"]

@@ -39,6 +39,7 @@ class Blockquote extends \WikiRenderer\Block
 
     public function open()
     {
+        $this->engine->getConfig()->emptyLineCloseParagraph = false;
     }
 
     public function isAccepting($line)
@@ -54,7 +55,7 @@ class Blockquote extends \WikiRenderer\Block
     public function isAcceptingForSubBlocks($line)
     {
         $line = StringUtils::tabExpand($line);
-        if (preg_match("/^(\\s*)\\w/", $line, $m)) {
+        if (preg_match("/^(\\s*)(\\w|=+)/", $line, $m)) {
             $this->lineContent = $line;
             return true;
         }

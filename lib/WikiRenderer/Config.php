@@ -47,6 +47,9 @@ abstract class Config
     /** @var boolean if true escape char is kept when escaping the escape char */
     public $outputDoubleEscapeChar = false;
 
+    /** @var bool if true escape char is kept when it is at the end of line */
+    public $outputEscapeCharAtEOL = false;
+
     /**
      * @var \WikiRenderer\WordConverter\WordConverterInterface[]
      */
