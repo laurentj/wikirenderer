@@ -66,8 +66,11 @@ class Para extends \WikiRenderer\Block
         if (preg_match("/^( {0,3})(\\d{1,9}[\\.\\)])(\\s+)(.*)/", $line)) {
             return false;
         }
-        if (preg_match('/^\s*```(.*)/', $line)) {
-            return false;
+        if (preg_match('/^\s{0,3}(```|~~~)(.*)/', $line, $m)) {
+            if (!preg_match('/([^`~]*)(```+|~~~+)\s*$/', $m[2])) {
+                return false;
+            }
+            return true;
         }
         if (preg_match("/^( {0,3})([\\-\\+\\*\\>#])(\\s+)(.*)/", $line)) {
             return false;

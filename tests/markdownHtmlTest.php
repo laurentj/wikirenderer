@@ -52,7 +52,7 @@ diam nec justo.</p>'
 
     function getOfficialTestsList() {
         $list = array();
-        for($i=1; $i <= 85; $i++) {
+        for($i=1; $i <= 113; $i++) {
             $list[] = array('test_'.$i.'.json');
         }
         return $list;
@@ -75,6 +75,6 @@ diam nec justo.</p>'
             $result = str_replace("</p>\n\n<p>", "</p>\n<p>", $result);
         }
 
-        $this->assertEquals($html, $result, 'test '.$file."\n`````\n".str_replace("\t", '→', $md)."\n````\n");
+        $this->assertEquals($html, $result, 'test '.$file."\n----------------->8--\n".str_replace("\t", '→', $md)."\n----------------->8--\n");
     }
 }

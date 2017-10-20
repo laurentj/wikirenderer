@@ -21,6 +21,10 @@ class PreSpace extends \WikiRenderer\Block
 
     protected $lineContent = '';
 
+    protected $emptyLinesAtStart = false;
+
+    protected $emptyLines = array();
+
     public function isStarting($line)
     {
         $res =  preg_match("/^( {4,}|\t| +\t)(.*)/", $line, $m);
@@ -31,6 +35,11 @@ class PreSpace extends \WikiRenderer\Block
             }
             else {
                 $this->lineContent = $m[2];
+            }
+            if (preg_match("/^\\s*$/", $this->lineContent)) {
+                $this->emptyLinesAtStart = true;
+                $this->emptyLines[] = $this->lineContent;
+                $this->lineContent = null;
             }
         }
         return $res;
@@ -44,7 +53,8 @@ class PreSpace extends \WikiRenderer\Block
     public function isAccepting($line)
     {
         if ($line == '') {
-            $this->lineContent = '';
+            $this->emptyLines[] = '';
+            $this->lineContent = null;
             return true;
         }
         $res =  preg_match("/^(\\s+)(.*)/", $line, $m);
@@ -56,13 +66,29 @@ class PreSpace extends \WikiRenderer\Block
             else {
                 $this->lineContent = $m[2];
             }
+            if (preg_match("/^\\s*$/", $this->lineContent)) {
+                $this->emptyLines[] = $this->lineContent;
+                $this->lineContent = null;
+            }
+            else {
+                if (!$this->emptyLinesAtStart) {
+                    // do not include blank line that are at start
+                    foreach($this->emptyLines as $line) {
+                        $this->generator->addLine($line);
+                    }
+                }
+                $this->emptyLinesAtStart = false;
+                $this->emptyLines = array();
+            }
         }
         return $res;
     }
 
     public function validateLine()
     {
-        $this->generator->addLine($this->lineContent);
+        if ($this->lineContent !== null) {
+            $this->generator->addLine($this->lineContent);
+        }
     }
 }
 

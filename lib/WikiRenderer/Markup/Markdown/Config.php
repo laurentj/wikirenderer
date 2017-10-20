@@ -25,6 +25,8 @@ class Config extends \WikiRenderer\Config
         '\WikiRenderer\Markup\Markdown\TextLine' => array(
             '\WikiRenderer\Markup\Markdown\Strong',
             '\WikiRenderer\Markup\Markdown\Em',
+            '\WikiRenderer\Markup\Markdown\Code',
+            '\WikiRenderer\Markup\Markdown\Code2',
             /*'\WikiRenderer\Markup\Markdown\Del',*/
         ),
     );
