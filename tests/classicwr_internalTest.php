@@ -23,7 +23,9 @@ class classicwr_internalTest extends PHPUnit_Framework_TestCase {
                 $tag->addContent($wiki);
             }
             else {
-                $tag->addContent($wiki[0], new \WikiRenderer\Generator\Html\Words($wiki[1], false));
+                $word = new \WikiRenderer\Generator\Html\Words($genConfig);
+                $word->init($wiki[1], false);
+                $tag->addContent($wiki[0], $word);
             }
         }
 

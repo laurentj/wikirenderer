@@ -24,6 +24,9 @@ class Table implements BlockTableInterface
 
     protected $id = '';
 
+    public function __construct(\WikiRenderer\Generator\Config $config) {
+    }
+
     public function setId($id)
     {
         $this->id = $id;

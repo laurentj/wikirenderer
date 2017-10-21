@@ -75,7 +75,7 @@ class Pre extends \WikiRenderer\Block
             if (preg_match('/^#\!(\w+)\s*$/', $this->_detectMatch, $m)) {
                 switch ($m[1]) {
                     case 'comment':
-                        $this->generator = new \WikiRenderer\Generator\DummyBlock();
+                        $this->generator = new \WikiRenderer\Generator\DummyBlock($this->documentGenerator->getConfig());
 
                         return;
                     case 'div': // html section

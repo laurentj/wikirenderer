@@ -17,9 +17,7 @@ class SingleLineBlock implements BlockGeneratorInterface
 {
     protected $content = null;
 
-    public function __construct(\WikiRenderer\Generator\InlineGeneratorInterface $content = null)
-    {
-        $this->content = $content;
+    public function __construct(\WikiRenderer\Generator\Config $config) {
     }
 
     public function setId($id)

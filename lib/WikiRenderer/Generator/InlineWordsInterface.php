@@ -17,7 +17,7 @@ interface InlineWordsInterface extends InlineGeneratorInterface
      * @param bool   $raw   false if given words ar generated content,
      *                      false if given words should be escaped
      */
-    public function __construct($words = '', $raw = true);
+    public function init($words = '', $raw = true);
 
     /**
      * add original content from the wiki text

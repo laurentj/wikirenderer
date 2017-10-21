@@ -92,12 +92,13 @@ class Renderer
             }
             // no block found, we use a default block
             if (trim($line) == '') {
-                $blockGenerator = new Generator\SingleLineBlock();
+                $blockGenerator = new Generator\SingleLineBlock($this->documentGenerator->getConfig());
             } else {
                 $inline = $this->inlineParser->parse($line);
                 $blockGenerator = $this->documentGenerator->getDefaultBlock($inline);
                 if (!$blockGenerator) {
-                    $blockGenerator = new Generator\SingleLineBlock($inline);
+                    $blockGenerator = new Generator\SingleLineBlock($this->documentGenerator->getConfig());
+                    $blockGenerator->setLineAsString($inline);
                 }
             }
             $this->documentGenerator->addBlock($blockGenerator);

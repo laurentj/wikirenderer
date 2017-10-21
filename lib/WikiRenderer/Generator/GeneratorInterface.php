@@ -12,6 +12,8 @@ namespace WikiRenderer\Generator;
 
 interface GeneratorInterface
 {
+    public function __construct(\WikiRenderer\Generator\Config $config);
+
     /**
      * says if it has no content.
      */

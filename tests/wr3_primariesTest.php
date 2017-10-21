@@ -20,7 +20,7 @@ class WikiRendererTestsWr3Primaire extends PHPUnit_Framework_TestCase {
             elseif(is_string($wiki))
                 $tag->addContent($wiki);
             else {
-                $w = new \WikiRenderer\Generator\Text\Words();
+                $w = new \WikiRenderer\Generator\Text\Words($genConfig);
                 $w->addRawContent($wiki[1]);
                 $tag->addContent($wiki[0], $w);
             }

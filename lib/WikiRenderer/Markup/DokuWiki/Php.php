@@ -23,7 +23,7 @@ class Php extends NoWiki
     public function __construct(\WikiRenderer\Renderer $wr, \WikiRenderer\Generator\DocumentGeneratorInterface $generator)
     {
         parent::__construct($wr, $generator);
-        $this->generator = new \WikiRenderer\Generator\DummyBlock();
+        $this->generator = new \WikiRenderer\Generator\DummyBlock($generator->getConfig());
     }
 
     public function validateLine()

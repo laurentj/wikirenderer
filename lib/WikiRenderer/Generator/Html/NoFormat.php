@@ -14,7 +14,11 @@ class NoFormat implements \WikiRenderer\Generator\InlineRawWordsInterface
 {
     protected $content = array();
 
-    public function __construct($words = '')
+    public function __construct(\WikiRenderer\Generator\Config $config) {
+
+    }
+
+    public function init($words = '')
     {
         if ($words == '') {
             return;

@@ -24,6 +24,9 @@ class HtmlList implements BlockListInterface
 
     protected $startIndex = 1;
 
+    public function __construct(\WikiRenderer\Generator\Config $config) {
+    }
+
     public function setId($id)
     {
         $this->id = $id;

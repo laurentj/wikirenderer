@@ -16,6 +16,9 @@ class SyntaxHighlighting implements \WikiRenderer\Generator\BlockSyntaxHighlight
 
     protected $id = '';
 
+    public function __construct(\WikiRenderer\Generator\Config $config) {
+    }
+
     public function setId($id)
     {
         $this->id = $id;

@@ -15,7 +15,7 @@ interface InlineRawWordsInterface extends InlineGeneratorInterface
     /**
      * @param string $words initial words
      */
-    public function __construct($words = '');
+    public function init($words = '');
 
     /**
      * add original content from the wiki text

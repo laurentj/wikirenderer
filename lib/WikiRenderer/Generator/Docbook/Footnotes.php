@@ -18,7 +18,8 @@ class Footnotes implements \WikiRenderer\Generator\BlockFootnoteInterface {
 
     protected $prefixId;
 
-    public function __construct($prefixId) {
+    public function __construct(\WikiRenderer\Generator\Config $config) {
+        $prefixId = $config->footnotesIdPrefix;
         $this->prefixId = $prefixId.rand(100, 999);
     }
 

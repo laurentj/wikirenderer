@@ -16,7 +16,11 @@ class Words implements \WikiRenderer\Generator\InlineWordsInterface
 {
     protected $content = '';
 
-    public function __construct($words = '', $raw = true)
+    public function __construct(\WikiRenderer\Generator\Config $config) {
+
+    }
+
+    public function init($words = '', $raw = true)
     {
         $this->content = $words;
     }

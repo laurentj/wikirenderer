@@ -18,6 +18,10 @@ class Preformated implements \WikiRenderer\Generator\BlockOfRawLinesInterface
 
     protected $id = '';
 
+    public function __construct(\WikiRenderer\Generator\Config $config) {
+
+    }
+
     public function setId($id)
     {
         $this->id = $id;

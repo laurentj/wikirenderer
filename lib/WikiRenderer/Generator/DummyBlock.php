@@ -15,6 +15,9 @@ namespace WikiRenderer\Generator;
  */
 class DummyBlock implements BlockGeneratorInterface
 {
+    public function __construct(\WikiRenderer\Generator\Config $config) {
+    }
+
     public function setId($id)
     {
         // do nothing

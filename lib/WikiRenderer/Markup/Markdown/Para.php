@@ -105,7 +105,7 @@ class Para extends \WikiRenderer\Block
             $this->engine->inASubBlock() &&
             !($this->engine->getParentBlock() instanceof Blockquote)
         ) {
-            $this->generator = new \WikiRenderer\Generator\SingleLineBlock();
+            $this->generator = new \WikiRenderer\Generator\SingleLineBlock($this->documentGenerator->getConfig());
             $this->generator->setLineAsString($this->_renderInlineTag($this->lines[0]));
             return $this->generator;
         }

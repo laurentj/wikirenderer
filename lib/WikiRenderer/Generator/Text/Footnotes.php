@@ -16,7 +16,7 @@ class Footnotes implements \WikiRenderer\Generator\BlockFootnoteInterface {
 
     protected $footnotes = array();
 
-    public function __construct($prefixId) {
+    public function __construct(\WikiRenderer\Generator\Config $config) {
     }
 
     public function addFootnote(\WikiRenderer\Generator\InlineFootnotelinkInterface $footnote) {

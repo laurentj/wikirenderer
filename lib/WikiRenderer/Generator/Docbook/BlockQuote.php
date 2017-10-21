@@ -16,6 +16,15 @@ class BlockQuote implements \WikiRenderer\Generator\BlockBlockQuoteInterface
 
     protected $id = '';
 
+    /**
+     * @var null|\WikiRenderer\Generator\Config
+     */
+    protected $config = null;
+
+    public function __construct(\WikiRenderer\Generator\Config $config) {
+        $this->config = $config;
+    }
+
     public function setId($id)
     {
         $this->id = $id;
@@ -50,7 +59,7 @@ class BlockQuote implements \WikiRenderer\Generator\BlockBlockQuoteInterface
             } elseif ($currentPara) {
                 $currentPara->addLine($generator);
             } else {
-                $currentPara = new Paragraph();
+                $currentPara = new Paragraph($this->config);
                 $currentPara->addLine($generator);
             }
         }

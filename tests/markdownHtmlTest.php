@@ -41,6 +41,7 @@ diam nec justo.</p>'
      */
     function testParagraph($source, $expected) {
         $genConfig = new \WikiRenderer\Generator\Html\Config();
+        $genConfig->syntaxClassPattern = 'language-%s';
         $generator = new \WikiRenderer\Generator\Html\Document($genConfig);
         $markupConfig = new \WikiRenderer\Markup\Markdown\Config();
         $wr = new \WikiRenderer\Renderer($generator, $markupConfig);
@@ -64,6 +65,7 @@ diam nec justo.</p>'
     function testAllSeries($file) {
 
         $genConfig = new \WikiRenderer\Generator\Html\Config();
+        $genConfig->syntaxClassPattern = 'language-%s';
         $generator = new \WikiRenderer\Generator\Html\Document($genConfig);
         $markupConfig = new \WikiRenderer\Markup\Markdown\Config();
         $wr = new \WikiRenderer\Renderer($generator, $markupConfig);

@@ -32,6 +32,7 @@ abstract class AbstractDocumentGenerator implements \WikiRenderer\Generator\Docu
     {
         if (isset($this->config->inlineGenerators[$type])) {
             $class = $this->config->inlineGenerators[$type];
+            $generator = new $class($this->config);
 
             if ($type == 'footnotelink') {
                 $footnotes = $this->getMetaData('footnotes');
@@ -39,11 +40,9 @@ abstract class AbstractDocumentGenerator implements \WikiRenderer\Generator\Docu
                     $footnotes = $this->getBlockGenerator('footnotes');
                     $this->setMetaData('footnotes', $footnotes);
                 }
-                return new $class($footnotes);
+                $generator->setFootNotes($footnotes);
             }
-            else {
-                return new $class();
-            }
+            return $generator;
         }
         throw new \Exception('unknown inline generator '.$type);
     }
@@ -52,13 +51,7 @@ abstract class AbstractDocumentGenerator implements \WikiRenderer\Generator\Docu
     {
         if (isset($this->config->blockGenerators[$type])) {
             $class = $this->config->blockGenerators[$type];
-
-            if ($type == 'footnotes') {
-                return new $class($this->config->footnotesIdPrefix);
-            }
-            else {
-                return new $class();
-            }
+            return new $class($this->config);
         }
         throw new \Exception('unknown block generator '.$type);
     }

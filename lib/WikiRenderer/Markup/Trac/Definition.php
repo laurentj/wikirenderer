@@ -60,7 +60,8 @@ class Definition extends \WikiRenderer\Block
     {
         if ($this->currentTerm && count($this->currentDefinition)) {
             if (count($this->currentDefinition) > 1) {
-                $definition = new \WikiRenderer\Generator\InlineBagGenerator(' ', $this->currentDefinition);
+                $definition = new \WikiRenderer\Generator\InlineBagGenerator($this->documentGenerator->getConfig());
+                $definition->init(' ', $this->currentDefinition);
             } else {
                 $definition = $this->currentDefinition[0];
             }

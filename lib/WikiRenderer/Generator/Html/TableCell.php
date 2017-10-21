@@ -27,6 +27,9 @@ class TableCell implements \WikiRenderer\Generator\BlockTableCellInterface,
 
     protected $align = '';
 
+    public function __construct(\WikiRenderer\Generator\Config $config) {
+    }
+
     public function setId($id)
     {
         $this->id = $id;

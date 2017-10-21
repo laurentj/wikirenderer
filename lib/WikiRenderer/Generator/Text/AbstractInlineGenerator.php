@@ -22,9 +22,18 @@ abstract class AbstractInlineGenerator implements \WikiRenderer\Generator\Inline
 
     protected $attributesInsideBracketsSeparator = ', ';
 
+    /**
+     * @var null|\WikiRenderer\Generator\Config
+     */
+    protected $config = null;
+
+    public function __construct(\WikiRenderer\Generator\Config $config) {
+        $this->config = $config;
+    }
+
     public function addRawContent($string)
     {
-        $g = new Words();
+        $g = new Words($this->config);
         $g->addRawContent($string);
         $this->content[] = $g;
     }

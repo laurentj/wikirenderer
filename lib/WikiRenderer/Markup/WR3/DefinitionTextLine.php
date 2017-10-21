@@ -59,7 +59,7 @@ class DefinitionTextLine extends \WikiRenderer\Tag
 
     public function getContent()
     {
-        $generator = new \WikiRenderer\Generator\InlineBagGenerator();
+        $generator = new \WikiRenderer\Generator\InlineBagGenerator($this->documentGenerator->getConfig());
         $generator->addGenerator($this->termGenerator);
         $generator->addGenerator($this->definitionGenerator);
 

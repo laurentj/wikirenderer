@@ -28,9 +28,19 @@ abstract class Config
      */
     public $generateHeaderFooter = true;
 
+    /**
+     * @var array<string,string>  keys are generator types, values are name of
+     *   classes implementing InlineGeneratorInterface
+     */
     public $inlineGenerators = array();
 
+    /**
+     * @var array<string,string>  keys are generator types, values are name of
+     *   classes implementing BlockGeneratorInterface
+     */
     public $blockGenerators = array();
 
     public $footnotesIdPrefix = 'footnote-';
+
+    public $syntaxClassPattern = 'syntax-%s';
 }

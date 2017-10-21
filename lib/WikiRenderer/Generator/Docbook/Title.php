@@ -18,6 +18,10 @@ class Title implements \WikiRenderer\Generator\BlockTitleInterface
 
     protected $id = '';
 
+    public function __construct(\WikiRenderer\Generator\Config $config) {
+
+    }
+
     public function setLevel($level)
     {
         $this->level = $level;

@@ -19,7 +19,11 @@ class FootnoteLink extends AbstractInlineGenerator implements \WikiRenderer\Gene
      */
     protected $footnotes;
 
-    function __construct(\WikiRenderer\Generator\BlockFootnoteInterface $footnotes) {
+    function __construct(\WikiRenderer\Generator\Config $config) {
+
+    }
+
+    function setFootNotes(\WikiRenderer\Generator\BlockFootnoteInterface $footnotes) {
         $this->footnotes = $footnotes;
     }
 

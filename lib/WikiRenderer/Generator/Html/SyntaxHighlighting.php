@@ -18,14 +18,20 @@ class SyntaxHighlighting implements \WikiRenderer\Generator\BlockSyntaxHighlight
 
     protected $id = '';
 
+    protected $syntax = '';
+
+    protected $syntaxClass = 'syntax-%s';
+
+    protected $filename = '';
+
+    public function __construct(\WikiRenderer\Generator\Config $config) {
+        $this->syntaxClass = $config->syntaxClassPattern;
+    }
+
     public function setId($id)
     {
         $this->id = $id;
     }
-
-    protected $syntax = '';
-
-    protected $filename = '';
 
     public function addLine($content)
     {
@@ -69,7 +75,7 @@ class SyntaxHighlighting implements \WikiRenderer\Generator\BlockSyntaxHighlight
         }
         $text .= '<code';
         if ($this->syntax) {
-            $text .= ' class="syntax-'.$this->syntax.'"';
+            $text .= ' class="'.sprintf($this->syntaxClass, $this->syntax).'"';
         }
         $text .= '>';
         foreach ($this->lines as $k => $line) {

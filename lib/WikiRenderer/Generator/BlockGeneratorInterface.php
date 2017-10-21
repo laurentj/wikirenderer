@@ -12,5 +12,6 @@ namespace WikiRenderer\Generator;
 
 interface BlockGeneratorInterface  extends GeneratorInterface
 {
+
     public function setId($id);
 }

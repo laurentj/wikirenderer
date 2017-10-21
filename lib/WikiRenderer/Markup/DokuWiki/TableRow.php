@@ -32,7 +32,7 @@ class TableRow extends \WikiRenderer\Tag
     public function __construct(\WikiRenderer\Config $config, \WikiRenderer\Generator\DocumentGeneratorInterface $generator)
     {
         parent::__construct($config, $generator);
-        $this->row = new \WikiRenderer\Generator\InlineBagGenerator();
+        $this->row = new \WikiRenderer\Generator\InlineBagGenerator($generator->getConfig());
     }
 
     public function isCurrentSeparator($token)

@@ -20,11 +20,15 @@ class InlineBagGenerator implements InlineGeneratorInterface
 
     protected $glue;
 
+    public function __construct(\WikiRenderer\Generator\Config $config) {
+
+    }
+
     /**
      * @param string $glue
      * @param \WikiRenderer\Generator\InlineGeneratorInterface[] $list
      */
-    public function __construct($glue = '', $list = array())
+    public function init($glue = '', $list = array())
     {
         $this->genList = $list;
         $this->glue = $glue;

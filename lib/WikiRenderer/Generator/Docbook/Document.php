@@ -36,21 +36,21 @@ class Document extends \WikiRenderer\Generator\AbstractDocumentGenerator
                         for($i = $previousLevel-$level; $i > 0; $i--) {
                             $this->popContainer();
                         }
-                        $this->pushContainer(new Section());
+                        $this->pushContainer(new Section($this->config));
                     }
                     elseif ($previousLevel < $level) {
                         for($i = $level-$previousLevel; $i > 0; $i--) {
-                            $this->pushContainer(new Section());
+                            $this->pushContainer(new Section($this->config));
                         }
                     }
                     else {
                         $this->popContainer();
-                        $this->pushContainer(new Section());
+                        $this->pushContainer(new Section($this->config));
                     }
                 }
             }
             else {
-                $this->pushContainer(new Section());
+                $this->pushContainer(new Section($this->config));
             }
         }
         if (count($this->containersStack)) {
