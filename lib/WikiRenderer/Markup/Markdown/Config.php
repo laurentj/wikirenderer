@@ -39,11 +39,11 @@ class Config extends \WikiRenderer\Config
         '\WikiRenderer\Markup\Markdown\OrderedWikiList',
         '\WikiRenderer\Markup\Markdown\UnorderedWikiList',
         '\WikiRenderer\Markup\Markdown\Blockquote',
+        '\WikiRenderer\Markup\Markdown\Html',
         /*'\WikiRenderer\Markup\Markdown\Table',
         '\WikiRenderer\Markup\Markdown\SyntaxHighlight',
         '\WikiRenderer\Markup\Markdown\File',
         '\WikiRenderer\Markup\Markdown\Nowiki',
-        '\WikiRenderer\Markup\Markdown\Html',
         '\WikiRenderer\Markup\Markdown\Macro',*/
         '\WikiRenderer\Markup\Markdown\Para'
     );

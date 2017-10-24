@@ -53,7 +53,7 @@ diam nec justo.</p>'
 
     function getOfficialTestsList() {
         $list = array();
-        for($i=1; $i <= 113; $i++) {
+        for($i=1; $i <= 156; $i++) {
             $list[] = array('test_'.$i.'.json');
         }
         return $list;
@@ -66,6 +66,7 @@ diam nec justo.</p>'
 
         $genConfig = new \WikiRenderer\Generator\Html\Config();
         $genConfig->syntaxClassPattern = 'language-%s';
+        $genConfig->htmlEncloseContent = false;
         $generator = new \WikiRenderer\Generator\Html\Document($genConfig);
         $markupConfig = new \WikiRenderer\Markup\Markdown\Config();
         $wr = new \WikiRenderer\Renderer($generator, $markupConfig);

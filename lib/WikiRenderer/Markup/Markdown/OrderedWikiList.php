@@ -190,7 +190,7 @@ class OrderedWikiList extends \WikiRenderer\Block
 
     public function getAuthorizedChildBlocks()
     {
-        return array('hr', 'list', 'para', 'pre', 'syntaxhighlight', 'blockquote');
+        return array('hr', 'list', 'html', 'para', 'pre', 'syntaxhighlight', 'blockquote');
     }
 
     public function validateLine()

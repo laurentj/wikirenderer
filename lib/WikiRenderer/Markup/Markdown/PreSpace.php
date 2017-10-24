@@ -60,8 +60,12 @@ class PreSpace extends \WikiRenderer\Block
         $res =  preg_match("/^(\\s+)(.*)/", $line, $m);
         if ($res) {
             $expanded = StringUtils::tabExpand($m[1]);
-            if (strlen($expanded) > 4) {
+            $len = strlen($expanded);
+            if ($len > 4) {
                 $this->lineContent = substr($expanded, 4).$m[2];
+            }
+            else if ($len < 4 && $m[2] != '') {
+                return false;
             }
             else {
                 $this->lineContent = $m[2];

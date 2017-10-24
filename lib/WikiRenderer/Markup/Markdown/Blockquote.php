@@ -79,7 +79,7 @@ class Blockquote extends \WikiRenderer\Block
 
     public function getAuthorizedChildBlocks()
     {
-        return array('blockquote', 'list', 'pre', 'syntaxhighlight', 'para');
+        return array('blockquote', 'list', 'pre', 'syntaxhighlight', 'html', 'para');
     }
 
     public function validateLine()

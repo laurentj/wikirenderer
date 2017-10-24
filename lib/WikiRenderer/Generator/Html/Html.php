@@ -19,6 +19,9 @@ class Html implements \WikiRenderer\Generator\BlockOfRawLinesInterface
     protected $id = '';
 
     public function __construct(\WikiRenderer\Generator\Config $config) {
+        if (!$config->htmlEncloseContent) {
+            $this->htmlTagName = '';
+        }
     }
 
     public function setId($id)
@@ -41,10 +44,15 @@ class Html implements \WikiRenderer\Generator\BlockOfRawLinesInterface
 
     public function generate()
     {
-        if ($this->id) {
-            $text = '<'.$this->htmlTagName.' id="'.htmlspecialchars($this->id).'">';
-        } else {
-            $text = '<'.$this->htmlTagName.'>';
+        if ($this->htmlTagName) {
+            if ($this->id) {
+                $text = '<'.$this->htmlTagName.' id="'.htmlspecialchars($this->id).'">';
+            } else {
+                $text = '<'.$this->htmlTagName.'>';
+            }
+        }
+        else {
+            $text = '';
         }
 
         foreach ($this->lines as $k => $line) {
@@ -53,8 +61,9 @@ class Html implements \WikiRenderer\Generator\BlockOfRawLinesInterface
             }
             $text .= $line;
         }
-        $text .= '</'.$this->htmlTagName.'>';
-
+        if ($this->htmlTagName) {
+            $text .= '</' . $this->htmlTagName . '>';
+        }
         return $text;
     }
 }

@@ -17,6 +17,8 @@ namespace WikiRenderer\Generator\Html;
  */
 class Config extends \WikiRenderer\Generator\Config
 {
+    public $htmlEncloseContent = true;
+
     public $inlineGenerators = array(
         'textline' => '\WikiRenderer\Generator\Html\TextLine',
         'words' => '\WikiRenderer\Generator\Html\Words',
