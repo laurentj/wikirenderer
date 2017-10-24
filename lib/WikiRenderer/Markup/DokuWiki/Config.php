@@ -70,16 +70,6 @@ class Config extends \WikiRenderer\Config
     public $startHeaderNumber = 1;
 
     /**
-     * content all foot notes.
-     */
-    public $footnotes = array();
-
-    /**
-     * prefix for footnotes id.
-     */
-    public $footnotesId = '';
-
-    /**
      * list of functions implementing macros. Functions receive the macro name and
      * a string representing the arguments. It should return a string (empty or not)
      * to insert into the generated content. 
@@ -87,13 +77,6 @@ class Config extends \WikiRenderer\Config
      * @var callable[] keys are macro name in lower case
      */
     public $macros = array();
-
-    /**
-     * html content for footnotes.
-     *
-     * @deprecated
-     */
-    public $footnotesTemplate = '<div class="footnotes"><h4>Notes</h4>%s</div>';
 
     public function __construct($wikiBaseUrl = '', $appBaseUrl = '/')
     {
@@ -116,8 +99,6 @@ class Config extends \WikiRenderer\Config
      */
     public function onStart($text)
     {
-        $this->footnotesId = rand(0, 30000);
-        $this->footnotes = array(); // erase footnotes
         return $text;
     }
 
@@ -131,12 +112,6 @@ class Config extends \WikiRenderer\Config
      */
     public function onParse($finalText)
     {
-        // let's add footnotes
-        if (count($this->footnotes)) {
-            $footnotes = implode("\n", $this->footnotes);
-            $finalText .= str_replace('%s', $footnotes, $this->footnotesTemplate);
-        }
-
         return $finalText;
     }
 }
