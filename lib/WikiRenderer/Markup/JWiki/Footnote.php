@@ -21,4 +21,17 @@ class Footnote extends \WikiRenderer\Tag
     protected $generatorName = 'footnotelink';
     public $beginTag = '$$';
     public $endTag = '$$';
+
+    public function __construct(\WikiRenderer\Config $config, \WikiRenderer\Generator\DocumentGeneratorInterface $generator)
+    {
+        parent::__construct($config, $generator);
+
+        $footnotes = $generator->getMetaData('footnotes');
+        if (!$footnotes) {
+            $footnotes = $generator->getBlockGenerator('footnotes');
+            $generator->setMetaData('footnotes', $footnotes);
+        }
+        $this->generator->setFootNotes($footnotes);
+    }
+
 }
