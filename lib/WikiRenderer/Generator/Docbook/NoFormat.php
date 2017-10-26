@@ -33,7 +33,7 @@ class NoFormat implements \WikiRenderer\Generator\InlineRawWordsInterface
 
     public function addContent(\WikiRenderer\Generator\InlineWordsInterface $words)
     {
-        $this->content[] = $words->generate();
+        $this->content[] = $words;
     }
 
     public function isEmpty()
@@ -46,6 +46,16 @@ class NoFormat implements \WikiRenderer\Generator\InlineRawWordsInterface
      */
     public function generate()
     {
-        return '<phrase>'.implode('', $this->content).'</phrase>';
+        $finalContent = '';
+        foreach($this->content as $content) {
+            if (is_object($content)) {
+                $finalContent .= $content->generate();
+            }
+            else {
+                $finalContent .= $content;
+            }
+        }
+
+        return '<phrase>'.$finalContent.'</phrase>';
     }
 }
