@@ -84,7 +84,7 @@ class Blockquote extends \WikiRenderer\Block
 
     public function validateLine()
     {
-        $this->generator->addContent($this->_renderInlineTag($this->lineContent));
+        $this->generator->addContent($this->parseInlineContent($this->lineContent));
     }
 
 }

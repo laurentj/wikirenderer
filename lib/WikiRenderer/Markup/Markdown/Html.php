@@ -83,7 +83,7 @@ class Html extends \WikiRenderer\Block
                 $this->generator = $this->documentGenerator->getBlockGenerator('para');
                 $words = $this->documentGenerator->getInlineGenerator('words');
                 $words->addGeneratedContent($m[1].$m[2].$m[3].$m[4]);
-                $words->addGeneratedContent($this->_renderInlineTag(substr($m[5], 0, - strlen($m2[1])))->generate());
+                $words->addGeneratedContent($this->parseInlineContent(substr($m[5], 0, - strlen($m2[1])))->generate());
                 $words->addGeneratedContent($m2[1]);
                 $this->generator->addLine($words);
                 $this->lineContent = null;

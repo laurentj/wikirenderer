@@ -227,7 +227,7 @@ abstract class Block
      *
      * @see \WikiRenderer\InlineParser
      */
-    protected function _renderInlineTag($string)
+    protected function parseInlineContent($string)
     {
         return $this->engine->inlineParser->parse($string);
     }

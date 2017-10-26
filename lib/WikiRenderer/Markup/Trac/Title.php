@@ -49,6 +49,6 @@ class Title extends \WikiRenderer\Block
                 $title = rtrim($title);
             }
         }
-        $this->generator->addLine($this->_renderInlineTag($title));
+        $this->generator->addLine($this->parseInlineContent($title));
     }
 }

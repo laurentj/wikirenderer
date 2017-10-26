@@ -117,7 +117,7 @@ class WikiList extends \WikiRenderer\Block
     {
         if ($this->sameItem) {
             $last = $this->generatorStack[count($this->generatorStack) - 1];
-            $last->addContentToItem($this->_renderInlineTag(' '.$this->_detectMatch[2]));
+            $last->addContentToItem($this->parseInlineContent(' '.$this->_detectMatch[2]));
 
             return;
         }
@@ -145,7 +145,7 @@ class WikiList extends \WikiRenderer\Block
                 array_pop($this->indentStack);
                 $this->indentStack[] = array($t[0],$type);
                 $generator = $this->_createList($type);
-                $generator->addContentToItem($this->_renderInlineTag($this->_detectMatch[3]));
+                $generator->addContentToItem($this->parseInlineContent($this->_detectMatch[3]));
                 $last = $this->generatorStack[count($this->generatorStack) - 1];
                 $last->addContentToItem($generator);
                 $this->generatorStack[] = $generator;
@@ -155,7 +155,7 @@ class WikiList extends \WikiRenderer\Block
         } elseif ($d < 0) { // we have a new nested list
 
             $generator = $this->_createList($type);
-            $generator->addContentToItem($this->_renderInlineTag($this->_detectMatch[3]));
+            $generator->addContentToItem($this->parseInlineContent($this->_detectMatch[3]));
 
             $last = $this->generatorStack[count($this->generatorStack) - 1];
             $last->addContentToItem($generator);
@@ -171,7 +171,7 @@ class WikiList extends \WikiRenderer\Block
                 array_pop($this->indentStack);
                 $this->indentStack[] = array($t[0], $type);
                 $generator = $this->_createList($type);
-                $generator->addContentToItem($this->_renderInlineTag($this->_detectMatch[3]));
+                $generator->addContentToItem($this->parseInlineContent($this->_detectMatch[3]));
                 $last = $this->generatorStack[count($this->generatorStack) - 1];
                 $last->addContentToItem($generator);
                 $this->generatorStack[] = $generator;
@@ -182,6 +182,6 @@ class WikiList extends \WikiRenderer\Block
 
         $last = $this->generatorStack[count($this->generatorStack) - 1];
         $last->createItem();
-        $last->addContentToItem($this->_renderInlineTag($this->_detectMatch[3]));
+        $last->addContentToItem($this->parseInlineContent($this->_detectMatch[3]));
     }
 }

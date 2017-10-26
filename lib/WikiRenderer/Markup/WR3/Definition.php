@@ -37,7 +37,7 @@ class Definition extends \WikiRenderer\Block
     public function validateLine()
     {
         // $generator is supposed to be a InlineBagGenerator class
-        $generator = $this->_renderInlineTag($this->_detectMatch[1].' : '.$this->_detectMatch[2]);
+        $generator = $this->parseInlineContent($this->_detectMatch[1].' : '.$this->_detectMatch[2]);
 
         list($term, $definition) = $generator->getGenerators();
 

@@ -136,14 +136,14 @@ class Para extends \WikiRenderer\Block
             !($this->engine->getParentBlock() instanceof Blockquote)
         ) {
             $this->generator = new \WikiRenderer\Generator\SingleLineBlock($this->documentGenerator->getConfig());
-            $line = $this->_renderInlineTag($this->content[0][0]);
+            $line = $this->parseInlineContent($this->content[0][0]);
             $this->generator->setLineAsString($line);
             return $this->generator;
         }
 
         foreach($this->content as $content) {
             if (is_array($content)) {
-                $lines = $this->_renderInlineTag(implode("\n", $content));
+                $lines = $this->parseInlineContent(implode("\n", $content));
             }
             else {
                 $lines = $this->documentGenerator->getInlineGenerator('words');

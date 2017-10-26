@@ -39,7 +39,7 @@ class Table extends \WikiRenderer\Block
     {
         $this->generator->createRow();
         // $generator is supposed to be a InlineBagGenerator class
-        $generator = $this->_renderInlineTag($this->_detectMatch[2]);
+        $generator = $this->parseInlineContent($this->_detectMatch[2]);
 
         $cells = $generator->getGenerators();
         foreach ($cells as $k => $generator) {

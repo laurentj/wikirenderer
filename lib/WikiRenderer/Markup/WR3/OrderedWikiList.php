@@ -74,6 +74,6 @@ class OrderedWikiList extends \WikiRenderer\Block
     public function validateLine()
     {
         $this->generator->createItem();
-        $this->generator->addContentToItem($this->_renderInlineTag($this->_detectMatch[2]));
+        $this->generator->addContentToItem($this->parseInlineContent($this->_detectMatch[2]));
     }
 }

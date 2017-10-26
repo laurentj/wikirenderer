@@ -195,6 +195,6 @@ class OrderedWikiList extends \WikiRenderer\Block
 
     public function validateLine()
     {
-        $this->generator->addContentToItem($this->_renderInlineTag($this->lineContent));
+        $this->generator->addContentToItem($this->parseInlineContent($this->lineContent));
     }
 }

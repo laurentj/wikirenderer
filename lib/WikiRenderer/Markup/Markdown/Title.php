@@ -43,6 +43,6 @@ class Title extends \WikiRenderer\Block
         if (preg_match("/(\s+|\s+#+\s*|^#+\s*)$/", $text, $m)) {
             $text = substr($text, 0, - strlen($m[1]));
         }
-        $this->generator->addLine($this->_renderInlineTag($text));
+        $this->generator->addLine($this->parseInlineContent($text));
     }
 }

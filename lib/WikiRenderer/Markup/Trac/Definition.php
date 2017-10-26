@@ -73,10 +73,10 @@ class Definition extends \WikiRenderer\Block
     {
         if ($this->detectedTerm) {
             $this->generateDef();
-            $this->currentTerm = $this->_renderInlineTag($this->detectedTerm);
+            $this->currentTerm = $this->parseInlineContent($this->detectedTerm);
             $this->currentDefinition = array();
         } else {
-            $this->currentDefinition[] = $this->_renderInlineTag($this->detectedDef);
+            $this->currentDefinition[] = $this->parseInlineContent($this->detectedDef);
         }
     }
 

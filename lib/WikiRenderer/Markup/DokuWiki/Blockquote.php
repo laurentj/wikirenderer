@@ -76,7 +76,7 @@ class Blockquote extends \WikiRenderer\Block
             }
         }
 
-        $inline = $this->_renderInlineTag($this->_detectMatch[2]);
+        $inline = $this->parseInlineContent($this->_detectMatch[2]);
         $this->generatorStack->top()->addContent($inline);
     }
 }

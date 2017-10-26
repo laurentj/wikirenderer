@@ -37,6 +37,6 @@ class Title extends \WikiRenderer\Block
             $hx = $this->_minlevel + 3 - strlen($this->_detectMatch[1]);
         }
         $this->generator->setLevel($hx);
-        $this->generator->addLine($this->_renderInlineTag($this->_detectMatch[2]));
+        $this->generator->addLine($this->parseInlineContent($this->_detectMatch[2]));
     }
 }

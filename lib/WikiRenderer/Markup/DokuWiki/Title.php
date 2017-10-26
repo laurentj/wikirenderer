@@ -32,6 +32,6 @@ class Title extends \WikiRenderer\Block
         }
         $this->generator->setLevel($h);
         $title = trim($this->_detectMatch[2]);
-        $this->generator->addLine($this->_renderInlineTag($title));
+        $this->generator->addLine($this->parseInlineContent($title));
     }
 }

@@ -46,6 +46,6 @@ class P extends \WikiRenderer\Block
 
     public function validateLine()
     {
-        $this->generator->addLine($this->_renderInlineTag($this->_detectMatch[1]));
+        $this->generator->addLine($this->parseInlineContent($this->_detectMatch[1]));
     }
 }
