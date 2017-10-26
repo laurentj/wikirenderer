@@ -15,7 +15,7 @@ namespace WikiRenderer\Markup\DokuWiki;
 /**
  * Parser for underline inline tag.
  */
-class Underline extends \WikiRenderer\Tag
+class Underline extends \WikiRenderer\InlineTag
 {
     protected $name = 'u';
     protected $generatorName = 'underline';

@@ -15,7 +15,7 @@ namespace WikiRenderer\Markup\JWiki;
 /**
  * Parse anchor inline tag.
  */
-class Anchor extends \WikiRenderer\Tag
+class Anchor extends \WikiRenderer\InlineTag
 {
     protected $name = 'anchor';
     protected $generatorName = 'anchor';

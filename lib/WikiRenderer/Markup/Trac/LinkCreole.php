@@ -15,7 +15,7 @@ namespace WikiRenderer\Markup\Trac;
 /**
  * Parser for a link.
  */
-class LinkCreole extends \WikiRenderer\Tag
+class LinkCreole extends \WikiRenderer\InlineTag
 {
     protected $name = 'a';
     protected $generatorName = 'link';

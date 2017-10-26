@@ -15,7 +15,7 @@ namespace WikiRenderer\Markup\Markdown;
 /**
  * Parse a line of text.
  */
-class TextLine extends \WikiRenderer\Tag
+class TextLine extends \WikiRenderer\InlineTag
 {
     protected $generatorName = 'textline';
     public $isTextLineTag = true;

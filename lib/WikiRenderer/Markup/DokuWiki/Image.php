@@ -15,7 +15,7 @@ namespace WikiRenderer\Markup\DokuWiki;
 /**
  * Parser for an image inline tag.
  */
-class Image extends \WikiRenderer\Tag
+class Image extends \WikiRenderer\InlineTag
 {
     protected $name = 'image';
     protected $generatorName = 'image';

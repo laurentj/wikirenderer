@@ -15,7 +15,7 @@ namespace WikiRenderer\Markup\WR3;
 /**
  * Parser for a quote inline tag.
  */
-class Q extends \WikiRenderer\Tag
+class Q extends \WikiRenderer\InlineTag
 {
     protected $name = 'q';
     protected $generatorName = 'quote';

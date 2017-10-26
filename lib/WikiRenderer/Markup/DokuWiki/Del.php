@@ -15,7 +15,7 @@ namespace WikiRenderer\Markup\DokuWiki;
 /**
  * Parser for emphasys inline tag.
  */
-class Del extends \WikiRenderer\Tag
+class Del extends \WikiRenderer\InlineTag
 {
     protected $name = 'del';
     protected $generatorName = 'del';

@@ -15,7 +15,7 @@ namespace WikiRenderer\Markup\Trac;
 /**
  * Parser for sup inline tag.
  */
-class Sup extends \WikiRenderer\Tag
+class Sup extends \WikiRenderer\InlineTag
 {
     protected $name = 'sup';
     protected $generatorName = 'superscript';

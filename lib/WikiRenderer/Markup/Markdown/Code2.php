@@ -15,7 +15,7 @@ namespace WikiRenderer\Markup\Markdown;
 /**
  * Parse code inline tag.
  */
-class Code2 extends \WikiRenderer\Tag
+class Code2 extends \WikiRenderer\InlineTag
 {
     protected $name = 'code';
     protected $generatorName = 'code';

@@ -16,7 +16,7 @@ use \WikiRenderer\Generator\InlineGeneratorInterface;
 /**
  * Parse code inline tag.
  */
-class Code extends \WikiRenderer\Tag
+class Code extends \WikiRenderer\InlineTag
 {
     protected $name = 'code';
     protected $generatorName = 'code';

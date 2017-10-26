@@ -15,7 +15,7 @@ namespace WikiRenderer\Markup\WR3;
 /**
  * Parse acronym inline tag.
  */
-class Acronym extends \WikiRenderer\Tag
+class Acronym extends \WikiRenderer\InlineTag
 {
     protected $name = 'acronym';
     protected $generatorName = 'acronym';

@@ -15,7 +15,7 @@ namespace WikiRenderer\Markup\Trac;
 /**
  * Parse a line of a table.
  */
-class TableRow extends \WikiRenderer\Tag
+class TableRow extends \WikiRenderer\InlineTag
 {
     protected $generatorName = 'tablecell';
     public $isTextLineTag = true;

@@ -15,7 +15,7 @@ namespace WikiRenderer\Markup\JWiki;
 /**
  * Parser for footnote inline tag.
  */
-class Footnote extends \WikiRenderer\Tag
+class Footnote extends \WikiRenderer\InlineTag
 {
     protected $name = 'footnote';
     protected $generatorName = 'footnotelink';

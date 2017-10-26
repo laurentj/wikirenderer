@@ -15,7 +15,7 @@ namespace WikiRenderer\Markup\DokuWiki;
 /**
  * Parser for sub inline tag.
  */
-class Subscript extends \WikiRenderer\Tag
+class Subscript extends \WikiRenderer\InlineTag
 {
     protected $name = 'sub';
     protected $generatorName = 'subscript';

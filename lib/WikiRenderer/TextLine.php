@@ -17,7 +17,7 @@ namespace WikiRenderer;
 /**
  * ???
  */
-class TextLine extends Tag
+class TextLine extends InlineTag
 {
     /** ??? */
     public $isTextLineTag = true;

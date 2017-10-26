@@ -13,7 +13,7 @@ namespace WikiRenderer\Markup\Markdown;
 /**
  * Parser for emphasys inline tag.
  */
-class Em extends \WikiRenderer\Tag
+class Em extends \WikiRenderer\InlineTag
 {
     protected $name = 'em';
     protected $generatorName = 'em';

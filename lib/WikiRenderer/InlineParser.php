@@ -139,12 +139,12 @@ class InlineParser
     /**
      * Parser's core function.
      *
-     * @param \WikiRenderer\Tag $tag      ???
+     * @param \WikiRenderer\InlineTag $tag      ???
      * @param int               $posstart ???
      *
      * @return int new position
      */
-    protected function _parse(\WikiRenderer\Tag $tag, $posstart)
+    protected function _parse(\WikiRenderer\InlineTag $tag, $posstart)
     {
         $checkNextTag = true;
 

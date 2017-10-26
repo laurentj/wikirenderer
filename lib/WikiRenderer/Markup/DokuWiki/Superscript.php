@@ -15,7 +15,7 @@ namespace WikiRenderer\Markup\DokuWiki;
 /**
  * Parser for Superscript inline tag.
  */
-class Superscript extends \WikiRenderer\Tag
+class Superscript extends \WikiRenderer\InlineTag
 {
     protected $name = 'sup';
     protected $generatorName = 'superscript';
