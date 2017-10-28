@@ -20,8 +20,17 @@ class TextLineContainer
     /** @var \WikiRenderer\InlineTag */
     public $tag = null;
 
-    /** ??? */
+    /**
+     * List of string tags that starts allowed inline tags.
+     *
+     * Filled automatically when InlineParser is processing the configuration.
+     */
     public $allowedTags = array();
-    /** ??? */
+
+    /**
+     * The regexp used to split a line between all start/end string tags.
+     *
+     * Filled automatically when InlineParser is processing the configuration.
+     */
     public $pattern = '';
 }

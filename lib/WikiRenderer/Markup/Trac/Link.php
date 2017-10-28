@@ -27,14 +27,13 @@ class Link extends LinkCreole
 
     protected $inLabel = false;
 
-    public function addContent($wikiContent, InlineGeneratorInterface $childGenerator = null)
-    {
+    protected function _addWikiContent($wikiContent) {
         if (!$this->inLabel) {
             $items = preg_split('/(\\s+)/', $wikiContent, 2, PREG_SPLIT_DELIM_CAPTURE);
             $this->wikiContentArr[0] .= $items[0];
 
             if (count($items) < 2) {
-                return;
+                return false;
             }
 
             $this->inLabel = true;
@@ -44,18 +43,33 @@ class Link extends LinkCreole
             $this->contents[$this->separatorCount] = '';
 
             if ($items[2] === '') {
-                return;
+                return false;
             }
             $wikiContent = $items[2];
         }
         $this->wikiContentArr[$this->separatorCount] .= $wikiContent;
+        return $wikiContent;
+    }
 
-        if ($childGenerator === null) {
-            $parsedContent = $this->convertWords($wikiContent);
-            $this->generator->addContent($parsedContent);
-        } else {
-            $this->generator->addContent($childGenerator);
+    public function addContentString($wikiContent)
+    {
+        $wikiContent = $this->_addWikiContent($wikiContent);
+        if ($wikiContent === false) {
+            return;
         }
+
+        $parsedContent = $this->convertWords($wikiContent);
+        $this->generator->addContent($parsedContent);
+    }
+
+    public function addContentGenerator($wikiContent, InlineGeneratorInterface $childGenerator)
+    {
+        $wikiContent = $this->_addWikiContent($wikiContent);
+        if ($wikiContent === false) {
+            return;
+        }
+
+        $this->generator->addContent($childGenerator);
     }
 
     public function isOtherTagAllowed()

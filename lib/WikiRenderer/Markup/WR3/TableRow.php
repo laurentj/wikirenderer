@@ -33,15 +33,17 @@ class TableRow extends \WikiRenderer\InlineTag
         $this->row = new \WikiRenderer\Generator\InlineBagGenerator($this->documentGenerator->getConfig());
     }
 
-    public function addContent($wikiContent, \WikiRenderer\Generator\InlineGeneratorInterface $childGenerator = null)
+    public function addContentString($wikiContent)
     {
         $this->wikiContentArr[$this->separatorCount] .= $wikiContent;
-        if ($childGenerator === null) {
-            $parsedContent = $this->convertWords($wikiContent);
-            $this->generator->addContent($parsedContent);
-        } else {
-            $this->generator->addContent($childGenerator);
-        }
+        $parsedContent = $this->convertWords($wikiContent);
+        $this->generator->addContent($parsedContent);
+    }
+
+    public function addContentGenerator($wikiContent, \WikiRenderer\Generator\InlineGeneratorInterface $childGenerator)
+    {
+        $this->wikiContentArr[$this->separatorCount] .= $wikiContent;
+        $this->generator->addContent($childGenerator);
     }
 
     /**

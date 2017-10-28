@@ -33,15 +33,17 @@ class DefinitionTextLine extends \WikiRenderer\InlineTag
         $this->definitionGenerator = clone $this->generator;
     }
 
-    public function addContent($wikiContent, \WikiRenderer\Generator\InlineGeneratorInterface $childGenerator = null)
+    public function addContentString($wikiContent)
     {
         $this->wikiContentArr[$this->separatorCount] .= $wikiContent;
-        if ($childGenerator === null) {
-            $parsedContent = $this->convertWords($wikiContent);
-            $this->generator->addContent($parsedContent);
-        } else {
-            $this->generator->addContent($childGenerator);
-        }
+        $parsedContent = $this->convertWords($wikiContent);
+        $this->generator->addContent($parsedContent);
+    }
+
+    public function addContentGenerator($wikiContent, \WikiRenderer\Generator\InlineGeneratorInterface $childGenerator)
+    {
+        $this->wikiContentArr[$this->separatorCount] .= $wikiContent;
+        $this->generator->addContent($childGenerator);
     }
 
     public function addSeparator($token)

@@ -37,7 +37,7 @@ class TableRow extends \WikiRenderer\InlineTag
     protected $hasEndHeader = false;
     protected $cell = array();
 
-    public function addContent($wikiContent, \WikiRenderer\Generator\InlineGeneratorInterface $childGenerator = null)
+    public function addContentString($wikiContent)
     {
         if ($wikiContent === '') {
             return;
@@ -45,30 +45,37 @@ class TableRow extends \WikiRenderer\InlineTag
         $this->hasEndHeader = false;
         $this->lastWord = null;
 
-        if ($childGenerator === null) {
-            $filteredWikiContent = $wikiContent;
-            if ($this->wikiContentArr[$this->separatorCount] === ''
-                && $wikiContent[0] == '=') {
-                $this->hasStartHeader = true;
+        $filteredWikiContent = $wikiContent;
+        if ($this->wikiContentArr[$this->separatorCount] === ''
+            && $wikiContent[0] == '=') {
+            $this->hasStartHeader = true;
 
-                if (substr($wikiContent, -1) == '=') {
-                    $this->hasEndHeader = true;
-                    $filteredWikiContent = substr($wikiContent, 1, -1);
-                } else {
-                    $filteredWikiContent = substr($wikiContent, 1);
-                }
-            } elseif ($this->wikiContentArr[$this->separatorCount] !== ''
-                     && substr($wikiContent, -1) == '=') {
+            if (substr($wikiContent, -1) == '=') {
                 $this->hasEndHeader = true;
-                $filteredWikiContent = substr($wikiContent, 0, -1);
+                $filteredWikiContent = substr($wikiContent, 1, -1);
+            } else {
+                $filteredWikiContent = substr($wikiContent, 1);
             }
-
-            $this->wikiContentArr[$this->separatorCount] .= $wikiContent;
-            $this->cell[] = $this->convertWords($filteredWikiContent);
-        } else {
-            $this->wikiContentArr[$this->separatorCount] .= $wikiContent;
-            $this->cell[] = $childGenerator;
+        } elseif ($this->wikiContentArr[$this->separatorCount] !== ''
+                 && substr($wikiContent, -1) == '=') {
+            $this->hasEndHeader = true;
+            $filteredWikiContent = substr($wikiContent, 0, -1);
         }
+
+        $this->wikiContentArr[$this->separatorCount] .= $wikiContent;
+        $this->cell[] = $this->convertWords($filteredWikiContent);
+    }
+
+    public function addContentGenerator($wikiContent, \WikiRenderer\Generator\InlineGeneratorInterface $childGenerator)
+    {
+        if ($wikiContent === '') {
+            return;
+        }
+        $this->hasEndHeader = false;
+        $this->lastWord = null;
+
+        $this->wikiContentArr[$this->separatorCount] .= $wikiContent;
+        $this->cell[] = $childGenerator;
     }
 
     /**

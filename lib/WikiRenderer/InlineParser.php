@@ -130,7 +130,7 @@ class InlineParser
 
             return $firsttag->getContent();
         } else {
-            $firsttag->addContent($line);
+            $firsttag->addContentString($line);
 
             return $firsttag->getContent();
         }
@@ -159,9 +159,9 @@ class InlineParser
                     $checkNextTag = false;
                 } else {
                     // if we are here, this is because the previous part was the escape char
-                    $tag->addContent($this->escapeChar);
+                    $tag->addContentString($this->escapeChar);
                     if ($this->config->outputDoubleEscapeChar) {
-                        $tag->addContent($this->escapeChar);
+                        $tag->addContentString($this->escapeChar);
                     }
                     $checkNextTag = true;
                 }
@@ -176,24 +176,24 @@ class InlineParser
                 if ($tag->endTag == $t && !$tag->isTextLineTag) {
                     return $i;
                 } elseif (!$tag->isOtherTagAllowed()) {
-                    $tag->addContent($t);
+                    $tag->addContentString($t);
                 }
                 // is there a tag which begin something ?
                 elseif (isset($this->currentTextLineContainer->allowedTags[$t])) {
                     $newtag = clone $this->currentTextLineContainer->allowedTags[$t];
                     $i = $this->_parse($newtag, $i);
                     if ($i !== false) {
-                        $tag->addContent($newtag->getWikiContent(), $newtag->getContent());
+                        $tag->addContentGenerator($newtag->getWikiContent(), $newtag->getContent());
                     } else {
                         $i = $this->end;
-                        $tag->addContent($newtag->getWikiContent(), $newtag->getBogusContent());
+                        $tag->addContentGenerator($newtag->getWikiContent(), $newtag->getBogusContent());
                     }
                 }
                 // is there a simple tag ?
                 elseif (isset($this->allSimpleTags[$t])) {
-                    $tag->addContent($t, $this->allSimpleTags[$t]->getContent($this->documentGenerator, $t));
+                    $tag->addContentGenerator($t, $this->allSimpleTags[$t]->getContent($this->documentGenerator, $t));
                 } else {
-                    $tag->addContent($t);
+                    $tag->addContentString($t);
                 }
             // previous token prevents us to process the current token, and
             // indicated to ignore it, so let's ignore it.
@@ -203,15 +203,15 @@ class InlineParser
                     $tag->endTag == $t
                 ) {
                     if ($this->config->outputEscapeCharForTags) {
-                        $tag->addContent($this->escapeChar . $t);
+                        $tag->addContentString($this->escapeChar . $t);
                     } else {
-                        $tag->addContent($t);
+                        $tag->addContentString($t);
                     }
                 } else {
                     if ($this->config->outputEscapeChar) {
-                        $tag->addContent($this->escapeChar . $t);
+                        $tag->addContentString($this->escapeChar . $t);
                     } else {
-                        $tag->addContent($t);
+                        $tag->addContentString($t);
                     }
                 }
                 $checkNextTag = true;
@@ -219,7 +219,7 @@ class InlineParser
         }
 
         if (!$checkNextTag && ($this->config->outputEscapeChar||$this->config->outputEscapeCharAtEOL)) {
-            $tag->addContent($this->escapeChar);
+            $tag->addContentString($this->escapeChar);
         }
         if (!$tag->isTextLineTag) {
             //we didn't find the ended tag, error

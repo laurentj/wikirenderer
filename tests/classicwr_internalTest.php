@@ -20,12 +20,12 @@ class classicwr_internalTest extends PHPUnit_Framework_TestCase {
                 $tag->addSeparator('|');
             }
             elseif(is_string($wiki)) {
-                $tag->addContent($wiki);
+                $tag->addContentString($wiki);
             }
             else {
                 $word = new \WikiRenderer\Generator\Html\Words($genConfig);
                 $word->init($wiki[1], false);
-                $tag->addContent($wiki[0], $word);
+                $tag->addContentGenerator($wiki[0], $word);
             }
         }
 

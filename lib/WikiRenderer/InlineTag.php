@@ -127,21 +127,35 @@ abstract class InlineTag
     /**
      * Called by the inline parser, when it found a new content.
      *
+     * @param string $wikiContent    The original content in wiki syntax
+     */
+    public function addContentString($wikiContent)
+    {
+        $isMainContent = isset($this->attribute[$this->separatorCount]) &&
+            $this->attribute[$this->separatorCount] == '$$';
+        $this->wikiContentArr[$this->separatorCount] .= $wikiContent;
+        if ($isMainContent) {
+            $parsedContent = $this->convertWords($wikiContent);
+            $this->generator->addContent($parsedContent);
+        } else {
+            $this->contents[$this->separatorCount] .= $wikiContent;
+        }
+    }
+
+
+    /**
+     * Called by the inline parser, when it found a new content.
+     *
      * @param string                             $wikiContent    The original content in wiki syntax
      * @param Generator\InlineGeneratorInterface $childGenerator The content already parsed (by an other Tag object), when this tag contains other tags.
      */
-    public function addContent($wikiContent, Generator\InlineGeneratorInterface $childGenerator = null)
+    public function addContentGenerator($wikiContent, Generator\InlineGeneratorInterface $childGenerator)
     {
         $isMainContent = isset($this->attribute[$this->separatorCount]) &&
                             $this->attribute[$this->separatorCount] == '$$';
         $this->wikiContentArr[$this->separatorCount] .= $wikiContent;
         if ($isMainContent) {
-            if ($childGenerator === null) {
-                $parsedContent = $this->convertWords($wikiContent);
-                $this->generator->addContent($parsedContent);
-            } else {
-                $this->generator->addContent($childGenerator);
-            }
+            $this->generator->addContent($childGenerator);
         } else {
             $this->contents[$this->separatorCount] .= $wikiContent;
         }

@@ -18,11 +18,11 @@ class WikiRendererTestsWr3Primaire extends PHPUnit_Framework_TestCase {
             if($wiki === false)
                 $tag->addSeparator('|');
             elseif(is_string($wiki))
-                $tag->addContent($wiki);
+                $tag->addContentString($wiki);
             else {
                 $w = new \WikiRenderer\Generator\Text\Words($genConfig);
                 $w->addRawContent($wiki[1]);
-                $tag->addContent($wiki[0], $w);
+                $tag->addContentGenerator($wiki[0], $w);
             }
         }
 

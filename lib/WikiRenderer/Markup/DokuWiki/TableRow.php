@@ -40,24 +40,30 @@ class TableRow extends \WikiRenderer\InlineTag
         return ($token == '|' || $token == '^');
     }
 
-    public function addContent($wikiContent, \WikiRenderer\Generator\InlineGeneratorInterface $childGenerator = null)
+
+    public function addContentString($wikiContent)
     {
         if ($wikiContent === '') {
             return;
         }
 
         $this->wikiContentArr[$this->separatorCount] .= $wikiContent;
-        if ($childGenerator === null) {
-            if (trim($wikiContent) == ':::') {
-                $this->generator->setRowSpan(-1);
-
-                return;
-            }
-            $parsedContent = $this->convertWords($wikiContent);
-            $this->generator->addContent($parsedContent);
-        } else {
-            $this->generator->addContent($childGenerator);
+        if (trim($wikiContent) == ':::') {
+            $this->generator->setRowSpan(-1);
+            return;
         }
+        $parsedContent = $this->convertWords($wikiContent);
+        $this->generator->addContent($parsedContent);
+    }
+
+    public function addContentGenerator($wikiContent, \WikiRenderer\Generator\InlineGeneratorInterface $childGenerator)
+    {
+        if ($wikiContent === '') {
+            return;
+        }
+
+        $this->wikiContentArr[$this->separatorCount] .= $wikiContent;
+        $this->generator->addContent($childGenerator);
     }
 
     protected $previousGenerator = null;
