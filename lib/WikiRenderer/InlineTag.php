@@ -149,6 +149,15 @@ abstract class InlineTag
         return $this->separators;
     }
 
+    public function getSeparatorsPatterns()
+    {
+        $patterns = array();
+        foreach ($this->separators as $sep) {
+            $patterns[] = preg_quote($sep, '/');
+        }
+        return $patterns;
+    }
+
     public function isLineContainer()
     {
         return $this->isTextLineTag;

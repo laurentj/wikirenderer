@@ -86,7 +86,7 @@ class InlineParser
         foreach ($config->textLineContainers as $class => $tags) {
             $c = new TextLineContainer();
             $c->tag = new $class($config, $generator);
-            $separators = $c->tag->getSeparators();
+            $separators = $c->tag->getSeparatorsPatterns();
 
             foreach ($tags as $tag) {
                 $t = new $tag($config, $generator);
@@ -95,11 +95,11 @@ class InlineParser
                 if ($t->getBeginTag() != $t->getEndTag()) {
                     $c->pattern .= '|('.$t->getEndPattern().')';
                 }
-                $separators = array_merge($separators, $t->getSeparators());
+                $separators = array_merge($separators, $t->getSeparatorsPatterns());
             }
             $separators = array_unique($separators);
             foreach ($separators as $sep) {
-                $c->pattern .= '|('.preg_quote($sep, '/').')';
+                $c->pattern .= '|('.$sep.')';
             }
             $c->pattern .= $simpletagPattern.$escapePattern;
             $c->pattern = '/'.substr($c->pattern, 1).'/';

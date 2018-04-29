@@ -175,7 +175,7 @@ abstract class Block
     /**
      * called by the parser when the current line has been detected, so after
      * the call of isAccepting(). This method should then take care of the line
-     * given tho the isAccepting() method.
+     * given to the isAccepting() method.
      */
     abstract public function validateLine();
 
