@@ -17,6 +17,6 @@ namespace WikiRenderer\Markup\ClassicWR;
  */
 class Link extends \WikiRenderer\Markup\WR3\Link
 {
-    public $beginTag = '[';
-    public $endTag = ']';
+    protected $beginTag = '[';
+    protected $endTag = ']';
 }

@@ -19,8 +19,8 @@ class Cite extends \WikiRenderer\InlineTag
 {
     protected $name = 'cite';
     protected $generatorName = 'cite';
-    public $beginTag = '{{';
-    public $endTag = '}}';
+    protected $beginTag = '{{';
+    protected $endTag = '}}';
     protected $attribute = array('$$','title');
-    public $separators = array('|');
+    protected $separators = array('|');
 }

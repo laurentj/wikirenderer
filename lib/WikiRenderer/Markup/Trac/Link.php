@@ -20,10 +20,10 @@ class Link extends LinkCreole
 {
     protected $name = 'a';
     protected $generatorName = 'link';
-    public $beginTag = '[';
-    public $endTag = ']';
+    protected $beginTag = '[';
+    protected $endTag = ']';
     protected $attribute = array('href', '$$');
-    public $separators = array();
+    protected $separators = array();
 
     protected $inLabel = false;
 

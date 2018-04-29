@@ -19,10 +19,10 @@ class Anchor extends \WikiRenderer\InlineTag
 {
     protected $name = 'anchor';
     protected $generatorName = 'anchor';
-    public $beginTag = '##';
-    public $endTag = '##';
+    protected $beginTag = '##';
+    protected $endTag = '##';
     protected $attribute = array('name');
-    public $separators = array('|');
+    protected $separators = array('|');
 
     public function getContent()
     {

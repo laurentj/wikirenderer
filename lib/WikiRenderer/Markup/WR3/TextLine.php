@@ -18,5 +18,5 @@ namespace WikiRenderer\Markup\WR3;
 class TextLine extends \WikiRenderer\InlineTag
 {
     protected $generatorName = 'textline';
-    public $isTextLineTag = true;
+    protected $isTextLineTag = true;
 }

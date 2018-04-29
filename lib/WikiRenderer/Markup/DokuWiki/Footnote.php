@@ -19,8 +19,8 @@ class Footnote extends \WikiRenderer\InlineTag
 {
     protected $name = 'footnote';
     protected $generatorName = 'footnotelink';
-    public $beginTag = '((';
-    public $endTag = '))';
+    protected $beginTag = '((';
+    protected $endTag = '))';
 
     public function __construct(\WikiRenderer\Config $config, \WikiRenderer\Generator\DocumentGeneratorInterface $generator)
     {

@@ -19,6 +19,6 @@ class Subscript extends \WikiRenderer\InlineTag
 {
     protected $name = 'sub';
     protected $generatorName = 'subscript';
-    public $beginTag = '<sub>';
-    public $endTag = '</sub>';
+    protected $beginTag = '<sub>';
+    protected $endTag = '</sub>';
 }

@@ -18,5 +18,5 @@ namespace WikiRenderer\Markup\Trac;
 class TextLine extends \WikiRenderer\InlineTag
 {
     protected $generatorName = 'textline';
-    public $isTextLineTag = true;
+    protected $isTextLineTag = true;
 }

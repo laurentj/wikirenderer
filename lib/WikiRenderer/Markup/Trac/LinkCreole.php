@@ -19,10 +19,10 @@ class LinkCreole extends \WikiRenderer\InlineTag
 {
     protected $name = 'a';
     protected $generatorName = 'link';
-    public $beginTag = '[[';
-    public $endTag = ']]';
+    protected $beginTag = '[[';
+    protected $endTag = ']]';
     protected $attribute = array('href', '$$');
-    public $separators = array('|');
+    protected $separators = array('|');
 
     /** @var \WikiRenderer\Markup\Trac\Config */
     protected $config = null;

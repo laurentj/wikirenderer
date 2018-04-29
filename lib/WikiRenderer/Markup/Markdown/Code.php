@@ -19,8 +19,8 @@ class Code extends \WikiRenderer\InlineTag
 {
     protected $name = 'code';
     protected $generatorName = 'code';
-    public $beginTag = '```';
-    public $endTag = '```';
+    protected $beginTag = '```';
+    protected $endTag = '```';
 
     public function isOtherTagAllowed()
     {

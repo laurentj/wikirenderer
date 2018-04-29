@@ -19,6 +19,6 @@ class Sup extends \WikiRenderer\InlineTag
 {
     protected $name = 'sup';
     protected $generatorName = 'superscript';
-    public $beginTag = '^';
-    public $endTag = '^';
+    protected $beginTag = '^';
+    protected $endTag = '^';
 }

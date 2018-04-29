@@ -19,6 +19,6 @@ class Del extends \WikiRenderer\InlineTag
 {
     protected $name = 'del';
     protected $generatorName = 'del';
-    public $beginTag = '~~';
-    public $endTag = '~~';
+    protected $beginTag = '~~';
+    protected $endTag = '~~';
 }

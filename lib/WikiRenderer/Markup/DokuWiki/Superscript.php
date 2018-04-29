@@ -19,6 +19,6 @@ class Superscript extends \WikiRenderer\InlineTag
 {
     protected $name = 'sup';
     protected $generatorName = 'superscript';
-    public $beginTag = '<sup>';
-    public $endTag = '</sup>';
+    protected $beginTag = '<sup>';
+    protected $endTag = '</sup>';
 }

@@ -19,8 +19,8 @@ class StrongEm extends \WikiRenderer\InlineTag
 {
     protected $name = 'strongem';
     protected $generatorName = 'em';
-    public $beginTag = "'''''";
-    public $endTag = "'''''";
+    protected $beginTag = "'''''";
+    protected $endTag = "'''''";
 
     public function getContent()
     {

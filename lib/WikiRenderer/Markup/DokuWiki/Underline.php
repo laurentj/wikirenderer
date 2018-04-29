@@ -19,6 +19,6 @@ class Underline extends \WikiRenderer\InlineTag
 {
     protected $name = 'u';
     protected $generatorName = 'underline';
-    public $beginTag = '__';
-    public $endTag = '__';
+    protected $beginTag = '__';
+    protected $endTag = '__';
 }

@@ -20,5 +20,5 @@ namespace WikiRenderer;
 class TextLine extends InlineTag
 {
     /** ??? */
-    public $isTextLineTag = true;
+    protected $isTextLineTag = true;
 }

@@ -19,10 +19,10 @@ class Image extends \WikiRenderer\InlineTag
 {
     protected $name = 'image';
     protected $generatorName = 'image';
-    public $beginTag = '{{';
-    public $endTag = '}}';
+    protected $beginTag = '{{';
+    protected $endTag = '}}';
     protected $attribute = array('filesrc', 'title');
-    public $separators = array('|');
+    protected $separators = array('|');
 
     public function getContent()
     {

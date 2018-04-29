@@ -19,6 +19,6 @@ class Strong extends \WikiRenderer\InlineTag
 {
     protected $name = 'strong';
     protected $generatorName = 'strong';
-    public $beginTag = '__';
-    public $endTag = '__';
+    protected $beginTag = '__';
+    protected $endTag = '__';
 }

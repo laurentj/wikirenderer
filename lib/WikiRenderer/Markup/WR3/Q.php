@@ -19,8 +19,8 @@ class Q extends \WikiRenderer\InlineTag
 {
     protected $name = 'q';
     protected $generatorName = 'quote';
-    public $beginTag = '^^';
-    public $endTag = '^^';
+    protected $beginTag = '^^';
+    protected $endTag = '^^';
     protected $attribute = array('$$','lang','cite');
-    public $separators = array('|');
+    protected $separators = array('|');
 }

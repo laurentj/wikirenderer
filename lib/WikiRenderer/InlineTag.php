@@ -4,7 +4,7 @@
  * Wikirenderer is a wiki text parser. It can transform a wiki text into xhtml or other formats.
  *
  * @author Laurent Jouanneau
- * @copyright 2003-2016 Laurent Jouanneau
+ * @copyright 2003-2018 Laurent Jouanneau
  *
  * @link http://wikirenderer.jelix.org
  *
@@ -29,10 +29,10 @@ abstract class InlineTag
     protected $generatorName = '';
 
     /**  @var string characters that defines the start of the tag */
-    public $beginTag = '';
+    protected $beginTag = '';
 
     /**  @var string characters that defines the end of the tag */
-    public $endTag = '';
+    protected $endTag = '';
 
     /**
      * indicates if the tag object represent an entire line or not.
@@ -40,14 +40,14 @@ abstract class InlineTag
      *
      * @var bool
      */
-    public $isTextLineTag = false;
+    protected $isTextLineTag = false;
 
     /**
      * List of possible separators.
      *
      * @var string[]
      */
-    public $separators = array();
+    protected $separators = array();
 
     /**
      * list of names corresponding to each parts separated by the separator in the tag.
@@ -122,6 +122,36 @@ abstract class InlineTag
         }
         $this->documentGenerator = $generator;
         $this->generator = $generator->getInlineGenerator($this->generatorName);
+    }
+
+    public function getBeginTag()
+    {
+        return $this->beginTag;
+    }
+
+    public function getBeginPattern()
+    {
+        return preg_quote($this->beginTag, '/');
+    }
+
+    public function getEndTag()
+    {
+        return $this->endTag;
+    }
+
+    public function getEndPattern()
+    {
+        return preg_quote($this->endTag, '/');
+    }
+
+    public function getSeparators()
+    {
+        return $this->separators;
+    }
+
+    public function isLineContainer()
+    {
+        return $this->isTextLineTag;
     }
 
     /**

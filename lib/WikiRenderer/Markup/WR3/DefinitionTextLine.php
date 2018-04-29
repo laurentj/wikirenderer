@@ -19,8 +19,8 @@ namespace WikiRenderer\Markup\WR3;
 class DefinitionTextLine extends \WikiRenderer\InlineTag
 {
     protected $generatorName = 'textline';
-    public $isTextLineTag = true;
-    public $separators = array(' : ');
+    protected $isTextLineTag = true;
+    protected $separators = array(' : ');
     protected $attribute = array('$$', '$$');
 
     protected $termGenerator;

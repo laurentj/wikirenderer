@@ -17,6 +17,6 @@ class Em extends \WikiRenderer\InlineTag
 {
     protected $name = 'em';
     protected $generatorName = 'em';
-    public $beginTag = '*';
-    public $endTag = '*';
+    protected $beginTag = '*';
+    protected $endTag = '*';
 }

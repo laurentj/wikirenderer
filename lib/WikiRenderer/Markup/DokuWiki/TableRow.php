@@ -18,9 +18,9 @@ namespace WikiRenderer\Markup\DokuWiki;
 class TableRow extends \WikiRenderer\InlineTag
 {
     protected $generatorName = 'tablecell';
-    public $isTextLineTag = true;
+    protected $isTextLineTag = true;
     protected $attribute = array('$$');
-    public $separators = array('|', '^');
+    protected $separators = array('|', '^');
 
     /**
      * @var \WikiRenderer\Generator\InlineBagGenerator

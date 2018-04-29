@@ -19,10 +19,10 @@ class Link extends \WikiRenderer\InlineTag
 {
     protected $name = 'a';
     protected $generatorName = 'link';
-    public $beginTag = '[[';
-    public $endTag = ']]';
+    protected $beginTag = '[[';
+    protected $endTag = ']]';
     protected $attribute = array('$$', 'href', 'hreflang', 'title');
-    public $separators = array('|');
+    protected $separators = array('|');
 
     public function getContent()
     {

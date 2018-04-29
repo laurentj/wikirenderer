@@ -19,10 +19,10 @@ class Acronym extends \WikiRenderer\InlineTag
 {
     protected $name = 'acronym';
     protected $generatorName = 'acronym';
-    public $beginTag = '??';
-    public $endTag = '??';
+    protected $beginTag = '??';
+    protected $endTag = '??';
     protected $attribute = array('$$','title');
-    public $separators = array('|');
+    protected $separators = array('|');
 
     public function getContent()
     {

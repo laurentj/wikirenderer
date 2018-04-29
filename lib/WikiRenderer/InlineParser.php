@@ -4,7 +4,7 @@
  * Wikirenderer is a wiki text parser. It can transform a wiki text into xhtml or other formats.
  *
  * @author Laurent Jouanneau
- * @copyright 2003-2015 Laurent Jouanneau
+ * @copyright 2003-2018 Laurent Jouanneau
  *
  * @link http://wikirenderer.jelix.org
  *
@@ -86,16 +86,16 @@ class InlineParser
         foreach ($config->textLineContainers as $class => $tags) {
             $c = new TextLineContainer();
             $c->tag = new $class($config, $generator);
-            $separators = $c->tag->separators;
+            $separators = $c->tag->getSeparators();
 
             foreach ($tags as $tag) {
                 $t = new $tag($config, $generator);
-                $c->allowedTags[$t->beginTag] = $t;
-                $c->pattern .= '|('.preg_quote($t->beginTag, '/').')';
-                if ($t->beginTag != $t->endTag) {
-                    $c->pattern .= '|('.preg_quote($t->endTag, '/').')';
+                $c->allowedTags[$t->getBeginTag()] = $t;
+                $c->pattern .= '|('.$t->getBeginPattern().')';
+                if ($t->getBeginTag() != $t->getEndTag()) {
+                    $c->pattern .= '|('.$t->getEndPattern().')';
                 }
-                $separators = array_merge($separators, $t->separators);
+                $separators = array_merge($separators, $t->getSeparators());
             }
             $separators = array_unique($separators);
             foreach ($separators as $sep) {
@@ -173,7 +173,7 @@ class InlineParser
             // take care of the current token, so let's processing it
             } elseif ($checkNextTag) {
                 // is there a ended tag
-                if ($tag->endTag == $t && !$tag->isTextLineTag) {
+                if ($tag->getEndTag() == $t && !$tag->isLineContainer()) {
                     return $i;
                 } elseif (!$tag->isOtherTagAllowed()) {
                     $tag->addContentString($t);
@@ -200,7 +200,7 @@ class InlineParser
             } else {
                 if (isset($this->currentTextLineContainer->allowedTags[$t]) ||
                     isset($this->allSimpleTags[$t]) ||
-                    $tag->endTag == $t
+                    $tag->getEndTag() == $t
                 ) {
                     if ($this->config->outputEscapeCharForTags) {
                         $tag->addContentString($this->escapeChar . $t);
@@ -221,7 +221,7 @@ class InlineParser
         if (!$checkNextTag && ($this->config->outputEscapeChar||$this->config->outputEscapeCharAtEOL)) {
             $tag->addContentString($this->escapeChar);
         }
-        if (!$tag->isTextLineTag) {
+        if (!$tag->isLineContainer()) {
             //we didn't find the ended tag, error
             $this->error = true;
 
