@@ -20,7 +20,7 @@ class classicwr_inlineParserTest extends PHPUnit_Framework_TestCase {
                     '\WikiRenderer\Markup\WR3\TextLine'=>array(
                             '\WikiRenderer\Markup\WR3\Strong'));
         $wip = new WikiInlineParserTest($conf);
-        $trueResult = '/(__)|(\\\\)/';
+        $trueResult = '/(__)|(\\\\)/m';
         $this->assertEquals($trueResult, $wip->getSplitPattern(), "erreur");
 
         $conf->textLineContainers = array(
@@ -30,7 +30,7 @@ class classicwr_inlineParserTest extends PHPUnit_Framework_TestCase {
         $conf->simpleTags=array('%%%'=> $linebreak);
 
         $wip = new WikiInlineParserTest($conf );
-        $trueResult = '/(__)|(\'\')|(%%%)|(\\\\)/';
+        $trueResult = '/(__)|(\'\')|(%%%)|(\\\\)/m';
         $this->assertEquals($trueResult, $wip->getSplitPattern(), "erreur");
 
         $conf->simpleTags=array('%%%'=>$linebreak);
@@ -39,7 +39,7 @@ class classicwr_inlineParserTest extends PHPUnit_Framework_TestCase {
                             '\WikiRenderer\Markup\WR3\Strong',
                             '\WikiRenderer\Markup\WR3\Q'));
         $wip = new WikiInlineParserTest( $conf);
-        $trueResult = '/(__)|(\^\^)|(\\|)|(%%%)|(\\\\)/';
+        $trueResult = '/(__)|(\^\^)|(\\|)|(%%%)|(\\\\)/m';
         $this->assertEquals($trueResult, $wip->getSplitPattern(), "erreur");
 
 
@@ -57,7 +57,7 @@ class classicwr_inlineParserTest extends PHPUnit_Framework_TestCase {
         $conf->simpleTags=array('%%%'=>$linebreak, ':-)'=>new \WikiRenderer\SimpleTag\Smiley());
 
         $wip = new WikiInlineParserTest($conf );
-        $trueResult = '/(__)|(\'\')|(@@)|(\\^\\^)|(\\{\\{)|(\\}\\})|(\\?\\?)|(\\[)|(\\])|(\\(\\()|(\\)\\))|(~~)|(\\|)|(%%%)|(\\:\\-\\))|(\\\\)/';
+        $trueResult = '/(__)|(\'\')|(@@)|(\\^\\^)|(\\{\\{)|(\\}\\})|(\\?\\?)|(\\[)|(\\])|(\\(\\()|(\\)\\))|(~~)|(\\|)|(%%%)|(\\:\\-\\))|(\\\\)/m';
         $this->assertEquals($trueResult, $wip->getSplitPattern(), "erreur");
 
         $test = array(

@@ -102,7 +102,7 @@ class InlineParser
                 $c->pattern .= '|('.$sep.')';
             }
             $c->pattern .= $simpletagPattern.$escapePattern;
-            $c->pattern = '/'.substr($c->pattern, 1).'/';
+            $c->pattern = '/'.substr($c->pattern, 1).'/m';
 
             $this->textLineContainers[$class] = $c;
         }
