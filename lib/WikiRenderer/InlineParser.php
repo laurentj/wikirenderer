@@ -173,6 +173,9 @@ class InlineParser
                 else if ($result !== false) {
                     // nothing
                 }
+                else if (!$tag->isOtherTagAllowed()) {
+                    $tag->addContentString($t);
+                }
                 // is there a tag which begin something ?
                 elseif (isset($this->currentTextLineContainer->allowedTags[$t])) {
                     $newtag = clone $this->currentTextLineContainer->allowedTags[$t];

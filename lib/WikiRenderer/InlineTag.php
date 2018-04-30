@@ -105,10 +105,6 @@ abstract class InlineTag
         if ($tag == $this->endTag && !$this->isTextLineTag) {
             return self::END_TOKEN;
         }
-        if (!$this->isOtherTagAllowed()) {
-            $this->addContentString($tag);
-            return self::INTERMEDIATE_TOKEN;
-        }
         return false;
     }
 

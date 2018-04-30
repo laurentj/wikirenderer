@@ -27,6 +27,7 @@ class Config extends \WikiRenderer\Config
             '\WikiRenderer\Markup\Markdown\Em',
             '\WikiRenderer\Markup\Markdown\Code',
             '\WikiRenderer\Markup\Markdown\Code2',
+            '\WikiRenderer\Markup\Markdown\Link',
             /*'\WikiRenderer\Markup\Markdown\Del',*/
         ),
     );
@@ -40,6 +41,7 @@ class Config extends \WikiRenderer\Config
         '\WikiRenderer\Markup\Markdown\UnorderedWikiList',
         '\WikiRenderer\Markup\Markdown\Blockquote',
         '\WikiRenderer\Markup\Markdown\Html',
+        '\WikiRenderer\Markup\Markdown\LinkRef',
         /*'\WikiRenderer\Markup\Markdown\Table',
         '\WikiRenderer\Markup\Markdown\SyntaxHighlight',
         '\WikiRenderer\Markup\Markdown\File',
