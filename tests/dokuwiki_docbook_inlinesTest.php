@@ -10,7 +10,6 @@
 
 class DokuWikiDocbookTestsInlines extends PHPUnit_Framework_TestCase {
       var $listinline = array(
-
         'Lorem ipsum dolor sit amet, consectetuer adipiscing elit.'
             =>'<para>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</para>',
         'Lorem **ipsum dolor** sit amet, consectetuer adipiscing elit.'
@@ -87,7 +86,7 @@ consectetuer adipiscing elit.</para>',
         $genConfig = new \WikiRenderer\Generator\Docbook\Config();
         $generator = new \WikiRenderer\Generator\Docbook\Document($genConfig);
 
-        $config = new \WikiRenderer\Markup\Dokuwiki\Config();
+        $config = new \WikiRenderer\Markup\DokuWiki\Config();
 
         $wr = new \WikiRenderer\Renderer($generator, $config);
         $k=0;

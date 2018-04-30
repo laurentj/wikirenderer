@@ -21,7 +21,6 @@ class NoWikiInline extends \WikiRenderer\InlineTag
     protected $generatorName = 'noformat';
     protected $beginTag = '%%';
     protected $endTag = '%%';
-    protected $convertWordsIn = array();
 
     public function isOtherTagAllowed()
     {

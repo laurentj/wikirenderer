@@ -21,4 +21,9 @@ class TextLine extends InlineTag
 {
     /** ??? */
     protected $isTextLineTag = true;
+
+    public function getPatterns()
+    {
+        return array();
+    }
 }

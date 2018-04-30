@@ -55,7 +55,7 @@ class WR3TestsInlineParser extends PHPUnit_Framework_TestCase {
         $conf->simpleTags=array('%%%'=>$linebreak, ':-)'=>new \WikiRenderer\SimpleTag\Smiley());
 
         $wip = new WikiInlineParserTest($conf );
-        $trueResult = '/(__)|(\'\')|(@@)|(\\^\\^)|(\\{\\{)|(\\}\\})|(\\?\\?)|(\\[\\[)|(\\]\\])|(\\(\\()|(\\)\\))|(~~)|(\\|)|(%%%)|(\\:\\-\\))|(\\\\)/m';
+        $trueResult = '/(__)|(\'\')|(@@)|(\\^\\^)|(\\|)|(\\{\\{)|(\\}\\})|(\\?\\?)|(\\[\\[)|(\\]\\])|(\\(\\()|(\\)\\))|(~~)|(%%%)|(\\:\\-\\))|(\\\\)/m';
         $this->assertEquals($trueResult, $wip->getSplitPattern());
 
         $test = array(

@@ -4,7 +4,7 @@
  * DokuWiki syntax.
  *
  * @author Laurent Jouanneau
- * @copyright 2008-2016 Laurent Jouanneau
+ * @copyright 2008-2018 Laurent Jouanneau
  *
  * @link http://wikirenderer.jelix.org
  *
@@ -15,7 +15,7 @@ namespace WikiRenderer\Markup\DokuWiki;
 /**
  * Parser for an image inline tag.
  */
-class Image extends \WikiRenderer\InlineTag
+class Image extends \WikiRenderer\InlineTagWithSeparator
 {
     protected $name = 'image';
     protected $generatorName = 'image';

@@ -15,7 +15,7 @@ namespace WikiRenderer\Markup\DokuWiki;
 /**
  * Parse a line of a table.
  */
-class TableRow extends \WikiRenderer\InlineTag
+class TableRow extends \WikiRenderer\InlineTagWithSeparator
 {
     protected $generatorName = 'tablecell';
     protected $isTextLineTag = true;

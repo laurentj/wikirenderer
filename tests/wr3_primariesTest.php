@@ -15,8 +15,11 @@ class WikiRendererTestsWr3Primaire extends PHPUnit_Framework_TestCase {
        
         $tag = new $class($markupConfig, $generator);
         foreach($wikiElements as $wiki){
-            if($wiki === false)
-                $tag->addSeparator('|');
+            if ($wiki === false) {
+                if ($tag instanceof \WikiRenderer\InlineTagWithSeparator) {
+                    $tag->addSeparator('|');
+                }
+            }
             elseif(is_string($wiki))
                 $tag->addContentString($wiki);
             else {
@@ -44,7 +47,7 @@ class WikiRendererTestsWr3Primaire extends PHPUnit_Framework_TestCase {
         array(
             array('foo', false, 'bar'),
             'foobar',
-            'foo'),
+            'foobar'),
         );
     }
 
@@ -66,10 +69,6 @@ class WikiRendererTestsWr3Primaire extends PHPUnit_Framework_TestCase {
             array('foo', 'bar'),
             '__foobar__',
             '<strong>foobar</strong>'),
-        array(
-            array('foo', false, 'bar'),
-            '__foobar__',
-            '<strong>foo</strong>'),
         );
     }
 

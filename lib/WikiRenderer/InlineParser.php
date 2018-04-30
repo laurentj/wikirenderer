@@ -74,7 +74,7 @@ class InlineParser
                         array_combine($ar,
                                       array_fill(0, count($ar), $tagParser)));
         }
-
+                
         // the pattern that matches the escape character
         $escapePattern = '';
         if ($this->escapeChar != '') {
@@ -86,20 +86,18 @@ class InlineParser
         foreach ($config->textLineContainers as $class => $tags) {
             $c = new TextLineContainer();
             $c->tag = new $class($config, $generator);
-            $separators = $c->tag->getSeparatorsPatterns();
+            $patterns = $c->tag->getPatterns();
 
             foreach ($tags as $tag) {
                 $t = new $tag($config, $generator);
                 $c->allowedTags[$t->getBeginTag()] = $t;
-                $c->pattern .= '|('.$t->getBeginPattern().')';
-                if ($t->getBeginTag() != $t->getEndTag()) {
-                    $c->pattern .= '|('.$t->getEndPattern().')';
-                }
-                $separators = array_merge($separators, $t->getSeparatorsPatterns());
+                $patterns = array_merge($patterns, $t->getPatterns());
             }
-            $separators = array_unique($separators);
-            foreach ($separators as $sep) {
-                $c->pattern .= '|('.$sep.')';
+            $patterns = array_unique($patterns);
+            foreach ($patterns as $pattern) {
+                if ($pattern !== '') {
+                    $c->pattern .= '|('.$pattern.')';
+                }
             }
             $c->pattern .= $simpletagPattern.$escapePattern;
             $c->pattern = '/'.substr($c->pattern, 1).'/m';
@@ -165,18 +163,15 @@ class InlineParser
                     }
                     $checkNextTag = true;
                 }
-
-            // is this a separator ?
-            } elseif ($tag->isCurrentSeparator($t)) {
-                $tag->addSeparator($t);
-            // no separator, no escape char, and previous token allowed us to
+            // no escape char, and previous token allowed us to
             // take care of the current token, so let's processing it
             } elseif ($checkNextTag) {
-                // is there a ended tag
-                if ($tag->getEndTag() == $t && !$tag->isLineContainer()) {
+                $result = $tag->isSupportedToken($t);
+                if ($result === $tag::END_TOKEN) {
                     return $i;
-                } elseif (!$tag->isOtherTagAllowed()) {
-                    $tag->addContentString($t);
+                }
+                else if ($result !== false) {
+                    // nothing
                 }
                 // is there a tag which begin something ?
                 elseif (isset($this->currentTextLineContainer->allowedTags[$t])) {
@@ -199,8 +194,7 @@ class InlineParser
             // indicated to ignore it, so let's ignore it.
             } else {
                 if (isset($this->currentTextLineContainer->allowedTags[$t]) ||
-                    isset($this->allSimpleTags[$t]) ||
-                    $tag->getEndTag() == $t
+                    isset($this->allSimpleTags[$t])
                 ) {
                     if ($this->config->outputEscapeCharForTags) {
                         $tag->addContentString($this->escapeChar . $t);
@@ -218,7 +212,10 @@ class InlineParser
             }
         }
 
-        if (!$checkNextTag && ($this->config->outputEscapeChar||$this->config->outputEscapeCharAtEOL)) {
+        if (!$checkNextTag &&
+            ($this->config->outputEscapeChar || 
+            $this->config->outputEscapeCharAtEOL)
+        ) {
             $tag->addContentString($this->escapeChar);
         }
         if (!$tag->isLineContainer()) {

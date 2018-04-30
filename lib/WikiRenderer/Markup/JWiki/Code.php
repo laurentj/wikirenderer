@@ -44,7 +44,7 @@ class Code extends \WikiRenderer\InlineTag
 
     public function addContentString($wikiContent)
     {
-        $this->wikiContentArr[$this->separatorCount] .= $wikiContent;
+        $this->wikiContent .= $wikiContent;
         if (!$this->hasStarted) {
             if ($wikiContent[1] == '@') {
                 $type = $wikiContent[0];
@@ -73,7 +73,7 @@ class Code extends \WikiRenderer\InlineTag
 
     public function addContentGenerator($wikiContent, InlineGeneratorInterface $childGenerator)
     {
-        $this->wikiContentArr[$this->separatorCount] .= $wikiContent;
+        $this->wikiContent .= $wikiContent;
         $this->hasStarted = true;
         $this->generator->addContent($childGenerator);
     }

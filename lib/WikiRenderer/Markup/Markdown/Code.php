@@ -29,7 +29,7 @@ class Code extends \WikiRenderer\InlineTag
 
     public function getContent()
     {
-        $this->generator->setRawContent(trim($this->wikiContentArr[0]));
+        $this->generator->setRawContent(trim($this->wikiContent));
 
         return $this->generator;
     }

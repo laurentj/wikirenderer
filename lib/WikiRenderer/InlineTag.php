@@ -42,58 +42,8 @@ abstract class InlineTag
      */
     protected $isTextLineTag = false;
 
-    /**
-     * List of possible separators.
-     *
-     * @var string[]
-     */
-    protected $separators = array();
-
-    /**
-     * list of names corresponding to each parts separated by the separator in the tag.
-     * Each parts of the tag string are then called "attributes".
-     * If the name is '$$', the content is not an attribute and may content
-     * nested tag. However this behavior can be changed by the isOtherTagAllowed()
-     * method in child classes.
-     *
-     * @var string[]
-     */
-    protected $attribute = array('$$');
-
-    /**
-     * list of attributes in which wiki words should be searched.
-     *
-     * @var string[]
-     *
-     * @deprecated
-     */
-    protected $convertWordsIn = array('$$');
-
-    /**
-     * values of each parts.
-     *
-     * @var string[]
-     */
-    protected $contents = array('');
-
-    /** Wiki content of each part of the tag. */
-    protected $wikiContentArr = array('');
-
     /** Wiki content of the full tag. */
     protected $wikiContent = '';
-
-    /** number of separators found into the tag
-     * @var int
-     */
-    protected $separatorCount = 0;
-
-    /**
-     * current separator during the parsing of the tag. False means no
-     * separator found yet.
-     *
-     * @var string|false
-     */
-    protected $currentSeparator = false;
 
     /** @var \WikiRenderer\Config */
     protected $config = null;
@@ -117,9 +67,6 @@ abstract class InlineTag
     public function __construct(Config $config, \WikiRenderer\Generator\DocumentGeneratorInterface $generator)
     {
         $this->config = $config;
-        if (count($this->separators)) {
-            $this->currentSeparator = $this->separators[0];
-        }
         $this->documentGenerator = $generator;
         $this->generator = $generator->getInlineGenerator($this->generatorName);
     }
@@ -129,38 +76,40 @@ abstract class InlineTag
         return $this->beginTag;
     }
 
-    public function getBeginPattern()
-    {
-        return preg_quote($this->beginTag, '/');
-    }
-
     public function getEndTag()
     {
         return $this->endTag;
     }
 
-    public function getEndPattern()
-    {
-        return preg_quote($this->endTag, '/');
-    }
-
-    public function getSeparators()
-    {
-        return $this->separators;
-    }
-
-    public function getSeparatorsPatterns()
+    public function getPatterns()
     {
         $patterns = array();
-        foreach ($this->separators as $sep) {
-            $patterns[] = preg_quote($sep, '/');
-        }
+        $patterns[] = preg_quote($this->beginTag, '/');
+        $patterns[] = preg_quote($this->endTag, '/');
         return $patterns;
     }
 
     public function isLineContainer()
     {
         return $this->isTextLineTag;
+    }
+
+    const INTERMEDIATE_TOKEN = 1;
+
+    const END_TOKEN = 2;
+
+    /**
+     * @return false|int
+     */
+    public function isSupportedToken($tag) {
+        if ($tag == $this->endTag && !$this->isTextLineTag) {
+            return self::END_TOKEN;
+        }
+        if (!$this->isOtherTagAllowed()) {
+            $this->addContentString($tag);
+            return self::INTERMEDIATE_TOKEN;
+        }
+        return false;
     }
 
     /**
@@ -170,15 +119,9 @@ abstract class InlineTag
      */
     public function addContentString($wikiContent)
     {
-        $isMainContent = isset($this->attribute[$this->separatorCount]) &&
-            $this->attribute[$this->separatorCount] == '$$';
-        $this->wikiContentArr[$this->separatorCount] .= $wikiContent;
-        if ($isMainContent) {
-            $parsedContent = $this->convertWords($wikiContent);
-            $this->generator->addContent($parsedContent);
-        } else {
-            $this->contents[$this->separatorCount] .= $wikiContent;
-        }
+        $this->wikiContent .= $wikiContent;
+        $parsedContent = $this->convertWords($wikiContent);
+        $this->generator->addContent($parsedContent);
     }
 
 
@@ -190,45 +133,8 @@ abstract class InlineTag
      */
     public function addContentGenerator($wikiContent, Generator\InlineGeneratorInterface $childGenerator)
     {
-        $isMainContent = isset($this->attribute[$this->separatorCount]) &&
-                            $this->attribute[$this->separatorCount] == '$$';
-        $this->wikiContentArr[$this->separatorCount] .= $wikiContent;
-        if ($isMainContent) {
-            $this->generator->addContent($childGenerator);
-        } else {
-            $this->contents[$this->separatorCount] .= $wikiContent;
-        }
-    }
-
-    /**
-     * Called by the inline parser, when it found a separator.
-     *
-     * @param string $token The token found as a separator
-     */
-    public function addSeparator($token)
-    {
-        $this->wikiContent .= $this->wikiContentArr[$this->separatorCount];
-        ++$this->separatorCount;
-        if ($this->separatorCount > count($this->separators)) {
-            $this->currentSeparator = end($this->separators);
-        } else {
-            $this->currentSeparator = $this->separators[$this->separatorCount - 1];
-        }
-        $this->wikiContent .= $this->currentSeparator;
-        $this->contents[$this->separatorCount] = '';
-        $this->wikiContentArr[$this->separatorCount] = '';
-    }
-
-    /**
-     * Says if the given token is the current separator of the tag.
-     * The tag can support many separator.
-     *
-     * @param string $token
-     * @return string The separator.
-     */
-    public function isCurrentSeparator($token)
-    {
-        return ($this->currentSeparator === $token);
+        $this->wikiContent .= $wikiContent;
+        $this->generator->addContent($childGenerator);
     }
 
     /**
@@ -238,7 +144,7 @@ abstract class InlineTag
      */
     public function getWikiContent()
     {
-        return $this->beginTag.$this->wikiContent.$this->wikiContentArr[$this->separatorCount].$this->endTag;
+        return $this->beginTag.$this->wikiContent.$this->endTag;
     }
 
     /**
@@ -248,15 +154,6 @@ abstract class InlineTag
      */
     public function getContent()
     {
-        $cntattr = count($this->attribute);
-        $count = ($this->separatorCount >= $cntattr) ? ($cntattr - 1) : $this->separatorCount;
-
-        for ($i = 0; $i <= $count; ++$i) {
-            if ($this->attribute[$i] != '$$') {
-                $this->generator->setAttribute($this->attribute[$i], $this->wikiContentArr[$i]);
-            }
-        }
-
         return $this->generator;
     }
 
@@ -267,11 +164,7 @@ abstract class InlineTag
      */
     public function isOtherTagAllowed()
     {
-        if (isset($this->attribute[$this->separatorCount])) {
-            return ($this->attribute[$this->separatorCount] == '$$');
-        } else {
-            return false;
-        }
+        return true;
     }
 
     /**
@@ -283,40 +176,10 @@ abstract class InlineTag
     {
         $generator = $this->documentGenerator->getInlineGenerator('textline');
         $generator->addRawContent($this->beginTag);
-        $m = count($this->contents) - 1;
-        $s = count($this->separators);
-        foreach ($this->contents as $k => $v) {
-            if ($this->attribute[$k] == '$$') {
-                foreach ($this->generator->getChildGenerators() as $child) {
-                    $generator->addContent($child);
-                }
-            } else {
-                $generator->addRawContent($v);
-            }
-            if ($k < $m) {
-                if ($k < $s) {
-                    $generator->addRawContent($this->separators[$k]);
-                } else {
-                    $generator->addRawContent(end($this->separators));
-                }
-            }
+        foreach ($this->generator->getChildGenerators() as $child) {
+            $generator->addContent($child);
         }
-
         return $generator;
-    }
-
-    public function getAttributeValue($name)
-    {
-        $cntattr = count($this->attribute);
-        $count = ($this->separatorCount >= $cntattr) ? ($cntattr - 1) : $this->separatorCount;
-
-        for ($i = 0; $i <= $count; ++$i) {
-            if ($this->attribute[$i] == $name) {
-                return $this->wikiContentArr[$i];
-            }
-        }
-
-        return null;
     }
 
     public function __clone()
@@ -330,37 +193,38 @@ abstract class InlineTag
      */
     protected function convertWords($wikiContent)
     {
-        if (count($this->convertWordsIn)
-            && isset($this->attribute[$this->separatorCount])
-            && in_array($this->attribute[$this->separatorCount], $this->convertWordsIn)
-            && count($this->config->wordConverters)) {
-            $matches = preg_split("/(\s+)/u",
-                $wikiContent, -1, PREG_SPLIT_DELIM_CAPTURE);
-
-            $text = $this->documentGenerator->getInlineGenerator('textline');
-            foreach ($matches as $k => $word) {
-                if (!($k % 2)) {
-                    $ok = false;
-                    foreach ($this->config->wordConverters as $converter) {
-                        if ($converter->isMatching($word)) {
-                            $ok = true;
-                            $text->addContent($converter->getContent($this->documentGenerator, $word));
-                            break;
-                        }
-                    }
-                    if (!$ok) {
-                        $text->addRawContent($word);
-                    }
-                } else {
-                    $text->addRawContent($word);
-                }
-            }
-
-            return $text;
+        if (count($this->config->wordConverters) && $this->isOtherTagAllowed()) {
+            return $this->callWordConverters($wikiContent);
         }
+
         $words = $this->documentGenerator->getInlineGenerator('words');
         $words->addRawContent($wikiContent);
-
         return $words;
+    }
+
+    protected function callWordConverters($wikiContent) {
+        $matches = preg_split("/(\s+)/u",
+                $wikiContent, -1, PREG_SPLIT_DELIM_CAPTURE);
+
+        $text = $this->documentGenerator->getInlineGenerator('textline');
+        foreach ($matches as $k => $word) {
+            if (!($k % 2)) {
+                $ok = false;
+                foreach ($this->config->wordConverters as $converter) {
+                    if ($converter->isMatching($word)) {
+                        $ok = true;
+                        $text->addContent($converter->getContent($this->documentGenerator, $word));
+                        break;
+                    }
+                }
+                if (!$ok) {
+                    $text->addRawContent($word);
+                }
+            } else {
+                $text->addRawContent($word);
+            }
+        }
+
+        return $text;
     }
 }

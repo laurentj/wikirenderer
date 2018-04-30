@@ -16,7 +16,7 @@ namespace WikiRenderer\Markup\WR3;
  * Parser that parse a definition line, and which discover the term and the
  * definition text.
  */
-class DefinitionTextLine extends \WikiRenderer\InlineTag
+class DefinitionTextLine extends \WikiRenderer\InlineTagWithSeparator
 {
     protected $generatorName = 'textline';
     protected $isTextLineTag = true;

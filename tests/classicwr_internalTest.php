@@ -17,7 +17,9 @@ class classicwr_internalTest extends PHPUnit_Framework_TestCase {
         $tag = new $class($conf, $generator);
         foreach($chunks as $wiki){
             if($wiki === false) {
-                $tag->addSeparator('|');
+                if ($tag instanceof \WikiRenderer\InlineTagWithSeparator) {
+                    $tag->addSeparator('|');
+                }
             }
             elseif(is_string($wiki)) {
                 $tag->addContentString($wiki);
@@ -43,10 +45,6 @@ class classicwr_internalTest extends PHPUnit_Framework_TestCase {
             array('foo', 'bar'),
             'foobar',
             'foobar'),
-        array(
-            array('foo', false, 'bar'),
-            'foobar',
-            'foo'),
         );
     }
     /**
@@ -66,10 +64,6 @@ class classicwr_internalTest extends PHPUnit_Framework_TestCase {
             array('foo', 'bar'),
             '__foobar__',
             '<strong>foobar</strong>'),
-        array(
-            array('foo', false, 'bar'),
-            '__foobar__',
-            '<strong>foo</strong>'),
         );
     }
     /**

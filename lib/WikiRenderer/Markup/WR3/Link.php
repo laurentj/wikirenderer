@@ -15,7 +15,7 @@ namespace WikiRenderer\Markup\WR3;
 /**
  * Parser for a link.
  */
-class Link extends \WikiRenderer\InlineTag
+class Link extends \WikiRenderer\InlineTagWithSeparator
 {
     protected $name = 'a';
     protected $generatorName = 'link';

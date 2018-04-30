@@ -15,7 +15,7 @@ namespace WikiRenderer\Markup\WR3;
 /**
  * Parse cite inline tag.
  */
-class Cite extends \WikiRenderer\InlineTag
+class Cite extends \WikiRenderer\InlineTagWithSeparator
 {
     protected $name = 'cite';
     protected $generatorName = 'cite';
