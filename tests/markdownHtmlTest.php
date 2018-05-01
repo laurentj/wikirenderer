@@ -61,7 +61,7 @@ diam nec justo.</p>'
             177 => 'definition of links at bottom not supported',
             179 => 'definition of links at bottom not supported',
         );
-        for($i=1; $i <= 179; $i++) {
+        for($i=1; $i <= 179; $i++) { //618
             if (isset($skipped[$i])) {
                 $list[] = array(false, $skipped[$i]);
             }
@@ -93,15 +93,13 @@ diam nec justo.</p>'
         $result = $wr->render($md);
 
         if (preg_match('/^test_(\d+)\.json$/', $file, $num)) {
-            $num = intval($num[1]);
-            if ($num == 25) {
-                $result = str_replace("</p>\n\n<p>", "</p>\n<p>", $result);
-            }
-            else if ($num >= 157 && $num <= 179) {
-                $result = str_replace("</p>\n\n<p>", "</p>\n<p>", $result);
-                $result = str_replace("</pre>\n\n<p>", "</pre>\n<p>", $result);
-                $result = preg_replace("/^(\s+)/m", "", $result);
-            }
+            //$num = $num[1];
+            $html = preg_replace("/<\\/([a-z]+)>\s+<([a-z]+)>/m", "</$1>\n<$2>", $html);
+            $result = preg_replace("/<\\/([a-z]+)>\s+<([a-z]+)>/m", "</$1>\n<$2>", $result);
+            //if ($num >= 157 && $num <= 179) {
+                $result = preg_replace("/^(\s+)/", "", $result);
+                $html = preg_replace("/^(\s+)/", "", $html);
+            //}
         }
 
         $this->assertEquals($html, $result, 'test '.$file."\n----------------->8--\n".str_replace("\t", '→', $md)."\n----------------->8--\n");

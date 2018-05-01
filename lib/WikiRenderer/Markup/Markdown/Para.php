@@ -131,7 +131,9 @@ class Para extends \WikiRenderer\Block
             }
         }
         else if (!$this->hasEmptyLineBeforeAfter &&
-            count($this->content) && is_array($this->content[0]) && count($this->content[0]) == 1 &&
+            count($this->content) && 
+            is_array($this->content[0]) && 
+            count($this->content[0]) == 1 &&
             $this->engine->inASubBlock() &&
             !($this->engine->getParentBlock() instanceof Blockquote)
         ) {
