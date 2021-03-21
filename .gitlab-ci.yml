@@ -1,0 +1,26 @@
+stages:
+  - tests
+  - deploy
+
+
+cache:
+  key: "$CI_COMMIT_REF_SLUG"
+  paths:
+    - vendor/
+
+tests:
+  stage: tests
+  script:
+    - make tests
+
+deploysite:
+  stage: deploy
+  script:
+    - make deploysite
+
+release:
+  stage: deploy
+  script:
+    - make deploypackage
+  only:
+    - tags
