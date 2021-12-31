@@ -12,11 +12,15 @@ tests:
   stage: tests
   script:
     - make tests
+  tags:
+    - jelix
 
 deploysite:
   stage: deploy
   script:
     - make deploysite
+  tags:
+    - jelix
 
 release:
   stage: deploy
@@ -24,3 +28,5 @@ release:
     - make deploypackage
   only:
     - tags
+  tags:
+    - jelix
