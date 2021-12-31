@@ -12,6 +12,8 @@ tests:
   stage: tests
   script:
     - make tests
+  tags:
+    - jelix
 
 deploysite:
   stage: deploy
@@ -19,6 +21,8 @@ deploysite:
     - make deploysite
   only:
     - 3.x
+  tags:
+    - jelix
 
 release:
   stage: deploy
@@ -26,3 +30,5 @@ release:
     - make deploypackage
   only:
     - tags
+  tags:
+    - jelix
