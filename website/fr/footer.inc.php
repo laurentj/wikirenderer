@@ -12,7 +12,7 @@
    </ul>
 
    <ul>
-      <li><a href="http://download.jelix.org/wikirenderer/">Téléchargement</a></li>
+      <li><a href="https://download.jelix.org/wikirenderer/">Téléchargement</a></li>
       <li><a href="https://github.com/laurentj/wikirenderer">un bug, une contribution ?</a></li>
    </ul>
 </div>

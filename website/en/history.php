@@ -8,6 +8,12 @@ require('header.inc.php');
 <a href="http://www.gnu.org/licenses/licenses.html#LGPL">LGPL licence</a>.</p>
 
 <dl>
+    <dt id="v3.1.9">Version 3.1.9, 02/07/2023</dt>
+    <dd>
+        <ul>
+            <li>Fix compatibility with PHP7/PHP8</li>
+        </ul>
+    </dd>
     <dt id="v3.1.8">Version 3.1.8, 05/28/2016</dt>
     <dd>
         <ul>

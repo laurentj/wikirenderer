@@ -19,16 +19,16 @@ syntaxe différente.</p>
 <h2>Dernière version</h2>
 <dl>
 <dt>Stable</dt>
-<dd><strong>3.1.8</strong>, pour PHP 5.3+ (28/05/2016)</dd>
+<dd><strong>3.1.9</strong>, pour PHP 5.6+ (2023-02-07)</dd>
 </dl>
 <p>Wikirenderer est
-<a href="http://download.jelix.org/wikirenderer/">disponible
+<a href="https://download.jelix.org/wikirenderer/">disponible
     en téléchargement</a>. Vous pouvez aussi l'installer avec Composer :</p>
 <pre>
     <code>composer require jelix/wikirenderer</code>
 </pre>
 
-<p>Voir <a href="/fr/historique.php#v3.1.8">la liste des changements</a> pour cette version.</p>
+<p>Voir <a href="/fr/historique.php#v3.1.9">la liste des changements</a> pour cette version.</p>
 
 <h2 id="caracteristiques">Caractéristiques</h2>
 <h3>Caractéristiques</h3>
@@ -80,36 +80,9 @@ format spécifique est appelé une "règle" ("rule").
 
 <h2 id="references">Les utilisateurs de WikiRenderer</h2>
 <p>Vous utilisez wikirenderer dans votre site ? Dans un projet (CMS, wiki ou autre) ?
- Faites le moi savoir ( ljouanneau chez gmail point com) et je completerais la liste ci-dessous ;-).
+ Faites-le-moi savoir et je complèterai la liste ci-dessous ;-).
 Si vous avez créé des nouvelles règles et que vous aimeriez les avoirs dans la
-distribution officielles de WikiRenderer, envoyez moi le fichier.</p>
-
-<p>WikiRenderer est utilisé&nbsp;:</p>
-<ul>
-   <li>Intégré en temps que "mod" pour <a href="http://www.phorum.org">phorum</a>, sur les sites
-   <a href="http://jelix.org" title="framework php5">jelix.org</a> et
-   <a href="http://xulfr.org" title="portail français sur les technologies mozilla et XUL">xulfr.org</a></li>
-   <li>Intégré dans le <strong><a href="http://www.jelix.org">framework PHP Jelix</a></strong></li>
-
-   <li>Dans le CMS php <strong><a href="http://pxsystem.sourceforge.net/">Plume CMS</a></strong></li>
-   <li>Dans le wiki <strong><a href="http://chuwiki.berlios.de/">chuWiki</a></strong></li>
-
-   <li>Sur le site <a href="http://www.nosica.net/">www.nosica.net</a></li>
-   <li>Dans le CMS des sites gouvernementaux
-   <a href="http://premar-atlantique.gouv.fr/mentionslegales/">premar-atlantique.gouv.fr</a>
-   et <a href="http://premar-mediterranee.gouv.fr/mentionslegales/">premar-mediterranee.gouv.fr</a>.</li>
-
-   <li>Dans le CMS du site du <a href="http://web.utk.edu/~ihouse/">Campus de l'université du Tenessis</a></li>
-   <li>Sur le site <a href="http://www.piregwan.com">www.piregwan.com</a></li>
-   <li>Dans le CMS Beryo utilisé sur le site <a href="http://www.xrousse.org/">www.xrousse.org</a></li>
-   <li>Sur le site <a href="http://www.rocknrollswing.com">www.rocknrollswing.com</a></li>
-   <li>Dans un petit CMS utilisé pour les sites
-   <a href="http://www.recyclagesolidaire.org">www.recyclagesolidaire.org</a>,
-   <a href="http://www.salonhumanitaire.org"> www.salonhumanitaire.org</a>,
-   <a href="http://www.createliers.com">www.createliers.com</a>,
-   <a href="http://www.collectif-asah.org">www.collectif-asah.org</a>.</li>
-   <li>Sur le site <a href="http://www.unesco.org/culture/ich/">www.unesco.org/culture/ich/</a></li>
-</ul>
+distribution officielle de WikiRenderer, envoyez-moi le fichier.</p>
 
 <h2 id="contact">Contact</h2>
 <p>WikiRenderer est réalisé par Laurent Jouanneau : dev@ljouanneau.com.

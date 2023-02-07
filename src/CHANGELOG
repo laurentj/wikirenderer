@@ -1,5 +1,18 @@
 Changelog of WikiRenderer
 
+Version 3.1.9
+
+- Fix compatibility with PHP 7 and PHP 8
+
+Version 3.1.8
+
+- Fix autoloading of WikiTextLine classes
+
+Version 3.1.7
+
+- Composer package
+- Fix some docbook conformance
+
 Version 3.1.6
 
 - Fixed issue with htmlspecialchars + PHP 5.4+: added a charset parameter in the configuration

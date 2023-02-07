@@ -17,15 +17,15 @@ to migrate wiki contents from an old wiki CMS to a new one.</p>
 <h2>Latest version</h2>
 <dl>
     <dt>Stable</dt>
-    <dd><strong>3.1.8</strong>, for php 5.3+ (05/28/2016)</dd>
+    <dd><strong>3.1.9</strong>, for php 5.6+ (2023-02-07)</dd>
 </dl>
 
-<p>You can <a href="http://download.jelix.org/wikirenderer/">download it manually</a>,
+<p>You can <a href="https://download.jelix.org/wikirenderer/">download it manually</a>,
     or install it with Composer:</p>
 <pre>
     <code>composer require jelix/wikirenderer</code>
 </pre>
-<p>See <a href="/en/history.php#v3.1.8">the changes</a> of the latest version.</p>
+<p>See <a href="/en/history.php#v3.1.9">the changes</a> of the latest version.</p>
 
 <h2 id="caracteristiques">Features</h2>
 
@@ -69,40 +69,13 @@ A set of classes is called a "rule".
 
 <h2 id="references">Users of WikiRenderer</h2>
 <p>If you use WikiRenderer in your project or in your CMS, tell me and I will add your website
-on this page. If you developed rules and you want to include it in the official package of WikiRenderer,
+on this page. If you developed rules and if you want to include it in the official package of WikiRenderer,
 send me files of your rule.</p>
 
-<p>WikiRenderer is used by&nbsp;:</p>
-<ul>
-   <li><a href="http://jelix.org" title="framework php5">jelix.org</a> and
-   <a href="http://xulfr.org" title="portail français sur les technologies mozilla et XUL">xulfr.org</a>
-    use the <a href="http://www.phorum.org">phorum</a> mod for wikirenderer in their forums.
-   </li>
-   <li>Provided in <strong><a href="http://www.jelix.org">Jelix</a></strong>, a php5 framework</li>
-
-   <li>Used in <strong><a href="http://pxsystem.sourceforge.net/">Plume CMS</a></strong></li>
-   <li>Used in <strong><a href="http://chuwiki.berlios.de/">chuWiki</a></strong></li>
-
-   <li>Used on <a href="http://www.nosica.net/">www.nosica.net</a></li>
-   <li>Used on some CMS of french governemental websites
-   <a href="http://premar-atlantique.gouv.fr/mentionslegales/">premar-atlantique.gouv.fr</a>
-   and <a href="http://premar-mediterranee.gouv.fr/mentionslegales/">premar-mediterranee.gouv.fr</a>.</li>
-
-   <li>Used on <a href="http://web.utk.edu/~ihouse/">Campus de l'université du Tenessis</a></li>
-   <li>Used on <a href="http://www.piregwan.com">www.piregwan.com</a></li>
-   <li>Used in the Beryo CMS (used on <a href="http://www.xrousse.org/">www.xrousse.org</a>)</li>
-   <li>Used on <a href="http://www.rocknrollswing.com">www.rocknrollswing.com</a></li>
-   <li>Used in a little CMS which is used on 
-   <a href="http://www.recyclagesolidaire.org">www.recyclagesolidaire.org</a>,
-   <a href="http://www.salonhumanitaire.org"> www.salonhumanitaire.org</a>,
-   <a href="http://www.createliers.com">www.createliers.com</a>,
-   <a href="http://www.collectif-asah.org">www.collectif-asah.org</a>.</li>
-   <li>Used on <a href="http://www.unesco.org/culture/ich/">www.unesco.org/culture/ich/</a></li>
-</ul>
 
 <h2 id="contact">Contact</h2>
 <p>WikiRenderer is developed by Laurent Jouanneau : dev@ljouanneau.com.
-(site : <a href="http://ljouanneau.com">ljouanneau.com</a>).</p>
+(site : <a href="https://ljouanneau.com">ljouanneau.com</a>).</p>
 
 <?php
 require(__DIR__.'/footer.inc.php');
