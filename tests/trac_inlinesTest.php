@@ -5,12 +5,12 @@
  * @package wikirenderer
  * @subpackage tests
  * @author Laurent Jouanneau
- * @copyright 2008-2011 Laurent Jouanneau
+ * @copyright 2008-2023 Laurent Jouanneau
  */
 
 require_once(WR_DIR.'rules/trac_to_xhtml.php');
 
-class TracTestsInlines extends PHPUnit_Framework_TestCase {
+class TracTestsInlines extends PHPUnit\Framework\TestCase {
     var $listinline = array(
 
         'Lorem ipsum dolor sit amet, consectetuer adipiscing elit.'
@@ -148,7 +148,7 @@ class TracTestsInlines extends PHPUnit_Framework_TestCase {
         foreach($this->listinline2 as $source=>$result){
             $res = $wr->render($source);
             $this->assertEquals($result[1], $res);
-            $this->assertEquals($result[0], count($wr->errors), "Nombre d'erreurs différent");
+            $this->assertEquals($result[0], count($wr->errors), "Different errors number");
         }
     }
 }

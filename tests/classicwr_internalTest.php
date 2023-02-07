@@ -5,12 +5,12 @@
  * @package wikirenderer
  * @subpackage tests
  * @author Laurent Jouanneau
- * @copyright 2008-2011 Laurent Jouanneau
+ * @copyright 2008-2023 Laurent Jouanneau
  */
 
 require_once(WR_DIR.'rules/classicwr_to_xhtml.php');
 
-class classicwr_internalTest extends PHPUnit_Framework_TestCase {
+class classicwr_internalTest extends PHPUnit\Framework\TestCase {
 
     function _tagtest( $list, $class) {
         $conf= new WRConfigTest();
@@ -25,8 +25,8 @@ class classicwr_internalTest extends PHPUnit_Framework_TestCase {
                     $tag->addContent($wiki[0], $wiki[1]);
             }
 
-            $this->assertEquals($val[1], $tag->getWikiContent(), "erreur wikicontent au numéro $k");
-            $this->assertEquals($val[2], $tag->getContent(), "erreur content au numéro $k");
+            $this->assertEquals($val[1], $tag->getWikiContent(), "wikicontent error at number $k");
+            $this->assertEquals($val[2], $tag->getContent(), "content error at number $k");
         }
     }
 

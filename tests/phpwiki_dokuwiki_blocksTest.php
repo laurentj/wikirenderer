@@ -7,12 +7,12 @@
  * @package wikirenderer
  * @subpackage tests
  * @author Laurent Jouanneau
- * @copyright 2009-2011 Laurent Jouanneau
+ * @copyright 2009-2023 Laurent Jouanneau
  */
 
 require_once(WR_DIR.'rules/phpwiki_to_dokuwiki.php');
 
-class phpwiki_dokuwiki_blocks extends PHPUnit_Framework_TestCase {
+class phpwiki_dokuwiki_blocks extends PHPUnit\Framework\TestCase {
 
     protected $data = array(
 0=>array(

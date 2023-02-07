@@ -5,7 +5,7 @@
  * @package wikirenderer
  * @subpackage tests
  * @author Laurent Jouanneau
- * @copyright 2003-2011 Laurent Jouanneau
+ * @copyright 2003-2023 Laurent Jouanneau
  */
 
 define('WR_DIR',realpath(__DIR__.'/../src/').'/');

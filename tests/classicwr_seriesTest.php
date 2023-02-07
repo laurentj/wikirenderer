@@ -5,12 +5,12 @@
  * @package wikirenderer
  * @subpackage tests
  * @author Laurent Jouanneau
- * @copyright 2003-2011 Laurent Jouanneau
+ * @copyright 2003-2023 Laurent Jouanneau
  */
 
 require_once(WR_DIR.'rules/classicwr_to_xhtml.php');
 
-class classicwr_seriesTest extends PHPUnit_Framework_TestCase {
+class classicwr_seriesTest extends PHPUnit\Framework\TestCase {
 
     function testSerie() {
 

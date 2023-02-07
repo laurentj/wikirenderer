@@ -5,12 +5,12 @@
  * @package wikirenderer
  * @subpackage tests
  * @author Laurent Jouanneau
- * @copyright 2006-2011 Laurent Jouanneau
+ * @copyright 2006-2023 Laurent Jouanneau
  */
 
 require_once(WR_DIR.'rules/wr3_to_xhtml.php');
 
-class WR3TestsBlocks extends PHPUnit_Framework_TestCase {
+class WR3TestsBlocks extends PHPUnit\Framework\TestCase {
 
     var $listblocks = array(
         'b1'=>0,

@@ -5,12 +5,12 @@
  * @package wikirenderer
  * @subpackage tests
  * @author Laurent Jouanneau
- * @copyright 2006-2011 Laurent Jouanneau
+ * @copyright 2006-2023 Laurent Jouanneau
  */
 
 require_once(WR_DIR.'rules/classicwr_to_xhtml.php');
 
-class classicwr_inlineTagsTest extends PHPUnit_Framework_TestCase {
+class classicwr_inlineTagsTest extends PHPUnit\Framework\TestCase {
     var $listinline = array(
 
         'Lorem ipsum dolor sit amet, consectetuer adipiscing elit.'
@@ -87,7 +87,7 @@ class classicwr_inlineTagsTest extends PHPUnit_Framework_TestCase {
         foreach($this->listinline as $source=>$result){
             $res = $wr->render($source);
             $this->assertEquals($result, $res);
-            $this->assertEquals(0, count($wr->errors), "Erreurs détéctées par wr ! (%s)");
+            $this->assertEquals(0, count($wr->errors), "WR found errors (%s)");
         }
     }
 
@@ -96,7 +96,7 @@ class classicwr_inlineTagsTest extends PHPUnit_Framework_TestCase {
         foreach($this->listinline2 as $source=>$result){
             $res = $wr->render($source);
             $this->assertEquals($result[1], $res);
-            $this->assertEquals($result[0], count($wr->errors), "Nombre d'erreurs différents (%s)");
+            $this->assertEquals($result[0], count($wr->errors), "Different errors number (%s)");
         }
     }
 }

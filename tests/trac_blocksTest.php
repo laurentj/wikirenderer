@@ -5,12 +5,12 @@
  * @package wikirenderer
  * @subpackage tests
  * @author Laurent Jouanneau
- * @copyright 2008-2011 Laurent Jouanneau
+ * @copyright 2008-2023 Laurent Jouanneau
  */
 
 require_once(WR_DIR.'rules/trac_to_xhtml.php');
 
-class TracTestsBlocks extends PHPUnit_Framework_TestCase {
+class TracTestsBlocks extends PHPUnit\Framework\TestCase {
 
 /*
 TODO :
@@ -41,7 +41,7 @@ TODO :
             $res = $wr->render($source);
 
             if($file=='wr3_footnote'){
-                $conf = & $wr->getConfig();
+                $conf = $wr->getConfig();
                 $res=str_replace('-'.$conf->footnotesId.'-', '-XXX-',$res);
             }
             $this->assertEquals($result, $res, "erreur sur $file");

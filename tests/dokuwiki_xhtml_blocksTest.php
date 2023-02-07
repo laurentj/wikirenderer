@@ -5,12 +5,12 @@
  * @package wikirenderer
  * @subpackage tests
  * @author Laurent Jouanneau
- * @copyright 2009-2011 Laurent Jouanneau
+ * @copyright 2009-2023 Laurent Jouanneau
  */
 
 require_once(WR_DIR.'rules/dokuwiki_to_xhtml.php');
 
-class dokuwiki_xhtml_blocks extends PHPUnit_Framework_TestCase {
+class dokuwiki_xhtml_blocks extends PHPUnit\Framework\TestCase {
 
 
     protected $data = array(

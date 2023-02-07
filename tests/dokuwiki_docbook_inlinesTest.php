@@ -5,12 +5,12 @@
  * @package wikirenderer
  * @subpackage tests
  * @author Laurent Jouanneau
- * @copyright 2006-2011 Laurent Jouanneau
+ * @copyright 2006-2023 Laurent Jouanneau
  */
 
 require_once(WR_DIR.'rules/dokuwiki_to_docbook.php');
 
-class dokuwiki_docbook_inlines extends PHPUnit_Framework_TestCase {
+class dokuwiki_docbook_inlines extends PHPUnit\Framework\TestCase {
       var $listinline = array(
 
         'Lorem ipsum dolor sit amet, consectetuer adipiscing elit.'
