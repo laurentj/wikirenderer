@@ -10,6 +10,22 @@
 
 require_once(WR_DIR.'rules/wr3_to_xhtml.php');
 
+
+class YellowTag extends WikiTag {
+
+    public $beginTag='&&';
+
+    public $endTag='&&';
+
+    public $attribute = array('$$');
+
+    public function getContent()
+    {
+        return '<code>'.json_encode($this->contents).'</code>';
+    }
+}
+
+
 class WR3TestsBlocks extends PHPUnit\Framework\TestCase {
 
     var $listblocks = array(
@@ -74,5 +90,19 @@ __bar__";
         $this->assertEquals($expected, $result);
         $this->assertEquals(0, count($wr->errors),"Errors detected by wr !");
 
+    }
+
+    function testYellowTag()
+    {
+        $config = new wr3_to_xhtml();
+        $config->textLineContainers['WikiHtmlTextLine'][] = 'YellowTag';
+        $wr = new WikiRenderer($config);
+
+        $source = 'Hello __world__, this is a &&jaune&& tag';
+        $expected = '<p>Hello <strong>world</strong>, this is a <code>["jaune"]</code> tag</p>';
+
+        $result = $wr->render($source);
+        $this->assertEquals($expected, $result);
+        $this->assertEquals(0, count($wr->errors),"Errors detected by wr !");
     }
 }
