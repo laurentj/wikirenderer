@@ -1,5 +1,10 @@
 Changelog of WikiRenderer
 
+Version 3.1.10
+
+- Fix `Wikirenderer::getVersion()`
+- Add a new constant `WIKIRENDERER_RULES_PATH`
+
 Version 3.1.9
 
 - Fix compatibility with PHP 7 and PHP 8
