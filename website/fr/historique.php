@@ -7,6 +7,13 @@ require('header.inc.php');
 <p>WikiRenderer est distribué sous <a href="http://www.gnu.org/licenses/licenses.html#LGPL">licence LGPL</a>.</p>
 
 <dl>
+    <dt id="v3.1.10">Version 3.1.10, 06/11/2023</dt>
+    <dd>
+        <ul>
+            <li>Fix <code>Wikirenderer::getVersion()</code></li>
+            <li>Nouvelle constante <code>WIKIRENDERER_RULES_PATH</code></li>
+        </ul>
+    </dd>
     <dt id="v3.1.9">Version 3.1.9, 07/02/2023</dt>
     <dd>
         <ul>

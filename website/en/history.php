@@ -8,6 +8,13 @@ require('header.inc.php');
 <a href="http://www.gnu.org/licenses/licenses.html#LGPL">LGPL licence</a>.</p>
 
 <dl>
+    <dt id="v3.1.10">Version 3.1.10, 11/06/2023</dt>
+    <dd>
+        <ul>
+            <li>Fix <code>Wikirenderer::getVersion()</code></li>
+            <li>New constant <code>WIKIRENDERER_RULES_PATH</code></li>
+        </ul>
+    </dd>
     <dt id="v3.1.9">Version 3.1.9, 02/07/2023</dt>
     <dd>
         <ul>

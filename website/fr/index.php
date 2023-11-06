@@ -19,7 +19,7 @@ syntaxe différente.</p>
 <h2>Dernière version</h2>
 <dl>
 <dt>Stable</dt>
-<dd><strong>3.1.9</strong>, pour PHP 5.6+ (2023-02-07)</dd>
+<dd><strong>3.1.10</strong>, pour PHP 5.6 à PHP 8.1 (2023-11-06)</dd>
 </dl>
 <p>Wikirenderer est
 <a href="https://download.jelix.org/wikirenderer/">disponible
@@ -28,7 +28,7 @@ syntaxe différente.</p>
     <code>composer require jelix/wikirenderer</code>
 </pre>
 
-<p>Voir <a href="/fr/historique.php#v3.1.9">la liste des changements</a> pour cette version.</p>
+<p>Voir <a href="/fr/historique.php#v3.1.10">la liste des changements</a> pour cette version.</p>
 
 <h2 id="caracteristiques">Caractéristiques</h2>
 <h3>Caractéristiques</h3>

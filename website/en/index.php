@@ -17,7 +17,7 @@ to migrate wiki contents from an old wiki CMS to a new one.</p>
 <h2>Latest version</h2>
 <dl>
     <dt>Stable</dt>
-    <dd><strong>3.1.9</strong>, for php 5.6+ (2023-02-07)</dd>
+    <dd><strong>3.1.10</strong>, for PHP 5.6 to PHP 8.* (2023-11-06)</dd>
 </dl>
 
 <p>You can <a href="https://download.jelix.org/wikirenderer/">download it manually</a>,
@@ -25,7 +25,7 @@ to migrate wiki contents from an old wiki CMS to a new one.</p>
 <pre>
     <code>composer require jelix/wikirenderer</code>
 </pre>
-<p>See <a href="/en/history.php#v3.1.9">the changes</a> of the latest version.</p>
+<p>See <a href="/en/history.php#v3.1.10">the changes</a> of the latest version.</p>
 
 <h2 id="caracteristiques">Features</h2>
 
