@@ -7,6 +7,12 @@ require('header.inc.php');
 <p>WikiRenderer est distribué sous <a href="http://www.gnu.org/licenses/licenses.html#LGPL">licence LGPL</a>.</p>
 
 <dl>
+    <dt id="v3.1.11">Version 3.1.11, 28/04/2024</dt>
+    <dd>
+        <ul>
+            <li>Fix warnings avec PHP 8.3</li>
+        </ul>
+    </dd>
     <dt id="v3.1.10">Version 3.1.10, 06/11/2023</dt>
     <dd>
         <ul>
