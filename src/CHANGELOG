@@ -1,5 +1,9 @@
 Changelog of WikiRenderer
 
+Version 3.1.11
+
+- Fix php 8.3 warnings about creation of dynamic properties
+
 Version 3.1.10
 
 - Fix `Wikirenderer::getVersion()`

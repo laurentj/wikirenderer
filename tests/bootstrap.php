@@ -7,7 +7,7 @@
  * @author Laurent Jouanneau
  * @copyright 2003-2023 Laurent Jouanneau
  */
-
+error_reporting(E_ALL);
 define('WR_DIR',realpath(__DIR__.'/../src/').'/');
 require_once(__DIR__.'/../src/WikiRenderer.lib.php');
 

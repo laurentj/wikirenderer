@@ -1,5 +1,9 @@
 <?xml version="1.0"?>
-<phpunit bootstrap="bootstrap.php">
+<phpunit bootstrap="bootstrap.php"
+         convertDeprecationsToExceptions="true"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true"
+>
   <testsuites>
     <testsuite name="Classicwr">
       <file>classicwr_inlineTagsTest.php</file>

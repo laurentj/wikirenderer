@@ -55,10 +55,9 @@ class classicwr_inlineParserTest extends PHPUnit\Framework\TestCase {
             '~~'=>array('~~','~~'),
         );
         foreach($wip->getListTag() as $b=>$t){
-            if($this->assertTrue(isset($test[$b]), 'tag présent bizarre '. $b)){
-                $this->assertEquals($test[$b][0], $t->beginTag);
-                $this->assertEquals($test[$b][1], $t->endTag);
-            }
+            $this->assertTrue(isset($test[$b]), 'tag présent bizarre '.$b);
+            $this->assertEquals($test[$b][0], $t->beginTag);
+            $this->assertEquals($test[$b][1], $t->endTag);
         }
     }
 
@@ -139,8 +138,6 @@ class classicwr_inlineParserTest extends PHPUnit\Framework\TestCase {
         $conf->defaultTextLineContainer= 'WikiHtmlTextLine';
         $conf->textLineContainers = array('WikiHtmlTextLine'=>array( 'cwrxhtml_strong','cwrxhtml_em','cwrxhtml_code','cwrxhtml_q',
             'cwrxhtml_cite','cwrxhtml_acronym','cwrxhtml_link', 'cwrxhtml_image', 'cwrxhtml_anchor'));
-
-        $conf->funcCheckWikiWord = null;
 
         $wip = new WikiInlineParser($conf  );
 

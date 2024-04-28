@@ -430,6 +430,10 @@ class dkdbk_blockquote extends WikiRendererBloc {
    public $type='bq';
    protected $regexp="/^\s*(\>+)(.*)/";
 
+   protected $_previousTag = '';
+   protected $_firstTagLen = 0;
+   protected $_firstLine = true;
+
    public function open(){
       $this->_previousTag = $this->_detectMatch[1];
       $this->_firstTagLen = strlen($this->_previousTag);

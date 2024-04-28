@@ -52,6 +52,9 @@ class WikiInlineParser {
     
     protected $currentTextLineContainer = null;
 
+    protected $escapeChar = '\\';
+
+    protected $end = 0;
     /**
     * constructor
     * @param WikiRendererConfig $config  a config object
@@ -75,7 +78,6 @@ class WikiInlineParser {
             $c->tag = new $class($config);
             $separators = $c->tag->separators;
             
-            $tagList = array();
             foreach($tags as $tag) {
                 $t = new $tag($config);
                 $c->allowedTags[$t->beginTag] = $t;

@@ -42,6 +42,8 @@ class phpwiki_to_dokuwiki  extends WikiRendererConfig {
     
     public $rowspan = array();
 
+    public $firstRow = true;
+
     function __construct() {
         $this->checkWikiWordFunction = array($this, 'transformWikiWord');
     }
@@ -341,7 +343,6 @@ class pwdk_list extends PwDkBloc {
       $this->_previousTag = $this->_detectMatch[1];
       $this->_firstTagLen = strlen($this->_previousTag);
       $this->_firstItem=true;
-      $this->indentationCount = 0;
       return "";
    }
    public function close(){
