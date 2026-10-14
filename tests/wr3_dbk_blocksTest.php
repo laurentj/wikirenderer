@@ -8,9 +8,9 @@
  * @copyright 2006-2013 Laurent Jouanneau
  */
 
-class WR3DBKTestsBlocks extends PHPUnit_Framework_TestCase {
+class wr3_dbk_blocksTest extends PHPUnit\Framework\TestCase {
 
-    function getListblocks() {
+    static function getListblocks() {
         return array(
             array('dbk_para1',0),
             array('dbk_para2',0),
@@ -44,7 +44,7 @@ class WR3DBKTestsBlocks extends PHPUnit_Framework_TestCase {
         $this->validateDocbook($res);
     }
 
-    function getListblocks2() {
+    static function getListblocks2() {
         return array(
             array('dbk_wr3_section',0),
             array('dbk_wr3_section2',0),

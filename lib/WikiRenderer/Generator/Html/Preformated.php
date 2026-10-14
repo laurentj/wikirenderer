@@ -42,13 +42,13 @@ class Preformated implements \WikiRenderer\Generator\BlockOfRawLinesInterface
     public function generate()
     {
         if ($this->id) {
-            $text = '<'.$this->htmlTagName.' id="'.htmlspecialchars($this->id).'">';
+            $text = '<'.$this->htmlTagName.' id="'.htmlspecialchars($this->id, ENT_COMPAT | ENT_HTML5 | ENT_SUBSTITUTE).'">';
         } else {
             $text = '<'.$this->htmlTagName.'>';
         }
 
         foreach ($this->lines as $k => $line) {
-            $text .= htmlspecialchars($line)."\n";
+            $text .= htmlspecialchars($line, ENT_COMPAT | ENT_HTML5 | ENT_SUBSTITUTE)."\n";
         }
         $text .= '</'.$this->htmlTagName.'>';
 

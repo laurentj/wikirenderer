@@ -18,18 +18,18 @@ class Flash extends AbstractInlineGenerator
 
     public function generate()
     {
-        $attrs = ' data="'.htmlspecialchars($this->getAttribute('src')).'"';
+        $attrs = ' data="'.htmlspecialchars($this->getAttribute('src'), ENT_COMPAT | ENT_HTML5 | ENT_SUBSTITUTE).'"';
 
         foreach (array('id', 'title', 'class', 'width', 'height') as $attr) {
             $val = $this->getAttribute($attr);
             if ($val) {
-                $attrs .= ' '.$attr.'="'.htmlspecialchars($val).'"';
+                $attrs .= ' '.$attr.'="'.htmlspecialchars($val, ENT_COMPAT | ENT_HTML5 | ENT_SUBSTITUTE).'"';
             }
         }
 
         $align = $this->getAttribute('align');
         if ($align) {
-            $attrs .= ' style="float:'.htmlspecialchars($align).';"';
+            $attrs .= ' style="float:'.htmlspecialchars($align, ENT_COMPAT | ENT_HTML5 | ENT_SUBSTITUTE).';"';
         }
 
         return '<'.$this->htmlTagName.$attrs.' type="application/vnd.adobe.flash-movie">'.

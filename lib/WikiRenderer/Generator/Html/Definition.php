@@ -41,7 +41,7 @@ class Definition implements BlockDefinitionInterface
     public function generate()
     {
         if ($this->id) {
-            $text = '<dl id="'.htmlspecialchars($this->id).'">';
+            $text = '<dl id="'.htmlspecialchars($this->id, ENT_COMPAT | ENT_HTML5 | ENT_SUBSTITUTE).'">';
         } else {
             $text = '<dl>';
         }

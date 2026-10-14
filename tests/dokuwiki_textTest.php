@@ -6,10 +6,10 @@
  * @copyright 2016 Laurent Jouanneau
  */
 
-class dokuwiki_textTest extends PHPUnit_Framework_TestCase {
+class dokuwiki_textTest extends PHPUnit\Framework\TestCase {
 
 
-    function getListblocks () {
+    static function getListblocks () {
         return array(
             array('para',0),
             array('blockquote',0),
@@ -44,4 +44,3 @@ class dokuwiki_textTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals($nberror, count($wr->errors));
     }
 }
-

@@ -24,7 +24,7 @@ class Words implements \WikiRenderer\Generator\InlineWordsInterface
             return;
         }
         if ($raw) {
-            $this->content[] = htmlspecialchars($words);
+            $this->content[] = htmlspecialchars($words, ENT_COMPAT | ENT_HTML5 | ENT_SUBSTITUTE);
         } else {
             $this->content[] = $words;
         }
@@ -32,7 +32,7 @@ class Words implements \WikiRenderer\Generator\InlineWordsInterface
 
     public function addRawContent($string)
     {
-        $this->content[] = htmlspecialchars($string);
+        $this->content[] = htmlspecialchars($string, ENT_COMPAT | ENT_HTML5 | ENT_SUBSTITUTE);
     }
 
     public function addGeneratedContent($string)

@@ -66,12 +66,12 @@ class SyntaxHighlighting implements \WikiRenderer\Generator\BlockSyntaxHighlight
     public function generate()
     {
         if ($this->id) {
-            $text = '<pre id="'.htmlspecialchars($this->id).'">';
+            $text = '<pre id="'.htmlspecialchars($this->id, ENT_COMPAT | ENT_HTML5 | ENT_SUBSTITUTE).'">';
         } else {
             $text = '<'.$this->htmlTagName.'>';
         }
         if ($this->filename) {
-            $text .= '<span class="code-filename">'.htmlspecialchars($this->filename)."</span><br/>\n";
+            $text .= '<span class="code-filename">'.htmlspecialchars($this->filename, ENT_COMPAT | ENT_HTML5 | ENT_SUBSTITUTE)."</span><br/>\n";
         }
         $text .= '<code';
         if ($this->syntax) {
@@ -79,7 +79,7 @@ class SyntaxHighlighting implements \WikiRenderer\Generator\BlockSyntaxHighlight
         }
         $text .= '>';
         foreach ($this->lines as $k => $line) {
-            $text .= htmlspecialchars($line)."\n";
+            $text .= htmlspecialchars($line, ENT_COMPAT | ENT_HTML5 | ENT_SUBSTITUTE)."\n";
         }
         $text .= '</code></pre>';
 

@@ -20,7 +20,7 @@ class Anchor extends AbstractInlineGenerator
         foreach ($this->content as $content) {
             $html .= $content->generate();
         }
-        $anchor = htmlspecialchars($this->attributes['anchor']);
+        $anchor = htmlspecialchars($this->attributes['anchor'], ENT_COMPAT | ENT_HTML5 | ENT_SUBSTITUTE);
 
         return '<span id="'.$anchor.'" class="wikianchor">'.$html.'<a href="#'.$anchor.'" class="anchor">¶</a></span>';
     }

@@ -26,9 +26,9 @@ class Code extends AbstractInlineGenerator
         $attr = '';
         foreach ($this->attributes as $name => $value) {
             if ($name == 'type') {
-                $attr .= ' class="code-'.htmlspecialchars($value).'"';
+                $attr .= ' class="code-'.htmlspecialchars($value, ENT_COMPAT | ENT_HTML5 | ENT_SUBSTITUTE).'"';
             } else {
-                $attr .= ' '.$name.'="'.htmlspecialchars($value).'"';
+                $attr .= ' '.$name.'="'.htmlspecialchars($value, ENT_COMPAT | ENT_HTML5 | ENT_SUBSTITUTE).'"';
             }
         }
 

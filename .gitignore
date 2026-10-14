@@ -1,8 +1,10 @@
-*.komodoproject
-.komodotools
 vendor/
 composer.lock
 _dist/
 .idea
 _site
 _dnl
+.drafts/
+.vscode/
+tests/.phpunit.result.cache
+tmp/

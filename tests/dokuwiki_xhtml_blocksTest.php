@@ -8,9 +8,9 @@
  * @copyright 2009-2011 Laurent Jouanneau
  */
 
-class DokuWikiXhtmlTestsBlocks extends PHPUnit_Framework_TestCase {
+class dokuwiki_xhtml_blocksTest extends PHPUnit\Framework\TestCase {
 
-    function getListblocks() {
+    static function getListblocks() {
         return array(
 0=>array(
 '',
@@ -55,7 +55,7 @@ truc3 </code></pre>',
         $this->assertEquals($nberror, count($wr->errors));
     }
 
-    function getListblockFiles() {
+    static function getListblockFiles() {
         return array(
             array('dokuwiki/general',0),
             array('para2',0),
@@ -111,4 +111,3 @@ truc3 </code></pre>',
         $this->assertEquals($result, $res);
     }
 }
-

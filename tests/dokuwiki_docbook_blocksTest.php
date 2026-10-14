@@ -8,7 +8,7 @@
  * @copyright 2006-2016 Laurent Jouanneau
  */
 
-class DokuWikiDocbookTestBlocks extends PHPUnit_Framework_TestCase {
+class dokuwiki_docbook_blocksTest extends PHPUnit\Framework\TestCase {
 /*
     protected $data = array(
 0=>array(
@@ -61,7 +61,7 @@ truc3 </programlisting>',
     }
 */
 
-    function getListblocks () {
+    static function getListblocks () {
         return array(
             array('para',0),
             array('para2',0),
@@ -126,4 +126,3 @@ truc3 </programlisting>',
 
     }
 }
-

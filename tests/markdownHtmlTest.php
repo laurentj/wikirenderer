@@ -4,9 +4,9 @@
  * @copyright 2014 Laurent Jouanneau
  */
 
-class MdTestsBlocks extends PHPUnit_Framework_TestCase {
+class markdownHtmlTest extends PHPUnit\Framework\TestCase {
 
-    function getTestsList() {
+    static function getTestsList() {
         $list = array();
         $list[] = array(
             'foo',
@@ -51,7 +51,7 @@ diam nec justo.</p>'
         $this->assertEquals(0, count($wr->errors));
     }
 
-    function getOfficialTestsList() {
+    static function getOfficialTestsList() {
         $list = array();
         $skipped = array(
             166 => 'definition of links at bottom not supported',

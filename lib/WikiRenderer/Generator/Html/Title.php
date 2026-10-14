@@ -51,7 +51,7 @@ class Title implements \WikiRenderer\Generator\BlockTitleInterface
     public function generate()
     {
         if ($this->id) {
-            $text = '<h'.$this->level.' id="'.htmlspecialchars($this->id).'">';
+            $text = '<h'.$this->level.' id="'.htmlspecialchars($this->id, ENT_COMPAT | ENT_HTML5 | ENT_SUBSTITUTE).'">';
         } else {
             $text = '<h'.$this->level.'>';
         }

@@ -1,5 +1,8 @@
 <?xml version="1.0"?>
-<phpunit bootstrap="bootstrap.php">
+<phpunit bootstrap="bootstrap.php"
+         convertDeprecationsToExceptions="true"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true">
   <testsuites>
     <testsuite name="wr3">
         <file>wr3_blocksTest.php</file>

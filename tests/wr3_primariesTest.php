@@ -6,7 +6,7 @@
  * @copyright 2006-2016 Laurent Jouanneau
  */
 
-class WikiRendererTestsWr3Primaire extends PHPUnit_Framework_TestCase {
+class wr3_primariesTest extends PHPUnit\Framework\TestCase {
 
     function _tagtest( $wikiElements, $wikiContent, $htmlContent, $class) {
         $genConfig = new \WikiRenderer\Generator\Html\Config();
@@ -34,7 +34,7 @@ class WikiRendererTestsWr3Primaire extends PHPUnit_Framework_TestCase {
     }
 
 
-    function getListLineText() {
+    static function getListLineText() {
         return array(
         array(
             array('foo'),
@@ -59,7 +59,7 @@ class WikiRendererTestsWr3Primaire extends PHPUnit_Framework_TestCase {
     }
 
 
-    function getListtagstrong () {
+    static function getListtagstrong () {
         return array(
         array(
             array('foo'),
@@ -79,7 +79,7 @@ class WikiRendererTestsWr3Primaire extends PHPUnit_Framework_TestCase {
         $this->_tagtest($wikiElements, $wikiContent, $htmlContent, '\WikiRenderer\Markup\WR3\Strong');
     }
 
-    function getListtagq() {
+    static function getListtagq() {
         return array(
         array(
             array('foo'),
@@ -111,7 +111,7 @@ class WikiRendererTestsWr3Primaire extends PHPUnit_Framework_TestCase {
         $this->_tagtest( $wikiElements, $wikiContent, $htmlContent, '\WikiRenderer\Markup\WR3\Q');
     }
 
-    function getListtaga() {
+    static function getListtaga() {
         return array(
         array(
             array(array('__bar__','<strong>bar</strong>'), 'fleur', false,'fooo', false, 'baz','truc'),

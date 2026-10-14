@@ -12,6 +12,8 @@
  */
 namespace WikiRenderer;
 
+use WikiRenderer\Generator\InlineGeneratorInterface;
+
 /**
  * Base class to generate output from inline wiki tag.
  * These objects are driven by the wiki inline parser.
@@ -166,7 +168,7 @@ abstract class InlineTag
     /**
      * Returns the generated content of the tag.
      *
-     * @return string the content
+     * @return InlineGeneratorInterface the content
      */
     public function getBogusContent()
     {

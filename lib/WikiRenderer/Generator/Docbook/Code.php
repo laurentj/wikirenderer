@@ -54,7 +54,7 @@ class Code extends AbstractInlineGenerator
                     $tag = self::$typeToTag[$name];
                 }
             } else {
-                $attr .= ' '.$name.'="'.htmlspecialchars($value).'"';
+                $attr .= ' '.$name.'="'.htmlspecialchars($value, ENT_XML1).'"';
             }
         }
 

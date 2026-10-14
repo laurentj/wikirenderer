@@ -16,6 +16,9 @@ And it can generates HTML, Docbook, or cleaned text.
 
 In the final release, support of Markdown markup and Markdown generator are planed.
 
+Minimal version of PHP is 8.2 for WikiRenderer 4.
+
+
 Install
 -------
 
@@ -53,4 +56,3 @@ English and french documentation is on http://wikirenderer.jelix.org.
 The documentation is not up-to-date and talk about WikiRenderer 3 which is
 not compatible with WikiRenderer 4.
 Help is welcome to update documentation and the website ;-)
-

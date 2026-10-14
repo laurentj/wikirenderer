@@ -23,10 +23,10 @@ class TracMacroExample implements \WikiRenderer\Markup\Trac\MacroInterface {
     }
 }
 
-class TracTestsInlines extends PHPUnit_Framework_TestCase {
+class trac_inlinesTest extends PHPUnit\Framework\TestCase {
 
 
-    public function listUrlProvider() {
+    static public function listUrlProvider() {
         return array(
             array('link', 'foo',
                           '',
@@ -78,7 +78,7 @@ class TracTestsInlines extends PHPUnit_Framework_TestCase {
     }
 
 
-    public function listInlineProvider() {
+    static public function listInlineProvider() {
         return array(
         array('Lorem ipsum dolor sit amet, consectetuer adipiscing elit.'
             ,'<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p>'),
@@ -198,7 +198,7 @@ class TracTestsInlines extends PHPUnit_Framework_TestCase {
     }
 
 
-    public function listInlineComplexesProvider() {
+    static public function listInlineComplexesProvider() {
         return array(
         array('Lorem __ipsum \'\'dolor sit\'\' amet__, consectetuer adipiscing elit.'
             ,0,'<p>Lorem <u>ipsum <em>dolor sit</em> amet</u>, consectetuer adipiscing elit.</p>'),

@@ -30,7 +30,7 @@ class Hr implements \WikiRenderer\Generator\BlockGeneratorInterface
     public function generate()
     {
         if ($this->id) {
-            return '<hr id="'.htmlspecialchars($this->id).'"/>';
+            return '<hr id="'.htmlspecialchars($this->id, ENT_COMPAT | ENT_HTML5 | ENT_SUBSTITUTE).'"/>';
         } else {
             return '<hr />';
         }

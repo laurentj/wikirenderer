@@ -93,7 +93,7 @@ abstract class AbstractInlineGenerator implements \WikiRenderer\Generator\Inline
 
         $attr = '';
         foreach ($this->attributes as $name => $value) {
-            $attr .= ' '.$name.'="'.htmlspecialchars($value).'"';
+            $attr .= ' '.$name.'="'.htmlspecialchars($value, ENT_COMPAT | ENT_HTML5 | ENT_SUBSTITUTE).'"';
         }
 
         return '<'.$this->htmlTagName.$attr.'>'.$html.'</'.$this->htmlTagName.'>';

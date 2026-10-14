@@ -70,7 +70,7 @@ class HtmlList implements BlockListInterface
             $tag = 'ul';
         }
         if ($this->id) {
-            $text = '<'.$tag.$attr.' id="'.htmlspecialchars($this->id).'">';
+            $text = '<'.$tag.$attr.' id="'.htmlspecialchars($this->id, ENT_COMPAT | ENT_HTML5 | ENT_SUBSTITUTE).'">';
         } else {
             $text = '<'.$tag.$attr.'>';
         }

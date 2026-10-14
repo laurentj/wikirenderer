@@ -43,7 +43,7 @@ class BlockQuote implements \WikiRenderer\Generator\BlockBlockQuoteInterface
     public function generate()
     {
         if ($this->id) {
-            $text = '<blockquote id="'.htmlspecialchars($this->id).'">';
+            $text = '<blockquote id="'.htmlspecialchars($this->id, ENT_COMPAT | ENT_HTML5 | ENT_SUBSTITUTE).'">';
         } else {
             $text = '<blockquote>';
         }

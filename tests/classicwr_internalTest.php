@@ -8,7 +8,7 @@
  * @copyright 2008-2011 Laurent Jouanneau
  */
 
-class classicwr_internalTest extends PHPUnit_Framework_TestCase {
+class classicwr_internalTest extends PHPUnit\Framework\TestCase {
 
     protected function _tagtest( $chunks, $wikicontent, $htmlcontent, $class) {
         $genConfig = new \WikiRenderer\Generator\Html\Config();
@@ -35,7 +35,7 @@ class classicwr_internalTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals($htmlcontent, $tag->getContent()->generate());
     }
 
-    function getListlinetext() {
+    static function getListlinetext() {
         return  array(
         array(
             array('foo'),
@@ -54,7 +54,7 @@ class classicwr_internalTest extends PHPUnit_Framework_TestCase {
         $this->_tagtest( $chunks, $wikicontent, $htmlcontent, '\WikiRenderer\Markup\WR3\TextLine');
     }
 
-    function getListtagstrong() {
+    static function getListtagstrong() {
         return  array(
         array(
             array('foo'),
@@ -73,7 +73,7 @@ class classicwr_internalTest extends PHPUnit_Framework_TestCase {
         $this->_tagtest( $chunks, $wikicontent, $htmlcontent, '\WikiRenderer\Markup\WR3\Strong');
     }
 
-    function getListtagq() {
+    static function getListtagq() {
         return  array(
         array(
             array('foo'),

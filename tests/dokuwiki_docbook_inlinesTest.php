@@ -8,7 +8,7 @@
  * @copyright 2006-2011 Laurent Jouanneau
  */
 
-class DokuWikiDocbookTestsInlines extends PHPUnit_Framework_TestCase {
+class dokuwiki_docbook_inlinesTest extends PHPUnit\Framework\TestCase {
       var $listinline = array(
         'Lorem ipsum dolor sit amet, consectetuer adipiscing elit.'
             =>'<para>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</para>',

@@ -9,9 +9,9 @@
  */
 
 
-class classicwr_blocksTest extends PHPUnit_Framework_TestCase {
+class classicwr_blocksTest extends PHPUnit\Framework\TestCase {
 
-    function getlistblocks() {
+    static function getlistblocks() {
         return array(
             array('para1',0),
             array('para2',0),

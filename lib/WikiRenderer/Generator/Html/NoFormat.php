@@ -23,12 +23,12 @@ class NoFormat implements \WikiRenderer\Generator\InlineRawWordsInterface
         if ($words == '') {
             return;
         }
-        $this->content[] = htmlspecialchars($words);
+        $this->content[] = htmlspecialchars($words, ENT_COMPAT | ENT_HTML5 | ENT_SUBSTITUTE);
     }
 
     public function addRawContent($string)
     {
-        $this->content[] = htmlspecialchars($string);
+        $this->content[] = htmlspecialchars($string, ENT_COMPAT | ENT_HTML5 | ENT_SUBSTITUTE);
     }
 
     public function addContent(\WikiRenderer\Generator\InlineWordsInterface $words)

@@ -8,9 +8,9 @@
  * @copyright 2006-2011 Laurent Jouanneau
  */
 
-class classicwr_inlinesCCTest extends PHPUnit_Framework_TestCase {
+class classicwr_inlineCamelCaseTest extends PHPUnit\Framework\TestCase {
 
-    function getlistinline() {
+    static function getlistinline() {
         return array(
         array('Lorem ipsum dolor sit amet, ConsecTetuer adipiscing elit.'
             ,'<p>Lorem ipsum dolor sit amet, <a href="truc/ConsecTetuer/">ConsecTetuer</a> adipiscing elit.</p>'),
@@ -48,7 +48,7 @@ class classicwr_inlinesCCTest extends PHPUnit_Framework_TestCase {
     }
 
 
-    function getlistinline2 () {
+    static function getlistinline2 () {
         return array(
         // 'source' => array( nb_error, 'resultat')
         array('Lorem __ipsum \'\'dolor sit\'\' amet__, ConsecTetuer adipiscing elit.',
@@ -106,4 +106,3 @@ class classicwr_inlinesCCTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals($errors, count($wr->errors));
     }
 }
-

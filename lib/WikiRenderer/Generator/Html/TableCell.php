@@ -95,7 +95,7 @@ class TableCell implements \WikiRenderer\Generator\BlockTableCellInterface,
 
         $attr = '';
         if ($this->id) {
-            $attr .= ' id="'.htmlspecialchars($this->id).'"';
+            $attr .= ' id="'.htmlspecialchars($this->id, ENT_COMPAT | ENT_HTML5 | ENT_SUBSTITUTE).'"';
         }
 
         if ($this->_colspan > 1) {

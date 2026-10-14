@@ -19,9 +19,9 @@ class Image extends AbstractInlineGenerator
 
     public function generate()
     {
-        $attrs = ' src="'.htmlspecialchars($this->getAttribute('src')).'"';
+        $attrs = ' src="'.htmlspecialchars($this->getAttribute('src'), ENT_COMPAT | ENT_HTML5 | ENT_SUBSTITUTE).'"';
         if ($this->getAttribute('alt')) {
-            $attrs .= ' alt="'.htmlspecialchars($this->getAttribute('alt')).'"';
+            $attrs .= ' alt="'.htmlspecialchars($this->getAttribute('alt'), ENT_COMPAT | ENT_HTML5 | ENT_SUBSTITUTE).'"';
         } else {
             $attrs .= ' alt=""';
         }
@@ -29,13 +29,13 @@ class Image extends AbstractInlineGenerator
         foreach (array('id', 'longdesc', 'width', 'height', 'title', 'class') as $attr) {
             $val = $this->getAttribute($attr);
             if ($val) {
-                $attrs .= ' '.$attr.'="'.htmlspecialchars($val).'"';
+                $attrs .= ' '.$attr.'="'.htmlspecialchars($val, ENT_COMPAT | ENT_HTML5 | ENT_SUBSTITUTE).'"';
             }
         }
 
         $align = $this->getAttribute('align');
         if ($align) {
-            $attrs .= ' style="float:'.htmlspecialchars($align).';"';
+            $attrs .= ' style="float:'.htmlspecialchars($align, ENT_COMPAT | ENT_HTML5 | ENT_SUBSTITUTE).';"';
         }
 
         return '<'.$this->htmlTagName.$attrs.'/>';

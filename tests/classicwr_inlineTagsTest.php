@@ -9,8 +9,9 @@
  */
 
 
-class classicwr_inlineTagsTest extends PHPUnit_Framework_TestCase {
-    public function listInlineProvider() {
+class classicwr_inlineTagsTest extends PHPUnit\Framework\TestCase
+{
+    static public function listInlineProvider() {
         return array(
 
         array('Lorem ipsum dolor sit amet, consectetuer adipiscing elit.'
@@ -61,7 +62,7 @@ class classicwr_inlineTagsTest extends PHPUnit_Framework_TestCase {
     }
 
 
-    public function listInlineComplexesProvider() {
+    static public function listInlineComplexesProvider() {
         return array(
         // 'source' => array( nb_error, 'resultat')
         array('Lorem __ipsum \'\'dolor sit\'\' amet__, consectetuer adipiscing elit.'

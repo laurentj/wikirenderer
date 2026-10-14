@@ -6,9 +6,9 @@
  * @copyright 2009-2016 Laurent Jouanneau
  */
 
-class jWikiBlocksTest extends PHPUnit_Framework_TestCase {
+class jwiki_blocksTest extends PHPUnit\Framework\TestCase {
 
-    function getListblockFiles() {
+    static function getListblockFiles() {
         return array(
             array('para2',0),
             array('jwiki/list',0),
@@ -43,4 +43,3 @@ class jWikiBlocksTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals($nberror, count($wr->errors));
     }
 }
-

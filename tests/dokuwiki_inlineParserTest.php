@@ -8,7 +8,7 @@
  * @copyright 2006-2013 Laurent Jouanneau
  */
 
-class DokuwikiTestsInlineParser extends PHPUnit_Framework_TestCase {
+class dokuwiki_inlineParserTest extends PHPUnit\Framework\TestCase {
 
     var $listinline2 = array(
 

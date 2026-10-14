@@ -7,7 +7,7 @@
  * @copyright 2006-2016 Laurent Jouanneau
  */
 
-class WR3_NGTestsBlocks extends PHPUnit_Framework_TestCase {
+class wr3_ngTest extends PHPUnit\Framework\TestCase {
 
     function testInlineParser() {
         $genConfig = new \WikiRenderer\Generator\Html\Config();

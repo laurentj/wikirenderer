@@ -46,7 +46,7 @@ class Html implements \WikiRenderer\Generator\BlockOfRawLinesInterface
     {
         if ($this->htmlTagName) {
             if ($this->id) {
-                $text = '<'.$this->htmlTagName.' id="'.htmlspecialchars($this->id).'">';
+                $text = '<'.$this->htmlTagName.' id="'.htmlspecialchars($this->id, ENT_COMPAT | ENT_HTML5 | ENT_SUBSTITUTE).'">';
             } else {
                 $text = '<'.$this->htmlTagName.'>';
             }

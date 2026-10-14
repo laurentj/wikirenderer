@@ -8,9 +8,9 @@
  * @copyright 2008-2016 Laurent Jouanneau
  */
 
-class TracTestsBlocks extends PHPUnit_Framework_TestCase {
+class trac_blocksTest extends PHPUnit\Framework\TestCase {
 
-    public function listblocks() {
+    static public function listblocks() {
        return array(
           array('trac_title', 0 ),
           array('trac_list', 0 ),
@@ -44,4 +44,3 @@ class TracTestsBlocks extends PHPUnit_Framework_TestCase {
         $this->assertEquals($nberror, count($wr->errors));
     }
 }
-

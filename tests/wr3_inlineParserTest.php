@@ -8,7 +8,7 @@
  * @copyright 2006-2013 Laurent Jouanneau
  */
 
-class WR3TestsInlineParser extends PHPUnit_Framework_TestCase {
+class wr3_inlineParserTest extends PHPUnit\Framework\TestCase {
 
     function testInlineParserConstructor() {
         $linebreak = new \WikiRenderer\Markup\WR3\LineBreak();
@@ -70,14 +70,14 @@ class WR3TestsInlineParser extends PHPUnit_Framework_TestCase {
             '~~'=>array('~~','~~'),
         );
         foreach($wip->getListTag() as $b=>$t){
-            if($this->assertTrue(isset($test[$b]), 'tag présent bizarre '. $b)){
-                $this->assertEquals($test[$b][0], $t->beginTag);
-                $this->assertEquals($test[$b][1], $t->endTag);
+            if (isset($test[$b])) {
+                $this->assertEquals($test[$b][0], $t->getBeginTag());
+                $this->assertEquals($test[$b][1], $t->getEndTag());
             }
         }
     }
 
-    function getListinline1() {
+    static function getListinline1() {
         return array(
             array('Lorem ipsum dolor sit amet, consectetuer adipiscing elit.',
                   'Lorem ipsum dolor sit amet, consectetuer adipiscing elit.'),
@@ -104,7 +104,7 @@ class WR3TestsInlineParser extends PHPUnit_Framework_TestCase {
         $this->assertEquals($expected, $res->generate());
     }
 
-    protected $listinline2 = array(
+    protected static $listinline2 = array(
 
         'Lorem ipsum dolor sit amet, consectetuer adipiscing elit.'
            =>'Lorem ipsum dolor sit amet, consectetuer adipiscing elit.',
@@ -158,10 +158,10 @@ class WR3TestsInlineParser extends PHPUnit_Framework_TestCase {
             =>'Lorem ipsum <q lang="fr">dolor <a href="bar" hreflang="fr">ipsum dolor</a> amet</q>, consectetuer adipiscing elit.',
     );
 
-    function getListinline2() {
+    static function getListinline2() {
         $list = array();
 
-        foreach($this->listinline2 as $source=>$trueResult) {
+        foreach(self::$listinline2 as $source=>$trueResult) {
             $list[] = array($source, $trueResult);
         }
         return $list;

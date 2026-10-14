@@ -7,7 +7,7 @@
  * @author Laurent Jouanneau
  * @copyright 2003-2013 Laurent Jouanneau
  */
-
+error_reporting(E_ALL);
 define('WR_DIR',realpath(__DIR__.'/../lib/').'/');
 require_once(__DIR__.'/../vendor/autoload.php');
 

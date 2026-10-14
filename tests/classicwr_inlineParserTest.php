@@ -10,7 +10,7 @@
 
 
 
-class classicwr_inlineParserTest extends PHPUnit_Framework_TestCase {
+class classicwr_inlineParserTest extends PHPUnit\Framework\TestCase {
 
     function testInlineParserConstructor() {
         $linebreak = new \WikiRenderer\Markup\WR3\LineBreak();

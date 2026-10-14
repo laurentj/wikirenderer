@@ -9,7 +9,7 @@
  */
 
 
-class classicwr_seriesTest extends PHPUnit_Framework_TestCase {
+class classicwr_seriesTest extends PHPUnit\Framework\TestCase {
 
     function testSerie() {
 

@@ -7,9 +7,9 @@
  */
 
 
-class WR3TestsInlines extends PHPUnit_Framework_TestCase {
+class wr3_inlinesTest extends PHPUnit\Framework\TestCase {
 
-    public function listInlineProvider() {
+    static public function listInlineProvider() {
         return array(
         array('Lorem ipsum dolor sit amet, consectetuer adipiscing elit.'
             ,'<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p>'),
@@ -62,7 +62,7 @@ class WR3TestsInlines extends PHPUnit_Framework_TestCase {
         );
     }
 
-    public function listInlineComplexesProvider() {
+    static public function listInlineComplexesProvider() {
         return array(
         // 'source' => array( nb_error, 'resultat')
         array('Lorem __ipsum \'\'dolor sit\'\' amet__, consectetuer adipiscing elit.'

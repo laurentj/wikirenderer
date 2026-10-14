@@ -6,9 +6,9 @@
  * @copyright 2006-2016 Laurent Jouanneau
  */
 
-class WR3TestsBlocks extends PHPUnit_Framework_TestCase {
+class wr3_blocksTest extends PHPUnit\Framework\TestCase {
 
-    function getListblocks () {
+    static function getListblocks () {
         return array(
             array('para1',0),
             array('para2',0),

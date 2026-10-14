@@ -8,7 +8,7 @@
  * @copyright 2006-2013 Laurent Jouanneau
  */
 
-class WR3DBKTestsInlines extends PHPUnit_Framework_TestCase {
+class wr3_dbk_inlinesTest extends PHPUnit\Framework\TestCase {
     var $listinline = array(
 
         'Lorem ipsum dolor sit amet, consectetuer adipiscing elit.'

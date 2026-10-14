@@ -65,7 +65,7 @@ class Table implements BlockTableInterface
     public function generate()
     {
         if ($this->id) {
-            $text = '<table border="1" id="'.htmlspecialchars($this->id).'">'."\n";
+            $text = '<table border="1" id="'.htmlspecialchars($this->id, ENT_COMPAT | ENT_HTML5 | ENT_SUBSTITUTE).'">'."\n";
         } else {
             $text = '<table border="1">'."\n";
         }
